@@ -1,0 +1,12 @@
+/* Remove the underline from the links */
+.link {
+    text-decoration: none;
+    color: #1d1d1d;
+    /* Replace with your preferred color */
+}
+
+/* Change the color of the links when they are hovered */
+.link:hover {
+    color: #303030;
+    /* Replace with your preferred color */
+}

@@ -1,0 +1,14 @@
+/* ตัวอย่าง CSS สำหรับ button-wrapper */
+.button-wrapper {
+  margin-left: 20px;
+  /* เปลี่ยนค่านี้เพื่อกำหนดระยะห่างของ Button จากซ้าย */
+}
+
+.form-container {
+
+  align-items: center;
+  /* Center vertically */
+  justify-content: center;
+  /* Center horizontally */
+  /* Set the desired height, e.g., 100% of viewport height */
+}

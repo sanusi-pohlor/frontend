@@ -1,0 +1,38 @@
+/* MenuNavbar.css */
+
+/* Remove the underline from the links */
+.link {
+  color: #1d1d1d;
+}
+
+/* Change the color of the links when they are hovered */
+.link:hover {
+  color: #303030;
+  /* Replace with your preferred color */
+}
+
+/* styles.css (or any other CSS file) */
+.bigIcon {
+  font-size: 50px;
+  /* Adjust the size as per your preference */
+}
+
+.active {
+  color: rgb(126, 40, 197);
+}
+
+.login-form {
+  max-width: 300px;
+}
+
+.login-form-forgot {
+  float: right;
+}
+
+.ant-col-rtl .login-form-forgot {
+  float: left;
+}
+
+.login-form-button {
+  width: 100%;
+}
