@@ -1,15 +1,8 @@
 import React from "react";
-import { Paper, Box, Typography, Container, Grid } from "@mui/material";
+import { Box, Typography, Container, Grid } from "@mui/material";
 import { Card, Button, DatePicker, Form, Input, Select } from "antd";
-import {
-  UserOutlined,
-  LockOutlined,
-  MailOutlined,
-  PhoneOutlined,
-  MessageOutlined,
-} from "@ant-design/icons";
 
-const Search = ({ handleSubmit, RegisterFinish }) => {
+const Search = ({ RegisterFinish }) => {
   const News = () => {
     return (
       <Card
@@ -26,7 +19,7 @@ const Search = ({ handleSubmit, RegisterFinish }) => {
             display: "flex",
             alignItems: "center",
             marginBottom: 20,
-            padding: 24,
+            padding: "3%",
           }}
         >
           dddd
@@ -45,7 +38,7 @@ const Search = ({ handleSubmit, RegisterFinish }) => {
               margin: "auto",
               backgroundColor: "#FFFFFF",
               width: "100%",
-              height: "45%",
+              height: "100%",
             }}
           >
             <Box sx={{ width: "100%", textAlign: "center" }}>
@@ -62,7 +55,7 @@ const Search = ({ handleSubmit, RegisterFinish }) => {
               }}
               onFinish={RegisterFinish}
               style={{
-                maxWidth: 400,
+                maxWidth: "100%",
               }}
             >
               <Form.Item label="ประเภท" style={{ marginBottom: "2px" }}>

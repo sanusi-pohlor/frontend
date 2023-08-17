@@ -24,7 +24,6 @@ const AppRoutes = () => {
     <Router>
       <div>
         <MenuNavbar />
-        <br />
         <div id="background" className="background">
           <Routes>
             <Route path="/" element={<Dashboard />} />

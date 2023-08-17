@@ -1,5 +1,6 @@
 import React from "react";
-import { PieChart, Pie, Cell, Tooltip } from "recharts";
+import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, } from "recharts";
+import { Card } from "antd";
 
 const data = [
   { name: "Category 1", value: 200 },
@@ -21,30 +22,42 @@ const PieChartComponent = () => {
   const handleCellMouseLeave = () => {
     setActiveCell(null);
   };
-
+  const curveAngle = 0;
+  const paperColor = "#FFFFFF";
   return (
-    <PieChart width={550} height={450}>
-      <Pie
-        data={data}
-        cx="50%"
-        cy="50%"
-        outerRadius={180}
-        fill="#8884d8"
-        dataKey="value"
-      >
-        {data.map((entry, index) => (
-          <Cell
-            key={`cell-${index}`}
-            fill={COLORS[index % COLORS.length]}
-            onMouseEnter={() => handleCellMouseEnter(index)}
-            onMouseLeave={handleCellMouseLeave}
-            // Highlight the cell when the index matches the activeCell state
-            fillOpacity={activeCell === index ? 0.5 : 1}
-          />
-        ))}
-      </Pie>
-      <Tooltip />
-    </PieChart>
+    <Card
+      hoverable
+      style={{
+        margin: "auto",
+        borderRadius: `${curveAngle}px`,
+        backgroundColor: paperColor,
+        width: "100%",
+        height: "100%",
+      }}
+    >
+      <ResponsiveContainer width="100%" height={300}>
+        <PieChart>
+          <Pie
+            data={data}
+            outerRadius="100%"
+            fill="#8884d8"
+            dataKey="value"
+          >
+            {data.map((entry, index) => (
+              <Cell
+                key={`cell-${index}`}
+                fill={COLORS[index % COLORS.length]}
+                onMouseEnter={() => handleCellMouseEnter(index)}
+                onMouseLeave={handleCellMouseLeave}
+                // Highlight the cell when the index matches the activeCell state
+                fillOpacity={activeCell === index ? 0.5 : 1}
+              />
+            ))}
+          </Pie>
+          <Tooltip />
+        </PieChart>
+      </ResponsiveContainer>
+    </Card>
   );
 };
 

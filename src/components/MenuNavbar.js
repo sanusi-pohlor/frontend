@@ -1,51 +1,55 @@
 import React, { useState } from "react";
-import {
-  AppBar,
-  Toolbar,
-  IconButton,
-  MenuItem,
-  Menu,
-  Typography,
-  CssBaseline,
-  Box,
-  Fab,
-  Fade,
-  useScrollTrigger,
-} from "@mui/material";
-import AccountCircle from "@mui/icons-material/AccountCircle";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import { NavLink } from "react-router-dom";
-import "./MenuNavbar.css";
-import { Link } from "react-router-dom";
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import Menu from '@mui/material/Menu';
+import MenuIcon from '@mui/icons-material/Menu';
+import Container from '@mui/material/Container';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import Tooltip from '@mui/material/Tooltip';
+import MenuItem from '@mui/material/MenuItem';
+import AdbIcon from '@mui/icons-material/Adb';
+import { Link } from 'react-router-dom';
 import LoginButton from "./LoginButton";
 import LoginDialog from "./LoginDialog";
 import RegisterButton from "./RegisterButton";
 import RegisterDialog from "./RegisterDialog";
 
-const ElevationScroll = ({ children }) => {
-  const trigger = useScrollTrigger({
-    disableHysteresis: true,
-    threshold: 0,
-  });
+const pages = [
+  { label: 'หน้าหลัก', link: '/' },
+  { label: 'ข่าวสาร', link: '/Search' },
+  { label: 'แจ้งข้อมูลเท็จ', link: '/FakeNews' },
+];
+const settings = [{ label: 'Login', link: '/User/Login' },
+{ label: 'Register', link: '/User/Register' },
+{ label: 'User Profile', link: '/User/Profile' },
+{ label: 'Admin', link: '/Admin' },
+{ label: 'ประวัติการแจ้ง', link: '/' },
+{ label: 'Loguot', link: '/' },];
 
-  return React.cloneElement(children, {
-    elevation: trigger ? 4 : 0,
-  });
-};
-
-const MenuNavbar = () => {
+function ResponsiveAppBar() {
   const [Login, setLogin] = useState(false);
   const [Register, setRegister] = useState(false);
-  const [anchorEl, setAnchorEl] = useState(null);
+  const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const [anchorElUser, setAnchorElUser] = React.useState(null);
 
-  const handleMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget);
+  const handleOpenNavMenu = (event) => {
+    setAnchorElNav(event.currentTarget);
+  };
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
   };
 
-  const handleMenuClose = () => {
-    setAnchorEl(null);
+  const handleCloseNavMenu = () => {
+    setAnchorElNav(null);
   };
 
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -62,133 +66,148 @@ const MenuNavbar = () => {
   };
 
   return (
-    <React.Fragment>
-      <CssBaseline />
-      <ElevationScroll>
-        <AppBar sx={{ backgroundColor: "#FFFFFF", color: "#000000" }}>
-          <Toolbar
-            style={{
-              display: "flex",
-              justifyContent: "flex-start",
-            }}
+    <AppBar position="static">
+      <Container maxWidth="xl">
+        <Toolbar disableGutters >
+          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+          <Typography
+            variant="h6"
+            noWrap
+            component="a"
+            href="/"
             sx={{
-              "@media all": {
-                minHeight: 100,
-              },
+              mr: 2,
+              display: { xs: 'none', md: 'flex' },
+              fontFamily: 'monospace',
+              fontWeight: 700,
+              letterSpacing: '.3rem',
+              color: 'inherit',
+              textDecoration: 'none',
             }}
           >
-            <>
-              <Typography aphy variant="h4" sx={{ marginRight: "70px" }}>
-                LOGO
-              </Typography>
-              <MenuItem
-                sx={{ fontSize: "20px", marginRight: "30px" }}
-                activeClassName="active"
-              >
-                <NavLink to="/" className="link">
-                  หน้าหลัก
-                </NavLink>
-              </MenuItem>
-              <MenuItem
-                sx={{ fontSize: "20px", marginRight: "30px" }}
-                activeClassName="active"
-              >
-                <NavLink to="/Search" className="link">
-                  ข่าวสาร
-                </NavLink>
-              </MenuItem>
-              <MenuItem
-                sx={{ fontSize: "20px", marginRight: "550px" }}
-                activeClassName="active"
-              >
-                <NavLink to="/FakeNews" className="link">
-                  แจ้งข้อมูลเท็จ
-                </NavLink>
-              </MenuItem>
-              <LoginButton onClick={() => setLogin(true)} />
-              <LoginDialog
-                open={Login}
-                onClose={() => setLogin(false)}
-                handleSubmit={handleSubmit}
-                LoginFinish={LoginFinish}
-              />
-              <RegisterButton onClick={() => setRegister(true)} />
-              <RegisterDialog
-                open={Register}
-                onClose={() => setRegister(false)}
-                handleSubmit={handleSubmit}
-                LoginFinish={RegisterFinish}
-              />
-              <IconButton
-                edge="end"
-                aria-label="account of current user"
-                aria-haspopup="true"
-                color="inherit"
-                onClick={handleMenuOpen}
-              >
-                <AccountCircle />
-              </IconButton>
-            </>
+            LOGO
+          </Typography>
+
+          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+            <IconButton
+              size="large"
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleOpenNavMenu}
+              color="inherit"
+            >
+              <MenuIcon />
+            </IconButton>
             <Menu
-              anchorEl={anchorEl}
-              open={Boolean(anchorEl)}
-              onClose={handleMenuClose}
-              PaperProps={{
-                style: {
-                  width: "15%",
-                },
+              id="menu-appbar"
+              anchorEl={anchorElNav}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'left',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'left',
+              }}
+              open={Boolean(anchorElNav)}
+              onClose={handleCloseNavMenu}
+              sx={{
+                display: { xs: 'block', md: 'none' },
               }}
             >
-              <MenuItem component={Link} to="/User/Login">
-                Login
+              {pages.map((page) => (
+                <MenuItem key={page.label} onClick={handleCloseNavMenu}>
+                  <Typography component={Link} to={page.link} textAlign="center">
+                    {page.label}
+                  </Typography>
+                </MenuItem>
+              ))}
+              <MenuItem>
+                <LoginButton onClick={() => setLogin(true)} />
+                <LoginDialog
+                  open={Login}
+                  onClose={() => setLogin(false)}
+                  handleSubmit={handleSubmit}
+                  LoginFinish={LoginFinish}
+                />
               </MenuItem>
-              <MenuItem component={Link} to="/User/Register">
-                Register
+              <MenuItem>
+                <RegisterButton onClick={() => setRegister(true)} />
+                <RegisterDialog
+                  open={Register}
+                  onClose={() => setRegister(false)}
+                  handleSubmit={handleSubmit}
+                  LoginFinish={RegisterFinish}
+                />
               </MenuItem>
-              <MenuItem component={Link} to="/User/Profile">
-                User Profile
-              </MenuItem>
-              <MenuItem component={Link} to="/Admin">
-                Admin
-              </MenuItem>
-              <MenuItem>ประวัติการแจ้ง</MenuItem>
-              <MenuItem>Loguot</MenuItem>
             </Menu>
-          </Toolbar>
-        </AppBar>
-      </ElevationScroll>
-      <Toolbar id="back-to-top-anchor" />
-      <ScrollTop />
-    </React.Fragment>
-  );
-};
+          </Box>
+          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+          <Typography
+            variant="h5"
+            noWrap
+            component="a"
+            href="/"
+            sx={{
+              mr: 2,
+              display: { xs: 'flex', md: 'none' },
+              flexGrow: 1,
+              fontFamily: 'monospace',
+              fontWeight: 700,
+              letterSpacing: '.3rem',
+              color: 'inherit',
+              textDecoration: 'none',
+            }}
+          >
+            LOGO
+          </Typography>
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+            {pages.map((page) => (
+              <Button
+                key={page.label}
+                component={Link} to={page.link}
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: 'white', display: 'block' }}
+              >
+                {page.label}
+              </Button>
+            ))}
+          </Box>
 
-function ScrollTop() {
-  const trigger = useScrollTrigger({
-    disableHysteresis: true,
-    threshold: 100,
-  });
-
-  const handleClick = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
-
-  return (
-    <Fade in={trigger}>
-      <Box
-        onClick={handleClick}
-        role="presentation"
-        sx={{ position: "fixed", bottom: 20, right: 20 }}
-      >
-        <Fab color="primary" size="small" aria-label="scroll back to top">
-          <KeyboardArrowUpIcon />
-        </Fab>
-      </Box>
-    </Fade>
+          <Box sx={{ flexGrow: 0 }}>
+            <Tooltip title="Open settings">
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+              </IconButton>
+            </Tooltip>
+            <Menu
+              sx={{ mt: '45px' }}
+              id="menu-appbar"
+              anchorEl={anchorElUser}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              open={Boolean(anchorElUser)}
+              onClose={handleCloseUserMenu}
+            >
+              {settings.map((setting) => (
+                <MenuItem key={setting.label} onClick={handleCloseUserMenu}>
+                  <Typography component={Link} to={setting.link} textAlign="center">{setting.label}</Typography>
+                </MenuItem>
+              ))}
+            </Menu>
+          </Box>
+        </Toolbar>
+      </Container>
+    </AppBar>
   );
 }
-
-export default MenuNavbar;
+export default ResponsiveAppBar;

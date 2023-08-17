@@ -41,27 +41,6 @@ const FakeNewInformation = ({ handleSubmit, FakeNewInformationFinish }) => {
       >
         แจ้งข้อมูลเท็จ
       </Typography>
-      <Box
-        component="form"
-        noValidate
-        onSubmit={handleSubmit}
-        sx={{
-          mt: 1,
-          flexDirection: "column",
-          alignItems: "center",
-          boxShadow: 0,
-          borderRadius: 2,
-          px: 2,
-          py: 2,
-        }}
-        style={{
-          width: 400,
-          height: "100%",
-          margin: "auto",
-          backgroundColor: "#FFFFFF",
-          padding: "24",
-        }}
-      >
         <Form
           layout="vertical"
           name="FakeNewInformation"
@@ -71,7 +50,8 @@ const FakeNewInformation = ({ handleSubmit, FakeNewInformationFinish }) => {
           }}
           onFinish={FakeNewInformationFinish}
           style={{
-            maxWidth: 400,
+            maxWidth: "100%",
+            padding: "10%",
           }}
         >
           <Form.Item
@@ -302,7 +282,6 @@ const FakeNewInformation = ({ handleSubmit, FakeNewInformationFinish }) => {
             <br />
           </Form.Item>
         </Form>
-      </Box>
       <br />
       <br />
     </UserProfile>

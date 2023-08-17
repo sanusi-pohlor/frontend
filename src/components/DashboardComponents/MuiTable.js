@@ -10,7 +10,7 @@ const data = [
 
 const MuiTable = () => {
   return (
-    <TableContainer style={{ width: 500 ,height:350, margin: 'auto' }}>
+    <TableContainer style={{ width: "100%" ,height:"100%" , margin: 'auto' }}>
       <Table>
         <TableHead>
           <TableRow>

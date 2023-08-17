@@ -1,24 +1,15 @@
 import * as React from "react";
 import {
-  Button,
-  Paper,
   Grid,
-  Link,
   Avatar,
-  Card,
-  CardContent,
+  Container,
   Typography,
   Divider,
 } from "@mui/material";
-import { Breadcrumb, Layout, Menu, theme, Tabs } from "antd";
+import { Card, Tabs } from "antd";
 import { Link as RouterLink } from "react-router-dom";
 
 const { TabPane } = Tabs;
-const { Header, Content, Footer } = Layout;
-
-const curveAngle = 0;
-const paperColor = "#FFFFFF";
-
 const UserProfile = ({ children }) => {
   const onChange = (key) => {
     console.log(key);
@@ -43,18 +34,16 @@ const UserProfile = ({ children }) => {
   ];
 
   return (
-    <div>
-      {/* Use MUI's Grid for responsiveness */}
-      <Grid container spacing={2} justifyContent="center">
+    <Container>
+      <Grid container spacing={2}>
         <Grid item xs={12} sm={4}>
-          <Paper
-            elevation={0}
-            sx={{
-              width: "100%",
-              height: 500,
+          <Card
+            hoverable
+            style={{
               margin: "auto",
-              backgroundColor: paperColor,
-              padding: "24px",
+              backgroundColor: "#FFFFFF",
+              width: "100%",
+              height: "100%",
             }}
           >
             <Grid
@@ -62,7 +51,7 @@ const UserProfile = ({ children }) => {
               direction="column"
               justifyContent="center"
               alignItems="center"
-              style={{ marginBottom: "10px" }}
+              style={{ marginBottom: "10px"}}
             >
               <Grid item style={{ marginBottom: "5px" }}>
                 <Avatar sx={{ width: 100, height: 100 }}>USER</Avatar>
@@ -79,20 +68,21 @@ const UserProfile = ({ children }) => {
                 alignItems: "center",
                 marginBottom: 20,
                 padding: 24,
+                width: "100%",
+                height: "100%",
               }}
-            ></div>
-          </Paper>
+            >555</div>
+          </Card>
+          <br />
         </Grid>
         <Grid item xs={12} sm={8}>
-          <Paper
-            elevation={0}
-            sx={{
+          <Card
+            hoverable
+            style={{
+              margin: "auto",
+              backgroundColor: "#FFFFFF",
               width: "100%",
               height: "100%",
-              margin: "auto",
-              borderRadius: `${curveAngle}px`,
-              backgroundColor: paperColor,
-              padding: "24px",
             }}
           >
             <Tabs onChange={onChange}>
@@ -105,10 +95,10 @@ const UserProfile = ({ children }) => {
                 </TabPane>
               ))}
             </Tabs>
-          </Paper>
+          </Card>
         </Grid>
       </Grid>
-    </div>
+    </Container>
   );
 };
 

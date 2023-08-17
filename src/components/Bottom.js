@@ -6,7 +6,7 @@ const footerStyle = {
   textAlign: "center",
   color: "#000000",
   backgroundColor: "#FFFFFF",
-  height: "100px", // Change this value to adjust the height
+  height: "10%", // Change this value to adjust the height
 };
 const Bottom = () => {
   return <Footer style={footerStyle}>Footer</Footer>;

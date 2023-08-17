@@ -46,13 +46,14 @@ const Dashboard = () => {
           margin: "auto",
           borderRadius: `${curveAngle}px`,
           backgroundColor: papercard,
-          width: "100%", // Set the desired width
+          width: "90%", // Set the desired width
           height: "100%", // Set the desired height
+          padding: 20,
         }}
         cover={
           <img
             alt="Card cover"
-            style={{ height: "200px", width: "300px", objectFit: "cover" }}
+            style={{ height: "100%", width: "100%", objectFit: "cover" }}
             src="https://t3.ftcdn.net/jpg/05/37/73/58/360_F_537735846_kufBp10E8L4iV7OLw1Kn3LpeNnOIWbvf.jpg"
           />
         }
@@ -133,36 +134,10 @@ const Dashboard = () => {
           {" "}
           {/* Adjust spacing */}
           <Grid item xs={12} md={6}>
-            {" "}
-            {/* Adjust xs and md values */}
-            <Card
-              hoverable
-              style={{
-                margin: "auto",
-                borderRadius: `${curveAngle}px`,
-                backgroundColor: paperColor,
-                width: "100%",
-                height: "100%",
-              }}
-            >
-              <BarChartComponent />
-            </Card>
+            <BarChartComponent />
           </Grid>
           <Grid item xs={12} md={6}>
-            {" "}
-            {/* Adjust xs and md values */}
-            <Card
-              hoverable
-              style={{
-                margin: "auto",
-                borderRadius: `${curveAngle}px`,
-                backgroundColor: paperColor,
-                width: "100%",
-                height: "100%",
-              }}
-            >
               <PieChartComponent />
-            </Card>
           </Grid>
         </Grid>
         <br />
@@ -207,8 +182,10 @@ const Dashboard = () => {
       <Paper
         elevation={0}
         style={{
-          width: "100%",
+          width: "90%",
           padding: 30,
+          margin: "0 auto", // This centers the paper horizontally
+          textAlign: "center", // This centers the content inside the paper
         }}
       >
         <br />
