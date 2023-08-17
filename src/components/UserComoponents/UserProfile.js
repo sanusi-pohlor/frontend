@@ -11,7 +11,7 @@ import {
   Divider,
 } from "@mui/material";
 import { Breadcrumb, Layout, Menu, theme, Tabs } from "antd";
-import { Link as RouterLink } from 'react-router-dom'; 
+import { Link as RouterLink } from "react-router-dom";
 
 const { TabPane } = Tabs;
 const { Header, Content, Footer } = Layout;
@@ -23,12 +23,7 @@ const UserProfile = ({ children }) => {
   const onChange = (key) => {
     console.log(key);
   };
-  const style = {
-    width: "100%",
-    height: "50px",
-    bgcolor: "background.paper",
-    borderRadius: "20px", // Adjust the border radius value as per your preference
-  };
+
   const items = [
     {
       key: "1",
@@ -46,36 +41,37 @@ const UserProfile = ({ children }) => {
       link: "/FakeNews",
     },
   ];
+
   return (
     <div>
-      {/**ใส่ grid ตรงนี้ */}
-      {/* NavLink components with Button inside */}
-      <Grid container spacing={2} columns={15} justifyContent="center">
-        <Grid item xs={4}>
+      {/* Use MUI's Grid for responsiveness */}
+      <Grid container spacing={2} justifyContent="center">
+        <Grid item xs={12} sm={4}>
           <Paper
             elevation={0}
-            style={{
+            sx={{
               width: "100%",
               height: 500,
               margin: "auto",
               backgroundColor: paperColor,
-              padding: "24",
+              padding: "24px",
             }}
           >
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                marginBottom: 20,
-                padding: 24,
-              }}
+            <Grid
+              container
+              direction="column"
+              justifyContent="center"
+              alignItems="center"
+              style={{ marginBottom: "10px" }}
             >
-              <Avatar sx={{ width: 100, height: 100 }}>USER</Avatar>
-              <div style={{ marginLeft: 40 }}>
+              <Grid item style={{ marginBottom: "5px" }}>
+                <Avatar sx={{ width: 100, height: 100 }}>USER</Avatar>
+              </Grid>
+              <Grid item>
                 <Typography variant="h5">John Doe</Typography>
                 <Typography variant="body1">Web Developer</Typography>
-              </div>
-            </div>
+              </Grid>
+            </Grid>
             <Divider />
             <div
               style={{
@@ -87,16 +83,16 @@ const UserProfile = ({ children }) => {
             ></div>
           </Paper>
         </Grid>
-        <Grid item xs={8}>
+        <Grid item xs={12} sm={8}>
           <Paper
             elevation={0}
-            style={{
+            sx={{
               width: "100%",
               height: "100%",
               margin: "auto",
               borderRadius: `${curveAngle}px`,
               backgroundColor: paperColor,
-              padding: 24,
+              padding: "24px",
             }}
           >
             <Tabs onChange={onChange}>
@@ -105,7 +101,7 @@ const UserProfile = ({ children }) => {
                   tab={<RouterLink to={item.link}>{item.label}</RouterLink>}
                   key={item.key}
                 >
-                  { children }
+                  {children}
                 </TabPane>
               ))}
             </Tabs>

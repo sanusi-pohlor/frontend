@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
-import { Form, Button, Checkbox, Input, Select } from "antd";
+import { Form, Button, Input } from "antd";
 import {
   Typography,
   Box,
@@ -10,13 +10,24 @@ import {
   Paper,
   Avatar,
   Slide,
+  TextField,
+  Autocomplete,
 } from "@mui/material";
-const { Option } = Select;
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="top" ref={ref} {...props} />;
 });
 
 const RegisterDialog = ({ open, onClose, handleSubmit, RegisterFinish }) => {
+  const [form] = Form.useForm();
+  const [, forceUpdate] = useState({});
+
+  // To disable submit button at the beginning.
+  useEffect(() => {
+    forceUpdate({});
+  }, []);
+  const onFinish = (values) => {
+    console.log("Finish:", values);
+  };
   return (
     <Dialog open={open} onClose={onClose} TransitionComponent={Transition}>
       <DialogContent>
@@ -50,36 +61,54 @@ const RegisterDialog = ({ open, onClose, handleSubmit, RegisterFinish }) => {
                 remember: true,
               }}
               onFinish={RegisterFinish}
+              style={{
+                maxWidth: 400,
+              }}
             >
               <Form.Item
-                name="username"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please input your Username!",
-                  },
-                ]}
+                style={{
+                  marginBottom: 0,
+                }}
               >
-                <Input
+                <Form.Item
+                  name="username"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please input your Username!",
+                    },
+                  ]}
+                  style={{
+                    display: "inline-block",
+                    width: "calc(50% - 8px)",
+                  }}
+                >
+                  <Input
                   size="large"
                   prefix={<UserOutlined className="site-form-item-icon" />}
                   placeholder="ชื่อ"
                 />
-              </Form.Item>
-              <Form.Item
-                name="lastName"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please input your lastName!",
-                  },
-                ]}
-              >
-                <Input
+                </Form.Item>
+                <Form.Item
+                  name="lastName"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please input your lastName!",
+                    },
+                  ]}
+                  style={{
+                    display: "inline-block",
+                    width: "calc(50% - 8px)",
+                    margin: "0 8px",
+                  }}
+                >
+                  <Input
                   size="large"
                   prefix={<UserOutlined className="site-form-item-icon" />}
                   placeholder="นามสกุล"
                 />
+                </Form.Item>
               </Form.Item>
               <Form.Item
                 name="email"
@@ -95,6 +124,51 @@ const RegisterDialog = ({ open, onClose, handleSubmit, RegisterFinish }) => {
                   prefix={<UserOutlined className="site-form-item-icon" />}
                   placeholder="อีเมล"
                 />
+              </Form.Item>
+              <Form.Item
+                style={{
+                  marginBottom: 0,
+                }}
+              >
+                <Form.Item
+                  name="username"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please input your Username!",
+                    },
+                  ]}
+                  style={{
+                    display: "inline-block",
+                    width: "calc(50% - 8px)",
+                  }}
+                >
+                  <Input
+                  size="large"
+                  prefix={<UserOutlined className="site-form-item-icon" />}
+                  placeholder="ชื่อ"
+                />
+                </Form.Item>
+                <Form.Item
+                  name="lastName"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please input your lastName!",
+                    },
+                  ]}
+                  style={{
+                    display: "inline-block",
+                    width: "calc(50% - 8px)",
+                    margin: "0 8px",
+                  }}
+                >
+                  <Input
+                  size="large"
+                  prefix={<UserOutlined className="site-form-item-icon" />}
+                  placeholder="นามสกุล"
+                />
+                </Form.Item>
               </Form.Item>
               <Form.Item
                 name="password"
@@ -158,6 +232,7 @@ const RegisterDialog = ({ open, onClose, handleSubmit, RegisterFinish }) => {
                   placeholder="ไอดีไลน์"
                 />
               </Form.Item>
+
               <Form.Item
                 name="gender"
                 rules={[
@@ -167,16 +242,15 @@ const RegisterDialog = ({ open, onClose, handleSubmit, RegisterFinish }) => {
                   },
                 ]}
               >
-                <Select placeholder="select your gender">
-                  <Option value="male">Male</Option>
-                  <Option value="female">Female</Option>
-                  <Option value="other">Other</Option>
-                </Select>
-              </Form.Item>
-              <Form.Item>
-                <Form.Item name="remember" valuePropName="checked" noStyle>
-                  <Checkbox>รับคอนเทนต์ผ่านอีเมล</Checkbox>
-                </Form.Item>
+                <Autocomplete
+                  disablePortal
+                  id="combo-box-demo"
+                  options={top100Films}
+                  sx={{ width: 300 }}
+                  renderInput={(params) => (
+                    <TextField {...params} label="Movie" />
+                  )}
+                />
               </Form.Item>
 
               <Form.Item>
@@ -199,3 +273,12 @@ const RegisterDialog = ({ open, onClose, handleSubmit, RegisterFinish }) => {
 };
 
 export default RegisterDialog;
+const top100Films = [
+  { label: "The Shawshank Redemption", year: 1994 },
+  { label: "The Godfather", year: 1972 },
+  { label: "The Godfather: Part II", year: 1974 },
+  { label: "The Dark Knight", year: 2008 },
+  { label: "12 Angry Men", year: 1957 },
+  { label: "Schindler's List", year: 1993 },
+  { label: "Pulp Fiction", year: 1994 },
+];

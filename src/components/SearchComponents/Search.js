@@ -1,15 +1,22 @@
 import React from "react";
 import { Paper, Box, Typography, Container, Grid } from "@mui/material";
 import { Card, Button, DatePicker, Form, Input, Select } from "antd";
+import {
+  UserOutlined,
+  LockOutlined,
+  MailOutlined,
+  PhoneOutlined,
+  MessageOutlined,
+} from "@ant-design/icons";
 
-const Search = () => {
+const Search = ({ handleSubmit, RegisterFinish }) => {
   const News = () => {
     return (
       <Card
         hoverable
         style={{
           margin: "auto",
-          backgroundColor:"#FFFFFF",
+          backgroundColor: "#FFFFFF",
           width: "100%",
           height: 250,
         }}
@@ -30,67 +37,64 @@ const Search = () => {
 
   return (
     <Container>
-      <Grid container spacing={1}>
-        <Grid item xs={4}>
-        <Card
-        hoverable
-        style={{
-          margin: "auto",
-          backgroundColor:"#FFFFFF",
-          width: 350,
-          height: 450,
-          position: "fixed", // Fix the position
-        }}
-      >
-            <Box sx={{ width: "100%", textAlign: "center", padding: 1 }}>
+      <Grid container spacing={2}>
+        <Grid item xs={12} md={4}>
+          <Card
+            hoverable
+            style={{
+              margin: "auto",
+              backgroundColor: "#FFFFFF",
+              width: "100%",
+              height: "45%",
+            }}
+          >
+            <Box sx={{ width: "100%", textAlign: "center" }}>
               <Typography variant="h5" gutterBottom>
                 ตัวกรอง
               </Typography>
             </Box>
-            <br />
             <Form
-              labelCol={{
-                span: 10,
+              layout="vertical"
+              name="normal_login"
+              className="login-form"
+              initialValues={{
+                remember: true,
               }}
-              wrapperCol={{
-                span: 40,
-              }}
+              onFinish={RegisterFinish}
               style={{
-                maxWidth: 300,
-                alignItems: "center", // Center horizontally
-                justifyContent: "center", // Center vertically
+                maxWidth: 400,
               }}
             >
-              <Form.Item label="ประเภท">
+              <Form.Item label="ประเภท" style={{ marginBottom: "2px" }}>
                 <Select>
                   <Select.Option value="demo">Demo</Select.Option>
                 </Select>
               </Form.Item>
-              <Form.Item label="สื่อ">
+              <Form.Item label="สื่อ" style={{ marginBottom: "2px" }}>
                 <Select>
                   <Select.Option value="demo">Demo</Select.Option>
                 </Select>
               </Form.Item>
-              <Form.Item label="วัน/เดือน/ปี">
+              <Form.Item label="วัน/เดือน/ปี" style={{ marginBottom: "2px" }}>
                 <DatePicker />
               </Form.Item>
-              <Form.Item label="จังหวัด">
+              <Form.Item label="จังหวัด" style={{ marginBottom: "2px" }}>
                 <Select>
                   <Select.Option value="demo">Demo</Select.Option>
                 </Select>
               </Form.Item>
-              <Form.Item label="คำสำคัญ">
+              <Form.Item label="คำสำคัญ" style={{ marginBottom: "2px" }}>
                 <Input />
               </Form.Item>
-              <Form.Item label=" ">
+              <Form.Item label=" " style={{ marginBottom: "2px" }}>
                 <Button style={{ marginRight: 15 }}>ค้นหา</Button>
                 <Button>ยกเลิก</Button>
               </Form.Item>
-            </Form>
+              </Form>
           </Card>
           <br />
         </Grid>
-        <Grid item xs={8}>
+        <Grid item xs={12} md={8}>
           <News />
           <br />
           <News />

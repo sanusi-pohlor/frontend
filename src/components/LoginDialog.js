@@ -50,6 +50,9 @@ const LoginDialog = ({ open, onClose, handleSubmit, LoginFinish }) => {
                 remember: true,
               }}
               onFinish={LoginFinish}
+              style={{
+                maxWidth: 400,
+              }}
             >
               <Form.Item
                 name="username"

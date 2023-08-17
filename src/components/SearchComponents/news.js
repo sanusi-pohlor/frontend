@@ -71,7 +71,7 @@ const Search = () => {
           wrapperCol={{
             span: 40,
           }}
-          layout="horizontal"
+          layout="vertical"
           style={{
             maxWidth: 900,
           }}

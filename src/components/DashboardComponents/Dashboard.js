@@ -46,8 +46,8 @@ const Dashboard = () => {
           margin: "auto",
           borderRadius: `${curveAngle}px`,
           backgroundColor: papercard,
-          width: 400, // Set the desired width
-          height: 300, // Set the desired height
+          width: "100%", // Set the desired width
+          height: "100%", // Set the desired height
         }}
         cover={
           <img
@@ -67,8 +67,12 @@ const Dashboard = () => {
       <Carousel />
       <Container>
         <br />
-        <Grid container spacing={1}>
-          <Grid item xs={4}>
+        <Grid container spacing={2}>
+          {" "}
+          {/* Adjust spacing */}
+          <Grid item xs={12} md={4}>
+            {" "}
+            {/* Adjust xs and md values */}
             <Item>
               <Autocomplete
                 options={options}
@@ -85,7 +89,9 @@ const Dashboard = () => {
               />
             </Item>
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={12} md={4}>
+            {" "}
+            {/* Adjust xs and md values */}
             <Item>
               <Autocomplete
                 options={options}
@@ -102,7 +108,9 @@ const Dashboard = () => {
               />
             </Item>
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={12} md={4}>
+            {" "}
+            {/* Adjust xs and md values */}
             <Item>
               <Autocomplete
                 options={options}
@@ -121,30 +129,36 @@ const Dashboard = () => {
           </Grid>
         </Grid>
         <br />
-        <Grid container spacing={1}>
-          <Grid item xs={6}>
+        <Grid container spacing={2}>
+          {" "}
+          {/* Adjust spacing */}
+          <Grid item xs={12} md={6}>
+            {" "}
+            {/* Adjust xs and md values */}
             <Card
               hoverable
               style={{
                 margin: "auto",
                 borderRadius: `${curveAngle}px`,
                 backgroundColor: paperColor,
-                width: 550,
-                height: 450,
+                width: "100%",
+                height: "100%",
               }}
             >
               <BarChartComponent />
             </Card>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12} md={6}>
+            {" "}
+            {/* Adjust xs and md values */}
             <Card
               hoverable
               style={{
                 margin: "auto",
                 borderRadius: `${curveAngle}px`,
                 backgroundColor: paperColor,
-                width: 550,
-                height: 450,
+                width: "100%",
+                height: "100%",
               }}
             >
               <PieChartComponent />
@@ -152,30 +166,36 @@ const Dashboard = () => {
           </Grid>
         </Grid>
         <br />
-        <Grid container spacing={1}>
-          <Grid item xs={6}>
+        <Grid container spacing={2}>
+          {" "}
+          {/* Adjust spacing */}
+          <Grid item xs={12} md={6}>
+            {" "}
+            {/* Adjust xs and md values */}
             <Card
               hoverable
               style={{
                 margin: "auto",
                 borderRadius: `${curveAngle}px`,
                 backgroundColor: paperColor,
-                width: 550,
-                height: 450,
+                width: "100%",
+                height: "100%",
               }}
             >
               <ThailandMap />
             </Card>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12} md={6}>
+            {" "}
+            {/* Adjust xs and md values */}
             <Card
               hoverable
               style={{
                 margin: "auto",
                 borderRadius: `${curveAngle}px`,
                 backgroundColor: paperColor,
-                width: 550,
-                height: 450,
+                width: "100%",
+                height: "100%",
               }}
             >
               <MuiTable />
@@ -188,19 +208,22 @@ const Dashboard = () => {
         elevation={0}
         style={{
           width: "100%",
-          height: "100%",
-          margin: "auto",
-          borderRadius: `${curveAngle}px`,
-          backgroundColor: paperColor,
+          padding: 30,
         }}
       >
         <br />
         <br />
-        <Grid container spacing={1}>
-          <Grid item xs={4}>
+        <Grid container spacing={2}>
+          {" "}
+          {/* Adjust spacing */}
+          <Grid item xs={12} md={4}>
+            {" "}
+            {/* Adjust xs and md values */}
             <Item></Item>
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={12} md={4}>
+            {" "}
+            {/* Adjust xs and md values */}
             <Item>
               <div
                 style={{
@@ -216,7 +239,9 @@ const Dashboard = () => {
               </div>
             </Item>
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={12} md={4}>
+            {" "}
+            {/* Adjust xs and md values */}
             <Item>
               <TextField
                 variant="outlined"
@@ -236,26 +261,42 @@ const Dashboard = () => {
         </Grid>
         <br />
         <br />
-        <Grid container spacing={1}>
-          <Grid item xs={4}>
+        <Grid container spacing={2}>
+          {" "}
+          {/* Adjust spacing */}
+          <Grid item xs={12} md={4}>
+            {" "}
+            {/* Adjust xs and md values */}
             <Content />
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={12} md={4}>
+            {" "}
+            {/* Adjust xs and md values */}
             <Content />
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={12} md={4}>
+            {" "}
+            {/* Adjust xs and md values */}
             <Content />
           </Grid>
         </Grid>
         <br />
-        <Grid container spacing={1}>
-          <Grid item xs={4}>
+        <Grid container spacing={2}>
+          {" "}
+          {/* Adjust spacing */}
+          <Grid item xs={12} md={4}>
+            {" "}
+            {/* Adjust xs and md values */}
             <Content />
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={12} md={4}>
+            {" "}
+            {/* Adjust xs and md values */}
             <Content />
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={12} md={4}>
+            {" "}
+            {/* Adjust xs and md values */}
             <Content />
           </Grid>
         </Grid>
