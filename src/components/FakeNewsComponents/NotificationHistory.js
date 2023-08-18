@@ -76,7 +76,9 @@ const data = [
 const NotificationHistory = () => {
   return (
     <UserProfile>
-      <Table columns={columns} dataSource={data} />
+      <div style={{ overflowX: 'auto' }}> {/* Add a container with horizontal scroll */}
+        <Table columns={columns} dataSource={data} size="middle" />
+      </div>
     </UserProfile>
   );
 };

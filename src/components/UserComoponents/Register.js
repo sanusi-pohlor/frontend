@@ -36,11 +36,11 @@ const RegisterDialog = ({ handleSubmit, RegisterFinish }) => {
         py: 5,
       }}
       style={{
-        width: 600,
+        width: "80%",
         height: "100%",
         margin: "auto",
         backgroundColor: "#FFFFFF",
-        padding: "24",
+        padding: "5%",
       }}
     >
       <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
@@ -59,7 +59,7 @@ const RegisterDialog = ({ handleSubmit, RegisterFinish }) => {
           }}
           onFinish={RegisterFinish}
           style={{
-            maxWidth: 400,
+            maxWidth: "100%",
           }}
         >
           <Form.Item

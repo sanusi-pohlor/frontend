@@ -27,8 +27,8 @@ const LoginDialog = ({ open, onClose, handleSubmit, LoginFinish }) => {
             alignItems: "center",
             boxShadow: 0,
             borderRadius: 2,
-            px: 10,
-            py: 10,
+            px: 5,
+            py: 5,
           }}
         >
           <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
@@ -51,7 +51,7 @@ const LoginDialog = ({ open, onClose, handleSubmit, LoginFinish }) => {
               }}
               onFinish={LoginFinish}
               style={{
-                maxWidth: 400,
+                maxWidth: "100%",
               }}
             >
               <Form.Item
@@ -104,7 +104,7 @@ const LoginDialog = ({ open, onClose, handleSubmit, LoginFinish }) => {
                 >
                   Log in
                 </Button>
-                Or <a href="">register now!</a>
+                {" "}Or{" "} <a href="/User/Register">register now!</a>
               </Form.Item>
             </Form>
           </Box>
