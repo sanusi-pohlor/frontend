@@ -78,8 +78,12 @@ function ResponsiveAppBar() {
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
+  const handleDrawerToggleProfile = () => {
+    setMobileOpenProfile((prevState) => !prevState);
+  };
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  const drawer = (
+  const [mobileOpenProfile, setMobileOpenProfile] = React.useState(false);
+  const drawerMenu = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
       <Typography variant="h6" sx={{ my: 2 }}>
         MUI
@@ -88,7 +92,26 @@ function ResponsiveAppBar() {
       <List>
         {pages.map((page) => (
           <ListItem key={page.label} disablePadding>
-            <ListItemButton sx={{ textAlign: 'center' }}>
+            <ListItemButton sx={{ textAlign: 'center' }} component={Link} to={page.link}>
+              <ListItemText primary={page.label} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+
+    </Box>
+  );
+
+  const drawerProfile = (
+    <Box onClick={handleDrawerToggleProfile} sx={{ textAlign: 'center' }}>
+      <Typography variant="h6" sx={{ my: 2 }}>
+        MUI
+      </Typography>
+      <Divider />
+      <List>
+        {settings.map((page) => (
+          <ListItem key={page.label} disablePadding>
+            <ListItemButton sx={{ textAlign: 'center' }} component={Link} to={page.link}>
               <ListItemText primary={page.label} />
             </ListItemButton>
           </ListItem>
@@ -146,7 +169,7 @@ function ResponsiveAppBar() {
                   '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
                 }}
               >
-                {drawer}
+                {drawerMenu}
               </Drawer>
             </Box>
             <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
@@ -197,32 +220,26 @@ function ResponsiveAppBar() {
             </Box>
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                <IconButton onClick={handleDrawerToggleProfile} sx={{ p: 0 }}>
                   <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
                 </IconButton>
               </Tooltip>
-              <Menu
-                sx={{ mt: '45px' }}
-                id="menu-appbar"
-                anchorEl={anchorElUser}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
+              <Drawer
+                anchor="right"
+                container={container}
+                variant="temporary"
+                open={mobileOpenProfile}
+                onClose={handleDrawerToggleProfile}
+                ModalProps={{
+                  keepMounted: true, // Better open performance on mobile.
                 }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
+                sx={{
+                  display: { xs: 'block', sm: 'none' },
+                  '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
                 }}
-                open={Boolean(anchorElUser)}
-                onClose={handleCloseUserMenu}
               >
-                {settings.map((setting) => (
-                  <MenuItem key={setting.label} onClick={handleCloseUserMenu}>
-                    <Typography component={Link} to={setting.link} textAlign="center">{setting.label}</Typography>
-                  </MenuItem>
-                ))}
-              </Menu>
+                {drawerProfile}
+              </Drawer>
             </Box>
           </Toolbar>
         </Container>
