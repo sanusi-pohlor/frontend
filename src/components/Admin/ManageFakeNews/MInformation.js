@@ -76,6 +76,7 @@ const data = [
 const MInformation = () => {
   return (
     <AdminMenu>
+      MInformation
       <Table columns={columns} dataSource={data} />
     </AdminMenu>
   );

@@ -1,124 +1,103 @@
-import { Container, Typography } from "@mui/material";
-import TextField from "@mui/material/TextField";
-import Autocomplete from "@mui/material/Autocomplete";
-import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import SearchData from "./SearchData";
-import Grid from "@mui/material/Grid";
-import { Paper, Box } from "@mui/material";
-import "./Search.css";
-import { PlusOutlined } from "@ant-design/icons";
-import React, { useState } from "react";
-import {
-  Button,
-  Cascader,
-  Checkbox,
-  DatePicker,
-  Form,
-  Input,
-  InputNumber,
-  Radio,
-  Select,
-  Slider,
-  Switch,
-  TreeSelect,
-  Upload,
-} from "antd";
-const { RangePicker } = DatePicker;
-const { TextArea } = Input;
-const normFile = (e) => {
-  if (Array.isArray(e)) {
-    return e;
-  }
-  return e?.fileList;
-};
+import React from "react";
+import { Box, Typography, Container, Grid } from "@mui/material";
+import { Card, Button, DatePicker, Form, Input, Select } from "antd";
 
-const options = ["Option 1", "Option 2", "Option 3"];
-
-const Search = () => {
-  const [componentDisabled, setComponentDisabled] = useState(true);
-  const customStyles = {
-    backgroundColor: "#FFFFFF",
-    borderRadius: 0,
-  };
-  const curveAngle = 0;
-  const paperColor = "#FFFFFF";
-  return (
-    <Container>
-      <Paper
-        elevation={0}
+const Search = ({ RegisterFinish }) => {
+  const News = () => {
+    return (
+      <Card
+        hoverable
         style={{
-          width: "100%",
-          height: "100%",
           margin: "auto",
-          borderRadius: `${curveAngle}px`,
-          backgroundColor: paperColor,
+          backgroundColor: "#FFFFFF",
+          width: "100%",
+          height: 250,
         }}
       >
-        <br /><br />
-        <Box sx={{ width: "100%" , textAlign: "center" }}>
-          <Typography variant="h4" gutterBottom>
-            ค้นหาข่าว
-          </Typography>
-        </Box>
-
-        <br />
-        <Form
-          labelCol={{
-            span: 10,
-          }}
-          wrapperCol={{
-            span: 40,
-          }}
-          layout="vertical"
+        <div
           style={{
-            maxWidth: 900,
+            display: "flex",
+            alignItems: "center",
+            marginBottom: 20,
+            padding: "3%",
           }}
         >
-          <Form.Item label="ประเภท">
-            <Select>
-              <Select.Option value="demo">Demo</Select.Option>
-            </Select>
-          </Form.Item>
-          <Form.Item label="สื่อ">
-            <Select>
-              <Select.Option value="demo">Demo</Select.Option>
-            </Select>
-          </Form.Item>
-          <Form.Item label="วัน/เดือน/ปี">
-            <DatePicker />
-          </Form.Item>
-          <Form.Item label="จังหวัด">
-            <Select>
-              <Select.Option value="demo">Demo</Select.Option>
-            </Select>
-          </Form.Item>
-          <Form.Item label="คำสำคัญ">
-            <Input />
-          </Form.Item>
-          <Form.Item label=" ">
-            <Button style={{ marginRight: 15 }}>ค้นหา</Button>
-            <Button>ยกเลิก</Button>
-          </Form.Item>
-        </Form>
-        <br />
-        <br />
-      </Paper>
-      <br />
-      <h1 className="center">ผลลัพธ์</h1>
-      <Paper
-        elevation={0}
-        style={{
-          width: "100%",
-          height: "100%",
-          margin: "auto",
-          borderRadius: `${curveAngle}px`,
-          backgroundColor: paperColor,
-        }}
-      >
-        <SearchData />
-      </Paper>
+          dddd
+        </div>
+      </Card>
+    );
+  };
+
+  return (
+    <Container>
+      <Grid container spacing={2}>
+        <Grid item xs={12} md={4}>
+          <Card
+            hoverable
+            style={{
+              margin: "auto",
+              backgroundColor: "#FFFFFF",
+              width: "100%",
+              height: "100%",
+            }}
+          >
+            <Box sx={{ width: "100%", textAlign: "center" }}>
+              <Typography variant="h5" gutterBottom>
+                ตัวกรอง
+              </Typography>
+            </Box>
+            <Form
+              layout="vertical"
+              name="normal_login"
+              className="login-form"
+              initialValues={{
+                remember: true,
+              }}
+              onFinish={RegisterFinish}
+              style={{
+                maxWidth: "100%",
+              }}
+            >
+              <Form.Item label="ประเภท" style={{ marginBottom: "2px" }}>
+                <Select>
+                  <Select.Option value="demo">Demo</Select.Option>
+                </Select>
+              </Form.Item>
+              <Form.Item label="สื่อ" style={{ marginBottom: "2px" }}>
+                <Select>
+                  <Select.Option value="demo">Demo</Select.Option>
+                </Select>
+              </Form.Item>
+              <Form.Item label="วัน/เดือน/ปี" style={{ marginBottom: "2px" }}>
+                <DatePicker />
+              </Form.Item>
+              <Form.Item label="จังหวัด" style={{ marginBottom: "2px" }}>
+                <Select>
+                  <Select.Option value="demo">Demo</Select.Option>
+                </Select>
+              </Form.Item>
+              <Form.Item label="คำสำคัญ" style={{ marginBottom: "2px" }}>
+                <Input />
+              </Form.Item>
+              <Form.Item label=" " style={{ marginBottom: "2px" }}>
+                <Button style={{ marginRight: 15 }}>ค้นหา</Button>
+                <Button>ยกเลิก</Button>
+              </Form.Item>
+              </Form>
+          </Card>
+          <br />
+        </Grid>
+        <Grid item xs={12} md={8}>
+          <News />
+          <br />
+          <News />
+          <br />
+          <News />
+          <br />
+          <News />
+          <br />
+        </Grid>
+      </Grid>
     </Container>
   );
 };

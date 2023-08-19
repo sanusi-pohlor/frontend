@@ -76,6 +76,7 @@ const data = [
 const MMedia = () => {
   return (
     <AdminMenu>
+      MMedia
       <Table columns={columns} dataSource={data} />
     </AdminMenu>
   );

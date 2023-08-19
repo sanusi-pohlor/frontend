@@ -76,6 +76,7 @@ const data = [
 const AdvancedSearch = () => {
   return (
     <AdminMenu>
+      AdvancedSearch
       <Table columns={columns} dataSource={data} />
     </AdminMenu>
   );

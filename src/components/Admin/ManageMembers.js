@@ -76,6 +76,7 @@ const data = [
 const ManageMembers = () => {
   return (
     <AdminMenu>
+      ManageMembers
       <Table columns={columns} dataSource={data} />
     </AdminMenu>
   );

@@ -1,8 +1,8 @@
 import React from "react";
 import { Box, Typography, Container, Grid } from "@mui/material";
-import { Card, Button, DatePicker, Form, Input, Select } from "antd";
-
-const Search = ({ RegisterFinish }) => {
+import { Card, Button, DatePicker, Form, Input, Select,Layout, theme ,Breadcrumb, } from "antd";
+const { Content, Sider } = Layout;
+const Search = ({ children }) => {
   const News = () => {
     return (
       <Card
@@ -27,12 +27,19 @@ const Search = ({ RegisterFinish }) => {
       </Card>
     );
   };
+  const {
+    token: { colorBgContainer },
+  } = theme.useToken();
 
   return (
-    <Container>
-      <Grid container spacing={2}>
-        <Grid item xs={12} md={4}>
-          <Card
+    <Layout>
+      <Sider
+        width={300}
+        style={{ background: colorBgContainer }}
+        breakpoint="lg" // Set breakpoint for responsive behavior
+        collapsedWidth={0} // Hide Sider when collapsed
+      >
+        <Card
             hoverable
             style={{
               margin: "auto",
@@ -53,7 +60,7 @@ const Search = ({ RegisterFinish }) => {
               initialValues={{
                 remember: true,
               }}
-              onFinish={RegisterFinish}
+              // onFinish={RegisterFinish}
               style={{
                 maxWidth: "100%",
               }}
@@ -85,20 +92,25 @@ const Search = ({ RegisterFinish }) => {
               </Form.Item>
               </Form>
           </Card>
-          <br />
-        </Grid>
-        <Grid item xs={12} md={8}>
-          <News />
-          <br />
-          <News />
-          <br />
-          <News />
-          <br />
-          <News />
-          <br />
-        </Grid>
-      </Grid>
-    </Container>
+      </Sider>
+      <Layout style={{ padding: '0 24px 24px' }}>
+        <Breadcrumb style={{ margin: '16px 0' }}>
+          <Breadcrumb.Item>Home</Breadcrumb.Item>
+          <Breadcrumb.Item>List</Breadcrumb.Item>
+          <Breadcrumb.Item>App</Breadcrumb.Item>
+        </Breadcrumb>
+        <Content
+          style={{
+            padding: 24,
+            margin: 0,
+            minHeight: 280,
+            background: colorBgContainer,
+          }}
+        >
+          {children}
+        </Content>
+      </Layout>
+    </Layout>
   );
 };
 

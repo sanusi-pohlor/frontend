@@ -76,6 +76,7 @@ const data = [
 const MChecking = () => {
   return (
     <AdminMenu>
+      MChecking
       <Table columns={columns} dataSource={data} />
     </AdminMenu>
   );
