@@ -15,7 +15,8 @@ import PieChartComponent from "./PieChartComponent";
 import BarChartComponent from "./BarChartComponent";
 import MuiTable from "./MuiTable";
 import "./Dashboard.css";
-import { Card } from "antd";
+import { Card, Select } from "antd";
+const { Option } = Select;
 const { Meta } = Card;
 
 const Dashboard = () => {
@@ -46,7 +47,7 @@ const Dashboard = () => {
           margin: "auto",
           borderRadius: `${curveAngle}px`,
           backgroundColor: papercard,
-          width: "90%", // Set the desired width
+          width: "100%", // Set the desired width
           height: "100%", // Set the desired height
           padding: 20,
         }}
@@ -65,70 +66,44 @@ const Dashboard = () => {
 
   return (
     <div>
-      <Carousel />
+      <Carousel/>
       <Container>
         <br />
-        <Grid container spacing={2}>
-          {" "}
-          {/* Adjust spacing */}
-          <Grid item xs={12} md={4}>
-            {" "}
-            {/* Adjust xs and md values */}
-            <Item>
-              <Autocomplete
-                options={options}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label="ประเภท"
-                    InputProps={{
-                      ...params.InputProps,
-                      style: customStyles,
-                    }}
-                  />
-                )}
-              />
-            </Item>
-          </Grid>
-          <Grid item xs={12} md={4}>
-            {" "}
-            {/* Adjust xs and md values */}
-            <Item>
-              <Autocomplete
-                options={options}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label="สื่อ"
-                    InputProps={{
-                      ...params.InputProps,
-                      style: customStyles,
-                    }}
-                  />
-                )}
-              />
-            </Item>
-          </Grid>
-          <Grid item xs={12} md={4}>
-            {" "}
-            {/* Adjust xs and md values */}
-            <Item>
-              <Autocomplete
-                options={options}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label="เดือน/ปี"
-                    InputProps={{
-                      ...params.InputProps,
-                      style: customStyles,
-                    }}
-                  />
-                )}
-              />
-            </Item>
-          </Grid>
-        </Grid>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", }}>
+          <Select
+            size="large"
+            placeholder="ประเภท"
+            // onChange={onGenderChange}
+            allowClear
+            style={{ marginRight: "10px", flex: 1,}} // Add margin to the right
+          >
+            <Option value="male">male</Option>
+            <Option value="female">female</Option>
+            <Option value="other">other</Option>
+          </Select>
+          <Select
+            size="large"
+            placeholder="สื่อ"
+            // onChange={onGenderChange}
+            allowClear
+            style={{ marginRight: "10px" , flex: 1,}} // Add margin to the right
+          >
+            <Option value="male">male</Option>
+            <Option value="female">female</Option>
+            <Option value="other">other</Option>
+          </Select>
+          <Select
+            size="large"
+            placeholder="เดือน/ปี"
+            // onChange={onGenderChange}
+            allowClear
+            style={{flex: 1,}} // Add margin to the right
+          >
+            <Option value="male">male</Option>
+            <Option value="female">female</Option>
+            <Option value="other">other</Option>
+          </Select>
+        </div>
         <br />
         <Grid container spacing={2}>
           {" "}
@@ -137,7 +112,7 @@ const Dashboard = () => {
             <BarChartComponent />
           </Grid>
           <Grid item xs={12} md={6}>
-              <PieChartComponent />
+            <PieChartComponent />
           </Grid>
         </Grid>
         <br />

@@ -133,7 +133,7 @@ function ResponsiveAppBar() {
               component="a"
               href="/"
               sx={{
-                mr: 2,
+                mr: 5,
                 display: { xs: 'none', md: 'flex' },
                 fontFamily: 'monospace',
                 fontWeight: 700,
@@ -164,7 +164,7 @@ function ResponsiveAppBar() {
                   keepMounted: true, // Better open performance on mobile.
                 }}
                 sx={{
-                  display: { xs: 'block', sm: 'none' },
+                  display: { xs: 'block', sm: 'none', },
                   '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
                 }}
               >
@@ -190,18 +190,21 @@ function ResponsiveAppBar() {
             >
               LOGO
             </Typography>
-            <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+            <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex', } }}>
               {pages.map((page) => (
                 <Button
                   key={page.label}
                   component={Link} to={page.link}
                   onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: 'white', display: 'block' }}
+                  sx={{ my: 2, color: 'white', display: 'block', mr: 5 }}
                 >
                   {page.label}
                 </Button>
               ))}
-              <Box sx={{ flexGrow: 0 }}>
+              <div style={{
+                display: "flex",
+                alignItems: "center",
+              }}>
                 <LoginButton onClick={() => setLogin(true)} />
                 <LoginDialog
                   open={Login}
@@ -215,12 +218,12 @@ function ResponsiveAppBar() {
                   onClose={() => setRegister(false)}
                   handleSubmit={handleSubmit}
                   LoginFinish={RegisterFinish}
-                /></Box>
+                /></div>
             </Box>
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleDrawerToggleProfile} sx={{ p: 0 }}>
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                  <Avatar />
                 </IconButton>
               </Tooltip>
               <Drawer

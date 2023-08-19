@@ -8,7 +8,7 @@ const RegisterButton = ({ onClick }) => {
       variant="outlined"
       color="primary"
       onClick={onClick}
-      sx={{ fontSize: "20px", marginRight: "10px" }}
+      sx={{ marginLeft: "auto"  }}
     >
       ลงทะเบียน
     </Button>

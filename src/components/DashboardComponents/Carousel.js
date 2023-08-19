@@ -11,7 +11,6 @@ const Carousel = () => {
       style={{
         width: "100%",
         height: 300,
-        margin: "auto",
         backgroundColor: paperColor,
       }}
     ></Paper>

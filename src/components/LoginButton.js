@@ -8,7 +8,7 @@ const LoginButton = ({ onClick }) => {
       variant="outlined"
       color="primary"
       onClick={onClick}
-      sx={{ fontSize: "20px", marginRight: "10px" }}
+      sx={{ marginRight: "10px" }}
     >
       เข้าสู่ระบบ
     </Button>
