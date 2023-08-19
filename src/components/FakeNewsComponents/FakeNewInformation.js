@@ -51,7 +51,7 @@ const FakeNewInformation = ({ handleSubmit, FakeNewInformationFinish }) => {
           onFinish={FakeNewInformationFinish}
           style={{
             maxWidth: "100%",
-            padding: "10%",
+            padding: "5%",
           }}
         >
           <Form.Item

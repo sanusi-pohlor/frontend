@@ -18,6 +18,9 @@ import MType from "./components/Admin/ManageFakeNews/MType";
 import UserProfile from "./components/UserComoponents/UserProfile";
 import Login from "./components/UserComoponents/Login";
 import Register from "./components/UserComoponents/Register";
+import {
+  Box,
+} from "@mui/material";
 
 const AppRoutes = () => {
   return (
@@ -25,6 +28,7 @@ const AppRoutes = () => {
       <div>
         <MenuNavbar />
         <div id="background" className="background">
+        <Box height="6vh"/>
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/FakeNews" element={<FakeNewInformation />} />

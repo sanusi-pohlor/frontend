@@ -37,7 +37,6 @@ const settings = [{ label: 'Login', link: '/User/Login' },
 { label: 'Register', link: '/User/Register' },
 { label: 'User Profile', link: '/User/Profile' },
 { label: 'Admin', link: '/Admin' },
-{ label: 'ประวัติการแจ้ง', link: '/' },
 { label: 'Loguot', link: '/' },];
 
 function ResponsiveAppBar() {
@@ -121,9 +120,9 @@ function ResponsiveAppBar() {
   const container = window.document.body;
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box>
       <CssBaseline />
-      <AppBar position="static" sx={{ backgroundColor: '#2E3B4E' }}>
+      <AppBar sx={{ backgroundColor: '#2E3B4E' }} >
         <Container maxWidth="xl">
           <Toolbar disableGutters >
             <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />

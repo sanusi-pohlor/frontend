@@ -23,18 +23,17 @@ const UserProfile = ({ children }) => {
     },
     {
       key: "2",
-      label: "ประวัติการแจ้ง",
-      link: "/FakeNews/NotificationHistory",
+      label: "แจ้งข้อมูลเท็จ",
+      link: "/FakeNews",
     },
     {
       key: "3",
-      label: "แจ้งข้อมูลเท็จ",
-      link: "/FakeNews",
+      label: "ประวัติการแจ้ง",
+      link: "/FakeNews/NotificationHistory",
     },
   ];
 
   return (
-    <Container>
       <Grid container spacing={2}>
         <Grid item xs={12} sm={4}>
           <Card
@@ -98,7 +97,6 @@ const UserProfile = ({ children }) => {
           </Card>
         </Grid>
       </Grid>
-    </Container>
   );
 };
 

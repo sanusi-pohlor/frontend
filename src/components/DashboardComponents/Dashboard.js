@@ -54,7 +54,7 @@ const Dashboard = () => {
         cover={
           <img
             alt="Card cover"
-            style={{ height: "100%", width: "100%", objectFit: "cover" }}
+            style={{ height: "80%", width: "100%", objectFit: "cover" }}
             src="https://t3.ftcdn.net/jpg/05/37/73/58/360_F_537735846_kufBp10E8L4iV7OLw1Kn3LpeNnOIWbvf.jpg"
           />
         }
@@ -252,8 +252,6 @@ const Dashboard = () => {
             <Content />
           </Grid>
         </Grid>
-        <br />
-        <br />
       </Paper>
     </div>
   );
