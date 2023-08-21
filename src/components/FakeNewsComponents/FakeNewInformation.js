@@ -8,7 +8,7 @@ import UserProfile from "../UserComoponents/UserProfile";
 import React, { useState } from "react";
 import { Button, DatePicker, Form, Input, Select, Upload } from "antd";
 import "./FakeNewInformation.css";
-import { Typography, Box } from "@mui/material";
+import { Typography } from "@mui/material";
 const { TextArea } = Input;
 const normFile = (e) => {
   if (Array.isArray(e)) {
@@ -16,7 +16,7 @@ const normFile = (e) => {
   }
   return e?.fileList;
 };
-const FakeNewInformation = ({ handleSubmit, FakeNewInformationFinish }) => {
+const FakeNewInformation = ({ FakeNewInformationFinish }) => {
   const [selectedGender, setSelectedGender] = useState("");
   const handleGenderChange = (value) => {
     setSelectedGender(value);

@@ -4,7 +4,7 @@ import {
   NotificationOutlined,
   UserOutlined,
 } from '@ant-design/icons';
-import { Breadcrumb, Layout, Menu, theme } from 'antd';
+import { Breadcrumb, Layout, Menu, theme,FloatButton  } from 'antd';
 import { Link } from 'react-router-dom';
 
 const { Content, Sider } = Layout;
@@ -70,6 +70,7 @@ const AdminMenu = ({ children }) => {
   } = theme.useToken();
 
   return (
+    <div>
     <Layout>
       <Sider
         width={200}
@@ -122,6 +123,8 @@ const AdminMenu = ({ children }) => {
         </Content>
       </Layout>
     </Layout>
+    <FloatButton.BackTop />
+    </div>
   );
 };
 

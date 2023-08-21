@@ -1,44 +1,34 @@
+import React, { useState } from "react";
 import {
-  Container,
+  SearchOutlined
+} from "@ant-design/icons";
+import {
   Paper,
   Grid,
-  TextField,
-  Autocomplete,
-  InputAdornment,
+  Box,
 } from "@mui/material";
 import Item from "./Item";
 import Carousel from "./Carousel";
-import React, { useState } from "react";
-import SearchIcon from "@mui/icons-material/Search";
 import ThailandMap from "./ThailandMap";
 import PieChartComponent from "./PieChartComponent";
 import BarChartComponent from "./BarChartComponent";
 import MuiTable from "./MuiTable";
 import "./Dashboard.css";
-import { Card, Select } from "antd";
+import { Card, Select, Input, FloatButton  } from "antd";
 const { Option } = Select;
 const { Meta } = Card;
 
-const Dashboard = () => {
-  const customStyles = {
-    backgroundColor: "#FFFFFF",
-    borderRadius: 0,
-  };
+const Dashboard = ({ onSearch }) => {
   const [searchTerm, setSearchTerm] = useState("");
-
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
-    // Handle your search logic here
-    // For example, you can filter data based on the search term
   };
-
+  const handleSearchSubmit = () => {
+    onSearch(searchTerm);
+  };
   const curveAngle = 0;
   const paperColor = "#FFFFFF";
   const papercard = "rgb(240, 240, 240)";
-
-  // Sample options for the Autocomplete
-  const options = ["Option 1", "Option 2", "Option 3"];
-
   const Content = () => {
     return (
       <Card
@@ -66,42 +56,60 @@ const Dashboard = () => {
 
   return (
     <div>
-      <Carousel/>
-      <Container>
-        <br />
+      <Carousel />
+      <Box style={{
+        width: "90%",
+        padding: 30,
+        margin: "0 auto", // This centers the paper horizontally
+        textAlign: "center", // This centers the content inside the paper
+      }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "center", }}>
           <Select
             size="large"
             placeholder="ประเภท"
             // onChange={onGenderChange}
             allowClear
-            style={{ marginRight: "10px", flex: 1,}} // Add margin to the right
+            style={{ marginRight: "10px", flex: 1, }} // Add margin to the right
           >
-            <Option value="male">male</Option>
-            <Option value="female">female</Option>
-            <Option value="other">other</Option>
+            <Select.Option value="Food_Medicine_Health">อาหารยาและผลิตภัณฑ์สุขภาพ</Select.Option>
+            <Select.Option value="Public_Service">บริการสาธารณะ</Select.Option>
+            <Select.Option value="Health_Public_Health_Services">บริการสุขภาพและสาธารณสุข</Select.Option>
+            <Select.Option value="Banking">การเงินการธนาคาร</Select.Option>
+            <Select.Option value="General_Products_And_Services">สินค้าและบริการทั่วไป</Select.Option>
+            <Select.Option value="Real_Estate">อสังหาริมทรัพย์</Select.Option>
+            <Select.Option value="Media_and_Telecommunications">สื่อและโทรคมนาคม</Select.Option>
+            <Select.Option value="COVID">โควิด</Select.Option>
+            <Select.Option value="Other">อื่นๆ</Select.Option>
           </Select>
           <Select
             size="large"
             placeholder="สื่อ"
             // onChange={onGenderChange}
             allowClear
-            style={{ marginRight: "10px" , flex: 1,}} // Add margin to the right
+            style={{ marginRight: "10px", flex: 1, }} // Add margin to the right
           >
-            <Option value="male">male</Option>
-            <Option value="female">female</Option>
-            <Option value="other">other</Option>
+            <Select.Option value="Facebook">Facebook</Select.Option>
+            <Select.Option value="Line">Line</Select.Option>
+            <Select.Option value="Messenger">Messenger</Select.Option>
+            <Select.Option value="website">เว็บไซต์</Select.Option>
+            <Select.Option value="Youtube">Youtube</Select.Option>
+            <Select.Option value="Tiktok">Tiktok</Select.Option>
+            <Select.Option value="Other">อื่นๆ</Select.Option>
           </Select>
           <Select
             size="large"
             placeholder="เดือน/ปี"
             // onChange={onGenderChange}
             allowClear
-            style={{flex: 1,}} // Add margin to the right
+            style={{ flex: 1, }} // Add margin to the right
           >
-            <Option value="male">male</Option>
-            <Option value="female">female</Option>
-            <Option value="other">other</Option>
+            <Select.Option value="2017">2017</Select.Option>
+            <Select.Option value="2018">2018</Select.Option>
+            <Select.Option value="2019">2019</Select.Option>
+            <Select.Option value="2020">2020</Select.Option>
+            <Select.Option value="2021">2021</Select.Option>
+            <Select.Option value="2022">2022</Select.Option>
+            <Select.Option value="2023">2023</Select.Option>
           </Select>
         </div>
         <br />
@@ -152,8 +160,7 @@ const Dashboard = () => {
             </Card>
           </Grid>
         </Grid>
-        <br />
-      </Container>
+      </Box>
       <Paper
         elevation={0}
         style={{
@@ -163,8 +170,6 @@ const Dashboard = () => {
           textAlign: "center", // This centers the content inside the paper
         }}
       >
-        <br />
-        <br />
         <Grid container spacing={2}>
           {" "}
           {/* Adjust spacing */}
@@ -195,23 +200,17 @@ const Dashboard = () => {
             {" "}
             {/* Adjust xs and md values */}
             <Item>
-              <TextField
-                variant="outlined"
-                label="ค้นหา"
+              <Input
+                size="large"
+                placeholder="ค้นหา"
                 value={searchTerm}
                 onChange={handleSearchChange}
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <SearchIcon />
-                    </InputAdornment>
-                  ),
-                }}
+                onPressEnter={handleSearchSubmit}
+                prefix={<SearchOutlined className="site-form-item-icon" />}
               />
             </Item>
           </Grid>
         </Grid>
-        <br />
         <br />
         <Grid container spacing={2}>
           {" "}
@@ -253,6 +252,7 @@ const Dashboard = () => {
           </Grid>
         </Grid>
       </Paper>
+      <FloatButton.BackTop />
     </div>
   );
 };

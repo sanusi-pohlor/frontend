@@ -3,8 +3,6 @@ import {
   AppBar,
   Toolbar,
   IconButton,
-  MenuItem,
-  Menu,
   Typography,
   CssBaseline,
   Box,
@@ -149,7 +147,10 @@ function ResponsiveAppBar() {
               aria-label="open drawer"
               edge="start"
               onClick={handleDrawerToggle}
-              sx={{ mr: 2, display: { sm: 'none' } }}
+              sx={{
+                mr: 2,
+                display: { xs: 'flex', md: 'none' },
+              }}
             >
               <MenuIcon />
             </IconButton>
@@ -160,10 +161,10 @@ function ResponsiveAppBar() {
                 open={mobileOpen}
                 onClose={handleDrawerToggle}
                 ModalProps={{
-                  keepMounted: true, // Better open performance on mobile.
+                  keepMounted: false, // Better open performance on mobile.
                 }}
                 sx={{
-                  display: { xs: 'block', sm: 'none', },
+                  display: { xs: 'block', sm: 'block', },
                   '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
                 }}
               >
@@ -187,7 +188,7 @@ function ResponsiveAppBar() {
                 textDecoration: 'none',
               }}
             >
-              LOGO
+              LOGO0
             </Typography>
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex', } }}>
               {pages.map((page) => (

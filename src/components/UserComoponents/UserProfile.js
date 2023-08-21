@@ -2,11 +2,10 @@ import * as React from "react";
 import {
   Grid,
   Avatar,
-  Container,
   Typography,
   Divider,
 } from "@mui/material";
-import { Card, Tabs } from "antd";
+import { Card, Tabs,FloatButton } from "antd";
 import { Link as RouterLink } from "react-router-dom";
 
 const { TabPane } = Tabs;
@@ -34,6 +33,7 @@ const UserProfile = ({ children }) => {
   ];
 
   return (
+    <div>
       <Grid container spacing={2}>
         <Grid item xs={12} sm={4}>
           <Card
@@ -97,6 +97,8 @@ const UserProfile = ({ children }) => {
           </Card>
         </Grid>
       </Grid>
+      <FloatButton.BackTop />
+      </div>
   );
 };
 
