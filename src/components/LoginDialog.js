@@ -1,6 +1,6 @@
 import React from "react";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import { UserOutlined, LockOutlined } from "@ant-design/icons";
+import { MailOutlined, LockOutlined } from "@ant-design/icons";
 import { Form, Button, Checkbox, Input } from "antd";
 import {
   Typography,
@@ -44,6 +44,7 @@ const LoginDialog = ({ open, onClose, handleSubmit, LoginFinish }) => {
             sx={{ mt: 3 }}
           >
             <Form
+              layout="vertical"
               name="normal_login"
               className="login-form"
               initialValues={{
@@ -53,20 +54,21 @@ const LoginDialog = ({ open, onClose, handleSubmit, LoginFinish }) => {
               style={{
                 maxWidth: "100%",
               }}
+              size="large"
             >
               <Form.Item
-                name="username"
+                name="email"
                 rules={[
                   {
                     required: true,
-                    message: "Please input your Username!",
+                    message: "Please input your email!",
                   },
                 ]}
               >
                 <Input
                   size="large"
-                  prefix={<UserOutlined className="site-form-item-icon" />}
-                  placeholder="Username"
+                  prefix={<MailOutlined className="site-form-item-icon" />}
+                  placeholder="อีเมล"
                 />
               </Form.Item>
               <Form.Item
@@ -74,7 +76,7 @@ const LoginDialog = ({ open, onClose, handleSubmit, LoginFinish }) => {
                 rules={[
                   {
                     required: true,
-                    message: "Please input your Password!",
+                    message: "Please input your password!",
                   },
                 ]}
               >
@@ -82,19 +84,17 @@ const LoginDialog = ({ open, onClose, handleSubmit, LoginFinish }) => {
                   size="large"
                   prefix={<LockOutlined className="site-form-item-icon" />}
                   type="password"
-                  placeholder="Password"
+                  placeholder="รหัสผ่าน"
                 />
               </Form.Item>
               <Form.Item>
                 <Form.Item name="remember" valuePropName="checked" noStyle>
-                  <Checkbox>Remember me</Checkbox>
+                  <Checkbox>จดจำการเข้าสู่ระบบ</Checkbox>
                 </Form.Item>
-
                 <a className="login-form-forgot" href="">
-                  Forgot password
+                  ลืมรหัสผ่าน
                 </a>
               </Form.Item>
-
               <Form.Item>
                 <Button
                   type="primary"
@@ -102,9 +102,9 @@ const LoginDialog = ({ open, onClose, handleSubmit, LoginFinish }) => {
                   className="login-form-button"
                   size="large"
                 >
-                  Log in
+                  เข้าสู่ระบบ
                 </Button>
-                {" "}Or{" "} <a href="/User/Register">register now!</a>
+                {" "}หรือ{" "} <a href="/User/Register">ลงทะเบียน</a>
               </Form.Item>
             </Form>
           </Box>
