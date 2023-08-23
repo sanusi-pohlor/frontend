@@ -20,7 +20,7 @@ const items = [
     key: 'sub2',
     icon: <LaptopOutlined />,
     label: 'จัดการคอนเทนต์',
-    link: 'ManageContont', // Add a link property
+    link: 'ManuContont', // Add a link property
   },
   {
     key: 'sub3',

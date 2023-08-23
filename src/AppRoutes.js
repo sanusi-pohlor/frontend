@@ -8,7 +8,8 @@ import FakeNewInformation from "./components/FakeNewsComponents/FakeNewInformati
 import NotificationHistory from "./components/FakeNewsComponents/NotificationHistory";
 import PersonalInformation from "./components/FakeNewsComponents/PersonalInformation";
 import ManageMembers from "./components/Admin/ManageMembers";
-import ManageContont from "./components/Admin/ManageContont";
+import ManuContont from "./components/Admin/ManageContent/ManuContont";
+import FormContent from "./components/Admin/ManageContent/FormContent";
 import AdvancedSearch from "./components/Admin/AdvancedSearch";
 import MChecking from "./components/Admin/ManageFakeNews/MChecking";
 import MInformation from "./components/Admin/ManageFakeNews/MInformation";
@@ -42,7 +43,8 @@ const AppRoutes = () => {
             />
             <Route path="/Search" element={<Search />} />
             <Route path="/Admin" element={<ManageMembers />} />
-            <Route path="/Admin/ManageContont" element={<ManageContont />} />
+            <Route path="/Admin/ManuContont" element={<ManuContont />} />
+            <Route path="/Admin/FormContent" element={<FormContent />} />
             <Route path="/Admin/AdvancedSearch" element={<AdvancedSearch />} />
             <Route path="/Admin/MChecking" element={<MChecking />} />
             <Route path="/Admin/MInformation" element={<MInformation />} />
