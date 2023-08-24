@@ -4,20 +4,35 @@ import LoginDialog from "../LoginDialog";
 import { Form, Button, Checkbox, Input, Select } from "antd";
 import {
   UserOutlined,
-  LockOutlined,
   MailOutlined,
   PhoneOutlined,
   MessageOutlined,
 } from "@ant-design/icons";
 import { Typography, Box, Paper, Avatar } from "@mui/material";
+import axios from "axios";
 
 const { Option } = Select;
-const RegisterDialog = ({ handleSubmit, RegisterFinish }) => {
-  const [Login, setLogin] = useState(false);
+
+const Register = ({ handleSubmit }) => {
   const [selectedGender, setSelectedGender] = useState("");
   const handleGenderChange = (value) => {
     setSelectedGender(value);
   };
+
+  const [form] = Form.useForm();
+
+  const onFinish = async (values) => {
+    try {
+      const response = await axios.post("http://localhost:8000/api/register", values);
+      console.log("Registration successful:", response.data);
+      // Handle success, show a message, or redirect
+    } catch (error) {
+      console.error("Error registering user:", error);
+      // Handle error, show an error message, etc.
+    }
+  };
+
+  const [Login, setLogin] = useState(false);
   const onChange = (e) => {
     console.log(`checked = ${e.target.checked}`);
   };
@@ -57,10 +72,11 @@ const RegisterDialog = ({ handleSubmit, RegisterFinish }) => {
           initialValues={{
             remember: true,
           }}
-          onFinish={RegisterFinish}
+          onFinish={onFinish} // Use the modified onFinish function
           style={{
             maxWidth: "100%",
           }}
+          form={form}
         >
           <Form.Item
             style={{
@@ -131,47 +147,29 @@ const RegisterDialog = ({ handleSubmit, RegisterFinish }) => {
             }}
           >
             <Form.Item
-              label="รหัสผ่าน"
               name="password"
-              rules={[
-                {
-                  required: true,
-                  message: "Please input your password!",
-                },
-              ]}
-              style={{
-                display: "inline-block",
-                width: "calc(50% - 8px)",
-              }}
+              label="Password"
+              rules={[{ required: true, message: "Please input your password!" }]}
             >
-              <Input
-                size="large"
-                prefix={<LockOutlined className="site-form-item-icon" />}
-                type="password"
-                placeholder="รหัสผ่าน"
-              />
+              <Input.Password />
             </Form.Item>
             <Form.Item
-              label="ยืนยันรหัสผ่าน"
-              name="password"
+              name="confirmPassword"
+              label="Confirm Password"
+              dependencies={["password"]}
               rules={[
-                {
-                  required: true,
-                  message: "Please input your lastName!",
-                },
+                { required: true, message: "Please confirm your password!" },
+                ({ getFieldValue }) => ({
+                  validator(_, value) {
+                    if (!value || getFieldValue("password") === value) {
+                      return Promise.resolve();
+                    }
+                    return Promise.reject(new Error("The two passwords do not match!"));
+                  },
+                }),
               ]}
-              style={{
-                display: "inline-block",
-                width: "calc(50% - 8px)",
-                margin: "0 8px",
-              }}
             >
-              <Input
-                size="large"
-                prefix={<LockOutlined className="site-form-item-icon" />}
-                type="password"
-                placeholder="ยืนยันรหัสผ่าน"
-              />
+              <Input.Password />
             </Form.Item>
           </Form.Item>
           <Form.Item
@@ -243,12 +241,7 @@ const RegisterDialog = ({ handleSubmit, RegisterFinish }) => {
             <Checkbox onChange={onChange}>รับคอนเทนต์ผ่านอีเมล</Checkbox>
           </Form.Item>
           <Form.Item>
-            <Button
-              type="primary"
-              htmlType="submit"
-              className="login-form-button"
-              size="large"
-            >
+            <Button type="primary" htmlType="submit">
               ลงทะเบียน
             </Button>
             <br />
@@ -270,4 +263,4 @@ const RegisterDialog = ({ handleSubmit, RegisterFinish }) => {
   );
 };
 
-export default RegisterDialog;
+export default Register;

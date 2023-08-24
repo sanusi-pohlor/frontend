@@ -8,7 +8,7 @@ import FakeNewInformation from "./components/FakeNewsComponents/FakeNewInformati
 import NotificationHistory from "./components/FakeNewsComponents/NotificationHistory";
 import PersonalInformation from "./components/FakeNewsComponents/PersonalInformation";
 import ManageMembers from "./components/Admin/ManageMembers";
-import ManuContont from "./components/Admin/ManageContent/ManuContont";
+import ManuContent from "./components/Admin/ManageContent/ManuContent";
 import FormContent from "./components/Admin/ManageContent/FormContent";
 import AdvancedSearch from "./components/Admin/AdvancedSearch";
 import MChecking from "./components/Admin/ManageFakeNews/MChecking";
@@ -22,54 +22,42 @@ import Register from "./components/UserComoponents/Register";
 import {
   Box,
 } from "@mui/material";
-import { Breadcrumb, Layout, Menu, theme } from 'antd';
-const { Header, Content, Footer } = Layout;
 
 const AppRoutes = () => {
   return (
     <Router>
-      <Layout>
-        <Header>
-          <MenuNavbar />
-        </Header>
-        <Content
-          className="site-layout"
-          style={{
-            padding: '0 100px',
-          }}
-        >
-          <div id="background" className="background">
-            <Routes>
-              <Route path="/" element={<Dashboard />} />
-              <Route path="/FakeNews" element={<FakeNewInformation />} />
-              <Route
-                path="/FakeNews/PersonalInformation"
-                element={<PersonalInformation />}
-              />
-              <Route
-                path="/FakeNews/NotificationHistory"
-                element={<NotificationHistory />}
-              />
-              <Route path="/Search" element={<Search />} />
-              <Route path="/Admin" element={<ManageMembers />} />
-              <Route path="/Admin/ManuContont" element={<ManuContont />} />
-              <Route path="/Admin/FormContent" element={<FormContent />} />
-              <Route path="/Admin/AdvancedSearch" element={<AdvancedSearch />} />
-              <Route path="/Admin/MChecking" element={<MChecking />} />
-              <Route path="/Admin/MInformation" element={<MInformation />} />
-              <Route path="/Admin/MMedia" element={<MMedia />} />
-              <Route path="/Admin/MProblem" element={<MProblem />} />
-              <Route path="/Admin/MType" element={<MType />} />
-              <Route path="/User/Profile" element={<UserProfile />} />
-              <Route path="/User/Login" element={<Login />} />
-              <Route path="/User/Register" element={<Register />} />
-            </Routes>
-          </div>
-        </Content>
-        <Footer>
-          <Bottom />
-        </Footer>
-      </Layout>
+      <div>
+        <MenuNavbar />
+        <div id="background" className="background">
+        <Box height="6vh"/>
+          <Routes>
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/FakeNews" element={<FakeNewInformation />} />
+            <Route
+              path="/FakeNews/PersonalInformation"
+              element={<PersonalInformation />}
+            />
+            <Route
+              path="/FakeNews/NotificationHistory"
+              element={<NotificationHistory />}
+            />
+            <Route path="/Search" element={<Search />} />
+            <Route path="/Admin" element={<ManageMembers />} />
+            <Route path="/Admin/ManuContent" element={<ManuContent />} />
+            <Route path="/Admin/FormContent" element={<FormContent />} />
+            <Route path="/Admin/AdvancedSearch" element={<AdvancedSearch />} />
+            <Route path="/Admin/MChecking" element={<MChecking />} />
+            <Route path="/Admin/MInformation" element={<MInformation />} />
+            <Route path="/Admin/MMedia" element={<MMedia />} />
+            <Route path="/Admin/MProblem" element={<MProblem />} />
+            <Route path="/Admin/MType" element={<MType />} />
+            <Route path="/User/Profile" element={<UserProfile />} />
+            <Route path="/User/Login" element={<Login />} />
+            <Route path="/User/Register" element={<Register />} />
+          </Routes>
+        </div>
+        <Bottom />
+      </div>
     </Router>
   );
 };
