@@ -39,11 +39,9 @@ const FormContent = () => {
                 <Form.Item name="title" label="Title" rules={[{ required: true }]}>
                     <Input />
                 </Form.Item>
-
                 <Form.Item name="description" label="Description" rules={[{ required: true }]}>
                     <Input.TextArea />
                 </Form.Item>
-
                 <Form.Item
                     name="image"
                     label="Image"
@@ -55,7 +53,6 @@ const FormContent = () => {
                         <Button icon={<UploadOutlined />}>Upload Image</Button>
                     </Upload>
                 </Form.Item>
-
                 <Form.Item wrapperCol={{ offset: 4, span: 20 }}>
                     <Button type="primary" htmlType="submit">
                         Submit

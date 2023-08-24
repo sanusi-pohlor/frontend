@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import LoginDialog from "../LoginDialog";
-import { Form, Button, Checkbox, Input, Select } from "antd";
+import { Form, Button, Checkbox, Input, Select,message  } from "antd";
 import {
   UserOutlined,
   MailOutlined,
@@ -12,18 +12,15 @@ import { Typography, Box, Paper, Avatar } from "@mui/material";
 import axios from "axios";
 
 const { Option } = Select;
-
 const Register = ({ handleSubmit }) => {
-  const [selectedGender, setSelectedGender] = useState("");
-  const handleGenderChange = (value) => {
-    setSelectedGender(value);
+  const [selectedprovince, setSelectedprovince] = useState("");
+  const handleprovinceChange = (value) => {
+    setSelectedprovince(value);
   };
-
   const [form] = Form.useForm();
-
   const onFinish = async (values) => {
     try {
-      const response = await axios.post("http://localhost:8000/api/register", values);
+      const response = await axios.post('http://localhost:8000/api/register', values);
       console.log("Registration successful:", response.data);
       // Handle success, show a message, or redirect
     } catch (error) {
@@ -31,7 +28,6 @@ const Register = ({ handleSubmit }) => {
       // Handle error, show an error message, etc.
     }
   };
-
   const [Login, setLogin] = useState(false);
   const onChange = (e) => {
     console.log(`checked = ${e.target.checked}`);
@@ -84,7 +80,7 @@ const Register = ({ handleSubmit }) => {
             }}
           >
             <Form.Item
-              label="ชื่อ"
+              label="username"
               name="username"
               rules={[
                 {
@@ -104,7 +100,7 @@ const Register = ({ handleSubmit }) => {
               />
             </Form.Item>
             <Form.Item
-              label="นามสกุล"
+              label="lastName"
               name="lastName"
               rules={[
                 {
@@ -126,7 +122,7 @@ const Register = ({ handleSubmit }) => {
             </Form.Item>
           </Form.Item>
           <Form.Item
-            label="อีเมล"
+            label="email"
             name="email"
             rules={[
               {
@@ -148,7 +144,7 @@ const Register = ({ handleSubmit }) => {
           >
             <Form.Item
               name="password"
-              label="Password"
+              label="password"
               rules={[{ required: true, message: "Please input your password!" }]}
             >
               <Input.Password />
@@ -173,8 +169,8 @@ const Register = ({ handleSubmit }) => {
             </Form.Item>
           </Form.Item>
           <Form.Item
-            label="เบอร์โทร"
-            name="Toll"
+            label="phone_number"
+            name="phone_number"
             rules={[
               {
                 required: true,
@@ -189,8 +185,8 @@ const Register = ({ handleSubmit }) => {
             />
           </Form.Item>
           <Form.Item
-            label="ไอดีไลน์"
-            name="Idline"
+            label="Id_line"
+            name="Id_line"
             rules={[
               {
                 required: true,
@@ -204,22 +200,21 @@ const Register = ({ handleSubmit }) => {
               placeholder="ไอดีไลน์"
             />
           </Form.Item>
-
           <Form.Item
-            label="จังหวัดที่สังกัด"
-            name="gender"
+            label="province"
+            name="province"
             rules={[
               {
                 required: true,
-                message: "Please select gender!",
+                message: "Please select province!",
               },
             ]}
           >
             <Select
               size="large"
               placeholder="จังหวัดที่สังกัด"
-              onChange={handleGenderChange} // เพิ่มการเรียกฟังก์ชันเมื่อเลือกค่า
-              value={selectedGender} // กำหนดค่าเริ่มต้น
+              onChange={handleprovinceChange} // เพิ่มการเรียกฟังก์ชันเมื่อเลือกค่า
+              value={selectedprovince} // กำหนดค่าเริ่มต้น
             >
               <Option value="Krabi">กระบี่</Option>
               <Option value="Chumphon">ชุมพร</Option>
