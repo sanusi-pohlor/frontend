@@ -11,7 +11,7 @@ const FormContent = () => {
             formData.append('description', values.description);
             formData.append('image', values.image[0].originFileObj);
 
-            const response = await fetch('http://localhost:8000/api/upload', {
+            const response = await fetch('http://localhost:8080/api/upload', {
                 method: 'POST',
                 body: formData,
             });

@@ -9,7 +9,7 @@ const ManuContont = () => {
   const [dataSource, setDataSource] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:8000/api/data')
+    fetch('http://localhost:8080/api/data')
       .then((response) => response.json())
       .then((data) => {
         setDataSource(data);
