@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import LoginDialog from "../LoginDialog";
-import { Form, Button, Checkbox, Input, Select,message  } from "antd";
+import { Form, Button, Checkbox, Input, Select, message } from "antd";
 import {
   UserOutlined,
   MailOutlined,
@@ -17,21 +17,37 @@ const Register = ({ handleSubmit }) => {
   const handleprovinceChange = (value) => {
     setSelectedprovince(value);
   };
-  const [form] = Form.useForm();
+  // const [form] = Form.useForm();
+  const [loading, setLoading] = useState(false);
+
   const onFinish = async (values) => {
+    console.log(values);
+    setLoading(true);
     try {
-      const response = await axios.post('http://localhost:8000/api/register', values);
-      console.log("Registration successful:", response.data);
-      // Handle success, show a message, or redirect
+      const response = await fetch('http://localhost:8000/api/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(values),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        message.success(data.message);
+      } else {
+        message.error(data.message);
+      }
     } catch (error) {
-      console.error("Error registering user:", error);
-      // Handle error, show an error message, etc.
+      console.error('Error registering user:', error);
+      message.error('Error registering user');
+    } finally {
+      setLoading(false);
     }
   };
   const [Login, setLogin] = useState(false);
-  const onChange = (e) => {
-    console.log(`checked = ${e.target.checked}`);
-  };
+  // const onChange = (e) => {
+  //   console.log(`checked = ${e.target.checked}`);
+  // };
   const LoginFinish = (values) => {
     console.log("Received values of form: ", values);
   };
@@ -63,63 +79,57 @@ const Register = ({ handleSubmit }) => {
       <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
         <Form
           layout="vertical"
-          name="normal_login"
-          className="login-form"
-          initialValues={{
-            remember: true,
-          }}
+          // name="normal_login"
+          // className="login-form"
+          // initialValues={{
+          //   remember: true,
+          // }}
           onFinish={onFinish} // Use the modified onFinish function
           style={{
             maxWidth: "100%",
           }}
-          form={form}
+        // form={form}
         >
           <Form.Item
+            label="username"
+            name="username"
+            rules={[
+              {
+                required: true,
+                message: "Please input your Username!",
+              },
+            ]}
             style={{
-              marginBottom: 0,
+              display: "inline-block",
+              width: "calc(50% - 8px)",
             }}
           >
-            <Form.Item
-              label="username"
-              name="username"
-              rules={[
-                {
-                  required: true,
-                  message: "Please input your Username!",
-                },
-              ]}
-              style={{
-                display: "inline-block",
-                width: "calc(50% - 8px)",
-              }}
-            >
-              <Input
-                size="large"
-                prefix={<UserOutlined className="site-form-item-icon" />}
-                placeholder="ชื่อ"
-              />
-            </Form.Item>
-            <Form.Item
-              label="lastName"
-              name="lastName"
-              rules={[
-                {
-                  required: true,
-                  message: "Please input your lastName!",
-                },
-              ]}
-              style={{
-                display: "inline-block",
-                width: "calc(50% - 8px)",
-                margin: "0 8px",
-              }}
-            >
-              <Input
-                size="large"
-                prefix={<UserOutlined className="site-form-item-icon" />}
-                placeholder="นามสกุล"
-              />
-            </Form.Item>
+            <Input
+              size="large"
+              prefix={<UserOutlined className="site-form-item-icon" />}
+              placeholder="ชื่อ"
+            />
+          </Form.Item>
+          <Form.Item
+            label="lastName"
+            name="lastName"
+            rules={[
+              {
+                required: true,
+                message: "Please input your lastName!",
+              },
+            ]}
+            style={{
+              display: "inline-block",
+              width: "calc(50% - 8px)",
+              margin: "0 8px",
+            }}
+          >
+            <Input
+              size="large"
+              prefix={<UserOutlined className="site-form-item-icon" />}
+              placeholder="นามสกุล"
+            />
           </Form.Item>
           <Form.Item
             label="email"
@@ -138,35 +148,29 @@ const Register = ({ handleSubmit }) => {
             />
           </Form.Item>
           <Form.Item
-            style={{
-              marginBottom: 0,
-            }}
+            name="password"
+            label="password"
+            rules={[{ required: true, message: "Please input your password!" }]}
           >
-            <Form.Item
-              name="password"
-              label="password"
-              rules={[{ required: true, message: "Please input your password!" }]}
-            >
-              <Input.Password />
-            </Form.Item>
-            <Form.Item
-              name="confirmPassword"
-              label="Confirm Password"
-              dependencies={["password"]}
-              rules={[
-                { required: true, message: "Please confirm your password!" },
-                ({ getFieldValue }) => ({
-                  validator(_, value) {
-                    if (!value || getFieldValue("password") === value) {
-                      return Promise.resolve();
-                    }
-                    return Promise.reject(new Error("The two passwords do not match!"));
-                  },
-                }),
-              ]}
-            >
-              <Input.Password />
-            </Form.Item>
+            <Input.Password />
+          </Form.Item>
+          <Form.Item
+            name="confirmPassword"
+            label="Confirm Password"
+            dependencies={["password"]}
+            rules={[
+              { required: true, message: "Please confirm your password!" },
+              ({ getFieldValue }) => ({
+                validator(_, value) {
+                  if (!value || getFieldValue("password") === value) {
+                    return Promise.resolve();
+                  }
+                  return Promise.reject(new Error("The two passwords do not match!"));
+                },
+              }),
+            ]}
+          >
+            <Input.Password />
           </Form.Item>
           <Form.Item
             label="phone_number"
@@ -232,11 +236,11 @@ const Register = ({ handleSubmit }) => {
               <Option value="SuratThani">สุราษฎร์ธานี</Option>
             </Select>
           </Form.Item>
-          <Form.Item name="CheckboxContent">
+          {/* <Form.Item name="CheckboxContent">
             <Checkbox onChange={onChange}>รับคอนเทนต์ผ่านอีเมล</Checkbox>
-          </Form.Item>
+          </Form.Item> */}
           <Form.Item>
-            <Button type="primary" htmlType="submit">
+            <Button type="primary" htmlType="submit" loading={loading}>
               ลงทะเบียน
             </Button>
             <br />
