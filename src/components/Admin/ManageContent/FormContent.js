@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useState } from "react";
 import AdminMenu from "../AdminMenu";
 import { Form, Input, Button, Upload, message } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 
 const FormContent = () => {
+    const [loading, setLoading] = useState(false);
     const onFinish = async (values) => {
+        console.log(values);
+        setLoading(true);
         try {
             const formData = new FormData();
             formData.append('title', values.title);
@@ -24,6 +27,8 @@ const FormContent = () => {
         } catch (error) {
             console.error('Error sending form data:', error);
             message.error('Error sending form data');
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -54,7 +59,7 @@ const FormContent = () => {
                     </Upload>
                 </Form.Item>
                 <Form.Item wrapperCol={{ offset: 4, span: 20 }}>
-                    <Button type="primary" htmlType="submit">
+                    <Button type="primary" htmlType="submit" loading={loading}>
                         Submit
                     </Button>
                 </Form.Item>
