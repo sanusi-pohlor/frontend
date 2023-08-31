@@ -12,6 +12,7 @@ import { Typography, Box, Paper, Avatar } from "@mui/material";
 import axios from "axios";
 
 const { Option } = Select;
+
 const Register = ({ handleSubmit }) => {
   const [selectedprovince, setSelectedprovince] = useState("");
   const handleprovinceChange = (value) => {
@@ -22,24 +23,30 @@ const Register = ({ handleSubmit }) => {
 
   const onFinish = async (values) => {
     console.log(values);
+    console.log(selectedprovince);
     setLoading(true);
     try {
+      const formData = new FormData();
+      formData.append('username', values.username);
+      formData.append('lastName', values.lastName);
+      formData.append('email', values.email);
+      formData.append('password', values.password);
+      formData.append('phone_number', values.phone_number);
+      formData.append('Id_line', values.Id_line);
+      formData.append('province', selectedprovince);
+
       const response = await fetch('http://localhost:8000/api/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(values),
+        method: "POST",
+        body: formData,
       });
-      const data = await response.json();
       if (response.ok) {
-        message.success(data.message);
+        message.success('Form data sent successfully');
       } else {
-        message.error(data.message);
+        message.error('Error sending form data');
       }
     } catch (error) {
-      console.error('Error registering user:', error);
-      message.error('Error registering user');
+      console.error("Error registering user:", error);
+      message.error("Error registering user");
     } finally {
       setLoading(false);
     }
@@ -76,10 +83,9 @@ const Register = ({ handleSubmit }) => {
       <Typography component="h1" variant="h5">
         ลงทะเบียน
       </Typography>
-      <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
         <Form
           layout="vertical"
-          // name="normal_login"
+          name="form_register"
           // className="login-form"
           // initialValues={{
           //   remember: true,
@@ -88,10 +94,10 @@ const Register = ({ handleSubmit }) => {
           style={{
             maxWidth: "100%",
           }}
-        // form={form}
+          // form={form}
         >
           <Form.Item
-            label="username"
+            label="ชื่อ"
             name="username"
             rules={[
               {
@@ -107,11 +113,11 @@ const Register = ({ handleSubmit }) => {
             <Input
               size="large"
               prefix={<UserOutlined className="site-form-item-icon" />}
-              placeholder="ชื่อ"
+              placeholder="Username"
             />
           </Form.Item>
           <Form.Item
-            label="lastName"
+            label="นามสกุล"
             name="lastName"
             rules={[
               {
@@ -128,11 +134,11 @@ const Register = ({ handleSubmit }) => {
             <Input
               size="large"
               prefix={<UserOutlined className="site-form-item-icon" />}
-              placeholder="นามสกุล"
+              placeholder="LastName"
             />
           </Form.Item>
           <Form.Item
-            label="email"
+            label="อีเมล"
             name="email"
             rules={[
               {
@@ -144,13 +150,17 @@ const Register = ({ handleSubmit }) => {
             <Input
               size="large"
               prefix={<MailOutlined className="site-form-item-icon" />}
-              placeholder="อีเมล"
+              placeholder="Email"
             />
           </Form.Item>
           <Form.Item
             name="password"
             label="password"
             rules={[{ required: true, message: "Please input your password!" }]}
+            style={{
+              display: "inline-block",
+              width: "calc(50% - 8px)",
+            }}
           >
             <Input.Password />
           </Form.Item>
@@ -165,10 +175,17 @@ const Register = ({ handleSubmit }) => {
                   if (!value || getFieldValue("password") === value) {
                     return Promise.resolve();
                   }
-                  return Promise.reject(new Error("The two passwords do not match!"));
+                  return Promise.reject(
+                    new Error("The two passwords do not match!")
+                  );
                 },
               }),
             ]}
+            style={{
+              display: "inline-block",
+              width: "calc(50% - 8px)",
+              margin: "0 8px",
+            }}
           >
             <Input.Password />
           </Form.Item>
@@ -257,7 +274,6 @@ const Register = ({ handleSubmit }) => {
             />
           </Form.Item>
         </Form>
-      </Box>
     </Paper>
   );
 };
