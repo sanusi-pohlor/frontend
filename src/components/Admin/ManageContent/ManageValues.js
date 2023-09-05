@@ -89,13 +89,13 @@ const ManageValues = () => {
   };
   const columns1 = [
     {
-      title: 'ID',
+      title: 'รหัสประเภท',
       dataIndex: 'age',
       width: '20%',
       editable: true,
     },
     {
-      title: 'name',
+      title: 'ชื่อประเภท',
       dataIndex: 'name',
       width: '60%',
       editable: true,
@@ -130,19 +130,19 @@ const ManageValues = () => {
   ];
   const columns2 = [
     {
-      title: 'ID',
+      title: 'รหัสประเด็นย่อย',
       dataIndex: 'age',
       width: '15%',
       editable: true,
     },
     {
-      title: 'name',
+      title: 'รหัสประเภท',
       dataIndex: 'name',
       width: '25%',
       editable: true,
     },
     {
-      title: 'address',
+      title: 'ชื่อประเด็นย่อย',
       dataIndex: 'address',
       width: '40%',
       editable: true,
@@ -175,7 +175,764 @@ const ManageValues = () => {
       },
     },
   ];
-  const mergedColumns = columns1.map((col) => {
+  const columns3 = [
+    {
+      title: 'รหัสแรงจูงใจ',
+      dataIndex: 'age',
+      width: '20%',
+      editable: true,
+    },
+    {
+      title: 'ชื่อแรงจูงใจ',
+      dataIndex: 'name',
+      width: '60%',
+      editable: true,
+    },
+    {
+      title: 'operation',
+      dataIndex: 'operation',
+      render: (_, record) => {
+        const editable = isEditing(record);
+        return editable ? (
+          <span>
+            <Typography.Link
+              onClick={() => save(record.key)}
+              style={{
+                marginRight: 8,
+              }}
+            >
+              Save
+            </Typography.Link>
+            <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
+              <a>Cancel</a>
+            </Popconfirm>
+          </span>
+        ) : (
+          <Typography.Link disabled={editingKey !== ''} onClick={() => edit(record)}>
+            Edit
+          </Typography.Link>
+        );
+
+      },
+    },
+  ];
+  const columns4 = [
+    {
+      title: 'รหัสลักษณะข้อมูล',
+      dataIndex: 'age',
+      width: '20%',
+      editable: true,
+    },
+    {
+      title: 'ชื่อลักษณะข้อมูล',
+      dataIndex: 'name',
+      width: '60%',
+      editable: true,
+    },
+    {
+      title: 'operation',
+      dataIndex: 'operation',
+      render: (_, record) => {
+        const editable = isEditing(record);
+        return editable ? (
+          <span>
+            <Typography.Link
+              onClick={() => save(record.key)}
+              style={{
+                marginRight: 8,
+              }}
+            >
+              Save
+            </Typography.Link>
+            <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
+              <a>Cancel</a>
+            </Popconfirm>
+          </span>
+        ) : (
+          <Typography.Link disabled={editingKey !== ''} onClick={() => edit(record)}>
+            Edit
+          </Typography.Link>
+        );
+
+      },
+    },
+  ];
+  const columns5 = [
+    {
+      title: 'รหัสประเภทการกระทำ',
+      dataIndex: 'age',
+      width: '20%',
+      editable: true,
+    },
+    {
+      title: 'ชื่อประเภทการกระทำ',
+      dataIndex: 'name',
+      width: '60%',
+      editable: true,
+    },
+    {
+      title: 'operation',
+      dataIndex: 'operation',
+      render: (_, record) => {
+        const editable = isEditing(record);
+        return editable ? (
+          <span>
+            <Typography.Link
+              onClick={() => save(record.key)}
+              style={{
+                marginRight: 8,
+              }}
+            >
+              Save
+            </Typography.Link>
+            <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
+              <a>Cancel</a>
+            </Popconfirm>
+          </span>
+        ) : (
+          <Typography.Link disabled={editingKey !== ''} onClick={() => edit(record)}>
+            Edit
+          </Typography.Link>
+        );
+
+      },
+    },
+  ];
+  const columns6 = [
+    {
+      title: 'รหัสช่องทางสื่อ',
+      dataIndex: 'age',
+      width: '20%',
+      editable: true,
+    },
+    {
+      title: 'ชื่อช่องทางสื่อ',
+      dataIndex: 'name',
+      width: '60%',
+      editable: true,
+    },
+    {
+      title: 'operation',
+      dataIndex: 'operation',
+      render: (_, record) => {
+        const editable = isEditing(record);
+        return editable ? (
+          <span>
+            <Typography.Link
+              onClick={() => save(record.key)}
+              style={{
+                marginRight: 8,
+              }}
+            >
+              Save
+            </Typography.Link>
+            <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
+              <a>Cancel</a>
+            </Popconfirm>
+          </span>
+        ) : (
+          <Typography.Link disabled={editingKey !== ''} onClick={() => edit(record)}>
+            Edit
+          </Typography.Link>
+        );
+
+      },
+    },
+  ];
+  const columns7 = [
+    {
+      title: 'รหัสตรวจสอบ',
+      dataIndex: 'age',
+      width: '20%',
+      editable: true,
+    },
+    {
+      title: 'รูปแบบการตรวจสอบ',
+      dataIndex: 'name',
+      width: '60%',
+      editable: true,
+    },
+    {
+      title: 'operation',
+      dataIndex: 'operation',
+      render: (_, record) => {
+        const editable = isEditing(record);
+        return editable ? (
+          <span>
+            <Typography.Link
+              onClick={() => save(record.key)}
+              style={{
+                marginRight: 8,
+              }}
+            >
+              Save
+            </Typography.Link>
+            <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
+              <a>Cancel</a>
+            </Popconfirm>
+          </span>
+        ) : (
+          <Typography.Link disabled={editingKey !== ''} onClick={() => edit(record)}>
+            Edit
+          </Typography.Link>
+        );
+
+      },
+    },
+  ];
+  const columns8 = [
+    {
+      title: 'รหัสการจัดการ',
+      dataIndex: 'age',
+      width: '20%',
+      editable: true,
+    },
+    {
+      title: 'วิธีการจัดการ',
+      dataIndex: 'name',
+      width: '60%',
+      editable: true,
+    },
+    {
+      title: 'operation',
+      dataIndex: 'operation',
+      render: (_, record) => {
+        const editable = isEditing(record);
+        return editable ? (
+          <span>
+            <Typography.Link
+              onClick={() => save(record.key)}
+              style={{
+                marginRight: 8,
+              }}
+            >
+              Save
+            </Typography.Link>
+            <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
+              <a>Cancel</a>
+            </Popconfirm>
+          </span>
+        ) : (
+          <Typography.Link disabled={editingKey !== ''} onClick={() => edit(record)}>
+            Edit
+          </Typography.Link>
+        );
+
+      },
+    },
+  ];
+  const columns9 = [
+    {
+      title: 'รหัสรูปแบบข้อมูล',
+      dataIndex: 'age',
+      width: '20%',
+      editable: true,
+    },
+    {
+      title: 'ชื่อรูปแบบข้อมูล',
+      dataIndex: 'name',
+      width: '60%',
+      editable: true,
+    },
+    {
+      title: 'operation',
+      dataIndex: 'operation',
+      render: (_, record) => {
+        const editable = isEditing(record);
+        return editable ? (
+          <span>
+            <Typography.Link
+              onClick={() => save(record.key)}
+              style={{
+                marginRight: 8,
+              }}
+            >
+              Save
+            </Typography.Link>
+            <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
+              <a>Cancel</a>
+            </Popconfirm>
+          </span>
+        ) : (
+          <Typography.Link disabled={editingKey !== ''} onClick={() => edit(record)}>
+            Edit
+          </Typography.Link>
+        );
+
+      },
+    },
+  ];
+  const columns10 = [
+    {
+      title: 'รหัสผู้เผยแพร่',
+      dataIndex: 'age',
+      width: '20%',
+      editable: true,
+    },
+    {
+      title: 'ชื่อผู้เผยแพร',
+      dataIndex: 'name',
+      width: '60%',
+      editable: true,
+    },
+    {
+      title: 'operation',
+      dataIndex: 'operation',
+      render: (_, record) => {
+        const editable = isEditing(record);
+        return editable ? (
+          <span>
+            <Typography.Link
+              onClick={() => save(record.key)}
+              style={{
+                marginRight: 8,
+              }}
+            >
+              Save
+            </Typography.Link>
+            <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
+              <a>Cancel</a>
+            </Popconfirm>
+          </span>
+        ) : (
+          <Typography.Link disabled={editingKey !== ''} onClick={() => edit(record)}>
+            Edit
+          </Typography.Link>
+        );
+
+      },
+    },
+  ];
+  const columns11 = [
+    {
+      title: 'รหัสรายละเอียดการตรวจสอบ',
+      dataIndex: 'age',
+      width: '20%',
+      editable: true,
+    },
+    {
+      title: 'รหัสการตรวจสอบ',
+      dataIndex: 'name',
+      width: '60%',
+      editable: true,
+    },
+    {
+      title: 'รหัสการแจ้ง',
+      dataIndex: 'name',
+      width: '60%',
+      editable: true,
+    },
+    {
+      title: 'วันที่ตรวจสอบ',
+      dataIndex: 'name',
+      width: '60%',
+      editable: true,
+    },
+    {
+      title: 'ข้อมูลเพิ่มเติม',
+      dataIndex: 'name',
+      width: '60%',
+      editable: true,
+    },
+    {
+      title: 'operation',
+      dataIndex: 'operation',
+      render: (_, record) => {
+        const editable = isEditing(record);
+        return editable ? (
+          <span>
+            <Typography.Link
+              onClick={() => save(record.key)}
+              style={{
+                marginRight: 8,
+              }}
+            >
+              Save
+            </Typography.Link>
+            <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
+              <a>Cancel</a>
+            </Popconfirm>
+          </span>
+        ) : (
+          <Typography.Link disabled={editingKey !== ''} onClick={() => edit(record)}>
+            Edit
+          </Typography.Link>
+        );
+
+      },
+    },
+  ];
+  const columns12 = [
+    {
+      title: 'รหัสรายละเอียดช่องทางการแจ้ง',
+      dataIndex: 'age',
+      width: '20%',
+      editable: true,
+    },
+    {
+      title: 'รหัสช่องทางสื่อ',
+      dataIndex: 'name',
+      width: '60%',
+      editable: true,
+    },
+    {
+      title: 'รหัสการแจ้ง',
+      dataIndex: 'name',
+      width: '60%',
+      editable: true,
+    },
+    {
+      title: 'รหัสผู้เผยแพร',
+      dataIndex: 'name',
+      width: '60%',
+      editable: true,
+    },
+    {
+      title: 'รหัสรูปแบบข้อมูล',
+      dataIndex: 'name',
+      width: '60%',
+      editable: true,
+    },
+    {
+      title: 'รหัสการจัดการ',
+      dataIndex: 'name',
+      width: '60%',
+      editable: true,
+    },
+    {
+      title: 'ขอบเขตการเผยแพร',
+      dataIndex: 'name',
+      width: '60%',
+      editable: true,
+    },
+    {
+      title: 'จำนวนสมาชิกในกลุ่มที่อยู่ในสื่อ',
+      dataIndex: 'name',
+      width: '60%',
+      editable: true,
+    },
+    {
+      title: 'วันที่ในสื่อ',
+      dataIndex: 'name',
+      width: '60%',
+      editable: true,
+    },
+    {
+      title: 'ภาพ capture',
+      dataIndex: 'name',
+      width: '60%',
+      editable: true,
+    },
+    {
+      title: 'Link URL',
+      dataIndex: 'name',
+      width: '60%',
+      editable: true,
+    },
+    {
+      title: 'operation',
+      dataIndex: 'operation',
+      render: (_, record) => {
+        const editable = isEditing(record);
+        return editable ? (
+          <span>
+            <Typography.Link
+              onClick={() => save(record.key)}
+              style={{
+                marginRight: 8,
+              }}
+            >
+              Save
+            </Typography.Link>
+            <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
+              <a>Cancel</a>
+            </Popconfirm>
+          </span>
+        ) : (
+          <Typography.Link disabled={editingKey !== ''} onClick={() => edit(record)}>
+            Edit
+          </Typography.Link>
+        );
+
+      },
+    },
+  ];
+  const columns13 = [
+    {
+      title: 'รหัสการแจ้ง',
+      dataIndex: 'age',
+      width: '20%',
+      editable: true,
+    },
+    {
+      title: 'รหัสประเด็นย่อย',
+      dataIndex: 'name',
+      width: '60%',
+      editable: true,
+    },
+    {
+      title: 'รหัสสมาชิก',
+      dataIndex: 'name',
+      width: '60%',
+      editable: true,
+    },
+    {
+      title: 'รหัสแรงจูงใจ',
+      dataIndex: 'name',
+      width: '60%',
+      editable: true,
+    },
+    {
+      title: 'รหัสประเภทการกระทำ',
+      dataIndex: 'name',
+      width: '60%',
+      editable: true,
+    },
+    {
+      title: 'รหัสลักษณะข้อมูล',
+      dataIndex: 'name',
+      width: '60%',
+      editable: true,
+    },
+    {
+      title: 'รายละเอียดในเนื้อหา',
+      dataIndex: 'name',
+      width: '60%',
+      editable: true,
+    },
+    {
+      title: 'จำนวนการวนซ้ำ',
+      dataIndex: 'name',
+      width: '60%',
+      editable: true,
+    },
+    {
+      title: 'วันที่แจ้ง',
+      dataIndex: 'name',
+      width: '60%',
+      editable: true,
+    },
+    {
+      title: 'สถานะการตรวจสอบ',
+      dataIndex: 'name',
+      width: '60%',
+      editable: true,
+    },
+    {
+      title: 'หัวข้อเนื้อหา',
+      dataIndex: 'name',
+      width: '60%',
+      editable: true,
+    },
+    {
+      title: 'operation',
+      dataIndex: 'operation',
+      render: (_, record) => {
+        const editable = isEditing(record);
+        return editable ? (
+          <span>
+            <Typography.Link
+              onClick={() => save(record.key)}
+              style={{
+                marginRight: 8,
+              }}
+            >
+              Save
+            </Typography.Link>
+            <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
+              <a>Cancel</a>
+            </Popconfirm>
+          </span>
+        ) : (
+          <Typography.Link disabled={editingKey !== ''} onClick={() => edit(record)}>
+            Edit
+          </Typography.Link>
+        );
+
+      },
+    },
+  ];
+  const mergedColumns1 = columns1.map((col) => {
+    if (!col.editable) {
+      return col;
+    }
+    return {
+      ...col,
+      onCell: (record) => ({
+        record,
+        inputType: col.dataIndex === 'age' ? 'number' : 'text',
+        dataIndex: col.dataIndex,
+        title: col.title,
+        editing: isEditing(record),
+      }),
+    };
+  });
+  const mergedColumns2 = columns2.map((col) => {
+    if (!col.editable) {
+      return col;
+    }
+    return {
+      ...col,
+      onCell: (record) => ({
+        record,
+        inputType: col.dataIndex === 'age' ? 'number' : 'text',
+        dataIndex: col.dataIndex,
+        title: col.title,
+        editing: isEditing(record),
+      }),
+    };
+  });
+  const mergedColumns3 = columns3.map((col) => {
+    if (!col.editable) {
+      return col;
+    }
+    return {
+      ...col,
+      onCell: (record) => ({
+        record,
+        inputType: col.dataIndex === 'age' ? 'number' : 'text',
+        dataIndex: col.dataIndex,
+        title: col.title,
+        editing: isEditing(record),
+      }),
+    };
+  });
+  const mergedColumns4 = columns4.map((col) => {
+    if (!col.editable) {
+      return col;
+    }
+    return {
+      ...col,
+      onCell: (record) => ({
+        record,
+        inputType: col.dataIndex === 'age' ? 'number' : 'text',
+        dataIndex: col.dataIndex,
+        title: col.title,
+        editing: isEditing(record),
+      }),
+    };
+  });
+  const mergedColumns5 = columns5.map((col) => {
+    if (!col.editable) {
+      return col;
+    }
+    return {
+      ...col,
+      onCell: (record) => ({
+        record,
+        inputType: col.dataIndex === 'age' ? 'number' : 'text',
+        dataIndex: col.dataIndex,
+        title: col.title,
+        editing: isEditing(record),
+      }),
+    };
+  });
+  const mergedColumns6 = columns6.map((col) => {
+    if (!col.editable) {
+      return col;
+    }
+    return {
+      ...col,
+      onCell: (record) => ({
+        record,
+        inputType: col.dataIndex === 'age' ? 'number' : 'text',
+        dataIndex: col.dataIndex,
+        title: col.title,
+        editing: isEditing(record),
+      }),
+    };
+  });
+  const mergedColumns7 = columns7.map((col) => {
+    if (!col.editable) {
+      return col;
+    }
+    return {
+      ...col,
+      onCell: (record) => ({
+        record,
+        inputType: col.dataIndex === 'age' ? 'number' : 'text',
+        dataIndex: col.dataIndex,
+        title: col.title,
+        editing: isEditing(record),
+      }),
+    };
+  });
+  const mergedColumns8 = columns8.map((col) => {
+    if (!col.editable) {
+      return col;
+    }
+    return {
+      ...col,
+      onCell: (record) => ({
+        record,
+        inputType: col.dataIndex === 'age' ? 'number' : 'text',
+        dataIndex: col.dataIndex,
+        title: col.title,
+        editing: isEditing(record),
+      }),
+    };
+  });
+  const mergedColumns9 = columns9.map((col) => {
+    if (!col.editable) {
+      return col;
+    }
+    return {
+      ...col,
+      onCell: (record) => ({
+        record,
+        inputType: col.dataIndex === 'age' ? 'number' : 'text',
+        dataIndex: col.dataIndex,
+        title: col.title,
+        editing: isEditing(record),
+      }),
+    };
+  });
+  const mergedColumns10 = columns10.map((col) => {
+    if (!col.editable) {
+      return col;
+    }
+    return {
+      ...col,
+      onCell: (record) => ({
+        record,
+        inputType: col.dataIndex === 'age' ? 'number' : 'text',
+        dataIndex: col.dataIndex,
+        title: col.title,
+        editing: isEditing(record),
+      }),
+    };
+  });
+  const mergedColumns11 = columns11.map((col) => {
+    if (!col.editable) {
+      return col;
+    }
+    return {
+      ...col,
+      onCell: (record) => ({
+        record,
+        inputType: col.dataIndex === 'age' ? 'number' : 'text',
+        dataIndex: col.dataIndex,
+        title: col.title,
+        editing: isEditing(record),
+      }),
+    };
+  });
+  const mergedColumns12 = columns12.map((col) => {
+    if (!col.editable) {
+      return col;
+    }
+    return {
+      ...col,
+      onCell: (record) => ({
+        record,
+        inputType: col.dataIndex === 'age' ? 'number' : 'text',
+        dataIndex: col.dataIndex,
+        title: col.title,
+        editing: isEditing(record),
+      }),
+    };
+  });
+  const mergedColumns13 = columns13.map((col) => {
     if (!col.editable) {
       return col;
     }
@@ -203,7 +960,7 @@ const ManageValues = () => {
           }}
           bordered
           dataSource={originData} // ใช้ originData แทน data
-          columns={mergedColumns} // ใช้ mergedColumns แทน columns
+          columns={mergedColumns1} // ใช้ mergedColumns แทน columns
           rowClassName="editable-row"
           pagination={{
             onChange: cancel,
@@ -223,7 +980,7 @@ const ManageValues = () => {
           }}
           bordered
           dataSource={originData} // ใช้ originData แทน data
-          columns={mergedColumns} // ใช้ mergedColumns แทน columns
+          columns={mergedColumns2} // ใช้ mergedColumns แทน columns
           rowClassName="editable-row"
           pagination={{
             onChange: cancel,
@@ -243,7 +1000,7 @@ const ManageValues = () => {
           }}
           bordered
           dataSource={originData} // ใช้ originData แทน data
-          columns={mergedColumns} // ใช้ mergedColumns แทน columns
+          columns={mergedColumns3} // ใช้ mergedColumns แทน columns
           rowClassName="editable-row"
           pagination={{
             onChange: cancel,
@@ -263,7 +1020,7 @@ const ManageValues = () => {
           }}
           bordered
           dataSource={originData} // ใช้ originData แทน data
-          columns={mergedColumns} // ใช้ mergedColumns แทน columns
+          columns={mergedColumns4} // ใช้ mergedColumns แทน columns
           rowClassName="editable-row"
           pagination={{
             onChange: cancel,
@@ -283,7 +1040,7 @@ const ManageValues = () => {
           }}
           bordered
           dataSource={originData} // ใช้ originData แทน data
-          columns={mergedColumns} // ใช้ mergedColumns แทน columns
+          columns={mergedColumns5} // ใช้ mergedColumns แทน columns
           rowClassName="editable-row"
           pagination={{
             onChange: cancel,
@@ -303,7 +1060,7 @@ const ManageValues = () => {
           }}
           bordered
           dataSource={originData} // ใช้ originData แทน data
-          columns={mergedColumns} // ใช้ mergedColumns แทน columns
+          columns={mergedColumns6} // ใช้ mergedColumns แทน columns
           rowClassName="editable-row"
           pagination={{
             onChange: cancel,
@@ -323,7 +1080,7 @@ const ManageValues = () => {
           }}
           bordered
           dataSource={originData} // ใช้ originData แทน data
-          columns={mergedColumns} // ใช้ mergedColumns แทน columns
+          columns={mergedColumns7} // ใช้ mergedColumns แทน columns
           rowClassName="editable-row"
           pagination={{
             onChange: cancel,
@@ -343,7 +1100,7 @@ const ManageValues = () => {
           }}
           bordered
           dataSource={originData} // ใช้ originData แทน data
-          columns={mergedColumns} // ใช้ mergedColumns แทน columns
+          columns={mergedColumns8} // ใช้ mergedColumns แทน columns
           rowClassName="editable-row"
           pagination={{
             onChange: cancel,
@@ -363,7 +1120,7 @@ const ManageValues = () => {
           }}
           bordered
           dataSource={originData} // ใช้ originData แทน data
-          columns={mergedColumns} // ใช้ mergedColumns แทน columns
+          columns={mergedColumns9} // ใช้ mergedColumns แทน columns
           rowClassName="editable-row"
           pagination={{
             onChange: cancel,
@@ -383,7 +1140,7 @@ const ManageValues = () => {
           }}
           bordered
           dataSource={originData} // ใช้ originData แทน data
-          columns={mergedColumns} // ใช้ mergedColumns แทน columns
+          columns={mergedColumns10} // ใช้ mergedColumns แทน columns
           rowClassName="editable-row"
           pagination={{
             onChange: cancel,
@@ -404,7 +1161,7 @@ const ManageValues = () => {
           }}
           bordered
           dataSource={originData} // ใช้ originData แทน data
-          columns={mergedColumns} // ใช้ mergedColumns แทน columns
+          columns={mergedColumns11} // ใช้ mergedColumns แทน columns
           rowClassName="editable-row"
           pagination={{
             onChange: cancel,
@@ -423,7 +1180,7 @@ const ManageValues = () => {
           }}
           bordered
           dataSource={originData} // ใช้ originData แทน data
-          columns={mergedColumns} // ใช้ mergedColumns แทน columns
+          columns={mergedColumns12} // ใช้ mergedColumns แทน columns
           rowClassName="editable-row"
           pagination={{
             onChange: cancel,
@@ -443,7 +1200,7 @@ const ManageValues = () => {
           }}
           bordered
           dataSource={originData} // ใช้ originData แทน data
-          columns={mergedColumns} // ใช้ mergedColumns แทน columns
+          columns={mergedColumns13} // ใช้ mergedColumns แทน columns
           rowClassName="editable-row"
           pagination={{
             onChange: cancel,
