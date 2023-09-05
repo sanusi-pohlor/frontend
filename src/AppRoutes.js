@@ -10,6 +10,7 @@ import PersonalInformation from "./components/FakeNewsComponents/PersonalInforma
 import ManageMembers from "./components/Admin/ManageMembers";
 import ManuContent from "./components/Admin/ManageContent/ManuContent";
 import FormContent from "./components/Admin/ManageContent/FormContent";
+import ManageValues from "./components/Admin/ManageContent/ManageValues";
 import AdvancedSearch from "./components/Admin/AdvancedSearch";
 import MChecking from "./components/Admin/ManageFakeNews/MChecking";
 import MInformation from "./components/Admin/ManageFakeNews/MInformation";
@@ -29,7 +30,7 @@ const AppRoutes = () => {
       <div>
         <MenuNavbar />
         <div id="background" className="background">
-        <Box height="6vh"/>
+          <Box height="6vh" />
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/FakeNews" element={<FakeNewInformation />} />
@@ -45,6 +46,7 @@ const AppRoutes = () => {
             <Route path="/Admin" element={<ManageMembers />} />
             <Route path="/Admin/ManuContent" element={<ManuContent />} />
             <Route path="/Admin/FormContent" element={<FormContent />} />
+            <Route path="/Admin/ManageValues" element={<ManageValues />} />
             <Route path="/Admin/AdvancedSearch" element={<AdvancedSearch />} />
             <Route path="/Admin/MChecking" element={<MChecking />} />
             <Route path="/Admin/MInformation" element={<MInformation />} />

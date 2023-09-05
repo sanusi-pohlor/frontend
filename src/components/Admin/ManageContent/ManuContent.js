@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { PlusCircleOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import { PlusCircleOutlined, EditOutlined, DeleteOutlined,UnorderedListOutlined } from '@ant-design/icons';
 import { Space, Table, Tag, Button, Popconfirm, message } from 'antd';
 import AdminMenu from "../AdminMenu";
 import { Link } from 'react-router-dom';
@@ -79,6 +79,11 @@ const ManuContont = () => {
         <Link to="/Admin/FormContent">
           <Button type="primary" shape="round" icon={<PlusCircleOutlined />} size="large">
             Add Content
+          </Button>
+        </Link>
+        <Link to="/Admin/ManageValues">
+          <Button type="primary" shape="round" icon={<UnorderedListOutlined />} size="large">
+            Manage Values
           </Button>
         </Link>
       </div>
