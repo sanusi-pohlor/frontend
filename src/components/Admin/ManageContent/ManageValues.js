@@ -1218,3 +1218,162 @@ const ManageValues = () => {
 };
 
 export default ManageValues;
+
+
+// import React, { useState, useEffect } from 'react';
+// import AdminMenu from '../AdminMenu';
+// import { Form, Input, InputNumber, Popconfirm, Table, Typography } from 'antd';
+// import { Collapse } from 'antd';
+// import Axios from 'axios'; // Import Axios for making HTTP requests
+
+// const ManageValues = () => {
+//   const [form] = Form.useForm();
+//   const [editingKey, setEditingKey] = useState('');
+//   const [originData, setOriginData] = useState([]);
+//   const [loading, setLoading] = useState(true); // State to track loading state
+
+//   const fetchData = async () => {
+//     try {
+//       const response = await Axios.get('your_api_endpoint_here');
+//       setOriginData(response.data); // Update the data in your state
+//       setLoading(false); // Data loading is complete
+//     } catch (error) {
+//       console.error('Error fetching data:', error);
+//     }
+//   };
+
+//   useEffect(() => {
+//     fetchData(); // Fetch data when the component mounts
+//   }, []);
+
+//   const isEditing = (record) => record.key === editingKey;
+//   const edit = (record) => {
+//     form.setFieldsValue({
+//       name: '',
+//       age: '',
+//       address: '',
+//       ...record,
+//     });
+//     setEditingKey(record.key);
+//   };
+//   const cancel = () => {
+//     setEditingKey('');
+//   };
+//   const save = async (key) => {
+//     try {
+//       const row = await form.validateFields();
+//       const newData = [...originData];
+//       const index = newData.findIndex((item) => key === item.key);
+//       if (index > -1) {
+//         const item = newData[index];
+//         newData.splice(index, 1, {
+//           ...item,
+//           ...row,
+//         });
+//         setOriginData(newData); // Update the data with the edited row
+//         setEditingKey('');
+//       } else {
+//         newData.push(row);
+//         setOriginData(newData); // Update the data with the new row
+//         setEditingKey('');
+//       }
+//     } catch (errInfo) {
+//       console.log('Validate Failed:', errInfo);
+//     }
+//   };
+
+//   const columns = [
+//     {
+//       title: 'age',
+//       dataIndex: 'age',
+//       width: '15%',
+//       editable: true,
+//     },
+//     {
+//       title: 'name',
+//       dataIndex: 'name',
+//       width: '25%',
+//       editable: true,
+//     },
+//     {
+//       title: 'address',
+//       dataIndex: 'address',
+//       width: '40%',
+//       editable: true,
+//     },
+//     {
+//       title: 'operation',
+//       dataIndex: 'operation',
+//       render: (_, record) => {
+//         const editable = isEditing(record);
+//         return editable ? (
+//           <span>
+//             <Typography.Link
+//               onClick={() => save(record.key)}
+//               style={{
+//                 marginRight: 8,
+//               }}
+//             >
+//               Save
+//             </Typography.Link>
+//             <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
+//               <a>Cancel</a>
+//             </Popconfirm>
+//           </span>
+//         ) : (
+//           <Typography.Link disabled={editingKey !== ''} onClick={() => edit(record)}>
+//             Edit
+//           </Typography.Link>
+//         );
+//       },
+//     },
+//   ];
+
+//   const mergedColumns = columns.map((col) => {
+//     if (!col.editable) {
+//       return col;
+//     }
+//     return {
+//       ...col,
+//       onCell: (record) => ({
+//         record,
+//         inputType: col.dataIndex === 'age' ? 'number' : 'text',
+//         dataIndex: col.dataIndex,
+//         title: col.title,
+//         editing: isEditing(record),
+//       }),
+//     };
+//   });
+
+//   const items = [
+//     {
+//       key: '1',
+//       label: 'Data Management',
+//       children: (
+//         <Table
+//           components={{
+//             body: {
+//               cell: EditableCell,
+//             },
+//           }}
+//           bordered
+//           dataSource={originData}
+//           columns={mergedColumns}
+//           rowClassName="editable-row"
+//           pagination={{
+//             onChange: cancel,
+//           }}
+//           loading={loading} // Show loading indicator while data is being fetched
+//         />
+//       ),
+//     },
+//   ];
+
+//   return (
+//     <AdminMenu>
+//       <Collapse accordion items={items} />
+//     </AdminMenu>
+//   );
+// };
+
+// export default ManageValues;
