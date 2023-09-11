@@ -1,7 +1,62 @@
 import React, { useState } from 'react';
 import AdminMenu from "../AdminMenu";
-import { Form, Input, InputNumber, Popconfirm, Table, Typography } from 'antd';
+import { Form, Input, InputNumber, Popconfirm, Table, Typography, Button, Modal, Radio } from 'antd';
 import { Collapse } from 'antd';
+
+const CollectionCreateForm = ({ open, onCreate, onCancel }) => {
+  const [form] = Form.useForm();
+  return (
+    <Modal
+      open={open}
+      title="Create a new collection"
+      okText="Create"
+      cancelText="Cancel"
+      onCancel={onCancel}
+      onOk={() => {
+        form
+          .validateFields()
+          .then((values) => {
+            form.resetFields();
+            onCreate(values);
+          })
+          .catch((info) => {
+            console.log('Validate Failed:', info);
+          });
+      }}
+    >
+      <Form
+        form={form}
+        layout="vertical"
+        name="form_in_modal"
+        initialValues={{
+          modifier: 'public',
+        }}
+      >
+        <Form.Item
+          name="title"
+          label="Title"
+          rules={[
+            {
+              required: true,
+              message: 'Please input the title of collection!',
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item name="description" label="Description">
+          <Input type="textarea" />
+        </Form.Item>
+        <Form.Item name="modifier" className="collection-create-form_last-form-item">
+          <Radio.Group>
+            <Radio value="public">Public</Radio>
+            <Radio value="private">Private</Radio>
+          </Radio.Group>
+        </Form.Item>
+      </Form>
+    </Modal>
+  );
+};
 
 const originData = [];
 for (let i = 0; i < 20; i++) {
@@ -48,9 +103,34 @@ const EditableCell = ({
 };
 
 const ManageValues = () => {
+
+  const [open, setOpen] = useState(false);
+  const onCreate = (values) => {
+    console.log('Received values of form: ', values);
+    setOpen(false);
+  };
   const [form] = Form.useForm();
   const [editingKey, setEditingKey] = useState('');
   const isEditing = (record) => record.key === editingKey;
+
+  const createMergedColumns = (columns) => {
+    return columns.map((col) => {
+      if (!col.editable) {
+        return col;
+      }
+      return {
+        ...col,
+        onCell: (record) => ({
+          record,
+          inputType: col.dataIndex === 'age' ? 'number' : 'text',
+          dataIndex: col.dataIndex,
+          title: col.title,
+          editing: isEditing(record),
+        }),
+      };
+    });
+  };
+
   const edit = (record) => {
     form.setFieldsValue({
       name: '',
@@ -752,206 +832,13 @@ const ManageValues = () => {
       },
     },
   ];
-  const mergedColumns1 = columns1.map((col) => {
-    if (!col.editable) {
-      return col;
-    }
-    return {
-      ...col,
-      onCell: (record) => ({
-        record,
-        inputType: col.dataIndex === 'age' ? 'number' : 'text',
-        dataIndex: col.dataIndex,
-        title: col.title,
-        editing: isEditing(record),
-      }),
-    };
-  });
-  const mergedColumns2 = columns2.map((col) => {
-    if (!col.editable) {
-      return col;
-    }
-    return {
-      ...col,
-      onCell: (record) => ({
-        record,
-        inputType: col.dataIndex === 'age' ? 'number' : 'text',
-        dataIndex: col.dataIndex,
-        title: col.title,
-        editing: isEditing(record),
-      }),
-    };
-  });
-  const mergedColumns3 = columns3.map((col) => {
-    if (!col.editable) {
-      return col;
-    }
-    return {
-      ...col,
-      onCell: (record) => ({
-        record,
-        inputType: col.dataIndex === 'age' ? 'number' : 'text',
-        dataIndex: col.dataIndex,
-        title: col.title,
-        editing: isEditing(record),
-      }),
-    };
-  });
-  const mergedColumns4 = columns4.map((col) => {
-    if (!col.editable) {
-      return col;
-    }
-    return {
-      ...col,
-      onCell: (record) => ({
-        record,
-        inputType: col.dataIndex === 'age' ? 'number' : 'text',
-        dataIndex: col.dataIndex,
-        title: col.title,
-        editing: isEditing(record),
-      }),
-    };
-  });
-  const mergedColumns5 = columns5.map((col) => {
-    if (!col.editable) {
-      return col;
-    }
-    return {
-      ...col,
-      onCell: (record) => ({
-        record,
-        inputType: col.dataIndex === 'age' ? 'number' : 'text',
-        dataIndex: col.dataIndex,
-        title: col.title,
-        editing: isEditing(record),
-      }),
-    };
-  });
-  const mergedColumns6 = columns6.map((col) => {
-    if (!col.editable) {
-      return col;
-    }
-    return {
-      ...col,
-      onCell: (record) => ({
-        record,
-        inputType: col.dataIndex === 'age' ? 'number' : 'text',
-        dataIndex: col.dataIndex,
-        title: col.title,
-        editing: isEditing(record),
-      }),
-    };
-  });
-  const mergedColumns7 = columns7.map((col) => {
-    if (!col.editable) {
-      return col;
-    }
-    return {
-      ...col,
-      onCell: (record) => ({
-        record,
-        inputType: col.dataIndex === 'age' ? 'number' : 'text',
-        dataIndex: col.dataIndex,
-        title: col.title,
-        editing: isEditing(record),
-      }),
-    };
-  });
-  const mergedColumns8 = columns8.map((col) => {
-    if (!col.editable) {
-      return col;
-    }
-    return {
-      ...col,
-      onCell: (record) => ({
-        record,
-        inputType: col.dataIndex === 'age' ? 'number' : 'text',
-        dataIndex: col.dataIndex,
-        title: col.title,
-        editing: isEditing(record),
-      }),
-    };
-  });
-  const mergedColumns9 = columns9.map((col) => {
-    if (!col.editable) {
-      return col;
-    }
-    return {
-      ...col,
-      onCell: (record) => ({
-        record,
-        inputType: col.dataIndex === 'age' ? 'number' : 'text',
-        dataIndex: col.dataIndex,
-        title: col.title,
-        editing: isEditing(record),
-      }),
-    };
-  });
-  const mergedColumns10 = columns10.map((col) => {
-    if (!col.editable) {
-      return col;
-    }
-    return {
-      ...col,
-      onCell: (record) => ({
-        record,
-        inputType: col.dataIndex === 'age' ? 'number' : 'text',
-        dataIndex: col.dataIndex,
-        title: col.title,
-        editing: isEditing(record),
-      }),
-    };
-  });
-  const mergedColumns11 = columns11.map((col) => {
-    if (!col.editable) {
-      return col;
-    }
-    return {
-      ...col,
-      onCell: (record) => ({
-        record,
-        inputType: col.dataIndex === 'age' ? 'number' : 'text',
-        dataIndex: col.dataIndex,
-        title: col.title,
-        editing: isEditing(record),
-      }),
-    };
-  });
-  const mergedColumns12 = columns12.map((col) => {
-    if (!col.editable) {
-      return col;
-    }
-    return {
-      ...col,
-      onCell: (record) => ({
-        record,
-        inputType: col.dataIndex === 'age' ? 'number' : 'text',
-        dataIndex: col.dataIndex,
-        title: col.title,
-        editing: isEditing(record),
-      }),
-    };
-  });
-  const mergedColumns13 = columns13.map((col) => {
-    if (!col.editable) {
-      return col;
-    }
-    return {
-      ...col,
-      onCell: (record) => ({
-        record,
-        inputType: col.dataIndex === 'age' ? 'number' : 'text',
-        dataIndex: col.dataIndex,
-        title: col.title,
-        editing: isEditing(record),
-      }),
-    };
-  });
-  const items = [
-    {
-      key: '1',
-      label: 'ประเภทเนื้อหาข้อมูลเท็จ',
-      children: (
+  const columnSets = [columns1, columns2, columns3,columns4, columns5, columns6,columns7, columns8, columns9,columns10, columns11, columns12,columns13];
+  const mergedColumnsSets = [];
+  const items = columnSets.map((columns, index) => ({
+    key: (index + 1).toString(),
+    label: `Label ${index + 1}`,
+    children: (
+      <div>
         <Table
           components={{
             body: {
@@ -960,255 +847,309 @@ const ManageValues = () => {
           }}
           bordered
           dataSource={originData} // ใช้ originData แทน data
-          columns={mergedColumns1} // ใช้ mergedColumns แทน columns
+          columns={createMergedColumns(columns)} // Use createMergedColumns to generate mergedColumns
           rowClassName="editable-row"
           pagination={{
             onChange: cancel,
           }}
         />
-      ),
-    },
-    {
-      key: '2',
-      label: 'ประเด็นย่อย',
-      children: (
-        <Table
-          components={{
-            body: {
-              cell: EditableCell,
-            },
+        <Button
+          type="primary"
+          onClick={() => {
+            setOpen(true);
           }}
-          bordered
-          dataSource={originData} // ใช้ originData แทน data
-          columns={mergedColumns2} // ใช้ mergedColumns แทน columns
-          rowClassName="editable-row"
-          pagination={{
-            onChange: cancel,
+        >
+          New Collection
+        </Button>
+        <CollectionCreateForm
+          open={open}
+          onCreate={onCreate}
+          onCancel={() => {
+            setOpen(false);
           }}
         />
-      ),
-    },
-    {
-      key: '3',
-      label: 'แรงจูงใจ',
-      children: (
-        <Table
-          components={{
-            body: {
-              cell: EditableCell,
-            },
-          }}
-          bordered
-          dataSource={originData} // ใช้ originData แทน data
-          columns={mergedColumns3} // ใช้ mergedColumns แทน columns
-          rowClassName="editable-row"
-          pagination={{
-            onChange: cancel,
-          }}
-        />
-      ),
-    },
-    {
-      key: '4',
-      label: 'แรงจูงใจ',
-      children: (
-        <Table
-          components={{
-            body: {
-              cell: EditableCell,
-            },
-          }}
-          bordered
-          dataSource={originData} // ใช้ originData แทน data
-          columns={mergedColumns4} // ใช้ mergedColumns แทน columns
-          rowClassName="editable-row"
-          pagination={{
-            onChange: cancel,
-          }}
-        />
-      ),
-    },
-    {
-      key: '5',
-      label: 'ประเภทการกระทำ',
-      children: (
-        <Table
-          components={{
-            body: {
-              cell: EditableCell,
-            },
-          }}
-          bordered
-          dataSource={originData} // ใช้ originData แทน data
-          columns={mergedColumns5} // ใช้ mergedColumns แทน columns
-          rowClassName="editable-row"
-          pagination={{
-            onChange: cancel,
-          }}
-        />
-      ),
-    },
-    {
-      key: '6',
-      label: 'ช่องทางสื่อ',
-      children: (
-        <Table
-          components={{
-            body: {
-              cell: EditableCell,
-            },
-          }}
-          bordered
-          dataSource={originData} // ใช้ originData แทน data
-          columns={mergedColumns6} // ใช้ mergedColumns แทน columns
-          rowClassName="editable-row"
-          pagination={{
-            onChange: cancel,
-          }}
-        />
-      ),
-    },
-    {
-      key: '7',
-      label: 'การตรวจสอบ',
-      children: (
-        <Table
-          components={{
-            body: {
-              cell: EditableCell,
-            },
-          }}
-          bordered
-          dataSource={originData} // ใช้ originData แทน data
-          columns={mergedColumns7} // ใช้ mergedColumns แทน columns
-          rowClassName="editable-row"
-          pagination={{
-            onChange: cancel,
-          }}
-        />
-      ),
-    },
-    {
-      key: '8',
-      label: 'การจัดการปัญหา',
-      children: (
-        <Table
-          components={{
-            body: {
-              cell: EditableCell,
-            },
-          }}
-          bordered
-          dataSource={originData} // ใช้ originData แทน data
-          columns={mergedColumns8} // ใช้ mergedColumns แทน columns
-          rowClassName="editable-row"
-          pagination={{
-            onChange: cancel,
-          }}
-        />
-      ),
-    },
-    {
-      key: '9',
-      label: 'รูปแบบของข้อมูล',
-      children: (
-        <Table
-          components={{
-            body: {
-              cell: EditableCell,
-            },
-          }}
-          bordered
-          dataSource={originData} // ใช้ originData แทน data
-          columns={mergedColumns9} // ใช้ mergedColumns แทน columns
-          rowClassName="editable-row"
-          pagination={{
-            onChange: cancel,
-          }}
-        />
-      ),
-    },
-    {
-      key: '10',
-      label: 'ผู้เผยแพร่',
-      children: (
-        <Table
-          components={{
-            body: {
-              cell: EditableCell,
-            },
-          }}
-          bordered
-          dataSource={originData} // ใช้ originData แทน data
-          columns={mergedColumns10} // ใช้ mergedColumns แทน columns
-          rowClassName="editable-row"
-          pagination={{
-            onChange: cancel,
-          }}
-        />
-      ),
-    },
+      </div>
+    ),
+  }));
+  // const items = [
+  //   {
+  //     key: '1',
+  //     label: 'ประเภทเนื้อหาข้อมูลเท็จ',
+  //     children: (
+  //       <div>
+  //         <Table
+  //           components={{
+  //             body: {
+  //               cell: EditableCell,
+  //             },
+  //           }}
+  //           bordered
+  //           dataSource={originData} // ใช้ originData แทน data
+  //           columns={mergedColumns1} // ใช้ mergedColumns แทน columns
+  //           rowClassName="editable-row"
+  //           pagination={{
+  //             onChange: cancel,
+  //           }}
+  //         />
+  //         <Button
+  //           type="primary"
+  //           onClick={() => {
+  //             setOpen(true);
+  //           }}
+  //         >
+  //           New Collection
+  //         </Button>
+  //         <CollectionCreateForm
+  //           open={open}
+  //           onCreate={onCreate}
+  //           onCancel={() => {
+  //             setOpen(false);
+  //           }}
+  //         />
+  //       </div>
+  //     ),
+  //   },
+  //   {
+  //     key: '2',
+  //     label: 'ประเด็นย่อย',
+  //     children: (
+  //       <Table
+  //         components={{
+  //           body: {
+  //             cell: EditableCell,
+  //           },
+  //         }}
+  //         bordered
+  //         dataSource={originData} // ใช้ originData แทน data
+  //         columns={mergedColumns2} // ใช้ mergedColumns แทน columns
+  //         rowClassName="editable-row"
+  //         pagination={{
+  //           onChange: cancel,
+  //         }}
+  //       />
+  //     ),
+  //   },
+  //   {
+  //     key: '3',
+  //     label: 'แรงจูงใจ',
+  //     children: (
+  //       <Table
+  //         components={{
+  //           body: {
+  //             cell: EditableCell,
+  //           },
+  //         }}
+  //         bordered
+  //         dataSource={originData} // ใช้ originData แทน data
+  //         columns={mergedColumns3} // ใช้ mergedColumns แทน columns
+  //         rowClassName="editable-row"
+  //         pagination={{
+  //           onChange: cancel,
+  //         }}
+  //       />
+  //     ),
+  //   },
+  //   {
+  //     key: '4',
+  //     label: 'ลักษณะข้อมูล',
+  //     children: (
+  //       <Table
+  //         components={{
+  //           body: {
+  //             cell: EditableCell,
+  //           },
+  //         }}
+  //         bordered
+  //         dataSource={originData} // ใช้ originData แทน data
+  //         columns={mergedColumns4} // ใช้ mergedColumns แทน columns
+  //         rowClassName="editable-row"
+  //         pagination={{
+  //           onChange: cancel,
+  //         }}
+  //       />
+  //     ),
+  //   },
+  //   {
+  //     key: '5',
+  //     label: 'ประเภทการกระทำ',
+  //     children: (
+  //       <Table
+  //         components={{
+  //           body: {
+  //             cell: EditableCell,
+  //           },
+  //         }}
+  //         bordered
+  //         dataSource={originData} // ใช้ originData แทน data
+  //         columns={mergedColumns5} // ใช้ mergedColumns แทน columns
+  //         rowClassName="editable-row"
+  //         pagination={{
+  //           onChange: cancel,
+  //         }}
+  //       />
+  //     ),
+  //   },
+  //   {
+  //     key: '6',
+  //     label: 'ช่องทางสื่อ',
+  //     children: (
+  //       <Table
+  //         components={{
+  //           body: {
+  //             cell: EditableCell,
+  //           },
+  //         }}
+  //         bordered
+  //         dataSource={originData} // ใช้ originData แทน data
+  //         columns={mergedColumns6} // ใช้ mergedColumns แทน columns
+  //         rowClassName="editable-row"
+  //         pagination={{
+  //           onChange: cancel,
+  //         }}
+  //       />
+  //     ),
+  //   },
+  //   {
+  //     key: '7',
+  //     label: 'การตรวจสอบ',
+  //     children: (
+  //       <Table
+  //         components={{
+  //           body: {
+  //             cell: EditableCell,
+  //           },
+  //         }}
+  //         bordered
+  //         dataSource={originData} // ใช้ originData แทน data
+  //         columns={mergedColumns7} // ใช้ mergedColumns แทน columns
+  //         rowClassName="editable-row"
+  //         pagination={{
+  //           onChange: cancel,
+  //         }}
+  //       />
+  //     ),
+  //   },
+  //   {
+  //     key: '8',
+  //     label: 'การจัดการปัญหา',
+  //     children: (
+  //       <Table
+  //         components={{
+  //           body: {
+  //             cell: EditableCell,
+  //           },
+  //         }}
+  //         bordered
+  //         dataSource={originData} // ใช้ originData แทน data
+  //         columns={mergedColumns8} // ใช้ mergedColumns แทน columns
+  //         rowClassName="editable-row"
+  //         pagination={{
+  //           onChange: cancel,
+  //         }}
+  //       />
+  //     ),
+  //   },
+  //   {
+  //     key: '9',
+  //     label: 'รูปแบบของข้อมูล',
+  //     children: (
+  //       <Table
+  //         components={{
+  //           body: {
+  //             cell: EditableCell,
+  //           },
+  //         }}
+  //         bordered
+  //         dataSource={originData} // ใช้ originData แทน data
+  //         columns={mergedColumns9} // ใช้ mergedColumns แทน columns
+  //         rowClassName="editable-row"
+  //         pagination={{
+  //           onChange: cancel,
+  //         }}
+  //       />
+  //     ),
+  //   },
+  //   {
+  //     key: '10',
+  //     label: 'ผู้เผยแพร่',
+  //     children: (
+  //       <Table
+  //         components={{
+  //           body: {
+  //             cell: EditableCell,
+  //           },
+  //         }}
+  //         bordered
+  //         dataSource={originData} // ใช้ originData แทน data
+  //         columns={mergedColumns10} // ใช้ mergedColumns แทน columns
+  //         rowClassName="editable-row"
+  //         pagination={{
+  //           onChange: cancel,
+  //         }}
+  //       />
+  //     ),
+  //   },
 
-    {
-      key: '11',
-      label: 'รายละเอียดช่องทางการแจ้ง',
-      children: (
-        <Table
-          components={{
-            body: {
-              cell: EditableCell,
-            },
-          }}
-          bordered
-          dataSource={originData} // ใช้ originData แทน data
-          columns={mergedColumns11} // ใช้ mergedColumns แทน columns
-          rowClassName="editable-row"
-          pagination={{
-            onChange: cancel,
-          }}
-        />
-      ),
-    }, {
-      key: '12',
-      label: 'การแจ้งข้อมูลที่เป็นเท็จ',
-      children: (
-        <Table
-          components={{
-            body: {
-              cell: EditableCell,
-            },
-          }}
-          bordered
-          dataSource={originData} // ใช้ originData แทน data
-          columns={mergedColumns12} // ใช้ mergedColumns แทน columns
-          rowClassName="editable-row"
-          pagination={{
-            onChange: cancel,
-          }}
-        />
-      ),
-    },
-    {
-      key: '13',
-      label: 'สมาชิกอาสา',
-      children: (
-        <Table
-          components={{
-            body: {
-              cell: EditableCell,
-            },
-          }}
-          bordered
-          dataSource={originData} // ใช้ originData แทน data
-          columns={mergedColumns13} // ใช้ mergedColumns แทน columns
-          rowClassName="editable-row"
-          pagination={{
-            onChange: cancel,
-          }}
-        />
-      ),
-    },
-  ];
+  //   {
+  //     key: '11',
+  //     label: 'รายละเอียดช่องทางการแจ้ง',
+  //     children: (
+  //       <Table
+  //         components={{
+  //           body: {
+  //             cell: EditableCell,
+  //           },
+  //         }}
+  //         bordered
+  //         dataSource={originData} // ใช้ originData แทน data
+  //         columns={mergedColumns11} // ใช้ mergedColumns แทน columns
+  //         rowClassName="editable-row"
+  //         pagination={{
+  //           onChange: cancel,
+  //         }}
+  //       />
+  //     ),
+  //   }, {
+  //     key: '12',
+  //     label: 'การแจ้งข้อมูลที่เป็นเท็จ',
+  //     children: (
+  //       <Table
+  //         components={{
+  //           body: {
+  //             cell: EditableCell,
+  //           },
+  //         }}
+  //         bordered
+  //         dataSource={originData} // ใช้ originData แทน data
+  //         columns={mergedColumns12} // ใช้ mergedColumns แทน columns
+  //         rowClassName="editable-row"
+  //         pagination={{
+  //           onChange: cancel,
+  //         }}
+  //       />
+  //     ),
+  //   },
+  //   {
+  //     key: '13',
+  //     label: 'สมาชิกอาสา',
+  //     children: (
+  //       <Table
+  //         components={{
+  //           body: {
+  //             cell: EditableCell,
+  //           },
+  //         }}
+  //         bordered
+  //         dataSource={originData} // ใช้ originData แทน data
+  //         columns={mergedColumns13} // ใช้ mergedColumns แทน columns
+  //         rowClassName="editable-row"
+  //         pagination={{
+  //           onChange: cancel,
+  //         }}
+  //       />
+  //     ),
+  //   },
+  // ];
 
   return (
     <AdminMenu>
