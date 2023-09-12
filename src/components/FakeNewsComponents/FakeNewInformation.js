@@ -4,7 +4,7 @@ import {
   LinkOutlined,
   EnvironmentOutlined,
 } from "@ant-design/icons";
-import UserProfile from "../UserComoponents/UserProfile";
+import UserProfile from "../UserComoponents/MenuProfile";
 import React, { useState } from "react";
 import { Button, DatePicker, Form, Input, Select, Upload } from "antd";
 import "./FakeNewInformation.css";

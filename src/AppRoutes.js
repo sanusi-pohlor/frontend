@@ -17,7 +17,8 @@ import MInformation from "./components/Admin/ManageFakeNews/MInformation";
 import MMedia from "./components/Admin/ManageFakeNews/MMedia";
 import MProblem from "./components/Admin/ManageFakeNews/MProblem";
 import MType from "./components/Admin/ManageFakeNews/MType";
-import UserProfile from "./components/UserComoponents/UserProfile";
+import MenuProfile from "./components/UserComoponents/MenuProfile";
+import Profile from "./components/UserComoponents/Profile";
 import Login from "./components/UserComoponents/Login";
 import Register from "./components/UserComoponents/Register";
 import {
@@ -53,7 +54,8 @@ const AppRoutes = () => {
             <Route path="/Admin/MMedia" element={<MMedia />} />
             <Route path="/Admin/MProblem" element={<MProblem />} />
             <Route path="/Admin/MType" element={<MType />} />
-            <Route path="/User/Profile" element={<UserProfile />} />
+            <Route path="/User/MenuProfile" element={<MenuProfile />} />
+            <Route path="/User/Profile" element={<MenuProfile />} />
             <Route path="/User/Login" element={<Login />} />
             <Route path="/User/Register" element={<Register />} />
           </Routes>

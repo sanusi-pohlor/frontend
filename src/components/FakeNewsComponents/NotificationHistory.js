@@ -1,6 +1,6 @@
 import React from 'react';
 import { Space, Table, Tag } from 'antd';
-import UserProfile from '../UserComoponents/UserProfile';
+import UserProfile from '../UserComoponents/MenuProfile';
 
 const columns = [
   {

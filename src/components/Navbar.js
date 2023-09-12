@@ -145,7 +145,7 @@ const MenuNavbar = () => {
               <MenuItem component={Link} to="/User/Register">
                 Register
               </MenuItem>
-              <MenuItem component={Link} to="/User/Profile">
+              <MenuItem component={Link} to="/User/MenuProfile">
                 User Profile
               </MenuItem>
               <MenuItem component={Link} to="/Admin">

@@ -33,7 +33,7 @@ const pages = [
 ];
 const settings = [{ label: 'Login', link: '/User/Login' },
 { label: 'Register', link: '/User/Register' },
-{ label: 'User Profile', link: '/User/Profile' },
+{ label: 'User Profile', link: '/User/MenuProfile' },
 { label: 'Admin', link: '/Admin' },
 { label: 'Loguot', link: '/' },];
 

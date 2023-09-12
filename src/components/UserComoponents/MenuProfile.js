@@ -9,7 +9,7 @@ import { Card, Tabs,FloatButton } from "antd";
 import { Link as RouterLink } from "react-router-dom";
 
 const { TabPane } = Tabs;
-const UserProfile = ({ children }) => {
+const MenuProfile = ({ children }) => {
   const onChange = (key) => {
     console.log(key);
   };
@@ -18,7 +18,7 @@ const UserProfile = ({ children }) => {
     {
       key: "1",
       label: "ข้อมูลส่วนตัว",
-      link: "/User/Profile",
+      link: "/User/MenuProfile",
     },
     {
       key: "2",
@@ -102,4 +102,4 @@ const UserProfile = ({ children }) => {
   );
 };
 
-export default UserProfile;
+export default MenuProfile;
