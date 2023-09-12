@@ -18,7 +18,7 @@ const MenuProfile = ({ children }) => {
     {
       key: "1",
       label: "ข้อมูลส่วนตัว",
-      link: "/User/MenuProfile",
+      link: "/User/Profile",
     },
     {
       key: "2",

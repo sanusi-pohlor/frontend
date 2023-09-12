@@ -55,7 +55,7 @@ const AppRoutes = () => {
             <Route path="/Admin/MProblem" element={<MProblem />} />
             <Route path="/Admin/MType" element={<MType />} />
             <Route path="/User/MenuProfile" element={<MenuProfile />} />
-            <Route path="/User/Profile" element={<MenuProfile />} />
+            <Route path="/User/Profile" element={<Profile />} />
             <Route path="/User/Login" element={<Login />} />
             <Route path="/User/Register" element={<Register />} />
           </Routes>
