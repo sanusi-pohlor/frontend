@@ -1,8 +1,353 @@
+import React, { useEffect, useState } from 'react';
+import { Table, Form, Input, Button, Popconfirm, Select, Modal } from 'antd';
+import axios from 'axios';
+
+const { Option } = Select;
+
+const MC_VolunteeMembers = () => {
+  const [form] = Form.useForm();
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [editingKey, setEditingKey] = useState('');
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const onGenderChange = (value) => {
+    switch (value) {
+      case 'male':
+        form.setFieldsValue({
+          note: 'Hi, man!',
+        });
+        break;
+      case 'female':
+        form.setFieldsValue({
+          note: 'Hi, lady!',
+        });
+        break;
+      case 'other':
+        form.setFieldsValue({
+          note: 'Hi there!',
+        });
+        break;
+      default:
+    }
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('https://your-laravel-api-url');
+        setData(response.data); // Assuming your data is an array
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const isEditing = (record) => record.key === editingKey;
+
+  const edit = (record) => {
+    form.setFieldsValue({ ...record });
+    setEditingKey(record.key);
+  };
+
+  const cancel = () => {
+    setEditingKey('');
+  };
+
+  const save = async (key) => {
+    try {
+      const row = await form.validateFields();
+      const newData = [...data];
+      const index = newData.findIndex((item) => key === item.key);
+
+      if (index > -1) {
+        const item = newData[index];
+        newData.splice(index, 1, {
+          ...item,
+          ...row,
+        });
+        setData(newData);
+        setEditingKey('');
+      } else {
+        newData.push(row);
+        setData(newData);
+        setEditingKey('');
+      }
+    } catch (errInfo) {
+      console.error('Validate Failed:', errInfo);
+    }
+  };
+
+  const columns = [
+    {
+      title: 'รหัสสมาชิก',
+      dataIndex: 'vol_mem_id',
+      width: '10%',
+      editable: true,
+    },
+    {
+      title: 'ชื่อ',
+      dataIndex: 'vol_mem_fname',
+      width: '10%',
+      editable: true,
+    },
+    {
+      title: 'นามสกุล',
+      dataIndex: 'vol_mem_lname',
+      width: '10%',
+      editable: true,
+    },
+    {
+      title: 'ที่อยู่',
+      dataIndex: 'vol_mem_address',
+      width: '15%',
+      editable: true,
+    },
+    {
+      title: 'จังหวัด',
+      dataIndex: 'vol_mem_province',
+      width: '10%',
+      editable: true,
+    },
+    {
+      title: 'โทรศัพท์',
+      dataIndex: 'vol_mem_ph_num',
+      width: '10%',
+      editable: true,
+    },
+    {
+      title: 'Email',
+      dataIndex: 'vol_mem_email',
+      width: '15%',
+      editable: true,
+    },
+    {
+      title: 'ยินดีรับข้่าวสาร',
+      dataIndex: 'vol_mem_get_news',
+      width: '10%',
+      editable: true,
+    },
+    {
+      title: 'Action',
+      dataIndex: 'operation',
+      width: '10%',
+      render: (_, record) => {
+        const editable = isEditing(record);
+        return editable ? (
+          <span>
+            <a onClick={() => save(record.key)} style={{ marginRight: 8 }}>
+              Save
+            </a>
+            <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
+              <a>Cancel</a>
+            </Popconfirm>
+          </span>
+        ) : (
+          <a disabled={editingKey !== ''} onClick={() => edit(record)}>
+            Edit
+          </a>
+        );
+      },
+    },
+  ];
+
+  const mergedColumns = columns.map((col) => {
+    if (!col.editable) {
+      return col;
+    }
+
+    return {
+      ...col,
+      onCell: (record) => ({
+        record,
+        inputType: col.dataIndex === 'vol_mem_id' ? 'number' : 'text',
+        dataIndex: col.dataIndex,
+        title: col.title,
+        editing: isEditing(record),
+      }),
+    };
+  });
+
+  return (
+    <div>
+      <Button
+        type="primary"
+        onClick={() => {
+          setModalVisible(true);
+        }}
+        style={{ marginBottom: 16 }}
+      >
+        เพิ่มสมาชิกใหม่
+      </Button>
+      <Modal
+        title="เพิ่มสมาชิกใหม่"
+        visible={modalVisible}
+        onCancel={() => setModalVisible(false)}
+        footer={null}
+      >
+        <Form
+          form={form}
+          layout="vertical"
+          name="member_form"
+          onFinish={(values) => {
+            // Handle form submission here
+            console.log('Received form values:', values);
+            setModalVisible(false);
+          }}
+        >
+          {/* Add form fields for creating a new member */}
+          <Form.Item
+          name="vol_mem_fname"
+          label="ชื่อ"
+          rules={[
+            {
+              required: true,
+              message: "Please input the title of collection!",
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          name="vol_mem_lname"
+          label="นามสกุล"
+          rules={[
+            {
+              required: true,
+              message: "Please input the title of collection!",
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          name="vol_mem_address"
+          label="ที่อยู่"
+          rules={[
+            {
+              required: true,
+              message: "Please input the title of collection!",
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          name="vol_mem_province"
+          label="จังหวัด"
+          rules={[
+            {
+              required: true,
+              message: "Please input the title of collection!",
+            },
+          ]}
+        >
+          <Select
+            placeholder="Select a option and change input text above"
+            onChange={onGenderChange}
+            allowClear
+          >
+            <Option value="male">male</Option>
+            <Option value="female">female</Option>
+            <Option value="other">other</Option>
+          </Select>
+        </Form.Item>
+        <Form.Item
+          name="vol_mem_ph_num"
+          label="โทรศัพท์"
+          rules={[
+            {
+              required: true,
+              message: "Please input the title of collection!",
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          name="vol_mem_email"
+          label="Email"
+          rules={[
+            {
+              required: true,
+              message: "Please input the title of collection!",
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          name="vol_mem_get_news"
+          label="ยินดีรับข้่าวสาร"
+          rules={[
+            {
+              required: true,
+              message: "Please input the title of collection!",
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+          {/* Add more form fields here */}
+          <Form.Item>
+            <Button type="primary" htmlType="submit">
+              เพิ่ม
+            </Button>
+          </Form.Item>
+        </Form>
+      </Modal>
+      <Table
+        components={{
+          body: {
+            //cell: EditableCell,
+          },
+        }}
+        bordered
+        dataSource={data}
+        columns={mergedColumns}
+        rowClassName="editable-row"
+        loading={loading}
+        pagination={{
+          onChange: cancel,
+        }}
+      />
+    </div>
+  );
+};
+
+export default MC_VolunteeMembers;
+
+
+/*
 import React, { useState } from 'react';
-import { Form, Input, InputNumber, Popconfirm, Table, Typography, Button, Modal, Radio } from "antd";
+import { Form, Input, InputNumber, Popconfirm, Table, Typography, Button, Modal, Select } from "antd";
+const { Option } = Select;
 
 const CollectionCreateForm = ({ open, onCreate, onCancel }) => {
   const [form] = Form.useForm();
+  const onGenderChange = (value) => {
+    switch (value) {
+      case 'male':
+        form.setFieldsValue({
+          note: 'Hi, man!',
+        });
+        break;
+      case 'female':
+        form.setFieldsValue({
+          note: 'Hi, lady!',
+        });
+        break;
+      case 'other':
+        form.setFieldsValue({
+          note: 'Hi there!',
+        });
+        break;
+      default:
+    }
+  };
   return (
     <Modal
       open={open}
@@ -31,8 +376,8 @@ const CollectionCreateForm = ({ open, onCreate, onCancel }) => {
         }}
       >
         <Form.Item
-          name="title"
-          label="Title"
+          name="vol_mem_fname"
+          label="ชื่อ"
           rules={[
             {
               required: true,
@@ -42,17 +387,85 @@ const CollectionCreateForm = ({ open, onCreate, onCancel }) => {
         >
           <Input />
         </Form.Item>
-        <Form.Item name="description" label="Description">
-          <Input type="textarea" />
+        <Form.Item
+          name="vol_mem_lname"
+          label="นามสกุล"
+          rules={[
+            {
+              required: true,
+              message: "Please input the title of collection!",
+            },
+          ]}
+        >
+          <Input />
         </Form.Item>
         <Form.Item
-          name="modifier"
-          className="collection-create-form_last-form-item"
+          name="vol_mem_address"
+          label="ที่อยู่"
+          rules={[
+            {
+              required: true,
+              message: "Please input the title of collection!",
+            },
+          ]}
         >
-          <Radio.Group>
-            <Radio value="public">Public</Radio>
-            <Radio value="private">Private</Radio>
-          </Radio.Group>
+          <Input />
+        </Form.Item>
+        <Form.Item
+          name="vol_mem_province"
+          label="จังหวัด"
+          rules={[
+            {
+              required: true,
+              message: "Please input the title of collection!",
+            },
+          ]}
+        >
+          <Select
+            placeholder="Select a option and change input text above"
+            onChange={onGenderChange}
+            allowClear
+          >
+            <Option value="male">male</Option>
+            <Option value="female">female</Option>
+            <Option value="other">other</Option>
+          </Select>
+        </Form.Item>
+        <Form.Item
+          name="vol_mem_ph_num"
+          label="โทรศัพท์"
+          rules={[
+            {
+              required: true,
+              message: "Please input the title of collection!",
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          name="vol_mem_email"
+          label="Email"
+          rules={[
+            {
+              required: true,
+              message: "Please input the title of collection!",
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          name="vol_mem_get_news"
+          label="ยินดีรับข้่าวสาร"
+          rules={[
+            {
+              required: true,
+              message: "Please input the title of collection!",
+            },
+          ]}
+        >
+          <Input />
         </Form.Item>
       </Form>
     </Modal>
@@ -103,6 +516,10 @@ const EditableCell = ({
 };
 const MC_VolunteeMembers = () => {
   const [open, setOpen] = useState(false);
+  const onCreate = (values) => {
+    console.log('Received values of form: ', values);
+    setOpen(false);
+  };
   const [form] = Form.useForm();
   const [data, setData] = useState(originData);
   const [editingKey, setEditingKey] = useState("");
@@ -143,68 +560,50 @@ const MC_VolunteeMembers = () => {
   };
   const columns = [
     {
-      title: "รหัสการแจ้ง",
-      dataIndex: "age",
+      title: "รหัสสมาชิก",
+      dataIndex: "vol_mem_id",
       width: "20%",
       editable: true,
     },
     {
-      title: "รหัสประเด็นย่อย",
-      dataIndex: "name",
+      title: "ชื่อ",
+      dataIndex: "vol_mem_fname",
       width: "60%",
       editable: true,
     },
     {
-      title: "รหัสสมาชิก",
-      dataIndex: "name",
+      title: "นามสกุล",
+      dataIndex: "vol_mem_lname",
       width: "60%",
       editable: true,
     },
     {
-      title: "รหัสแรงจูงใจ",
-      dataIndex: "name",
+      title: "ที่อยู่",
+      dataIndex: "vol_mem_address",
       width: "60%",
       editable: true,
     },
     {
-      title: "รหัสประเภทการกระทำ",
-      dataIndex: "name",
+      title: "จังหวัด",
+      dataIndex: "vol_mem_province",
       width: "60%",
       editable: true,
     },
     {
-      title: "รหัสลักษณะข้อมูล",
-      dataIndex: "name",
+      title: "โทรศัพท์",
+      dataIndex: "vol_mem_ph_num",
       width: "60%",
       editable: true,
     },
     {
-      title: "รายละเอียดในเนื้อหา",
-      dataIndex: "name",
+      title: "Email",
+      dataIndex: "vol_mem_email",
       width: "60%",
       editable: true,
     },
     {
-      title: "จำนวนการวนซ้ำ",
-      dataIndex: "name",
-      width: "60%",
-      editable: true,
-    },
-    {
-      title: "วันที่แจ้ง",
-      dataIndex: "name",
-      width: "60%",
-      editable: true,
-    },
-    {
-      title: "สถานะการตรวจสอบ",
-      dataIndex: "name",
-      width: "60%",
-      editable: true,
-    },
-    {
-      title: "หัวข้อเนื้อหา",
-      dataIndex: "name",
+      title: "ยินดีรับข้่าวสาร",
+      dataIndex: "vol_mem_get_news",
       width: "60%",
       editable: true,
     },
@@ -288,3 +687,5 @@ const MC_VolunteeMembers = () => {
   );
 };
 export default MC_VolunteeMembers;
+
+*/
