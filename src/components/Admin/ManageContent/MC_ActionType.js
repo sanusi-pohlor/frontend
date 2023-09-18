@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Table, Form, Input, Button, Popconfirm, Select, Modal,InputNumber } from 'antd';
 import axios from 'axios';
 
-const { Option } = Select;
-
 const EditableCell = ({
   editing,
   dataIndex,
@@ -45,31 +43,11 @@ const MC_ActionType = () => {
   const [editingKey, setEditingKey] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
 
-  const onGenderChange = (value) => {
-    switch (value) {
-      case 'male':
-        form.setFieldsValue({
-          note: 'Hi, man!',
-        });
-        break;
-      case 'female':
-        form.setFieldsValue({
-          note: 'Hi, lady!',
-        });
-        break;
-      case 'other':
-        form.setFieldsValue({
-          note: 'Hi there!',
-        });
-        break;
-      default:
-    }
-  };
-
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get('http://localhost:8000/api/ActionType_request');
+        console.log("response : "+response);
         setData(response.data); // Assuming your data is an array
         setLoading(false);
       } catch (error) {
