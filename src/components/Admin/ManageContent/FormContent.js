@@ -13,10 +13,11 @@ const FormContent = () => {
             formData.append('title', values.title);
             formData.append('description', values.description);
             formData.append('image', values.image[0].originFileObj);
-
+            console.log(formData);
             const response = await fetch('http://localhost:8000/api/upload', {
                 method: 'POST',
                 body: formData,
+                
             });
 
             if (response.ok) {

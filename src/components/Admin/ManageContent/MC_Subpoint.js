@@ -1,101 +1,7 @@
-import React, { useState } from 'react';
-import { Form, Input, InputNumber, Popconfirm, Table, Typography, Button, Modal, Select } from "antd";
-const { Option } = Select;
+import React, { useEffect, useState } from "react";
+import { Form, Input, InputNumber, Popconfirm, Table, Typography, Button, Modal, Select, message } from "antd";
 
-const CollectionCreateForm = ({ open, onCreate, onCancel }) => {
-  const [form] = Form.useForm();
-  const onGenderChange = (value) => {
-    switch (value) {
-      case 'male':
-        form.setFieldsValue({
-          note: 'Hi, man!',
-        });
-        break;
-      case 'female':
-        form.setFieldsValue({
-          note: 'Hi, lady!',
-        });
-        break;
-      case 'other':
-        form.setFieldsValue({
-          note: 'Hi there!',
-        });
-        break;
-      default:
-    }
-  };
-  return (
-    <Modal
-      open={open}
-      title="Create a new collection"
-      okText="Create"
-      cancelText="Cancel"
-      onCancel={onCancel}
-      onOk={() => {
-        form
-          .validateFields()
-          .then((values) => {
-            form.resetFields();
-            onCreate(values);
-          })
-          .catch((info) => {
-            console.log("Validate Failed:", info);
-          });
-      }}
-    >
-      <Form
-        form={form}
-        layout="vertical"
-        name="form_in_modal"
-        initialValues={{
-          modifier: "public",
-        }}
-      >
-        <Form.Item
-          name="subp_type_id"
-          label="รหัสประเภท"
-          rules={[
-            {
-              required: true,
-              message: "Please input the title of collection!",
-            },
-          ]}
-        >
-          <Select
-            placeholder="Select a option and change input text above"
-            onChange={onGenderChange}
-            allowClear
-          >
-            <Option value="male">male</Option>
-            <Option value="female">female</Option>
-            <Option value="other">other</Option>
-          </Select>
-        </Form.Item>
-        <Form.Item
-          name="subp_name"
-          label="ชื่อประเด็นย่อย"
-          rules={[
-            {
-              required: true,
-              message: "Please input the title of collection!",
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-      </Form>
-    </Modal>
-  );
-};
-const originData = [];
-for (let i = 0; i < 100; i++) {
-  originData.push({
-    key: i.toString(),
-    name: `Edward ${i}`,
-    age: 32,
-    address: `London Park no. ${i}`,
-  });
-}
+const { Option } = Select;
 const EditableCell = ({
   editing,
   dataIndex,
@@ -130,33 +36,80 @@ const EditableCell = ({
     </td>
   );
 };
+
 const MC_Subpoint = () => {
-  const [open, setOpen] = useState(false);
-  const onCreate = (values) => {
-    console.log('Received values of form: ', values);
-    setOpen(false);
-  };
   const [form] = Form.useForm();
-  const [data, setData] = useState(originData);
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [editingKey, setEditingKey] = useState("");
+  const [modalVisible, setModalVisible] = useState(false);
+  const [selectOptions, setSelectOptions] = useState([]); // State for select options
+
+  const fetchData = async () => {
+    try {
+      const response = await fetch(
+        "http://localhost:8000/api/Subpoint_request"
+      );
+      if (response.ok) {
+        const data = await response.json();
+        setData(data);
+      } else {
+        console.error("Error fetching data:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const onFinish = async (values) => {
+    console.log(values);
+    setLoading(true);
+    try {
+      const formData = new FormData();
+      formData.append("subp_type_id", values.subp_type_id);
+      formData.append("subp_name", values.subp_name);
+      console.log(formData);
+      const response = await fetch(
+        "http://localhost:8000/api/Subpoint_upload",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+
+      if (response.ok) {
+        message.success("Form data sent successfully");
+      } else {
+        message.error("Error sending form data");
+      }
+    } catch (error) {
+      console.error("Error sending form data:", error);
+      message.error("Error sending form data");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const isEditing = (record) => record.key === editingKey;
+
   const edit = (record) => {
-    form.setFieldsValue({
-      name: "",
-      age: "",
-      address: "",
-      ...record,
-    });
+    form.setFieldsValue({ ...record });
     setEditingKey(record.key);
   };
+
   const cancel = () => {
     setEditingKey("");
   };
+
   const save = async (key) => {
     try {
       const row = await form.validateFields();
       const newData = [...data];
       const index = newData.findIndex((item) => key === item.key);
+
       if (index > -1) {
         const item = newData[index];
         newData.splice(index, 1, {
@@ -171,9 +124,10 @@ const MC_Subpoint = () => {
         setEditingKey("");
       }
     } catch (errInfo) {
-      console.log("Validate Failed:", errInfo);
+      console.error("Validate Failed:", errInfo);
     }
   };
+
   const columns = [
     {
       title: 'รหัสประเด็นย่อย',
@@ -223,6 +177,7 @@ const MC_Subpoint = () => {
       },
     },
   ];
+
   const mergedColumns = columns.map((col) => {
     if (!col.editable) {
       return col;
@@ -238,8 +193,94 @@ const MC_Subpoint = () => {
       }),
     };
   });
+
+  const onGenderChange = async () => {
+    try {
+      const response = await fetch("http://localhost:8000/api/TypeInformation_request");
+      if (response.ok) {
+        const typeCodes = await response.json();
+        const options = typeCodes.map((code) => (
+          <Option key={code.type_info_id} value={code.type_info_id}>
+            {code.type_info_name}
+          </Option>
+        ));
+        form.setFieldsValue({ type_info_id: undefined });
+        form.setFields([{
+          name: 'type_info_id',
+          value: undefined,
+        }]);
+        setSelectOptions(options);
+      } else {
+        console.error("Error fetching type codes:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error fetching type codes:", error);
+    }
+  };
+
   return (
-    <Form form={form} component={false}>
+    <div>
+      <Button
+        type="primary"
+        onClick={() => {
+          setModalVisible(true);
+          onGenderChange(); // Call the function when the "Add" button is clicked
+        }}
+        style={{ marginBottom: 16 }}
+      >
+        เพิ่มประเด็นย่อย
+      </Button>
+      <Modal
+        title="เพิ่มประเด็นย่อย"
+        visible={modalVisible}
+        onCancel={() => setModalVisible(false)}
+        footer={null}
+      >
+        <Form
+          form={form}
+          layout="vertical"
+          name="member_form"
+          onFinish={onFinish}
+        >
+          {/* Add form fields for creating a new member */}
+          <Form.Item
+            name="subp_type_id"
+            label="รหัสประเภท"
+            rules={[
+              {
+                required: true,
+                message: "Please select a type code!",
+              },
+            ]}
+          >
+            <Select
+              placeholder="Select a option and change input text above"
+              onChange={onGenderChange}
+              allowClear
+            >
+              {selectOptions} {/* Populate the options */}
+            </Select>
+          </Form.Item>
+          <Form.Item
+            name="subp_name"
+            label="ชื่อประเด็นย่อย"
+            rules={[
+              {
+                required: true,
+                message: "Please input the title of collection!",
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+          {/* Add more form fields here */}
+          <Form.Item>
+            <Button type="primary" htmlType="submit">
+              เพิ่ม
+            </Button>
+          </Form.Item>
+        </Form>
+      </Modal>
       <Table
         components={{
           body: {
@@ -254,22 +295,8 @@ const MC_Subpoint = () => {
           onChange: cancel,
         }}
       />
-      <Button
-        type="primary"
-        onClick={() => {
-          setOpen(true);
-        }}
-      >
-        New Collection
-      </Button>
-      <CollectionCreateForm
-        open={open}
-        onCreate={onCreate}
-        onCancel={() => {
-          setOpen(false);
-        }}
-      />
-    </Form>
+    </div>
   );
 };
+
 export default MC_Subpoint;

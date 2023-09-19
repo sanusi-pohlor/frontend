@@ -1,60 +1,6 @@
-import React, { useState } from 'react';
-import { Form, Input, InputNumber, Popconfirm, Table, Typography, Button, Modal, Radio } from "antd";
+import React, { useEffect, useState } from "react";
+import { Form, Input, InputNumber, Popconfirm, Table, Typography, Button, Modal, message } from "antd";
 
-const CollectionCreateForm = ({ open, onCreate, onCancel }) => {
-  const [form] = Form.useForm();
-  return (
-    <Modal
-      open={open}
-      title="Create a new collection"
-      okText="Create"
-      cancelText="Cancel"
-      onCancel={onCancel}
-      onOk={() => {
-        form
-          .validateFields()
-          .then((values) => {
-            form.resetFields();
-            onCreate(values);
-          })
-          .catch((info) => {
-            console.log("Validate Failed:", info);
-          });
-      }}
-    >
-      <Form
-        form={form}
-        layout="vertical"
-        name="form_in_modal"
-        initialValues={{
-          modifier: "public",
-        }}
-      >
-        <Form.Item
-          name="med_c_id"
-          label="ชื่อช่องทางสื่อ"
-          rules={[
-            {
-              required: true,
-              message: "Please input the title of collection!",
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-      </Form>
-    </Modal>
-  );
-};
-const originData = [];
-for (let i = 0; i < 100; i++) {
-  originData.push({
-    key: i.toString(),
-    name: `Edward ${i}`,
-    age: 32,
-    address: `London Park no. ${i}`,
-  });
-}
 const EditableCell = ({
   editing,
   dataIndex,
@@ -90,14 +36,59 @@ const EditableCell = ({
   );
 };
 const MC_MediaChannels = () => {
-  const [open, setOpen] = useState(false);
-  const onCreate = (values) => {
-    console.log('Received values of form: ', values);
-    setOpen(false);
-  };
   const [form] = Form.useForm();
-  const [data, setData] = useState(originData);
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [editingKey, setEditingKey] = useState("");
+  const [modalVisible, setModalVisible] = useState(false);
+ 
+  const fetchData = async () => {
+    try {
+      const response = await fetch(
+        "http://localhost:8000/api/MediaChannels_request"
+      );
+      if (response.ok) {
+        const data = await response.json();
+        setData(data);
+      } else {
+        console.error("Error fetching data:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const onFinish = async (values) => {
+    console.log(values);
+    setLoading(true);
+    try {
+      const formData = new FormData();
+      formData.append("med_c_name", values.med_c_name);
+      console.log(formData);
+      const response = await fetch(
+        "http://localhost:8000/api/MediaChannels_upload",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+
+      if (response.ok) {
+        message.success("Form data sent successfully");
+      } else {
+        message.error("Error sending form data");
+      }
+    } catch (error) {
+      console.error("Error sending form data:", error);
+      message.error("Error sending form data");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const isEditing = (record) => record.key === editingKey;
   const edit = (record) => {
     form.setFieldsValue({
@@ -192,7 +183,49 @@ const MC_MediaChannels = () => {
     };
   });
   return (
-    <Form form={form} component={false}>
+    <div>
+      <Button
+        type="primary"
+        onClick={() => {
+          setModalVisible(true);
+        }}
+        style={{ marginBottom: 16 }}
+      >
+        เพิ่มช่องทางสื่อ
+      </Button>
+      <Modal
+        title="เพิ่มช่องทางสื่อ"
+        visible={modalVisible}
+        onCancel={() => setModalVisible(false)}
+        footer={null}
+      >
+        <Form
+          form={form}
+          layout="vertical"
+          name="member_form"
+          onFinish={onFinish}
+        >
+          {/* Add form fields for creating a new member */}
+          <Form.Item
+            name="med_c_name"
+            label="ช่องทางสื่อ"
+            rules={[
+              {
+                required: true,
+                message: "Please input the title of collection!",
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+          {/* Add more form fields here */}
+          <Form.Item>
+            <Button type="primary" htmlType="submit">
+              เพิ่ม
+            </Button>
+          </Form.Item>
+        </Form>
+      </Modal>
       <Table
         components={{
           body: {
@@ -202,27 +235,13 @@ const MC_MediaChannels = () => {
         bordered
         dataSource={data}
         columns={mergedColumns}
+        //loading={loading}
         rowClassName="editable-row"
         pagination={{
           onChange: cancel,
         }}
       />
-      <Button
-        type="primary"
-        onClick={() => {
-          setOpen(true);
-        }}
-      >
-        New Collection
-      </Button>
-      <CollectionCreateForm
-        open={open}
-        onCreate={onCreate}
-        onCancel={() => {
-          setOpen(false);
-        }}
-      />
-    </Form>
+    </div>
   );
 };
 export default MC_MediaChannels;

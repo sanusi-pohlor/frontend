@@ -1,8 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import { Table, Form, Input, Button, Popconfirm, Select, Modal,InputNumber } from 'antd';
-import axios from 'axios';
-
-const { Option } = Select;
+import React, { useEffect, useState } from "react";
+import {
+  Table,
+  Form,
+  Input,
+  Button,
+  Popconfirm,
+  message,
+  Modal,
+  InputNumber,
+} from "antd";
 
 const EditableCell = ({
   editing,
@@ -42,43 +48,55 @@ const MC_ActionType = () => {
   const [form] = Form.useForm();
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [editingKey, setEditingKey] = useState('');
+  const [editingKey, setEditingKey] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
 
-  const onGenderChange = (value) => {
-    switch (value) {
-      case 'male':
-        form.setFieldsValue({
-          note: 'Hi, man!',
-        });
-        break;
-      case 'female':
-        form.setFieldsValue({
-          note: 'Hi, lady!',
-        });
-        break;
-      case 'other':
-        form.setFieldsValue({
-          note: 'Hi there!',
-        });
-        break;
-      default:
+  const fetchData = async () => {
+    try {
+      const response = await fetch(
+        "http://localhost:8000/api/ActionType_request"
+      );
+      if (response.ok) {
+        const data = await response.json();
+        setData(data);
+      } else {
+        console.error("Error fetching data:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
     }
   };
-
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get('http://localhost:8000/api/ActionType_request');
-        setData(response.data); // Assuming your data is an array
-        setLoading(false);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-
     fetchData();
   }, []);
+
+  const onFinish = async (values) => {
+    console.log(values);
+    setLoading(true);
+    try {
+      const formData = new FormData();
+      formData.append("act_ty_name", values.act_ty_name);
+      console.log(formData);
+      const response = await fetch(
+        "http://localhost:8000/api/ActionType_upload",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+
+      if (response.ok) {
+        message.success("Form data sent successfully");
+      } else {
+        message.error("Error sending form data");
+      }
+    } catch (error) {
+      console.error("Error sending form data:", error);
+      message.error("Error sending form data");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const isEditing = (record) => record.key === editingKey;
 
@@ -88,7 +106,7 @@ const MC_ActionType = () => {
   };
 
   const cancel = () => {
-    setEditingKey('');
+    setEditingKey("");
   };
 
   const save = async (key) => {
@@ -104,33 +122,33 @@ const MC_ActionType = () => {
           ...row,
         });
         setData(newData);
-        setEditingKey('');
+        setEditingKey("");
       } else {
         newData.push(row);
         setData(newData);
-        setEditingKey('');
+        setEditingKey("");
       }
     } catch (errInfo) {
-      console.error('Validate Failed:', errInfo);
+      console.error("Validate Failed:", errInfo);
     }
   };
   const columns = [
     {
-      title: 'รหัสประเภทการกระทำ',
-      dataIndex: 'act_ty_id',
-      width: '20%',
+      title: "รหัสประเภทการกระทำ",
+      dataIndex: "act_ty_id",
+      width: "20%",
       editable: true,
     },
     {
-      title: 'ชื่อประเภทการกระทำ',
-      dataIndex: 'act_ty_name',
-      width: '60%',
+      title: "ชื่อประเภทการกระทำ",
+      dataIndex: "act_ty_name",
+      width: "60%",
       editable: true,
     },
     {
-      title: 'Action',
-      dataIndex: 'operation',
-      width: '20%',
+      title: "Action",
+      dataIndex: "operation",
+      width: "20%",
       render: (_, record) => {
         const editable = isEditing(record);
         return editable ? (
@@ -143,7 +161,7 @@ const MC_ActionType = () => {
             </Popconfirm>
           </span>
         ) : (
-          <a disabled={editingKey !== ''} onClick={() => edit(record)}>
+          <a disabled={editingKey !== ""} onClick={() => edit(record)}>
             Edit
           </a>
         );
@@ -186,25 +204,21 @@ const MC_ActionType = () => {
           form={form}
           layout="vertical"
           name="member_form"
-          onFinish={(values) => {
-            // Handle form submission here
-            console.log('Received form values:', values);
-            setModalVisible(false);
-          }}
+          onFinish={onFinish}
         >
           {/* Add form fields for creating a new member */}
-         <Form.Item
-          name="act_ty_name"
-          label="ชื่อประเภทการกระทำ"
-          rules={[
-            {
-              required: true,
-              message: "Please input the title of collection!",
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
+          <Form.Item
+            name="act_ty_name"
+            label="ชื่อประเภทการกระทำ"
+            rules={[
+              {
+                required: true,
+                message: "Please input the title of collection!",
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
           {/* Add more form fields here */}
           <Form.Item>
             <Button type="primary" htmlType="submit">
@@ -222,8 +236,8 @@ const MC_ActionType = () => {
         bordered
         dataSource={data}
         columns={mergedColumns}
+        //loading={loading}
         rowClassName="editable-row"
-        loading={loading}
         pagination={{
           onChange: cancel,
         }}

@@ -8,15 +8,21 @@ import axios from 'axios';
 const ManuContont = () => {
   const [dataSource, setDataSource] = useState([]);
 
-  useEffect(() => {
-    fetch('http://localhost:8000/api/data')
-      .then((response) => response.json())
-      .then((data) => {
+  const fetchData = async () => {
+    try {
+      const response = await fetch('http://localhost:8000/api/data');
+      if (response.ok) {
+        const data = await response.json();
         setDataSource(data);
-      })
-      .catch((error) => {
-        console.error('Error fetching data:', error);
-      });
+      } else {
+        console.error('Error fetching data:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+  useEffect(() => {
+    fetchData();
   }, []);
   const handleDelete = (record) => {
     // Make a DELETE request to your API endpoint to delete the record

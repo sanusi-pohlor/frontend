@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Table, Form, Input, Button, Popconfirm, Select, Modal,InputNumber } from 'antd';
+import { Table, Form, Input, Button, Popconfirm, message, Modal,InputNumber } from 'antd';
 import axios from 'axios';
-
-const { Option } = Select;
 
 const EditableCell = ({
   editing,
@@ -45,20 +43,53 @@ const MC_CheckingData = () => {
   const [loading, setLoading] = useState(true);
   const [editingKey, setEditingKey] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get('http://localhost:8000/api/ActionType_request');
-        setData(response.data); // Assuming your data is an array
-        setLoading(false);
-      } catch (error) {
-        console.error('Error fetching data:', error);
+  
+  const fetchData = async () => {
+    try {
+      const response = await fetch(
+        "http://localhost:8000/api/CheckingData_request"
+      );
+      if (response.ok) {
+        const data = await response.json();
+        setData(data);
+      } else {
+        console.error("Error fetching data:", response.statusText);
       }
-    };
-
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+  useEffect(() => {
     fetchData();
   }, []);
+
+  const onFinish = async (values) => {
+    console.log(values);
+    setLoading(true);
+    try {
+      const formData = new FormData();
+      formData.append("che_d_format", values.che_d_format);
+      console.log(formData);
+      const response = await fetch(
+        "http://localhost:8000/api/CheckingData_upload",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+
+      if (response.ok) {
+        message.success("Form data sent successfully");
+      } else {
+        message.error("Error sending form data");
+      }
+    } catch (error) {
+      console.error("Error sending form data:", error);
+      message.error("Error sending form data");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const isEditing = (record) => record.key === editingKey;
 
@@ -166,11 +197,7 @@ const MC_CheckingData = () => {
           form={form}
           layout="vertical"
           name="member_form"
-          onFinish={(values) => {
-            // Handle form submission here
-            console.log('Received form values:', values);
-            setModalVisible(false);
-          }}
+          onFinish={onFinish}
         >
           {/* Add form fields for creating a new member */}
           <Form.Item
@@ -203,7 +230,7 @@ const MC_CheckingData = () => {
         dataSource={data}
         columns={mergedColumns}
         rowClassName="editable-row"
-        loading={loading}
+        //loading={loading}
         pagination={{
           onChange: cancel,
         }}
