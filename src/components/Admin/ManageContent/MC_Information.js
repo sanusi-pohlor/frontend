@@ -1,5 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { Form, Input, InputNumber, Popconfirm, Table, Typography, Button, Modal, Select, message } from "antd";
+import {
+  Form,
+  Input,
+  InputNumber,
+  Popconfirm,
+  Table,
+  Typography,
+  Button,
+  Modal,
+  Select,
+  message,
+} from "antd";
 
 const { Option } = Select;
 const EditableCell = ({
@@ -42,12 +53,16 @@ const MC_Information = () => {
   const [loading, setLoading] = useState(true);
   const [editingKey, setEditingKey] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
-  const [selectOptions, setSelectOptions] = useState([]); // State for select options
+  const [selectOptions_subp, setSelectOptions_subp] = useState([]); // State for select options
+  const [selectOptions_vol, setSelectOptions_vol] = useState([]); // State for select options
+  const [selectOptions_moti, setSelectOptions_moti] = useState([]); // State for select options
+  const [selectOptions_act, setSelectOptions_act] = useState([]); // State for select options
+  const [selectOptions_d_c, setSelectOptions_d_c] = useState([]); // State for select options
 
   const fetchData = async () => {
     try {
       const response = await fetch(
-        "http://localhost:8000/api/Subpoint_request"
+        "http://localhost:8000/api/Information_request"
       );
       if (response.ok) {
         const data = await response.json();
@@ -68,11 +83,19 @@ const MC_Information = () => {
     setLoading(true);
     try {
       const formData = new FormData();
-      formData.append("subp_type_id", values.subp_type_id);
-      formData.append("subp_name", values.subp_name);
+      formData.append("info_subp_id", values.info_subp_id);
+      formData.append("info_vol_mem_id", values.info_vol_mem_id);
+      formData.append("info_moti_id", values.info_moti_id);
+      formData.append("info_act_id", values.info_act_id);
+      formData.append("info_d_c_id", values.info_d_c_id);
+      formData.append("info_det_cont", values.info_det_cont);
+      formData.append("info_num_rep", values.info_num_rep);
+      formData.append("info_date", values.info_date);
+      formData.append("info_status", values.info_status);
+      formData.append("info_cont_topic", values.info_cont_topic);
       console.log(formData);
       const response = await fetch(
-        "http://localhost:8000/api/Subpoint_upload",
+        "http://localhost:8000/api/Information_upload",
         {
           method: "POST",
           body: formData,
@@ -128,69 +151,69 @@ const MC_Information = () => {
   };
   const columns = [
     {
-      title: 'รหัสการแจ้ง',
-      dataIndex: 'info_id',
-      width: '20%',
+      title: "รหัสการแจ้ง",
+      dataIndex: "info_id",
+      width: "20%",
       editable: true,
     },
     {
-      title: 'รหัสประเด่นย่อย',
-      dataIndex: 'info_subp_id',
-      width: '60%',
+      title: "รหัสประเด่นย่อย",
+      dataIndex: "info_subp_id",
+      width: "60%",
       editable: true,
     },
     {
-      title: 'รหัสสมาชิก',
-      dataIndex: 'info_vol_mem_id',
-      width: '60%',
+      title: "รหัสสมาชิก",
+      dataIndex: "info_vol_mem_id",
+      width: "60%",
       editable: true,
     },
     {
-      title: 'รหัสแรงจูงใจ',
-      dataIndex: 'info_moti_id',
-      width: '60%',
+      title: "รหัสแรงจูงใจ",
+      dataIndex: "info_moti_id",
+      width: "60%",
       editable: true,
     },
     {
-      title: 'รหัสประเภทการกระทำ',
-      dataIndex: 'info_act_id',
-      width: '60%',
+      title: "รหัสประเภทการกระทำ",
+      dataIndex: "info_act_id",
+      width: "60%",
       editable: true,
     },
     {
-      title: 'รหัสลักษณะข้อมูล',
-      dataIndex: 'info_d_c_id',
-      width: '60%',
+      title: "รหัสลักษณะข้อมูล",
+      dataIndex: "info_d_c_id",
+      width: "60%",
       editable: true,
     },
     {
-      title: 'รายละเอียดเนื้อหา',
-      dataIndex: 'info_det_cont',
-      width: '60%',
+      title: "รายละเอียดเนื้อหา",
+      dataIndex: "info_det_cont",
+      width: "60%",
       editable: true,
     },
     {
-      title: 'จำนวนการวนซ้ำ',
-      dataIndex: 'info_num_rep',
-      width: '60%',
+      title: "จำนวนการวนซ้ำ",
+      dataIndex: "info_num_rep",
+      width: "60%",
       editable: true,
     },
     {
-      title: 'วันที่แจ้ง',
-      dataIndex: 'info_date',
-      width: '60%',
+      title: "วันที่แจ้ง",
+      dataIndex: "info_date",
+      width: "60%",
       editable: true,
     },
     {
-      title: 'สถานะการตรวจสอบ',
-      dataIndex: 'info_status',
-      width: '60%',
+      title: "สถานะการตรวจสอบ",
+      dataIndex: "info_status",
+      width: "60%",
       editable: true,
     },
     {
-      title: 'หัวข้อเนื้อหา',
-      dataIndex: 'info_cont_topic',
-      width: '60%',
+      title: "หัวข้อเนื้อหา",
+      dataIndex: "info_cont_topic",
+      width: "60%",
       editable: true,
     },
     {
@@ -238,9 +261,11 @@ const MC_Information = () => {
       }),
     };
   });
-  const onGenderChange_info_subp_id = async () => {
+  const onChange_info_subp_id = async () => {
     try {
-      const response = await fetch("http://localhost:8000/api/Subpoint_request");
+      const response = await fetch(
+        "http://localhost:8000/api/Subpoint_request"
+      );
       if (response.ok) {
         const typeCodes = await response.json();
         const options = typeCodes.map((code) => (
@@ -249,11 +274,13 @@ const MC_Information = () => {
           </Option>
         ));
         form.setFieldsValue({ subp_id: undefined });
-        form.setFields([{
-          name: 'subp_id',
-          value: undefined,
-        }]);
-        setSelectOptions(options);
+        form.setFields([
+          {
+            name: "subp_id",
+            value: undefined,
+          },
+        ]);
+        setSelectOptions_subp(options);
       } else {
         console.error("Error fetching type codes:", response.statusText);
       }
@@ -261,9 +288,11 @@ const MC_Information = () => {
       console.error("Error fetching type codes:", error);
     }
   };
-  const onGenderChange_info_vol_mem_id = async () => {
+  const onChange_info_vol_mem_id = async () => {
     try {
-      const response = await fetch("http://localhost:8000/api/TypeInformation_request");
+      const response = await fetch(
+        "http://localhost:8000/api/VolunteerMembers_request"
+      );
       if (response.ok) {
         const typeCodes = await response.json();
         const options = typeCodes.map((code) => (
@@ -272,11 +301,13 @@ const MC_Information = () => {
           </Option>
         ));
         form.setFieldsValue({ vol_mem_id: undefined });
-        form.setFields([{
-          name: 'vol_mem_id',
-          value: undefined,
-        }]);
-        setSelectOptions(options);
+        form.setFields([
+          {
+            name: "vol_mem_id",
+            value: undefined,
+          },
+        ]);
+        setSelectOptions_vol(options);
       } else {
         console.error("Error fetching type codes:", response.statusText);
       }
@@ -284,9 +315,11 @@ const MC_Information = () => {
       console.error("Error fetching type codes:", error);
     }
   };
-  const onGenderChange_info_moti_id = async () => {
+  const onChange_info_moti_id = async () => {
     try {
-      const response = await fetch("http://localhost:8000/api/Motivation_request");
+      const response = await fetch(
+        "http://localhost:8000/api/Motivation_request"
+      );
       if (response.ok) {
         const typeCodes = await response.json();
         const options = typeCodes.map((code) => (
@@ -295,11 +328,13 @@ const MC_Information = () => {
           </Option>
         ));
         form.setFieldsValue({ moti_id: undefined });
-        form.setFields([{
-          name: 'moti_id',
-          value: undefined,
-        }]);
-        setSelectOptions(options);
+        form.setFields([
+          {
+            name: "moti_id",
+            value: undefined,
+          },
+        ]);
+        setSelectOptions_moti(options);
       } else {
         console.error("Error fetching type codes:", response.statusText);
       }
@@ -307,9 +342,11 @@ const MC_Information = () => {
       console.error("Error fetching type codes:", error);
     }
   };
-  const onGenderChange_info_act_id = async () => {
+  const onChange_info_act_id = async () => {
     try {
-      const response = await fetch("http://localhost:8000/api/ActionType_request");
+      const response = await fetch(
+        "http://localhost:8000/api/ActionType_request"
+      );
       if (response.ok) {
         const typeCodes = await response.json();
         const options = typeCodes.map((code) => (
@@ -318,11 +355,13 @@ const MC_Information = () => {
           </Option>
         ));
         form.setFieldsValue({ act_ty_id: undefined });
-        form.setFields([{
-          name: 'act_ty_id',
-          value: undefined,
-        }]);
-        setSelectOptions(options);
+        form.setFields([
+          {
+            name: "act_ty_id",
+            value: undefined,
+          },
+        ]);
+        setSelectOptions_act(options);
       } else {
         console.error("Error fetching type codes:", response.statusText);
       }
@@ -330,9 +369,11 @@ const MC_Information = () => {
       console.error("Error fetching type codes:", error);
     }
   };
-  const onGenderChange_info_d_c_id = async () => {
+  const onChange_info_d_c_id = async () => {
     try {
-      const response = await fetch("http://localhost:8000/api/DataCharacteristics_request");
+      const response = await fetch(
+        "http://localhost:8000/api/DataCharacteristics_request"
+      );
       if (response.ok) {
         const typeCodes = await response.json();
         const options = typeCodes.map((code) => (
@@ -341,11 +382,13 @@ const MC_Information = () => {
           </Option>
         ));
         form.setFieldsValue({ data_cha_id: undefined });
-        form.setFields([{
-          name: 'data_cha_id',
-          value: undefined,
-        }]);
-        setSelectOptions(options);
+        form.setFields([
+          {
+            name: "data_cha_id",
+            value: undefined,
+          },
+        ]);
+        setSelectOptions_d_c(options);
       } else {
         console.error("Error fetching type codes:", response.statusText);
       }
@@ -359,11 +402,15 @@ const MC_Information = () => {
         type="primary"
         onClick={() => {
           setModalVisible(true);
-          onGenderChange(); // Call the function when the "Add" button is clicked
+          onChange_info_subp_id();
+          onChange_info_vol_mem_id();
+          onChange_info_moti_id();
+          onChange_info_act_id();
+          onChange_info_d_c_id();
         }}
         style={{ marginBottom: 16 }}
       >
-        เพิ่มประเด็นย่อย
+        เพิ่มการแจ้งข้อมูลที่เป็นเท็จ
       </Button>
       <Modal
         title="เพิ่มประเด็นย่อย"
@@ -390,10 +437,10 @@ const MC_Information = () => {
           >
             <Select
               placeholder="Select a option and change input text above"
-              onChange={onGenderChange}
+              onChange={onChange_info_subp_id}
               allowClear
             >
-              {selectOptions} {/* Populate the options */}
+              {selectOptions_subp} {/* Populate the options */}
             </Select>
           </Form.Item>
           <Form.Item
@@ -408,10 +455,10 @@ const MC_Information = () => {
           >
             <Select
               placeholder="Select a option and change input text above"
-              onChange={onGenderChange}
+              onChange={onChange_info_vol_mem_id}
               allowClear
             >
-              {selectOptions} {/* Populate the options */}
+              {selectOptions_vol} {/* Populate the options */}
             </Select>
           </Form.Item>
           <Form.Item
@@ -426,10 +473,10 @@ const MC_Information = () => {
           >
             <Select
               placeholder="Select a option and change input text above"
-              onChange={onGenderChange}
+              onChange={onChange_info_moti_id}
               allowClear
             >
-              {selectOptions} {/* Populate the options */}
+              {selectOptions_moti} {/* Populate the options */}
             </Select>
           </Form.Item>
           <Form.Item
@@ -444,10 +491,10 @@ const MC_Information = () => {
           >
             <Select
               placeholder="Select a option and change input text above"
-              onChange={onGenderChange}
+              onChange={onChange_info_act_id}
               allowClear
             >
-              {selectOptions} {/* Populate the options */}
+              {selectOptions_act} {/* Populate the options */}
             </Select>
           </Form.Item>
           <Form.Item
@@ -462,10 +509,10 @@ const MC_Information = () => {
           >
             <Select
               placeholder="Select a option and change input text above"
-              onChange={onGenderChange}
+              onChange={onChange_info_d_c_id}
               allowClear
             >
-              {selectOptions} {/* Populate the options */}
+              {selectOptions_d_c} {/* Populate the options */}
             </Select>
           </Form.Item>
           <Form.Item
@@ -527,6 +574,12 @@ const MC_Information = () => {
             ]}
           >
             <Input />
+          </Form.Item>
+          {/* Add more form fields here */}
+          <Form.Item>
+            <Button type="primary" htmlType="submit">
+              เพิ่ม
+            </Button>
           </Form.Item>
         </Form>
       </Modal>

@@ -254,7 +254,7 @@ const MC_InspectionDetails = () => {
         type="primary"
         onClick={() => {
           setModalVisible(true);
-          onGenderChange(); // Call the function when the "Add" button is clicked
+          //onGenderChange(); // Call the function when the "Add" button is clicked
         }}
         style={{ marginBottom: 16 }}
       >

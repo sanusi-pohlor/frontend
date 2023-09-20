@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Table, Form, Input, Button, Popconfirm, Select, Modal, message } from 'antd';
-import axios from 'axios';
+import { Table, Form, Input,InputNumber, Button, Popconfirm, Select, Modal, message } from 'antd';
 
 const { Option } = Select;
 const EditableCell = ({
@@ -43,10 +42,11 @@ const MC_VolunteeMembers = () => {
   const [loading, setLoading] = useState(true);
   const [editingKey, setEditingKey] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
+  
   const fetchData = async () => {
     try {
       const response = await fetch(
-        "http://localhost:8000/api/Subpoint_request"
+        "http://localhost:8000/api/VolunteerMembers_request"
       );
       if (response.ok) {
         const data = await response.json();
@@ -67,11 +67,16 @@ const MC_VolunteeMembers = () => {
     setLoading(true);
     try {
       const formData = new FormData();
-      formData.append("subp_type_id", values.subp_type_id);
-      formData.append("subp_name", values.subp_name);
+      formData.append("vol_mem_fname", values.vol_mem_fname);
+      formData.append("vol_mem_lname", values.vol_mem_lname);
+      formData.append("vol_mem_address", values.vol_mem_address);
+      formData.append("vol_mem_province", values.vol_mem_province);
+      formData.append("vol_mem_ph_num", values.vol_mem_ph_num);
+      formData.append("vol_mem_email", values.vol_mem_email);
+      formData.append("vol_mem_get_news", values.vol_mem_get_news);
       console.log(formData);
       const response = await fetch(
-        "http://localhost:8000/api/Subpoint_upload",
+        "http://localhost:8000/api/VolunteerMembers_upload",
         {
           method: "POST",
           body: formData,
@@ -361,7 +366,7 @@ const MC_VolunteeMembers = () => {
         dataSource={data}
         columns={mergedColumns}
         rowClassName="editable-row"
-        loading={loading}
+        //loading={loading}
         pagination={{
           onChange: cancel,
         }}

@@ -3,7 +3,6 @@ import { Table, Form, Input, Button, Popconfirm, Select, Modal, InputNumber } fr
 import axios from 'axios';
 
 const { Option } = Select;
-
 const EditableCell = ({
   editing,
   dataIndex,
@@ -45,6 +44,7 @@ const MC_DetailsNotiChannels = () => {
   const [loading, setLoading] = useState(true);
   const [editingKey, setEditingKey] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
+  const [selectOptions, setSelectOptions] = useState([]); // State for select options
 
   useEffect(() => {
     const fetchData = async () => {
