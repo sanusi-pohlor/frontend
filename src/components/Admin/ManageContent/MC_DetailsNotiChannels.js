@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Table, Form, Input, Button, Popconfirm, Select, Modal,InputNumber } from 'antd';
+import { Table, Form, Input, Button, Popconfirm, Select, Modal, InputNumber } from 'antd';
 import axios from 'axios';
 
 const { Option } = Select;
@@ -45,27 +45,6 @@ const MC_DetailsNotiChannels = () => {
   const [loading, setLoading] = useState(true);
   const [editingKey, setEditingKey] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
-
-  const onGenderChange = (value) => {
-    switch (value) {
-      case 'male':
-        form.setFieldsValue({
-          note: 'Hi, man!',
-        });
-        break;
-      case 'female':
-        form.setFieldsValue({
-          note: 'Hi, lady!',
-        });
-        break;
-      case 'other':
-        form.setFieldsValue({
-          note: 'Hi there!',
-        });
-        break;
-      default:
-    }
-  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -220,6 +199,100 @@ const MC_DetailsNotiChannels = () => {
       }),
     };
   });
+
+  const onGenderChange_dnc_med_id = async () => {
+    try {
+      const response = await fetch("http://localhost:8000/api/MediaChannels_request");
+      if (response.ok) {
+        const typeCodes = await response.json();
+        const options = typeCodes.map((code) => (
+          <Option key={code.med_c_id} value={code.med_c_id}>
+            {code.med_c_name}
+          </Option>
+        ));
+        form.setFieldsValue({ med_c_id: undefined });
+        form.setFields([{
+          name: 'med_c_id',
+          value: undefined,
+        }]);
+        setSelectOptions(options);
+      } else {
+        console.error("Error fetching type codes:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error fetching type codes:", error);
+    }
+  };
+  const onGenderChange_dnc_info_id = async () => {
+    try {
+      const response = await fetch("http://localhost:8000/api/Information_request");
+      if (response.ok) {
+        const typeCodes = await response.json();
+        const options = typeCodes.map((code) => (
+          <Option key={code.info_id} value={code.info_id}>
+            {code.info_det_cont}
+          </Option>
+        ));
+        form.setFieldsValue({ info_id: undefined });
+        form.setFields([{
+          name: 'info_id',
+          value: undefined,
+        }]);
+        setSelectOptions(options);
+      } else {
+        console.error("Error fetching type codes:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error fetching type codes:", error);
+    }
+  };
+
+  const onGenderChange_dnc_pub_id = async () => {
+    try {
+      const response = await fetch("http://localhost:8000/api/Publisher_request");
+      if (response.ok) {
+        const typeCodes = await response.json();
+        const options = typeCodes.map((code) => (
+          <Option key={code.pub_id} value={code.pub_id}>
+            {code.pub_name}
+          </Option>
+        ));
+        form.setFieldsValue({ pub_id: undefined });
+        form.setFields([{
+          name: 'pub_id',
+          value: undefined,
+        }]);
+        setSelectOptions(options);
+      } else {
+        console.error("Error fetching type codes:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error fetching type codes:", error);
+    }
+  };
+  const onGenderChange_dnc_fm_d_id = async () => {
+    try {
+      const response = await fetch("http://localhost:8000/api/FormatData_request");
+      if (response.ok) {
+        const typeCodes = await response.json();
+        const options = typeCodes.map((code) => (
+          <Option key={code.fm_d_id} value={code.fm_d_id}>
+            {code.fm_d_name}
+          </Option>
+        ));
+        form.setFieldsValue({ fm_d_id: undefined });
+        form.setFields([{
+          name: 'fm_d_id',
+          value: undefined,
+        }]);
+        setSelectOptions(options);
+      } else {
+        console.error("Error fetching type codes:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error fetching type codes:", error);
+    }
+  };
   return (
     <div>
       <Button
@@ -249,169 +322,161 @@ const MC_DetailsNotiChannels = () => {
         >
           {/* Add form fields for creating a new member */}
           <Form.Item
-          name="dnc_med_id"
-          label="รหัสช่องทางสื่อ"
-          rules={[
-            {
-              required: true,
-              message: "Please input the title of collection!",
-            },
-          ]}
-        >
-          <Select
-            placeholder="Select a option and change input text above"
-            onChange={onGenderChange}
-            allowClear
+            name="dnc_med_id"
+            label="รหัสช่องทางสื่อ"
+            rules={[
+              {
+                required: true,
+                message: "Please input the title of collection!",
+              },
+            ]}
           >
-            <Option value="male">male</Option>
-            <Option value="female">female</Option>
-            <Option value="other">other</Option>
-          </Select>
-        </Form.Item>
-        <Form.Item
-          name="dnc_info_id"
-          label="รหัสการแจ้ง"
-          rules={[
-            {
-              required: true,
-              message: "Please input the title of collection!",
-            },
-          ]}
-        >
-          <Select
-            placeholder="Select a option and change input text above"
-            onChange={onGenderChange}
-            allowClear
+            <Select
+              placeholder="Select a option and change input text above"
+              onChange={onGenderChange_dnc_med_id}
+              allowClear
+            >
+              {selectOptions} {/* Populate the options */}
+            </Select>
+          </Form.Item>
+          <Form.Item
+            name="dnc_info_id"
+            label="รหัสการแจ้ง"
+            rules={[
+              {
+                required: true,
+                message: "Please input the title of collection!",
+              },
+            ]}
           >
-            <Option value="male">male</Option>
-            <Option value="female">female</Option>
-            <Option value="other">other</Option>
-          </Select>
-        </Form.Item>
-        <Form.Item
-          name="dnc_pub_id"
-          label="รหัสผู้เผยแพร"
-          rules={[
-            {
-              required: true,
-              message: "Please input the title of collection!",
-            },
-          ]}
-        >
-          <Select
-            placeholder="Select a option and change input text above"
-            onChange={onGenderChange}
-            allowClear
+            <Select
+              placeholder="Select a option and change input text above"
+              onChange={onGenderChange_dnc_info_id}
+              allowClear
+            >
+              {selectOptions} {/* Populate the options */}
+            </Select>
+          </Form.Item>
+          <Form.Item
+            name="dnc_pub_id"
+            label="รหัสผู้เผยแพร"
+            rules={[
+              {
+                required: true,
+                message: "Please input the title of collection!",
+              },
+            ]}
           >
-            <Option value="male">male</Option>
-            <Option value="female">female</Option>
-            <Option value="other">other</Option>
-          </Select>
-        </Form.Item>
-        <Form.Item
-          name="dnc_fm_d_id"
-          label="รหัสรูปแบบข้อมูล"
-          rules={[
-            {
-              required: true,
-              message: "Please input the title of collection!",
-            },
-          ]}
-        >
-          <Select
-            placeholder="Select a option and change input text above"
-            onChange={onGenderChange}
-            allowClear
+            <Select
+              placeholder="Select a option and change input text above"
+              onChange={onGenderChange_dnc_pub_id}
+              allowClear
+            >
+              {selectOptions} {/* Populate the options */}
+            </Select>
+          </Form.Item>
+          <Form.Item
+            name="dnc_fm_d_id"
+            label="รหัสรูปแบบข้อมูล"
+            rules={[
+              {
+                required: true,
+                message: "Please input the title of collection!",
+              },
+            ]}
           >
-            <Option value="male">male</Option>
-            <Option value="female">female</Option>
-            <Option value="other">other</Option>
-          </Select>
-        </Form.Item>
-        <Form.Item
-          name="dnc_pub_id"
-          label="รหัสการจัดการ"
-          rules={[
-            {
-              required: true,
-              message: "Please input the title of collection!",
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item
-          name="dnc_prob_id"
-          label="ขอบเขตการเผยแพร"
-          rules={[
-            {
-              required: true,
-              message: "Please input the title of collection!",
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item
-          name="dnc_scop_pub"
-          label="จำนวนสมาชิกในกลุ่มที่อยู่ในสื่อ"
-          rules={[
-            {
-              required: true,
-              message: "Please input the title of collection!",
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item
-          name="dnc_num_mem_med"
-          label="วันที่ในสื่อ"
-          rules={[
-            {
-              required: true,
-              message: "Please input the title of collection!",
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item
-          name="dnc_date_med"
-          label="ภาพ capture"
-          rules={[
-            {
-              required: true,
-              message: "Please input the title of collection!",
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item
-          name="dnc_capt"
-          label="Link URL"
-          rules={[
-            {
-              required: true,
-              message: "Please input the title of collection!",
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item
-          name="dnc_link"
-          label="operation"
-          rules={[
-            {
-              required: true,
-              message: "Please input the title of collection!",
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
+            <Select
+              placeholder="Select a option and change input text above"
+              onChange={onGenderChange_dnc_fm_d_id}
+              allowClear
+            >
+              {selectOptions} {/* Populate the options */}
+            </Select>
+          </Form.Item>
+          <Form.Item
+            name="dnc_pub_id"
+            label="รหัสการจัดการ"
+            rules={[
+              {
+                required: true,
+                message: "Please input the title of collection!",
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            name="dnc_prob_id"
+            label="ขอบเขตการเผยแพร"
+            rules={[
+              {
+                required: true,
+                message: "Please input the title of collection!",
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            name="dnc_scop_pub"
+            label="จำนวนสมาชิกในกลุ่มที่อยู่ในสื่อ"
+            rules={[
+              {
+                required: true,
+                message: "Please input the title of collection!",
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            name="dnc_num_mem_med"
+            label="วันที่ในสื่อ"
+            rules={[
+              {
+                required: true,
+                message: "Please input the title of collection!",
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            name="dnc_date_med"
+            label="ภาพ capture"
+            rules={[
+              {
+                required: true,
+                message: "Please input the title of collection!",
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            name="dnc_capt"
+            label="Link URL"
+            rules={[
+              {
+                required: true,
+                message: "Please input the title of collection!",
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            name="dnc_link"
+            label="operation"
+            rules={[
+              {
+                required: true,
+                message: "Please input the title of collection!",
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
           {/* Add more form fields here */}
           <Form.Item>
             <Button type="primary" htmlType="submit">
