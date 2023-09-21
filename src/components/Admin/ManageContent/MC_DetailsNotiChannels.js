@@ -394,7 +394,7 @@ const MC_DetailsNotiChannels = () => {
             </Select>
           </Form.Item>
           <Form.Item
-            name="dnc_pub_id"
+            name="dnc_prob_id"
             label="รหัสการจัดการ"
             rules={[
               {
@@ -412,7 +412,7 @@ const MC_DetailsNotiChannels = () => {
             </Select>
           </Form.Item>
           <Form.Item
-            name="dnc_prob_id"
+            name="dnc_scop_pub"
             label="ขอบเขตการเผยแพร"
             rules={[
               {
@@ -424,7 +424,7 @@ const MC_DetailsNotiChannels = () => {
             <Input />
           </Form.Item>
           <Form.Item
-            name="dnc_scop_pub"
+            name="dnc_num_mem_med"
             label="จำนวนสมาชิกในกลุ่มที่อยู่ในสื่อ"
             rules={[
               {
@@ -436,7 +436,7 @@ const MC_DetailsNotiChannels = () => {
             <Input />
           </Form.Item>
           <Form.Item
-            name="dnc_num_mem_med"
+            name="dnc_date_med"
             label="วันที่ในสื่อ"
             rules={[
               {
@@ -448,7 +448,7 @@ const MC_DetailsNotiChannels = () => {
             <Input />
           </Form.Item>
           <Form.Item
-            name="dnc_date_med"
+            name="dnc_capt"
             label="ภาพ capture"
             rules={[
               {
@@ -460,7 +460,7 @@ const MC_DetailsNotiChannels = () => {
             <Input />
           </Form.Item>
           <Form.Item
-            name="dnc_capt"
+            name="dnc_link"
             label="Link URL"
             rules={[
               {
@@ -471,19 +471,6 @@ const MC_DetailsNotiChannels = () => {
           >
             <Input />
           </Form.Item>
-          <Form.Item
-            name="dnc_link"
-            label="operation"
-            rules={[
-              {
-                required: true,
-                message: "Please input the title of collection!",
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-          {/* Add more form fields here */}
           <Form.Item>
             <Button type="primary" htmlType="submit">
               เพิ่ม
@@ -501,7 +488,7 @@ const MC_DetailsNotiChannels = () => {
         dataSource={data}
         columns={mergedColumns}
         rowClassName="editable-row"
-        loading={loading}
+        //loading={loading}
         pagination={{
           onChange: cancel,
         }}
