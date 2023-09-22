@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Table, Form, Input, Button, Popconfirm, Select, Modal, InputNumber,message } from 'antd';
-import axios from 'axios';
 
 const { Option } = Select;
 const EditableCell = ({

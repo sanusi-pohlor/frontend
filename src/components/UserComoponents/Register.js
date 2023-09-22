@@ -52,9 +52,9 @@ const Register = ({ handleSubmit }) => {
     }
   };
   const [Login, setLogin] = useState(false);
-  // const onChange = (e) => {
-  //   console.log(`checked = ${e.target.checked}`);
-  // };
+  const onChange = (e) => {
+    console.log(`checked = ${e.target.checked}`);
+  };
   const LoginFinish = (values) => {
     console.log("Received values of form: ", values);
   };
@@ -253,9 +253,9 @@ const Register = ({ handleSubmit }) => {
               <Option value="SuratThani">สุราษฎร์ธานี</Option>
             </Select>
           </Form.Item>
-          {/* <Form.Item name="CheckboxContent">
+          <Form.Item name="CheckboxContent">
             <Checkbox onChange={onChange}>รับคอนเทนต์ผ่านอีเมล</Checkbox>
-          </Form.Item> */}
+          </Form.Item>
           <Form.Item>
             <Button type="primary" htmlType="submit" loading={loading}>
               ลงทะเบียน
