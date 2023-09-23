@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Form, Input, InputNumber, Popconfirm, Table, Typography, Button, Modal, message } from "antd";
+import { PlusCircleOutlined } from '@ant-design/icons';
 
 const EditableCell = ({
   editing,
@@ -42,7 +43,7 @@ const MC_FormatData = () => {
   const [editingKey, setEditingKey] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
 
-  
+
   const fetchData = async () => {
     try {
       const response = await fetch(
@@ -89,7 +90,7 @@ const MC_FormatData = () => {
       setLoading(false);
     }
   };
-  
+
   const isEditing = (record) => record.key === editingKey;
   const edit = (record) => {
     form.setFieldsValue({
@@ -185,15 +186,18 @@ const MC_FormatData = () => {
   });
   return (
     <div>
-      <Button
-        type="primary"
-        onClick={() => {
-          setModalVisible(true);
-        }}
-        style={{ marginBottom: 16 }}
-      >
-        เพิ่มประเภทการกระทำ
-      </Button>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <h1>จัดการประเภทการกระทำ</h1>
+        <Button
+          type="primary" shape="round" icon={<PlusCircleOutlined />} size="large"
+          onClick={() => {
+            setModalVisible(true);
+          }}
+          style={{ marginBottom: 16 }}
+        >
+          เพิ่มประเภทการกระทำ
+        </Button>
+      </div>
       <Modal
         title="เพิ่มประเภทการกระทำ"
         visible={modalVisible}

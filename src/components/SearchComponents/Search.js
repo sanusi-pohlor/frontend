@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Box, Typography } from "@mui/material";
-import { Card, Button, DatePicker, Form, Input, Select, Layout, FloatButton, Popconfirm, message } from "antd";
-import { PlusCircleOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
+import { Card, Button, DatePicker, Form, Input, Select, Layout, FloatButton } from "antd";
 const { Content, Sider } = Layout;
+const { Option } = Select;
 
 const Search = ({ children }) => {
+  const [form] = Form.useForm();
   const [dataSource, setDataSource] = useState([]);
+  const [selectOptions_med, setSelectOptions_med] = useState([]); // State for select options
+  const [selectOptions_type, setSelectOptions_type] = useState([]); // State for select options
 
   useEffect(() => {
     fetch('http://localhost:8000/api/data')
@@ -19,6 +20,40 @@ const Search = ({ children }) => {
         console.error('Error fetching data:', error);
       });
   }, []);
+
+  const fetchDataAndSetOptions = async (endpoint, fieldName, stateSetter) => {
+    try {
+      const response = await fetch(`http://localhost:8000/api/${endpoint}`);
+      if (response.ok) {
+        const typeCodes = await response.json();
+        const options = typeCodes.map((code) => (
+          <Option key={code[`${fieldName}_id`]} value={code[`${fieldName}_id`]}>
+            {code[`${fieldName}_name`]}
+          </Option>
+        ));
+        form.setFieldsValue({ [fieldName]: undefined });
+        form.setFields([
+          {
+            name: fieldName,
+            value: undefined,
+          },
+        ]);
+        stateSetter(options);
+      } else {
+        console.error(`Error fetching ${fieldName} codes:`, response.statusText);
+      }
+    } catch (error) {
+      console.error(`Error fetching ${fieldName} codes:`, error);
+    }
+  };
+
+  const onChange_dnc_med_id = () => {
+    fetchDataAndSetOptions("MediaChannels_request", "med_c", setSelectOptions_med);
+  };
+  const onTypeChange = () => {
+    fetchDataAndSetOptions("TypeInformation_request", "type_info", setSelectOptions_type);
+  };
+
   return (
     <div>
       <Layout>
@@ -43,6 +78,7 @@ const Search = ({ children }) => {
               </Typography>
             </Box>
             <Form
+              form={form}
               layout="vertical"
               name="normal_login"
               className="login-form"
@@ -54,28 +90,40 @@ const Search = ({ children }) => {
                 maxWidth: "100%",
               }}
             >
-              <Form.Item label="ประเภท" style={{ marginBottom: "10px" }}>
-                <Select>
-                  <Select.Option value="demo">อาหารยาและผลิตภัณฑ์สุขภาพ</Select.Option>
-                  <Select.Option value="demo">บริการสาธารณะ</Select.Option>
-                  <Select.Option value="demo">บริการสุขภาพและสาธารณสุข</Select.Option>
-                  <Select.Option value="demo">การเงินการธนาคาร</Select.Option>
-                  <Select.Option value="demo">สินค้าและบริการทั่วไป</Select.Option>
-                  <Select.Option value="demo">อสังหาริมทรัพย์</Select.Option>
-                  <Select.Option value="demo">สื่อและโทรคมนาคม</Select.Option>
-                  <Select.Option value="demo">โควิด</Select.Option>
-                  <Select.Option value="demo">อื่นๆ</Select.Option>
+              <Form.Item
+                name="subp_type_id"
+                label="รหัสประเภท"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please select a type code!",
+                  },
+                ]}
+              >
+                <Select
+                  placeholder="Select a option and change input text above"
+                  onChange={onTypeChange}
+                  allowClear
+                >
+                  {selectOptions_type} {/* Populate the options */}
                 </Select>
               </Form.Item>
-              <Form.Item label="สื่อ" style={{ marginBottom: "10px" }}>
-                <Select>
-                  <Select.Option value="Facebook">Facebook</Select.Option>
-                  <Select.Option value="Line">Line</Select.Option>
-                  <Select.Option value="Messenger">Messenger</Select.Option>
-                  <Select.Option value="website">เว็บไซต์</Select.Option>
-                  <Select.Option value="Youtube">Youtube</Select.Option>
-                  <Select.Option value="Tiktok">Tiktok</Select.Option>
-                  <Select.Option value="Other">อื่นๆ</Select.Option>
+              <Form.Item
+                name="dnc_med_id"
+                label="ช่องทางสื่อ"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please input the title of collection!",
+                  },
+                ]}
+              >
+                <Select
+                  placeholder="Select a option and change input text above"
+                  onChange={onChange_dnc_med_id}
+                  allowClear
+                >
+                  {selectOptions_med} {/* Populate the options */}
                 </Select>
               </Form.Item>
               <Form.Item label="วัน/เดือน/ปี" style={{ marginBottom: "10px" }}>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { PlusCircleOutlined, EditOutlined, DeleteOutlined,UnorderedListOutlined } from '@ant-design/icons';
+import { PlusCircleOutlined, EditOutlined, DeleteOutlined, UnorderedListOutlined } from '@ant-design/icons';
 import { Space, Table, Tag, Button, Popconfirm, message } from 'antd';
 import AdminMenu from "../AdminMenu";
 import { Link } from 'react-router-dom';
@@ -73,7 +73,7 @@ const ManuContont = () => {
             okText="Yes"
             cancelText="No"
           >
-            <Button type="primary" icon={<DeleteOutlined />} danger/>
+            <Button type="primary" icon={<DeleteOutlined />} danger />
           </Popconfirm>
         </Space>
       ),
@@ -81,17 +81,21 @@ const ManuContont = () => {
   ];
   return (
     <AdminMenu>
-      <div style={{ textAlign: 'right' }}>
-        <Link to="/Admin/FormContent">
-          <Button type="primary" shape="round" icon={<PlusCircleOutlined />} size="large">
-            Add Content
-          </Button>
-        </Link>
-        <Link to="/Admin/ManageValues">
-          <Button type="primary" shape="round" icon={<UnorderedListOutlined />} size="large">
-            Manage Values
-          </Button>
-        </Link>
+      <div style={{ display: 'flex', justifyContent: 'space-between', gap: '16px', alignItems: 'center' }}>
+        <h1 style={{ margin: 0 }}>จัดการคอนเท็น</h1>
+        <div>
+          <Link to="/Admin/FormContent">
+            <Button type="primary" shape="round" icon={<PlusCircleOutlined />} size="large">
+              Add Content
+            </Button>
+          </Link>
+          {" "}
+          <Link to="/Admin/ManageValues">
+            <Button type="primary" shape="round" icon={<UnorderedListOutlined />} size="large">
+              Manage Values
+            </Button>
+          </Link>
+        </div>
       </div>
       <br />
       <Table dataSource={dataSource} columns={columns} />

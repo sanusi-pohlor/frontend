@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Table, Form, Input, Button, Popconfirm, message, Modal,InputNumber } from 'antd';
+import { Table, Form, Input, Button, Popconfirm, message, Modal, InputNumber } from 'antd';
+import { PlusCircleOutlined } from '@ant-design/icons';
 
 const EditableCell = ({
   editing,
@@ -177,15 +178,18 @@ const MC_DataCharacteristics = () => {
   });
   return (
     <div>
-      <Button
-        type="primary"
-        onClick={() => {
-          setModalVisible(true);
-        }}
-        style={{ marginBottom: 16 }}
-      >
-        เพิ่มลักษณะข้อมูล
-      </Button>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <h1>จัดการลักษณะข้อมูล</h1>
+        <Button
+          type="primary" shape="round" icon={<PlusCircleOutlined />} size="large"
+          onClick={() => {
+            setModalVisible(true);
+          }}
+          style={{ marginBottom: 16 }}
+        >
+          เพิ่มลักษณะข้อมูล
+        </Button>
+      </div>
       <Modal
         title="เพิ่มลักษณะข้อมูล"
         visible={modalVisible}
@@ -200,17 +204,17 @@ const MC_DataCharacteristics = () => {
         >
           {/* Add form fields for creating a new member */}
           <Form.Item
-          name="data_cha_name"
-          label="ชื่อลักษณะข้อมูล"
-          rules={[
-            {
-              required: true,
-              message: "Please input the title of collection!",
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
+            name="data_cha_name"
+            label="ชื่อลักษณะข้อมูล"
+            rules={[
+              {
+                required: true,
+                message: "Please input the title of collection!",
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
           {/* Add more form fields here */}
           <Form.Item>
             <Button type="primary" htmlType="submit">

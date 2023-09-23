@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Form, Input, InputNumber, Popconfirm, Table, Typography, Button, Modal, Select,message } from "antd";
+import { Form, Input, InputNumber, Popconfirm, Table, Typography, Button, Modal, Select, message } from "antd";
+import { PlusCircleOutlined } from '@ant-design/icons';
 
 const { Option } = Select;
 const EditableCell = ({
@@ -250,16 +251,19 @@ const MC_InspectionDetails = () => {
   };
   return (
     <div>
-      <Button
-        type="primary"
-        onClick={() => {
-          setModalVisible(true);
-          //onGenderChange(); // Call the function when the "Add" button is clicked
-        }}
-        style={{ marginBottom: 16 }}
-      >
-        เพิ่มประเด็นย่อย
-      </Button>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <h1>จัดการประเด็นย่อย</h1>
+        <Button
+          type="primary" shape="round" icon={<PlusCircleOutlined />} size="large"
+          onClick={() => {
+            setModalVisible(true);
+            //onGenderChange(); // Call the function when the "Add" button is clicked
+          }}
+          style={{ marginBottom: 16 }}
+        >
+          เพิ่มประเด็นย่อย
+        </Button>
+      </div>
       <Modal
         title="เพิ่มประเด็นย่อย"
         visible={modalVisible}
@@ -274,65 +278,65 @@ const MC_InspectionDetails = () => {
         >
           {/* Add form fields for creating a new member */}
           <Form.Item
-          name="ins_dt_che_id"
-          label="รหัสการตรวจสอบ"
-          rules={[
-            {
-              required: true,
-              message: "Please input the title of collection!",
-            },
-          ]}
-        >
-          <Select
-            placeholder="Select a option and change input text above"
-            onChange={onGenderChange_ins_dt_che_id}
-            allowClear
+            name="ins_dt_che_id"
+            label="รหัสการตรวจสอบ"
+            rules={[
+              {
+                required: true,
+                message: "Please input the title of collection!",
+              },
+            ]}
           >
+            <Select
+              placeholder="Select a option and change input text above"
+              onChange={onGenderChange_ins_dt_che_id}
+              allowClear
+            >
               {selectOptions} {/* Populate the options */}
-          </Select>
-        </Form.Item>
-        <Form.Item
-          name="ins_dt_info_id"
-          label="รหัสการแจ้ง"
-          rules={[
-            {
-              required: true,
-              message: "Please input the title of collection!",
-            },
-          ]}
-        >
-          <Select
-            placeholder="Select a option and change input text above"
-            onChange={onGenderChange_ins_dt_info_id}
-            allowClear
+            </Select>
+          </Form.Item>
+          <Form.Item
+            name="ins_dt_info_id"
+            label="รหัสการแจ้ง"
+            rules={[
+              {
+                required: true,
+                message: "Please input the title of collection!",
+              },
+            ]}
           >
+            <Select
+              placeholder="Select a option and change input text above"
+              onChange={onGenderChange_ins_dt_info_id}
+              allowClear
+            >
               {selectOptions} {/* Populate the options */}
-          </Select>
-        </Form.Item>
-        <Form.Item
-          name="ins_dt_date"
-          label="วันที่ตรวจสอบ"
-          rules={[
-            {
-              required: true,
-              message: "Please input the title of collection!",
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item
-          name="ins_dt_more"
-          label="ข้อมูลเพิ่มเติม"
-          rules={[
-            {
-              required: true,
-              message: "Please input the title of collection!",
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
+            </Select>
+          </Form.Item>
+          <Form.Item
+            name="ins_dt_date"
+            label="วันที่ตรวจสอบ"
+            rules={[
+              {
+                required: true,
+                message: "Please input the title of collection!",
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            name="ins_dt_more"
+            label="ข้อมูลเพิ่มเติม"
+            rules={[
+              {
+                required: true,
+                message: "Please input the title of collection!",
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
         </Form>
       </Modal>
       <Table

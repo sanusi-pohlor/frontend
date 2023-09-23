@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Form, Input, InputNumber, Popconfirm, Table, Typography, Button, Modal, message } from "antd";
+import { PlusCircleOutlined } from '@ant-design/icons';
 
 const EditableCell = ({
   editing,
@@ -189,15 +190,18 @@ const MC_TypeInformation = () => {
   });
   return (
     <div>
-      <Button
-        type="primary"
-        onClick={() => {
-          setModalVisible(true);
-        }}
-        style={{ marginBottom: 16 }}
-      >
-        เพิ่มประเภท
-      </Button>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <h1>จัดการประเภท</h1>
+        <Button
+          type="primary" shape="round" icon={<PlusCircleOutlined />} size="large"
+          onClick={() => {
+            setModalVisible(true);
+          }}
+          style={{ marginBottom: 16 }}
+        >
+          เพิ่มประเภท
+        </Button>
+      </div>
       <Modal
         title="เพิ่มประเภท"
         visible={modalVisible}
@@ -212,8 +216,8 @@ const MC_TypeInformation = () => {
         >
           {/* Add form fields for creating a new member */}
           <Form.Item
-          name="type_info_name"
-          label="ชื่อประเภท"
+            name="type_info_name"
+            label="ชื่อประเภท"
             rules={[
               {
                 required: true,

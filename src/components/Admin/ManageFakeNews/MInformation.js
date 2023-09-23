@@ -12,6 +12,7 @@ import {
   message,
 } from "antd";
 import AdminMenu from "../AdminMenu";
+import { PlusCircleOutlined } from '@ant-design/icons';
 
 const { Option } = Select;
 const EditableCell = ({
@@ -289,43 +290,45 @@ const MInformation = () => {
       console.error(`Error fetching ${fieldName} codes:`, error);
     }
   };
-  
+
   const onChange_info_subp_id = () => {
     fetchDataAndSetOptions("Subpoint_request", "subp", setSelectOptions_subp);
   };
-  
+
   const onChange_info_vol_mem_id = () => {
     fetchDataAndSetOptions("VolunteerMembers_request", "vol_mem", setSelectOptions_vol);
   };
-  
+
   const onChange_info_moti_id = () => {
     fetchDataAndSetOptions("Motivation_request", "moti", setSelectOptions_moti);
   };
-  
+
   const onChange_info_act_id = () => {
     fetchDataAndSetOptions("ActionType_request", "act_ty", setSelectOptions_act);
   };
-  
+
   const onChange_info_d_c_id = () => {
     fetchDataAndSetOptions("DataCharacteristics_request", "data_cha", setSelectOptions_d_c);
   };
   return (
     <AdminMenu>
-      MInformation
-      <Button
-        type="primary"
-        onClick={() => {
-          setModalVisible(true);
-          onChange_info_subp_id();
-          onChange_info_vol_mem_id();
-          onChange_info_moti_id();
-          onChange_info_act_id();
-          onChange_info_d_c_id();
-        }}
-        style={{ marginBottom: 16 }}
-      >
-        เพิ่มการแจ้งข้อมูลที่เป็นเท็จ
-      </Button>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <h1>จัดการการแจ้งข้อมูลที่เป็นเท็จ</h1>
+        <Button
+          type="primary" shape="round" icon={<PlusCircleOutlined />} size="large"
+          onClick={() => {
+            setModalVisible(true);
+            onChange_info_subp_id();
+            onChange_info_vol_mem_id();
+            onChange_info_moti_id();
+            onChange_info_act_id();
+            onChange_info_d_c_id();
+          }}
+          style={{ marginBottom: 16 }}
+        >
+          เพิ่มการแจ้งข้อมูลที่เป็นเท็จ
+        </Button>
+      </div>
       <Modal
         title="เพิ่มประเด็นย่อย"
         visible={modalVisible}

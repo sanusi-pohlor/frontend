@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Form, Input, InputNumber, Popconfirm, Table, Typography, Button, Modal, message } from "antd";
 import AdminMenu from "../AdminMenu";
+import { PlusCircleOutlined } from '@ant-design/icons';
 
 const EditableCell = ({
   editing,
@@ -191,16 +192,18 @@ const MType = () => {
   });
   return (
     <AdminMenu>
-      MType
-      <Button
-        type="primary"
-        onClick={() => {
-          setModalVisible(true);
-        }}
-        style={{ marginBottom: 16 }}
-      >
-        เพิ่มประเภท
-      </Button>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <h1>จัดการประเภท</h1>
+        <Button
+          type="primary" shape="round" icon={<PlusCircleOutlined />} size="large"
+          onClick={() => {
+            setModalVisible(true);
+          }}
+          style={{ marginBottom: 16 }}
+        >
+          เพิ่มประเภท
+        </Button>
+      </div>
       <Modal
         title="เพิ่มประเภท"
         visible={modalVisible}

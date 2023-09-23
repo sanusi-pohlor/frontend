@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Table, Form, Input,InputNumber, Button, Popconfirm, Select, Modal, message } from 'antd';
+import { Table, Form, Input, InputNumber, Button, Popconfirm, Select, Modal, message } from 'antd';
+import { PlusCircleOutlined } from '@ant-design/icons';
 
 const { Option } = Select;
 const EditableCell = ({
@@ -42,7 +43,7 @@ const MC_VolunteeMembers = () => {
   const [loading, setLoading] = useState(true);
   const [editingKey, setEditingKey] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
-  
+
   const fetchData = async () => {
     try {
       const response = await fetch(
@@ -223,15 +224,18 @@ const MC_VolunteeMembers = () => {
 
   return (
     <div>
-      <Button
-        type="primary"
-        onClick={() => {
-          setModalVisible(true);
-        }}
-        style={{ marginBottom: 16 }}
-      >
-        เพิ่มสมาชิกใหม่
-      </Button>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <h1>จัดการสมาชิกใหม่</h1>
+        <Button
+          type="primary" shape="round" icon={<PlusCircleOutlined />} size="large"
+          onClick={() => {
+            setModalVisible(true);
+          }}
+          style={{ marginBottom: 16 }}
+        >
+          เพิ่มสมาชิกใหม่
+        </Button>
+      </div>
       <Modal
         title="เพิ่มสมาชิกใหม่"
         visible={modalVisible}

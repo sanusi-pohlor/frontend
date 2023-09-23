@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Table, Form, Input, Button, Popconfirm, Select, Modal, InputNumber,message } from 'antd';
+import { Table, Form, Input, Button, Popconfirm, Select, Modal, InputNumber, message } from 'antd';
+import { PlusCircleOutlined } from '@ant-design/icons';
 
 const { Option } = Select;
 const EditableCell = ({
@@ -270,43 +271,46 @@ const MC_DetailsNotiChannels = () => {
       console.error(`Error fetching ${fieldName} codes:`, error);
     }
   };
-  
+
   const onChange_dnc_med_id = () => {
     fetchDataAndSetOptions("MediaChannels_request", "med_c", setSelectOptions_med);
   };
-  
+
   const onChange_dnc_info_id = () => {
     fetchDataAndSetOptions("Information_request", "info", setSelectOptions_info);
   };
-  
+
   const onChange_dnc_pub_id = () => {
     fetchDataAndSetOptions("Publisher_request", "pub", setSelectOptions_pub);
   };
-  
+
   const onChange_dnc_fm_d_id = () => {
     fetchDataAndSetOptions("FormatData_request", "fm_d", setSelectOptions_fm_d);
   };
-  
+
   const onChange_dnc_prob_id = () => {
     fetchDataAndSetOptions("ProblemManagement_request", "prob_m", setSelectOptions_prob);
   };
-  
+
   return (
     <div>
-      <Button
-        type="primary"
-        onClick={() => {
-          setModalVisible(true);
-          onChange_dnc_med_id();
-          onChange_dnc_info_id();
-          onChange_dnc_pub_id();
-          onChange_dnc_fm_d_id();
-          onChange_dnc_prob_id();
-        }}
-        style={{ marginBottom: 16 }}
-      >
-        เพิ่มช่องทางสื่อ
-      </Button>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <h1>จัดการช่องทางสื่อ</h1>
+        <Button
+          type="primary" shape="round" icon={<PlusCircleOutlined />} size="large"
+          onClick={() => {
+            setModalVisible(true);
+            onChange_dnc_med_id();
+            onChange_dnc_info_id();
+            onChange_dnc_pub_id();
+            onChange_dnc_fm_d_id();
+            onChange_dnc_prob_id();
+          }}
+          style={{ marginBottom: 16 }}
+        >
+          เพิ่มช่องทางสื่อ
+        </Button>
+      </div>
       <Modal
         title="เพิ่มช่องทางสื่อ"
         visible={modalVisible}

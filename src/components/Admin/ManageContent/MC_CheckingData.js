@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Table, Form, Input, Button, Popconfirm, message, Modal,InputNumber } from 'antd';
+import { Table, Form, Input, Button, Popconfirm, message, Modal, InputNumber } from 'antd';
+import { PlusCircleOutlined } from '@ant-design/icons';
 
 const EditableCell = ({
   editing,
@@ -42,7 +43,7 @@ const MC_CheckingData = () => {
   const [loading, setLoading] = useState(true);
   const [editingKey, setEditingKey] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
-  
+
   const fetchData = async () => {
     try {
       const response = await fetch(
@@ -177,15 +178,18 @@ const MC_CheckingData = () => {
   });
   return (
     <div>
-      <Button
-        type="primary"
-        onClick={() => {
-          setModalVisible(true);
-        }}
-        style={{ marginBottom: 16 }}
-      >
-        เพิ่มรูปแบบการตรวจสอบ
-      </Button>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <h1>จัดการรูปแบบการตรวจสอบ</h1>
+        <Button
+          type="primary" shape="round" icon={<PlusCircleOutlined />} size="large"
+          onClick={() => {
+            setModalVisible(true);
+          }}
+          style={{ marginBottom: 16 }}
+        >
+          เพิ่มรูปแบบการตรวจสอบ
+        </Button>
+      </div>
       <Modal
         title="เพิ่มรูปแบบการตรวจสอบ"
         visible={modalVisible}
@@ -200,17 +204,17 @@ const MC_CheckingData = () => {
         >
           {/* Add form fields for creating a new member */}
           <Form.Item
-          name="che_d_format"
-          label="รูปแบบการตรวจสอบ"
-          rules={[
-            {
-              required: true,
-              message: "Please input the title of collection!",
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
+            name="che_d_format"
+            label="รูปแบบการตรวจสอบ"
+            rules={[
+              {
+                required: true,
+                message: "Please input the title of collection!",
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
           {/* Add more form fields here */}
           <Form.Item>
             <Button type="primary" htmlType="submit">

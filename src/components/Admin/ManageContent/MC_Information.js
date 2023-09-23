@@ -11,6 +11,7 @@ import {
   Select,
   message,
 } from "antd";
+import { PlusCircleOutlined } from '@ant-design/icons';
 
 const { Option } = Select;
 const EditableCell = ({
@@ -287,43 +288,46 @@ const MC_Information = () => {
       console.error(`Error fetching ${fieldName} codes:`, error);
     }
   };
-  
+
   const onChange_info_subp_id = () => {
     fetchDataAndSetOptions("Subpoint_request", "subp", setSelectOptions_subp);
   };
-  
+
   const onChange_info_vol_mem_id = () => {
     fetchDataAndSetOptions("VolunteerMembers_request", "vol_mem", setSelectOptions_vol);
   };
-  
+
   const onChange_info_moti_id = () => {
     fetchDataAndSetOptions("Motivation_request", "moti", setSelectOptions_moti);
   };
-  
+
   const onChange_info_act_id = () => {
     fetchDataAndSetOptions("ActionType_request", "act_ty", setSelectOptions_act);
   };
-  
+
   const onChange_info_d_c_id = () => {
     fetchDataAndSetOptions("DataCharacteristics_request", "data_cha", setSelectOptions_d_c);
   };
-  
+
   return (
     <div>
-      <Button
-        type="primary"
-        onClick={() => {
-          setModalVisible(true);
-          onChange_info_subp_id();
-          onChange_info_vol_mem_id();
-          onChange_info_moti_id();
-          onChange_info_act_id();
-          onChange_info_d_c_id();
-        }}
-        style={{ marginBottom: 16 }}
-      >
-        เพิ่มการแจ้งข้อมูลที่เป็นเท็จ
-      </Button>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <h1>จัดการการแจ้งข้อมูลที่เป็นเท็จ</h1>
+        <Button
+          type="primary" shape="round" icon={<PlusCircleOutlined />} size="large"
+          onClick={() => {
+            setModalVisible(true);
+            onChange_info_subp_id();
+            onChange_info_vol_mem_id();
+            onChange_info_moti_id();
+            onChange_info_act_id();
+            onChange_info_d_c_id();
+          }}
+          style={{ marginBottom: 16 }}
+        >
+          เพิ่มการแจ้งข้อมูลที่เป็นเท็จ
+        </Button>
+      </div>
       <Modal
         title="เพิ่มประเด็นย่อย"
         visible={modalVisible}
@@ -515,138 +519,138 @@ const MC_Information = () => {
 export default MC_Information;
 
 
-  // const onChange_info_subp_id = async () => {
-  //   try {
-  //     const response = await fetch(
-  //       "http://localhost:8000/api/Subpoint_request"
-  //     );
-  //     if (response.ok) {
-  //       const typeCodes = await response.json();
-  //       const options = typeCodes.map((code) => (
-  //         <Option key={code.subp_id} value={code.subp_id}>
-  //           {code.subp_name}
-  //         </Option>
-  //       ));
-  //       form.setFieldsValue({ subp_id: undefined });
-  //       form.setFields([
-  //         {
-  //           name: "subp_id",
-  //           value: undefined,
-  //         },
-  //       ]);
-  //       setSelectOptions_subp(options);
-  //     } else {
-  //       console.error("Error fetching type codes:", response.statusText);
-  //     }
-  //   } catch (error) {
-  //     console.error("Error fetching type codes:", error);
-  //   }
-  // };
-  // const onChange_info_vol_mem_id = async () => {
-  //   try {
-  //     const response = await fetch(
-  //       "http://localhost:8000/api/VolunteerMembers_request"
-  //     );
-  //     if (response.ok) {
-  //       const typeCodes = await response.json();
-  //       const options = typeCodes.map((code) => (
-  //         <Option key={code.vol_mem_id} value={code.vol_mem_id}>
-  //           {code.vol_mem_fname}
-  //         </Option>
-  //       ));
-  //       form.setFieldsValue({ vol_mem_id: undefined });
-  //       form.setFields([
-  //         {
-  //           name: "vol_mem_id",
-  //           value: undefined,
-  //         },
-  //       ]);
-  //       setSelectOptions_vol(options);
-  //     } else {
-  //       console.error("Error fetching type codes:", response.statusText);
-  //     }
-  //   } catch (error) {
-  //     console.error("Error fetching type codes:", error);
-  //   }
-  // };
-  // const onChange_info_moti_id = async () => {
-  //   try {
-  //     const response = await fetch(
-  //       "http://localhost:8000/api/Motivation_request"
-  //     );
-  //     if (response.ok) {
-  //       const typeCodes = await response.json();
-  //       const options = typeCodes.map((code) => (
-  //         <Option key={code.moti_id} value={code.moti_id}>
-  //           {code.moti_name}
-  //         </Option>
-  //       ));
-  //       form.setFieldsValue({ moti_id: undefined });
-  //       form.setFields([
-  //         {
-  //           name: "moti_id",
-  //           value: undefined,
-  //         },
-  //       ]);
-  //       setSelectOptions_moti(options);
-  //     } else {
-  //       console.error("Error fetching type codes:", response.statusText);
-  //     }
-  //   } catch (error) {
-  //     console.error("Error fetching type codes:", error);
-  //   }
-  // };
-  // const onChange_info_act_id = async () => {
-  //   try {
-  //     const response = await fetch(
-  //       "http://localhost:8000/api/ActionType_request"
-  //     );
-  //     if (response.ok) {
-  //       const typeCodes = await response.json();
-  //       const options = typeCodes.map((code) => (
-  //         <Option key={code.act_ty_id} value={code.act_ty_id}>
-  //           {code.act_ty_name}
-  //         </Option>
-  //       ));
-  //       form.setFieldsValue({ act_ty_id: undefined });
-  //       form.setFields([
-  //         {
-  //           name: "act_ty_id",
-  //           value: undefined,
-  //         },
-  //       ]);
-  //       setSelectOptions_act(options);
-  //     } else {
-  //       console.error("Error fetching type codes:", response.statusText);
-  //     }
-  //   } catch (error) {
-  //     console.error("Error fetching type codes:", error);
-  //   }
-  // };
-  // const onChange_info_d_c_id = async () => {
-  //   try {
-  //     const response = await fetch(
-  //       "http://localhost:8000/api/DataCharacteristics_request"
-  //     );
-  //     if (response.ok) {
-  //       const typeCodes = await response.json();
-  //       const options = typeCodes.map((code) => (
-  //         <Option key={code.data_cha_id} value={code.data_cha_id}>
-  //           {code.data_cha_name}
-  //         </Option>
-  //       ));
-  //       form.setFieldsValue({ data_cha_id: undefined });
-  //       form.setFields([
-  //         {
-  //           name: "data_cha_id",
-  //           value: undefined,
-  //         },
-  //       ]);
-  //       setSelectOptions_d_c(options);
-  //     } else {
-  //       console.error("Error fetching type codes:", response.statusText);
-  //     }
-  //   } catch (error) {
-  //     console.error("Error fetching type codes:", error);
-  //   }
-  // };
+// const onChange_info_subp_id = async () => {
+//   try {
+//     const response = await fetch(
+//       "http://localhost:8000/api/Subpoint_request"
+//     );
+//     if (response.ok) {
+//       const typeCodes = await response.json();
+//       const options = typeCodes.map((code) => (
+//         <Option key={code.subp_id} value={code.subp_id}>
+//           {code.subp_name}
+//         </Option>
+//       ));
+//       form.setFieldsValue({ subp_id: undefined });
+//       form.setFields([
+//         {
+//           name: "subp_id",
+//           value: undefined,
+//         },
+//       ]);
+//       setSelectOptions_subp(options);
+//     } else {
+//       console.error("Error fetching type codes:", response.statusText);
+//     }
+//   } catch (error) {
+//     console.error("Error fetching type codes:", error);
+//   }
+// };
+// const onChange_info_vol_mem_id = async () => {
+//   try {
+//     const response = await fetch(
+//       "http://localhost:8000/api/VolunteerMembers_request"
+//     );
+//     if (response.ok) {
+//       const typeCodes = await response.json();
+//       const options = typeCodes.map((code) => (
+//         <Option key={code.vol_mem_id} value={code.vol_mem_id}>
+//           {code.vol_mem_fname}
+//         </Option>
+//       ));
+//       form.setFieldsValue({ vol_mem_id: undefined });
+//       form.setFields([
+//         {
+//           name: "vol_mem_id",
+//           value: undefined,
+//         },
+//       ]);
+//       setSelectOptions_vol(options);
+//     } else {
+//       console.error("Error fetching type codes:", response.statusText);
+//     }
+//   } catch (error) {
+//     console.error("Error fetching type codes:", error);
+//   }
+// };
+// const onChange_info_moti_id = async () => {
+//   try {
+//     const response = await fetch(
+//       "http://localhost:8000/api/Motivation_request"
+//     );
+//     if (response.ok) {
+//       const typeCodes = await response.json();
+//       const options = typeCodes.map((code) => (
+//         <Option key={code.moti_id} value={code.moti_id}>
+//           {code.moti_name}
+//         </Option>
+//       ));
+//       form.setFieldsValue({ moti_id: undefined });
+//       form.setFields([
+//         {
+//           name: "moti_id",
+//           value: undefined,
+//         },
+//       ]);
+//       setSelectOptions_moti(options);
+//     } else {
+//       console.error("Error fetching type codes:", response.statusText);
+//     }
+//   } catch (error) {
+//     console.error("Error fetching type codes:", error);
+//   }
+// };
+// const onChange_info_act_id = async () => {
+//   try {
+//     const response = await fetch(
+//       "http://localhost:8000/api/ActionType_request"
+//     );
+//     if (response.ok) {
+//       const typeCodes = await response.json();
+//       const options = typeCodes.map((code) => (
+//         <Option key={code.act_ty_id} value={code.act_ty_id}>
+//           {code.act_ty_name}
+//         </Option>
+//       ));
+//       form.setFieldsValue({ act_ty_id: undefined });
+//       form.setFields([
+//         {
+//           name: "act_ty_id",
+//           value: undefined,
+//         },
+//       ]);
+//       setSelectOptions_act(options);
+//     } else {
+//       console.error("Error fetching type codes:", response.statusText);
+//     }
+//   } catch (error) {
+//     console.error("Error fetching type codes:", error);
+//   }
+// };
+// const onChange_info_d_c_id = async () => {
+//   try {
+//     const response = await fetch(
+//       "http://localhost:8000/api/DataCharacteristics_request"
+//     );
+//     if (response.ok) {
+//       const typeCodes = await response.json();
+//       const options = typeCodes.map((code) => (
+//         <Option key={code.data_cha_id} value={code.data_cha_id}>
+//           {code.data_cha_name}
+//         </Option>
+//       ));
+//       form.setFieldsValue({ data_cha_id: undefined });
+//       form.setFields([
+//         {
+//           name: "data_cha_id",
+//           value: undefined,
+//         },
+//       ]);
+//       setSelectOptions_d_c(options);
+//     } else {
+//       console.error("Error fetching type codes:", response.statusText);
+//     }
+//   } catch (error) {
+//     console.error("Error fetching type codes:", error);
+//   }
+// };

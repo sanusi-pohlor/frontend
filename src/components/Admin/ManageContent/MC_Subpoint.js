@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Form, Input, InputNumber, Popconfirm, Table, Typography, Button, Modal, Select, message } from "antd";
+import { PlusCircleOutlined } from '@ant-design/icons';
 
 const { Option } = Select;
 const EditableCell = ({
@@ -194,7 +195,7 @@ const MC_Subpoint = () => {
     };
   });
 
-  const onGenderChange = async () => {
+  const onTypeChange = async () => {
     try {
       const response = await fetch("http://localhost:8000/api/TypeInformation_request");
       if (response.ok) {
@@ -220,16 +221,19 @@ const MC_Subpoint = () => {
 
   return (
     <div>
-      <Button
-        type="primary"
-        onClick={() => {
-          setModalVisible(true);
-          onGenderChange(); // Call the function when the "Add" button is clicked
-        }}
-        style={{ marginBottom: 16 }}
-      >
-        เพิ่มประเด็นย่อย
-      </Button>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <h1>จัดการประเด็นย่อย</h1>
+        <Button
+          type="primary" shape="round" icon={<PlusCircleOutlined />} size="large"
+          onClick={() => {
+            setModalVisible(true);
+            onTypeChange(); // Call the function when the "Add" button is clicked
+          }}
+          style={{ marginBottom: 16 }}
+        >
+          เพิ่มประเด็นย่อย
+        </Button>
+      </div>
       <Modal
         title="เพิ่มประเด็นย่อย"
         visible={modalVisible}
@@ -255,7 +259,7 @@ const MC_Subpoint = () => {
           >
             <Select
               placeholder="Select a option and change input text above"
-              onChange={onGenderChange}
+              onChange={onTypeChange}
               allowClear
             >
               {selectOptions} {/* Populate the options */}
