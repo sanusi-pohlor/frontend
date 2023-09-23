@@ -10,6 +10,7 @@ import {
   Modal,
   Select,
   message,
+  DatePicker
 } from "antd";
 import { PlusCircleOutlined } from '@ant-design/icons';
 
@@ -465,7 +466,7 @@ const MC_Information = () => {
               },
             ]}
           >
-            <Input />
+              <DatePicker />
           </Form.Item>
           <Form.Item
             name="info_status"

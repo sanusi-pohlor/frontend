@@ -92,7 +92,7 @@ const Search = ({ children }) => {
             >
               <Form.Item
                 name="subp_type_id"
-                label="รหัสประเภท"
+                label="ประเภทข่าว"
                 rules={[
                   {
                     required: true,
@@ -101,7 +101,7 @@ const Search = ({ children }) => {
                 ]}
               >
                 <Select
-                  placeholder="Select a option and change input text above"
+                  placeholder="เลือกประเภท"
                   onChange={onTypeChange}
                   allowClear
                 >
@@ -119,7 +119,7 @@ const Search = ({ children }) => {
                 ]}
               >
                 <Select
-                  placeholder="Select a option and change input text above"
+                  placeholder="เลือกช่องทางสื่อ"
                   onChange={onChange_dnc_med_id}
                   allowClear
                 >
@@ -129,8 +129,17 @@ const Search = ({ children }) => {
               <Form.Item label="วัน/เดือน/ปี" style={{ marginBottom: "10px" }}>
                 <DatePicker />
               </Form.Item>
-              <Form.Item label="จังหวัด" style={{ marginBottom: "10px" }}>
-                <Select>
+              <Form.Item name="" label="จังหวัด" style={{ marginBottom: "10px" }} rules={[
+                {
+                  required: true,
+                  message: "Please input the title of collection!",
+                },
+              ]}>
+                <Select
+                  placeholder="เลือกจังหวัด"
+                  //onChange={onTypeChange}
+                  allowClear
+                >
                   <Select.Option value="Krabi">กระบี่</Select.Option>
                   <Select.Option value="Chumphon">ชุมพร</Select.Option>
                   <Select.Option value="Trang">ตรัง</Select.Option>
@@ -153,6 +162,7 @@ const Search = ({ children }) => {
               <Form.Item>
                 <Button type="primary"
                   htmlType="submit"
+                  placeholder="เลือกจังหวัด"
                   className="login-form-button"
                   size="large">ค้นหา</Button>
               </Form.Item>

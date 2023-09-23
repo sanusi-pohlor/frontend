@@ -14,11 +14,14 @@ import PieChartComponent from "./PieChartComponent";
 import BarChartComponent from "./BarChartComponent";
 import MuiTable from "./MuiTable";
 import "./Dashboard.css";
-import { Card, Select, Input, FloatButton  } from "antd";
+import { Card, Select, Input, FloatButton,Form } from "antd";
 const { Option } = Select;
 const { Meta } = Card;
 
 const Dashboard = ({ onSearch }) => {
+  const [form] = Form.useForm();
+  const [selectOptions_med, setSelectOptions_med] = useState([]); // State for select options
+  const [selectOptions_type, setSelectOptions_type] = useState([]); // State for select options
   const [searchTerm, setSearchTerm] = useState("");
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
@@ -53,6 +56,38 @@ const Dashboard = ({ onSearch }) => {
       </Card>
     );
   };
+  const fetchDataAndSetOptions = async (endpoint, fieldName, stateSetter) => {
+    try {
+      const response = await fetch(`http://localhost:8000/api/${endpoint}`);
+      if (response.ok) {
+        const typeCodes = await response.json();
+        const options = typeCodes.map((code) => (
+          <Option key={code[`${fieldName}_id`]} value={code[`${fieldName}_id`]}>
+            {code[`${fieldName}_name`]}
+          </Option>
+        ));
+        form.setFieldsValue({ [fieldName]: undefined });
+        form.setFields([
+          {
+            name: fieldName,
+            value: undefined,
+          },
+        ]);
+        stateSetter(options);
+      } else {
+        console.error(`Error fetching ${fieldName} codes:`, response.statusText);
+      }
+    } catch (error) {
+      console.error(`Error fetching ${fieldName} codes:`, error);
+    }
+  };
+
+  const onChange_dnc_med_id = () => {
+    fetchDataAndSetOptions("MediaChannels_request", "med_c", setSelectOptions_med);
+  };
+  const onTypeChange = () => {
+    fetchDataAndSetOptions("TypeInformation_request", "type_info", setSelectOptions_type);
+  };
 
   return (
     <div>
@@ -65,36 +100,24 @@ const Dashboard = ({ onSearch }) => {
       }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "center", }}>
           <Select
+            onChange={onTypeChange}
             size="large"
             placeholder="ประเภท"
             // onChange={onGenderChange}
             allowClear
             style={{ marginRight: "10px", flex: 1, }} // Add margin to the right
           >
-            <Select.Option value="Food_Medicine_Health">อาหารยาและผลิตภัณฑ์สุขภาพ</Select.Option>
-            <Select.Option value="Public_Service">บริการสาธารณะ</Select.Option>
-            <Select.Option value="Health_Public_Health_Services">บริการสุขภาพและสาธารณสุข</Select.Option>
-            <Select.Option value="Banking">การเงินการธนาคาร</Select.Option>
-            <Select.Option value="General_Products_And_Services">สินค้าและบริการทั่วไป</Select.Option>
-            <Select.Option value="Real_Estate">อสังหาริมทรัพย์</Select.Option>
-            <Select.Option value="Media_and_Telecommunications">สื่อและโทรคมนาคม</Select.Option>
-            <Select.Option value="COVID">โควิด</Select.Option>
-            <Select.Option value="Other">อื่นๆ</Select.Option>
+            {selectOptions_type} {/* Populate the options */}
           </Select>
           <Select
+            onChange={onChange_dnc_med_id}
             size="large"
             placeholder="สื่อ"
             // onChange={onGenderChange}
             allowClear
             style={{ marginRight: "10px", flex: 1, }} // Add margin to the right
           >
-            <Select.Option value="Facebook">Facebook</Select.Option>
-            <Select.Option value="Line">Line</Select.Option>
-            <Select.Option value="Messenger">Messenger</Select.Option>
-            <Select.Option value="website">เว็บไซต์</Select.Option>
-            <Select.Option value="Youtube">Youtube</Select.Option>
-            <Select.Option value="Tiktok">Tiktok</Select.Option>
-            <Select.Option value="Other">อื่นๆ</Select.Option>
+            {selectOptions_med} {/* Populate the options */}
           </Select>
           <Select
             size="large"

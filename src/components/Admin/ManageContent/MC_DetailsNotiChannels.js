@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Table, Form, Input, Button, Popconfirm, Select, Modal, InputNumber, message } from 'antd';
+import { DatePicker, Table, Form, Input, Button, Popconfirm, Select, Modal, InputNumber, message } from 'antd';
 import { PlusCircleOutlined } from '@ant-design/icons';
 
 const { Option } = Select;
@@ -448,7 +448,7 @@ const MC_DetailsNotiChannels = () => {
               },
             ]}
           >
-            <Input />
+            <DatePicker />
           </Form.Item>
           <Form.Item
             name="dnc_capt"

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {
   Form,
+  DatePicker,
   Input,
   InputNumber,
   Popconfirm,
@@ -466,7 +467,7 @@ const MInformation = () => {
               },
             ]}
           >
-            <Input />
+                <DatePicker />
           </Form.Item>
           <Form.Item
             name="info_status"
