@@ -1,27 +1,67 @@
 import React, { useState, useEffect } from "react";
-import { Box, Typography } from "@mui/material";
-import { Card, Button, DatePicker, Form, Input, Select, Layout, FloatButton } from "antd";
+import { Box, Typography, Grid } from "@mui/material";
+import {
+  Card,
+  Button,
+  DatePicker,
+  Form,
+  Input,
+  Select,
+  Layout,
+  FloatButton,
+} from "antd";
 const { Content, Sider } = Layout;
 const { Option } = Select;
 
+const GridContent = ({ data }) => {
+  return (
+    <Grid container spacing={2}>
+      {data.map((item) => (
+        <Grid item xs={12} md={4} key={item.id}>
+          <Content>
+            <div>
+              <Card
+                title={item.title}
+                style={{
+                  marginBottom: "16px",
+                  width: "100%",
+                  height: "100%",
+                  padding: 20,
+                }}
+              >
+                <p>{item.description}</p>
+                <img
+                  src={item.image}
+                  alt="Item"
+                  style={{ maxWidth: "100px" }}
+                />
+              </Card>
+            </div>
+          </Content>
+        </Grid>
+      ))}
+    </Grid>
+  );
+};
+
 const Search = ({ children }) => {
   const [form] = Form.useForm();
-  const [dataSource, setDataSource] = useState([]);
-  const [selectOptions_med, setSelectOptions_med] = useState([]); // State for select options
-  const [selectOptions_type, setSelectOptions_type] = useState([]); // State for select options
+  const [data, setData] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:8000/api/data')
+    // Make an API call to fetch data from your database
+    fetch("http://localhost:8000/api/data")
       .then((response) => response.json())
       .then((data) => {
-        setDataSource(data);
+        // Set the fetched data in the component's state
+        setData(data);
       })
       .catch((error) => {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
       });
   }, []);
 
-  const fetchDataAndSetOptions = async (endpoint, fieldName, stateSetter) => {
+  const fetchDataAndSetOptions = async (endpoint, fieldName) => {
     try {
       const response = await fetch(`http://localhost:8000/api/${endpoint}`);
       if (response.ok) {
@@ -38,9 +78,11 @@ const Search = ({ children }) => {
             value: undefined,
           },
         ]);
-        stateSetter(options);
       } else {
-        console.error(`Error fetching ${fieldName} codes:`, response.statusText);
+        console.error(
+          `Error fetching ${fieldName} codes:`,
+          response.statusText
+        );
       }
     } catch (error) {
       console.error(`Error fetching ${fieldName} codes:`, error);
@@ -48,10 +90,11 @@ const Search = ({ children }) => {
   };
 
   const onChange_dnc_med_id = () => {
-    fetchDataAndSetOptions("MediaChannels_request", "med_c", setSelectOptions_med);
+    fetchDataAndSetOptions("MediaChannels_request", "med_c");
   };
+
   const onTypeChange = () => {
-    fetchDataAndSetOptions("TypeInformation_request", "type_info", setSelectOptions_type);
+    fetchDataAndSetOptions("TypeInformation_request", "type_info");
   };
 
   return (
@@ -62,6 +105,10 @@ const Search = ({ children }) => {
           style={{ background: "#FFFFFF" }}
           breakpoint="lg"
           collapsedWidth={0}
+          onClick={() => {
+            onChange_dnc_med_id();
+            onTypeChange();
+          }}
         >
           <Card
             hoverable
@@ -85,7 +132,6 @@ const Search = ({ children }) => {
               initialValues={{
                 remember: true,
               }}
-              // onFinish={RegisterFinish}
               style={{
                 maxWidth: "100%",
               }}
@@ -105,7 +151,7 @@ const Search = ({ children }) => {
                   onChange={onTypeChange}
                   allowClear
                 >
-                  {selectOptions_type} {/* Populate the options */}
+                  {/* Populate the options */}
                 </Select>
               </Form.Item>
               <Form.Item
@@ -123,27 +169,33 @@ const Search = ({ children }) => {
                   onChange={onChange_dnc_med_id}
                   allowClear
                 >
-                  {selectOptions_med} {/* Populate the options */}
+                  {/* Populate the options */}
                 </Select>
               </Form.Item>
               <Form.Item label="วัน/เดือน/ปี" style={{ marginBottom: "10px" }}>
                 <DatePicker />
               </Form.Item>
-              <Form.Item name="" label="จังหวัด" style={{ marginBottom: "10px" }} rules={[
-                {
-                  required: true,
-                  message: "Please input the title of collection!",
-                },
-              ]}>
+              <Form.Item
+                name=""
+                label="จังหวัด"
+                style={{ marginBottom: "10px" }}
+                rules={[
+                  {
+                    required: true,
+                    message: "Please input the title of collection!",
+                  },
+                ]}
+              >
                 <Select
                   placeholder="เลือกจังหวัด"
-                  //onChange={onTypeChange}
                   allowClear
                 >
                   <Select.Option value="Krabi">กระบี่</Select.Option>
                   <Select.Option value="Chumphon">ชุมพร</Select.Option>
                   <Select.Option value="Trang">ตรัง</Select.Option>
-                  <Select.Option value="NakhonSiThammarat">นครศรีธรรมราช</Select.Option>
+                  <Select.Option value="NakhonSiThammarat">
+                    นครศรีธรรมราช
+                  </Select.Option>
                   <Select.Option value="Narathiwat">นราธิวาส</Select.Option>
                   <Select.Option value="Pattani">ปัตตานี</Select.Option>
                   <Select.Option value="PhangNga">พังงา</Select.Option>
@@ -160,39 +212,22 @@ const Search = ({ children }) => {
                 <Input />
               </Form.Item>
               <Form.Item>
-                <Button type="primary"
+                <Button
+                  type="primary"
                   htmlType="submit"
                   placeholder="เลือกจังหวัด"
                   className="login-form-button"
-                  size="large">ค้นหา</Button>
+                  size="large"
+                >
+                  ค้นหา
+                </Button>
               </Form.Item>
             </Form>
           </Card>
         </Sider>
-        <Layout style={{ padding: '24px 24px 24px' }}>
-          <Content>
-            <div>
-              {dataSource.map(item => (
-                <Card
-                  key={item.id}
-                  title={item.title}
-                  // extra={<Link to={`/edit/${item.id}`}><EditOutlined /> Edit</Link>}
-                  style={{ marginBottom: '16px' }}
-                >
-                  <p>{item.description}</p>
-                  <img src={item.image} alt="Item" style={{ maxWidth: '100px' }} />
-                  {/* <Popconfirm
-                    title="Are you sure you want to delete this item?"
-                    onConfirm={() => handleDelete(item.id)}
-                  >
-                    <Button type="danger" icon={<DeleteOutlined />}>
-                      Delete
-                    </Button>
-                  </Popconfirm> */}
-                </Card>
-              ))}
-            </div>
-          </Content>
+        <Layout style={{ padding: "24px 24px 24px" }}>
+          {/* Display the data in GridContent */}
+          <GridContent data={data} />
         </Layout>
       </Layout>
       <FloatButton.BackTop />

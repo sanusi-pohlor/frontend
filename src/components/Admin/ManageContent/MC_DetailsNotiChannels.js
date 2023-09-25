@@ -326,7 +326,7 @@ const MC_DetailsNotiChannels = () => {
           {/* Add form fields for creating a new member */}
           <Form.Item
             name="dnc_med_id"
-            label="รหัสช่องทางสื่อ"
+            label="ช่องทางสื่อ"
             rules={[
               {
                 required: true,

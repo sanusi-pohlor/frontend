@@ -121,7 +121,6 @@ function ResponsiveAppBar() {
     <Box>
       <CssBaseline />
       <AppBar sx={{ backgroundColor: '#2E3B4E' }} >
-        <Container maxWidth="xl">
           <Toolbar disableGutters >
             <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
             <Typography
@@ -244,7 +243,6 @@ function ResponsiveAppBar() {
               </Drawer>
             </Box>
           </Toolbar>
-        </Container>
       </AppBar>
     </Box>
   );
