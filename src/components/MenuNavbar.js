@@ -120,7 +120,7 @@ function ResponsiveAppBar() {
   return (
     <Box>
       <CssBaseline />
-      <AppBar sx={{ backgroundColor: '#2E3B4E' }} >
+      <AppBar sx={{ backgroundColor: '#7BBD8F' , height: '10%' }} >
           <Toolbar disableGutters >
             <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
             <Typography

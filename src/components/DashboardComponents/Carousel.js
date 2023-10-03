@@ -10,8 +10,7 @@ const Carousel = () => {
       elevation={0}
       style={{
         width: "100%",
-        height: 300,
-        backgroundColor: paperColor,
+        height: 500,
       }}
     ></Paper>
   );
