@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   AppBar,
   Toolbar,
@@ -17,32 +17,59 @@ import {
   Divider,
   Drawer,
 } from "@mui/material";
-import MenuIcon from '@mui/icons-material/Menu';
-import AdbIcon from '@mui/icons-material/Adb';
-import { Link } from 'react-router-dom';
+import MenuIcon from "@mui/icons-material/Menu";
+import AdbIcon from "@mui/icons-material/Adb";
+import { Link } from "react-router-dom";
 import LoginButton from "./LoginButton";
 import LoginDialog from "./LoginDialog";
 import RegisterButton from "./RegisterButton";
 import RegisterDialog from "./RegisterDialog";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 const pages = [
-  { label: 'หน้าหลัก', link: '/' },
-  { label: 'ข่าวสาร', link: '/Search' },
-  { label: 'แจ้งข้อมูลเท็จ', link: '/FakeNews' },
+  { label: "หน้าหลัก", link: "/" },
+  { label: "ข่าวสาร", link: "/Search" },
+  { label: "แจ้งข้อมูลเท็จ", link: "/FakeNews" },
 ];
-const settings = [{ label: 'Login', link: '/User/Login' },
-{ label: 'Register', link: '/User/Register' },
-{ label: 'User Profile', link: '/User/Profile' },
-{ label: 'Admin', link: '/Admin' },
-{ label: 'Loguot', link: '/' },];
+
 
 function ResponsiveAppBar() {
   const [Login, setLogin] = useState(false);
   const [Register, setRegister] = useState(false);
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [user, setUser] = useState(null);
+  const settings = [
+    { label: "Login", link: "/User/Login" },
+    { label: "Register", link: "/User/Register" },
+    { label: "User Profile", link: "/User/Profile" },
+    { label: "Admin", link: "/Admin" },
+    { label: "Loguot", link: "/" },
+  ];
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const response = await fetch("http://localhost:8000/api/user", {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+          },
+        });
 
+        if (response.ok) {
+          const data = await response.json();
+          setUser(data);
+          console.log("data :" + data);
+        } else {
+          console.error("User data retrieval failed");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    };
+
+    fetchUser();
+  }, []);
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -81,7 +108,7 @@ function ResponsiveAppBar() {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [mobileOpenProfile, setMobileOpenProfile] = React.useState(false);
   const drawerMenu = (
-    <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
+    <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
       <Typography variant="h6" sx={{ my: 2 }}>
         MUI
       </Typography>
@@ -89,7 +116,11 @@ function ResponsiveAppBar() {
       <List>
         {pages.map((page) => (
           <ListItem key={page.label} disablePadding>
-            <ListItemButton sx={{ textAlign: 'center' }} component={Link} to={page.link}>
+            <ListItemButton
+              sx={{ textAlign: "center" }}
+              component={Link}
+              to={page.link}
+            >
               <ListItemText primary={page.label} />
             </ListItemButton>
           </ListItem>
@@ -99,7 +130,7 @@ function ResponsiveAppBar() {
   );
 
   const drawerProfile = (
-    <Box onClick={handleDrawerToggleProfile} sx={{ textAlign: 'center' }}>
+    <Box onClick={handleDrawerToggleProfile} sx={{ textAlign: "center" }}>
       <Typography variant="h6" sx={{ my: 2 }}>
         MUI
       </Typography>
@@ -107,7 +138,11 @@ function ResponsiveAppBar() {
       <List>
         {settings.map((page) => (
           <ListItem key={page.label} disablePadding>
-            <ListItemButton sx={{ textAlign: 'center' }} component={Link} to={page.link}>
+            <ListItemButton
+              sx={{ textAlign: "center" }}
+              component={Link}
+              to={page.link}
+            >
               <ListItemText primary={page.label} />
             </ListItemButton>
           </ListItem>
@@ -117,12 +152,13 @@ function ResponsiveAppBar() {
   );
   const container = window.document.body;
 
-  return (
-    <Box>
-      <CssBaseline />
-      <AppBar sx={{ backgroundColor: '#7BBD8F' , height: '10%' }} >
-          <Toolbar disableGutters >
-            <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+  if (!user) {
+    return (
+      <Box>
+        <CssBaseline />
+        <AppBar sx={{ backgroundColor: "#7BBD8F", height: "10%" }}>
+          <Toolbar disableGutters>
+            <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
             <Typography
               variant="h6"
               noWrap
@@ -130,12 +166,12 @@ function ResponsiveAppBar() {
               href="/"
               sx={{
                 mr: 5,
-                display: { xs: 'none', md: 'flex' },
-                fontFamily: 'monospace',
+                display: { xs: "none", md: "flex" },
+                fontFamily: "monospace",
                 fontWeight: 700,
-                letterSpacing: '.3rem',
-                color: 'inherit',
-                textDecoration: 'none',
+                letterSpacing: ".3rem",
+                color: "inherit",
+                textDecoration: "none",
               }}
             >
               LOGO
@@ -148,7 +184,7 @@ function ResponsiveAppBar() {
               onClick={handleDrawerToggle}
               sx={{
                 mr: 2,
-                display: { xs: 'flex', md: 'none' },
+                display: { xs: "flex", md: "none" },
               }}
             >
               <MenuIcon />
@@ -163,14 +199,17 @@ function ResponsiveAppBar() {
                   keepMounted: false, // Better open performance on mobile.
                 }}
                 sx={{
-                  display: { xs: 'block', sm: 'block', },
-                  '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+                  display: { xs: "block", sm: "block" },
+                  "& .MuiDrawer-paper": {
+                    boxSizing: "border-box",
+                    width: drawerWidth,
+                  },
                 }}
               >
                 {drawerMenu}
               </Drawer>
             </Box>
-            <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+            <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
             <Typography
               variant="h5"
               noWrap
@@ -178,32 +217,38 @@ function ResponsiveAppBar() {
               href="/"
               sx={{
                 mr: 2,
-                display: { xs: 'flex', md: 'none' },
+                display: { xs: "flex", md: "none" },
                 flexGrow: 1,
-                fontFamily: 'monospace',
+                fontFamily: "monospace",
                 fontWeight: 700,
-                letterSpacing: '.3rem',
-                color: 'inherit',
-                textDecoration: 'none',
+                letterSpacing: ".3rem",
+                color: "inherit",
+                textDecoration: "none",
               }}
             >
               LOGO0
             </Typography>
-            <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex', } }}>
+            <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
               {pages.map((page) => (
                 <Button
                   key={page.label}
-                  component={Link} to={page.link}
+                  component={Link}
+                  to={page.link}
                   onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: 'white', display: 'block', mr: 5 }}
+                  sx={{ my: 2, color: "white", display: "block", mr: 5 }}
                 >
                   {page.label}
                 </Button>
               ))}
-              <div style={{
-                display: "flex",
-                alignItems: "center",
-              }}>
+            </Box>
+            <Box sx={{ flexGrow: 0 }}>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "flex-end", // This will align the content to the far right
+                }}
+              >
                 <LoginButton onClick={() => setLogin(true)} />
                 <LoginDialog
                   open={Login}
@@ -217,8 +262,101 @@ function ResponsiveAppBar() {
                   onClose={() => setRegister(false)}
                   handleSubmit={handleSubmit}
                   LoginFinish={RegisterFinish}
-                /></div>
+                />
+              </div>
             </Box>
+          </Toolbar>
+        </AppBar>
+      </Box>
+    );
+  } else {
+    return (
+      <Box>
+        <CssBaseline />
+        <AppBar sx={{ backgroundColor: "#7BBD8F", height: "10%" }}>
+          <Toolbar disableGutters>
+            <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+            <Typography
+              variant="h6"
+              noWrap
+              component="a"
+              href="/"
+              sx={{
+                mr: 5,
+                display: { xs: "none", md: "flex" },
+                fontFamily: "monospace",
+                fontWeight: 700,
+                letterSpacing: ".3rem",
+                color: "inherit",
+                textDecoration: "none",
+              }}
+            >
+              LOGO
+            </Typography>
+            <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+              {pages.map((page) => (
+                <Button
+                  key={page.label}
+                  component={Link}
+                  to={page.link}
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: "white", display: "block", mr: 5 }}
+                >
+                  {page.label}
+                </Button>
+              ))}
+            </Box>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              edge="start"
+              onClick={handleDrawerToggle}
+              sx={{
+                mr: 2,
+                display: { xs: "flex", md: "none" },
+              }}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Box component="nav">
+              <Drawer
+                container={container}
+                variant="temporary"
+                open={mobileOpen}
+                onClose={handleDrawerToggle}
+                ModalProps={{
+                  keepMounted: false, // Better open performance on mobile.
+                }}
+                sx={{
+                  display: { xs: "block", sm: "block" },
+                  "& .MuiDrawer-paper": {
+                    boxSizing: "border-box",
+                    width: drawerWidth,
+                  },
+                }}
+              >
+                {drawerMenu}
+              </Drawer>
+            </Box>
+            <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
+            <Typography
+              variant="h5"
+              noWrap
+              component="a"
+              href="/"
+              sx={{
+                mr: 2,
+                display: { xs: "flex", md: "none" },
+                flexGrow: 1,
+                fontFamily: "monospace",
+                fontWeight: 700,
+                letterSpacing: ".3rem",
+                color: "inherit",
+                textDecoration: "none",
+              }}
+            >
+              LOGO0
+            </Typography>
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleDrawerToggleProfile} sx={{ p: 0 }}>
@@ -235,17 +373,21 @@ function ResponsiveAppBar() {
                   keepMounted: true, // Better open performance on mobile.
                 }}
                 sx={{
-                  display: { xs: 'block', sm: 'block' },
-                  '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+                  display: { xs: "block", sm: "block" },
+                  "& .MuiDrawer-paper": {
+                    boxSizing: "border-box",
+                    width: drawerWidth,
+                  },
                 }}
               >
                 {drawerProfile}
               </Drawer>
             </Box>
           </Toolbar>
-      </AppBar>
-    </Box>
-  );
+        </AppBar>
+      </Box>
+    );
+  }
 }
 
 ResponsiveAppBar.propTypes = {

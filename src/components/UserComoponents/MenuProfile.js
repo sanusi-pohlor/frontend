@@ -1,19 +1,10 @@
 import * as React from "react";
-import {
-  Grid,
-  Avatar,
-  Typography,
-  Divider,
-} from "@mui/material";
-import { Card, Tabs,FloatButton } from "antd";
+import { Grid, Avatar, Typography, Divider } from "@mui/material";
+import { Card, Tabs, FloatButton } from "antd";
 import { Link as RouterLink } from "react-router-dom";
 
 const { TabPane } = Tabs;
 const MenuProfile = ({ children }) => {
-  const onChange = (key) => {
-    console.log(key);
-  };
-
   const items = [
     {
       key: "1",
@@ -50,7 +41,7 @@ const MenuProfile = ({ children }) => {
               direction="column"
               justifyContent="center"
               alignItems="center"
-              style={{ marginBottom: "10px"}}
+              style={{ marginBottom: "10px" }}
             >
               <Grid item style={{ marginBottom: "5px" }}>
                 <Avatar sx={{ width: 100, height: 100 }}>USER</Avatar>
@@ -70,7 +61,9 @@ const MenuProfile = ({ children }) => {
                 width: "100%",
                 height: "100%",
               }}
-            >555</div>
+            >
+              555
+            </div>
           </Card>
           <br />
         </Grid>
@@ -84,7 +77,7 @@ const MenuProfile = ({ children }) => {
               height: "100%",
             }}
           >
-            <Tabs onChange={onChange}>
+            <Tabs>
               {items.map((item) => (
                 <TabPane
                   tab={<RouterLink to={item.link}>{item.label}</RouterLink>}
@@ -98,7 +91,7 @@ const MenuProfile = ({ children }) => {
         </Grid>
       </Grid>
       <FloatButton.BackTop />
-      </div>
+    </div>
   );
 };
 

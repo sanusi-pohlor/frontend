@@ -1,94 +1,73 @@
-import React, { useState } from 'react';
-import UserProfile from '../UserComoponents/MenuProfile';
-import { Descriptions, Button, Modal, Form, Input } from 'antd';
-const items = [
-  {
-    key: '1',
-    label: 'UserName',
-    children: 'Zhou Maomao',
-  },
-  {
-    key: '2',
-    label: 'Telephone',
-    children: '1810000000',
-  },
-  {
-    key: '3',
-    label: 'Live',
-    children: 'Hangzhou, Zhejiang',
-  },
-  {
-    key: '4',
-    label: 'Address',
-    span: 2,
-    children: 'No. 18, Wantang Road, Xihu District, Hangzhou, Zhejiang, China',
-  },
-  {
-    key: '5',
-    label: 'Remark',
-    children: 'empty',
-  },
-];
+import React, { useEffect, useState } from "react";
+import UserProfile from "./MenuProfile";
+import LogoutDialog from "../LogoutDialog";
+import LogoutButton from "../LogoutButton";
 
 const Profile = () => {
-  const [isEditing, setIsEditing] = useState(false);
-  const [form] = Form.useForm();
+  const [user, setUser] = useState(null);
+  const [Logout, setLogout] = useState(false);
 
-  const handleEdit = () => {
-    setIsEditing(true);
-    form.setFieldsValue({
-      userName: 'Zhou Maomao',
-      telephone: '1810000000',
-      live: 'Hangzhou, Zhejiang',
-      address: 'No. 18, Wantang Road, Xihu District, Hangzhou, Zhejiang, China',
-      remark: 'empty',
-    });
+  const LogoutFinish = (values) => {
+    console.log("Received values of form: ", values);
   };
 
-  const handleCancel = () => {
-    setIsEditing(false);
-    form.resetFields();
-  };
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const response = await fetch("http://localhost:8000/api/user", {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+          },
+        });
 
-  const handleSave = () => {
-    form.validateFields().then((values) => {
-      // Handle saving the updated profile information here
-      console.log('Updated Profile:', values);
-      setIsEditing(false);
-    });
-  };
+        if (response.ok) {
+          const data = await response.json();
+          setUser(data);
+          console.log("data :" + data);
+        } else {
+          console.error("User data retrieval failed");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    };
+
+    fetchUser();
+  }, []);
+
+  if (!user) {
+    return (
+      <UserProfile>
+        <div>
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          Loading...
+        </div>
+      </UserProfile>
+    );
+  }
+
   return (
     <UserProfile>
-       <div>
-        <Button type="primary"   style={{ float: 'right' }} onClick={handleEdit}>
-          Edit Profile
-        </Button>
+      <div>
+        <h2>User Profile</h2>
+        <p>Name: {user.username}</p>
+        <p>Email: {user.email}</p>
       </div>
-      <Descriptions title="User Info" layout="vertical" items={items} />
-      <Modal
-        title="Edit Profile"
-        visible={isEditing}
-        onOk={handleSave}
-        onCancel={handleCancel}
-      >
-        <Form form={form} layout="vertical">
-          <Form.Item name="userName" label="UserName">
-            <Input />
-          </Form.Item>
-          <Form.Item name="telephone" label="Telephone">
-            <Input />
-          </Form.Item>
-          <Form.Item name="live" label="Live">
-            <Input />
-          </Form.Item>
-          <Form.Item name="address" label="Address">
-            <Input.TextArea />
-          </Form.Item>
-          <Form.Item name="remark" label="Remark">
-            <Input />
-          </Form.Item>
-        </Form>
-      </Modal>
+      <LogoutButton onClick={() => setLogout(true)} />
+      <LogoutDialog
+        open={Logout}
+        onClose={() => setLogout(false)}
+        // handleSubmit={handleSubmit}
+        LoginFinish={LogoutFinish}
+      />
     </UserProfile>
   );
 };

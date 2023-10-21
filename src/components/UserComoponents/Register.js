@@ -249,7 +249,7 @@ const Register = ({ handleSubmit }) => {
             <Option value="Chumphon">ชุมพร</Option>
             <Option value="Trang">ตรัง</Option>
             <Option value="NakhonSiThammarat">นครศรีธรรมราช</Option>
-            <Option value="Trang">นราธิวาส</Option>
+            <Option value="Narathiwat">นราธิวาส</Option>
             <Option value="Pattani">ปัตตานี</Option>
             <Option value="PhangNga">พังงา</Option>
             <Option value="Phattalung">พัทลุง</Option>
