@@ -5,21 +5,6 @@ import UserProfile from "../UserComoponents/MenuProfile";
 const NotificationHistory = () => {
   const [user, setUser] = useState(null);
   const [data, setData] = useState([]);
-  const fetchData = async () => {
-    try {
-      const response = await fetch(
-        "http://localhost:8000/api/DetailsNotiChannels_request"
-      );
-      if (response.ok) {
-        const data = await response.json();
-        setData(data);
-      } else {
-        console.error("Error fetching data:", response.statusText);
-      }
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
   const fetchUser = async () => {
     try {
       const response = await fetch("http://localhost:8000/api/user", {
@@ -28,7 +13,6 @@ const NotificationHistory = () => {
           Authorization: `Bearer ${localStorage.getItem("access_token")}`,
         },
       });
-
       if (response.ok) {
         const data = await response.json();
         setUser(data);
@@ -39,78 +23,69 @@ const NotificationHistory = () => {
       console.error("Error:", error);
     }
   };
+  const fetchData = async () => {
+    try {
+      const response = await fetch(
+        "http://localhost:8000/api/FakeNewsInfo_request"
+      );
+      if (response.ok) {
+        const data = await response.json();
+        if (data) {
+          const filteredData = data.filter(item => item.fn_info_nameid == user.id);
+          setData(filteredData);
+          console.log(filteredData);
+        } else {
+          console.error("Data is missing or null");
+        }        
+      } else {
+        console.error("Error fetching data:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
   useEffect(() => {
-    fetchData();
     fetchUser();
   }, []);
 
+  useEffect(() => {
+    if (user) {
+      fetchData();
+    }
+  }, [user]);
+
   const columns = [
     {
-      title: "รหัสรายละเอียดช่องทางการแจ้ง",
-      dataIndex: "dnc_id",
-      width: "20%",
+      title: "ลำดับ",
+      dataIndex: "fn_info_id",
+      width: "5%",
       editable: true,
     },
     {
-      title: "รหัสช่องทางสื่อ",
-      dataIndex: "dnc_med_id",
-      width: "60%",
+      title: "หัวข้อ",
+      dataIndex: "fn_info_head",
+      width: "40%",
       editable: true,
     },
     {
-      title: "รหัสการแจ้ง",
-      dataIndex: "dnc_info_id",
-      width: "60%",
+      title: "แจ้งเมื่อ",
+      dataIndex: "created_at",
+      width: "15%",
       editable: true,
     },
     {
-      title: "รหัสผู้เผยแพร",
-      dataIndex: "dnc_pub_id",
-      width: "60%",
+      title: "สถานะ",
+      dataIndex: "fn_info_status",
+      width: "15%",
       editable: true,
     },
     {
-      title: "รหัสรูปแบบข้อมูล",
-      dataIndex: "dnc_fm_d_id",
-      width: "60%",
+      title: "จัดการ",
+      //dataIndex: "dnc_prob_id",
+      width: "15%",
       editable: true,
     },
-    {
-      title: "รหัสการจัดการ",
-      dataIndex: "dnc_prob_id",
-      width: "60%",
-      editable: true,
-    },
-    {
-      title: "ขอบเขตการเผยแพร",
-      dataIndex: "dnc_scop_pub",
-      width: "60%",
-      editable: true,
-    },
-    {
-      title: "จำนวนสมาชิกในกลุ่มที่อยู่ในสื่อ",
-      dataIndex: "dnc_num_mem_med",
-      width: "60%",
-      editable: true,
-    },
-    {
-      title: "วันที่ในสื่อ",
-      dataIndex: "dnc_date_med",
-      width: "60%",
-      editable: true,
-    },
-    {
-      title: "ภาพ capture",
-      dataIndex: "dnc_capt",
-      width: "60%",
-      editable: true,
-    },
-    {
-      title: "Link URL",
-      dataIndex: "dnc_link",
-      width: "60%",
-      editable: true,
-    },
+    
   ];
   const mergedColumns = columns.map((col) => {
     if (!col.editable) {
@@ -146,7 +121,6 @@ const NotificationHistory = () => {
   } else {
     return (
       <UserProfile>
-        xxxxsss
         <div style={{ overflowX: "auto" }}>
           {" "}
           {/* Add a container with horizontal scroll */}

@@ -1,10 +1,11 @@
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import { Grid, Avatar, Typography, Divider } from "@mui/material";
 import { Card, Tabs, FloatButton } from "antd";
 import { Link as RouterLink } from "react-router-dom";
 
 const { TabPane } = Tabs;
 const MenuProfile = ({ children }) => {
+  const [user, setUser] = useState(null);
   const items = [
     {
       key: "1",
@@ -23,12 +24,44 @@ const MenuProfile = ({ children }) => {
     },
   ];
 
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const response = await fetch("http://localhost:8000/api/user", {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+          },
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setUser(data);
+          console.log("data :" + data);
+        } else {
+          console.error("User data retrieval failed");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    };
+
+    fetchUser();
+  }, []);
+
+  if (!user) {
+    return (
+      <div>
+      
+      aaaa
+    </div>
+    );
+  }
   return (
     <div>
       <Grid container spacing={2}>
         <Grid item xs={12} sm={4}>
           <Card
-            hoverable
             style={{
               margin: "auto",
               backgroundColor: "#FFFFFF",
@@ -47,8 +80,8 @@ const MenuProfile = ({ children }) => {
                 <Avatar sx={{ width: 100, height: 100 }}>USER</Avatar>
               </Grid>
               <Grid item>
-                <Typography variant="h5">John Doe</Typography>
-                <Typography variant="body1">Web Developer</Typography>
+                <Typography variant="h5">Name: {user.username}</Typography>
+                <Typography variant="body1">Email: {user.email}</Typography>
               </Grid>
             </Grid>
             <Divider />
@@ -69,7 +102,6 @@ const MenuProfile = ({ children }) => {
         </Grid>
         <Grid item xs={12} sm={8}>
           <Card
-            hoverable
             style={{
               margin: "auto",
               backgroundColor: "#FFFFFF",

@@ -9,6 +9,10 @@ import React, { useEffect, useState } from "react";
 import { Button, DatePicker, Form, Input, Select, Upload, message } from "antd";
 import "./FakeNewInformation.css";
 import { Typography } from "@mui/material";
+import moment from "moment";
+import "moment/locale/th";
+
+moment.locale("th");
 
 const { Option } = Select;
 const { TextArea } = Input;
@@ -39,17 +43,18 @@ const FakeNewInformation = () => {
 
   const onFinish = async (values) => {
     setLoading(true);
-    console.log("values:" ,fileList);
+    console.log("values:", values);
     try {
       const formData = new FormData();
-      formData.append("fn_info_name", user.id); // Corrected the field name
-      formData.append("fn_info_province", values.fn_info_province); // Corrected the field name
+      formData.append("fn_info_nameid", user.id); // Corrected the field name
+      formData.append("fn_info_province", user.province);
+      formData.append("fn_info_head", values.fn_info_head); // Corrected the field name
       formData.append("fn_info_content", values.fn_info_content); // Corrected the field name
       formData.append("fn_info_source", values.fn_info_source); // Corrected the field name
       formData.append("fn_info_num_mem", values.fn_info_num_mem); // Corrected the field name
       formData.append("fn_info_more", values.fn_info_more); // Corrected the field name
       formData.append("fn_info_link", values.fn_info_link); // Corrected the field name
-      //formData.append("fn_info_dmy", values.fn_info_dmy); // Corrected the field name
+      formData.append("fn_info_dmy", values.fn_info_dmy); // Corrected the field name
       formData.append("fn_info_image", values.fn_info_image[0].originFileObj);
       //formData.append("fn_info_vdo", values.fn_info_vdo[0].originFileObj); // Corrected the field name
       const response = await fetch(
@@ -187,7 +192,7 @@ const FakeNewInformation = () => {
         >
           <Form.Item
             label="ผู้ส่งรายงาน"
-            //name="fn_info_name"
+            //name="fn_info_nameid"
             rules={[
               {
                 required: true,
@@ -204,7 +209,7 @@ const FakeNewInformation = () => {
           </Form.Item>
           <Form.Item
             label="จังหวัดของท่าน"
-            name="fn_info_province"
+            //name="fn_info_province"
             rules={[
               {
                 required: true,
@@ -212,26 +217,28 @@ const FakeNewInformation = () => {
               },
             ]}
           >
-            <Select
-              placeholder="จังหวัดที่สังกัด"
-              onChange={handleprovinceChange}
-              value={selectedprovince}
-            >
-              <Option value="Krabi">กระบี่</Option>
-              <Option value="Chumphon">ชุมพร</Option>
-              <Option value="Trang">ตรัง</Option>
-              <Option value="NakhonSiThammarat">นครศรีธรรมราช</Option>
-              <Option value="Narathiwat">นราธิวาส</Option>
-              <Option value="Pattani">ปัตตานี</Option>
-              <Option value="PhangNga">พังงา</Option>
-              <Option value="Phattalung">พัทลุง</Option>
-              <Option value="Phuket">ภูเก็ต</Option>
-              <Option value="Yala">ยะลา</Option>
-              <Option value="Ranong">ระนอง</Option>
-              <Option value="Songkhla">สงขลา</Option>
-              <Option value="Satun">สตูล</Option>
-              <Option value="SuratThani">สุราษฎร์ธานี</Option>
-            </Select>
+            <Input
+              size="large"
+              prefix={<UserOutlined className="site-form-item-icon" />}
+              placeholder={user.province}
+              disabled
+            />
+          </Form.Item>
+          <Form.Item
+            label="หัวข้อ"
+            name="fn_info_head"
+            rules={[
+              {
+                required: true,
+                message: "กรุณาระบุหัวข้อ",
+              },
+            ]}
+          >
+            <Input
+              size="large"
+              //prefix={<LinkOutlined className="site-form-item-icon" />}
+              placeholder="ระบุหัวข้อ"
+            />
           </Form.Item>
           <Form.Item
             label="เนื้อหา"
@@ -323,7 +330,7 @@ const FakeNewInformation = () => {
             name="fn_info_link"
             rules={[
               {
-                required: true,
+                required: false,
                 message: "กรุณาระบุลิ้งค์ข้อมูล(ถ้ามี)",
               },
             ]}
@@ -334,9 +341,8 @@ const FakeNewInformation = () => {
               placeholder="ระบุลิ้งค์ข้อมูล(ถ้ามี)"
             />
           </Form.Item>
-
-          {/* <Form.Item
-            label="วัน/เดือน/ปี"
+          <Form.Item
+            label="วัน/เดือน/ปี ที่เกิดเหตุ"
             name="fn_info_dmy"
             rules={[
               {
@@ -345,8 +351,12 @@ const FakeNewInformation = () => {
               },
             ]}
           >
-            <DatePicker size="large" placeholder="วัน/เดือน/ปี" />
-          </Form.Item> */}
+            <DatePicker
+              size="large"
+              placeholder="วัน/เดือน/ปี"
+              format="DD/MM/YYYY"
+            />
+          </Form.Item>
 
           <Form.Item
             label="ส่งภาพบันทึกหน้าจอหรือภาพถ่ายที่พบข้อมูลเท็จ"
