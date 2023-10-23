@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Table } from "antd";
+import { Table,Space } from "antd";
 import UserProfile from "../UserComoponents/MenuProfile";
+import { Link } from "react-router-dom";
 
 const NotificationHistory = () => {
   const [user, setUser] = useState(null);
@@ -33,7 +34,6 @@ const NotificationHistory = () => {
         if (data) {
           const filteredData = data.filter(item => item.fn_info_nameid == user.id);
           setData(filteredData);
-          console.log(filteredData);
         } else {
           console.error("Data is missing or null");
         }        
@@ -54,12 +54,21 @@ const NotificationHistory = () => {
     }
   }, [user]);
 
+  const getStatusText = (status) => {
+    // Define your logic to map status values to text here
+    switch (status) {
+      case 1:
+        return "รอดำเนินการ";
+      // Add more cases as needed
+      default:
+        return "อื่น ๆ";
+    }
+  };
   const columns = [
     {
       title: "ลำดับ",
-      dataIndex: "fn_info_id",
       width: "5%",
-      editable: true,
+      render: (text, record, index) => index + 1,
     },
     {
       title: "หัวข้อ",
@@ -77,14 +86,25 @@ const NotificationHistory = () => {
       title: "สถานะ",
       dataIndex: "fn_info_status",
       width: "15%",
-      editable: true,
+      render: (status) => getStatusText(status),
     },
     {
       title: "จัดการ",
-      //dataIndex: "dnc_prob_id",
       width: "15%",
       editable: true,
+      render: (text, record) => (
+        <Space size="middle">
+          <Link to={`/FakeNews/fninfoview/${record.id}`}>ดู</Link>
+          {record.fn_info_status === 1 && (
+            <>
+               <Link to={`/FakeNews/edit/${record.id}`}>แก้ไข</Link>
+              <a>ลบ</a>
+            </>
+          )}
+        </Space>
+      ),
     },
+    
     
   ];
   const mergedColumns = columns.map((col) => {
@@ -129,8 +149,8 @@ const NotificationHistory = () => {
             dataSource={data}
             columns={mergedColumns}
             rowClassName="editable-row"
-          />
-        </div>
+          /> 
+        </div>  
       </UserProfile>
     );
   }

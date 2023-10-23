@@ -21,9 +21,10 @@ import MenuProfile from "./components/UserComoponents/MenuProfile";
 import Profile from "./components/UserComoponents/Profile";
 import Login from "./components/UserComoponents/Login";
 import Register from "./components/UserComoponents/Register";
-import {
-  Box,
-} from "@mui/material";
+import Fninfoview from "./components/FakeNewsComponents/Fn_info_view";
+import Fninfoedit from "./components/FakeNewsComponents/Fn_info_edit";
+
+import { Box } from "@mui/material";
 
 const AppRoutes = () => {
   return (
@@ -58,6 +59,8 @@ const AppRoutes = () => {
             <Route path="/User/Profile" element={<Profile />} />
             <Route path="/User/Login" element={<Login />} />
             <Route path="/User/Register" element={<Register />} />
+            <Route path="/FakeNews/fninfoview/:fn_info_id" element={<Fninfoview />} />
+            <Route path="/FakeNews/edit/:fn_info_id" element={<Fninfoedit />} />
           </Routes>
         </div>
         <Bottom />
