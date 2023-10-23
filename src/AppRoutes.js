@@ -26,6 +26,30 @@ import Fninfoedit from "./components/FakeNewsComponents/Fn_info_edit";
 
 import { Box } from "@mui/material";
 
+const routes = [
+  { path: "/", element: <Dashboard /> },
+  { path: "/FakeNews", element: <FakeNewInformation /> },
+  { path: "/FakeNews/PersonalInformation", element: <PersonalInformation /> },
+  { path: "/FakeNews/NotificationHistory", element: <NotificationHistory /> },
+  { path: "/Search", element: <Search /> },
+  { path: "/Admin", element: <ManageMembers /> },
+  { path: "/Admin/ManuContent", element: <ManuContent /> },
+  { path: "/Admin/FormContent", element: <FormContent /> },
+  { path: "/Admin/ManageValues", element: <ManageValues /> },
+  { path: "/Admin/AdvancedSearch", element: <AdvancedSearch /> },
+  { path: "/Admin/MChecking", element: <MChecking /> },
+  { path: "/Admin/MInformation", element: <MInformation /> },
+  { path: "/Admin/MMedia", element: <MMedia /> },
+  { path: "/Admin/MProblem", element: <MProblem /> },
+  { path: "/Admin/MType", element: <MType /> },
+  { path: "/User/MenuProfile", element: <MenuProfile /> },
+  { path: "/User/Profile", element: <Profile /> },
+  { path: "/User/Login", element: <Login /> },
+  { path: "/User/Register", element: <Register /> },
+  { path: "/FakeNews/fninfoview/:fn_info_id", element: <Fninfoview /> },
+  { path: "/FakeNews/edit/:fn_info_id", element: <Fninfoedit /> },
+];
+
 const AppRoutes = () => {
   return (
     <Router>
@@ -34,33 +58,9 @@ const AppRoutes = () => {
         <div id="background" className="background">
           <Box height="6vh" />
           <Routes>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/FakeNews" element={<FakeNewInformation />} />
-            <Route
-              path="/FakeNews/PersonalInformation"
-              element={<PersonalInformation />}
-            />
-            <Route
-              path="/FakeNews/NotificationHistory"
-              element={<NotificationHistory />}
-            />
-            <Route path="/Search" element={<Search />} />
-            <Route path="/Admin" element={<ManageMembers />} />
-            <Route path="/Admin/ManuContent" element={<ManuContent />} />
-            <Route path="/Admin/FormContent" element={<FormContent />} />
-            <Route path="/Admin/ManageValues" element={<ManageValues />} />
-            <Route path="/Admin/AdvancedSearch" element={<AdvancedSearch />} />
-            <Route path="/Admin/MChecking" element={<MChecking />} />
-            <Route path="/Admin/MInformation" element={<MInformation />} />
-            <Route path="/Admin/MMedia" element={<MMedia />} />
-            <Route path="/Admin/MProblem" element={<MProblem />} />
-            <Route path="/Admin/MType" element={<MType />} />
-            <Route path="/User/MenuProfile" element={<MenuProfile />} />
-            <Route path="/User/Profile" element={<Profile />} />
-            <Route path="/User/Login" element={<Login />} />
-            <Route path="/User/Register" element={<Register />} />
-            <Route path="/FakeNews/fninfoview/:fn_info_id" element={<Fninfoview />} />
-            <Route path="/FakeNews/edit/:fn_info_id" element={<Fninfoedit />} />
+            {routes.map((route, index) => (
+              <Route key={index} {...route} />
+            ))}
           </Routes>
         </div>
         <Bottom />
