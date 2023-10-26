@@ -1,15 +1,12 @@
 import React from "react";
-import Button from "@mui/material/Button";
+import { Button } from "antd";
 
 const RegisterButton = ({ onClick }) => {
+  const buttonStyle = {
+    color: "#7BBD8F",
+  };
   return (
-    <Button
-      size="large"
-      variant="outlined"
-      color="primary"
-      onClick={onClick}
-      sx={{ marginLeft: "auto"  }}
-    >
+    <Button size="large" onClick={onClick} style={buttonStyle}>
       ลงทะเบียน
     </Button>
   );

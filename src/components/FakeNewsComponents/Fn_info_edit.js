@@ -9,35 +9,25 @@ import React, { useEffect, useState } from "react";
 import { Button, DatePicker, Form, Input, Select, Upload, message } from "antd";
 import "./FakeNewInformation.css";
 import { Typography } from "@mui/material";
-
+import moment from "moment";
 import "moment/locale/th";
 import { useParams } from "react-router-dom";
 
-const moment = require('moment'); // Import the moment library
-moment.locale('th');
-
-const currentDate = moment(); // Create a moment object with the current date
-console.log(currentDate.format('LL')); // Display the date in the locale-specific format
+moment.locale("th");
 
 const { Option } = Select;
 const { TextArea } = Input;
 
 const FnInfoEdit = () => {
-  const { fn_info_id } = useParams();
-  const [file, setFile] = useState(null);
+  const { id } = useParams();
   const [user, setUser] = useState(null);
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(true);
-  const [selectedGender, setSelectedGender] = useState("");
-  const [selectedprovince, setSelectedprovince] = useState("");
+  const [selectednum_mem, setSelectednum_mem] = useState("");
   const [selectOptions_med, setSelectOptions_med] = useState([]);
-  const [fileList, setFileList] = useState([]);
 
-  const handleprovinceChange = (value) => {
-    setSelectedprovince(value);
-  };
-  const handleGenderChange = (value) => {
-    setSelectedGender(value);
+  const handlenum_memChange = (value) => {
+    setSelectednum_mem(value);
   };
 
   const normFile = (e) => {
@@ -49,41 +39,41 @@ const FnInfoEdit = () => {
 
   useEffect(() => {
     fetchFakeNewsData(); // Modify the function name accordingly
-  }, []);
+  }, [id]);
 
   const fetchFakeNewsData = async () => {
     try {
       const response = await fetch(
-        `http://localhost:8000/api/FakeNewsInfo_edit/${fn_info_id}`
+        `http://localhost:8000/api/FakeNewsInfo_edit/${id}`
       );
       if (response.ok) {
         const data = await response.json();
-          // Set initial form values based on the fetched data
-          form.setFieldsValue({
-            fn_info_head: data.fn_info_head,
-            fn_info_content: data.fn_info_content,
-            fn_info_source: data.fn_info_source,
-            fn_info_num_mem: data.fn_info_num_mem,
-            fn_info_more: data.fn_info_more,
-            fn_info_link: data.fn_info_link,
-            fn_info_dmy: moment(data.fn_info_dmy, "YYYY-MM-DD"), // Assuming the date format is YYYY-MM-DD
-            fn_info_image: data.fn_info_image[0].originFileObj,
-          });
-        } else {
-          // Handle the case where the date is invalid
-          console.error("Invalid date received from the server");
-          // Set a default date or handle it as needed
-          form.setFieldsValue({
-            fn_info_dmy: moment(), // Set to the current date as an example
-          });
-        }
+        // Set initial form values based on the fetched data
+        form.setFieldsValue({
+          fn_info_head: data.fn_info_head,
+          fn_info_content: data.fn_info_content,
+          fn_info_source: data.fn_info_source,
+          fn_info_num_mem: data.fn_info_num_mem,
+          fn_info_more: data.fn_info_more,
+          fn_info_link: data.fn_info_link,
+          fn_info_dmy: moment(data.fn_info_dmy, "YYYY-MM-DD"), // Assuming the date format is YYYY-MM-DD
+          fn_info_image: data.fn_info_image[0].originFileObj,
+        });
+      } else {
+        // Handle the case where the date is invalid
+        console.error("Invalid date received from the server");
+        // Set a default date or handle it as needed
+        form.setFieldsValue({
+          fn_info_dmy: moment(), // Set to the current date as an example
+        });
+      }
     } catch (error) {
       console.error("Error:", error);
     }
   };
 
   const onFinish = async (values) => {
-    setLoading(true);
+    //setLoading(true);
     console.log("values:", values);
     try {
       const formData = new FormData();
@@ -97,18 +87,17 @@ const FnInfoEdit = () => {
       const formattedDate = moment(values.fn_info_dmy).format("YYYY-MM-DD");
       formData.append("fn_info_dmy", formattedDate);
       formData.append("fn_info_image", values.fn_info_image[0].originFileObj);
+
       const response = await fetch(
-        `http://localhost:8000/api/FakeNewsInfo_update/${fn_info_id}`,
+        `http://localhost:8000/api/FakeNewsInfo_update/${id}`,
         {
-          method: "PUT", // Use the appropriate HTTP method for updating
+          method: "POST", // Use the appropriate HTTP method for updating
           body: formData,
         }
       );
-
       if (response.ok) {
         console.log("Form data updated successfully");
         message.success("Form data updated successfully");
-        setFileList([]);
       } else {
         message.error("Error updating form data");
       }
@@ -158,7 +147,6 @@ const FnInfoEdit = () => {
             {code[`${fieldName}_name`]}
           </Option>
         ));
-
         form.setFieldsValue({ [fieldName]: undefined });
         form.setFields([
           {
@@ -166,7 +154,6 @@ const FnInfoEdit = () => {
             value: undefined,
           },
         ]);
-
         stateSetter(options);
       } else {
         console.error(
@@ -225,6 +212,7 @@ const FnInfoEdit = () => {
         >
           <Form.Item
             label="ผู้ส่งรายงาน"
+            //name="fn_info_nameid"
             rules={[
               {
                 required: true,
@@ -241,6 +229,7 @@ const FnInfoEdit = () => {
           </Form.Item>
           <Form.Item
             label="จังหวัดของท่าน"
+            //name="fn_info_province"
             rules={[
               {
                 required: true,
@@ -265,7 +254,11 @@ const FnInfoEdit = () => {
               },
             ]}
           >
-            <Input size="large" placeholder="ระบุหัวข้อ" />
+            <Input
+              size="large"
+              //prefix={<LinkOutlined className="site-form-item-icon" />}
+              placeholder="ระบุหัวข้อ"
+            />
           </Form.Item>
           <Form.Item
             label="เนื้อหา"
@@ -295,7 +288,9 @@ const FnInfoEdit = () => {
             ]}
           >
             <Select
-              onClick={onChange_dnc_med_id}
+              onClick={() => {
+                onChange_dnc_med_id();
+              }}
               placeholder="Select a option and change input text above"
               onChange={onChange_dnc_med_id}
               allowClear
@@ -316,8 +311,8 @@ const FnInfoEdit = () => {
             <Select
               size="large"
               placeholder="จำนวนสมาชิกที่อยู่ในกลุ่มที่อาจเผยแพร่ข้อมูลเท็จ"
-              onChange={handleGenderChange}
-              value={selectedGender}
+              onChange={handlenum_memChange}
+              value={selectednum_mem}
             >
               <Select.Option value="less50">น้อยกว่า 50</Select.Option>
               <Select.Option value="51-100">51-100</Select.Option>
@@ -342,7 +337,12 @@ const FnInfoEdit = () => {
               },
             ]}
           >
-            <TextArea rows={4} size="large" placeholder="รายละเอียดเพิ่มเติม" />
+            <TextArea
+              rows={4}
+              size="large"
+              prefix={<EnvironmentOutlined className="site-form-item-icon" />}
+              placeholder="รายละเอียดเพิ่มเติม"
+            />
           </Form.Item>
 
           <Form.Item
@@ -374,7 +374,7 @@ const FnInfoEdit = () => {
             <DatePicker
               size="large"
               placeholder="วัน/เดือน/ปี"
-              format="DD/MM/YYYY"
+              format="YYYY-MM-DD"
             />
           </Form.Item>
 
@@ -392,7 +392,7 @@ const FnInfoEdit = () => {
           >
             <Upload
               name="fn_info_image"
-              maxCount={1}
+              maxCount={2}
               listType="picture-card"
               beforeUpload={() => false}
             >
@@ -403,6 +403,35 @@ const FnInfoEdit = () => {
             </Upload>
           </Form.Item>
 
+          {/* <Form.Item
+            label="แนบวิดีโอ"
+            name="fn_info_vdo"
+            valuePropName="fileList"
+            getValueFromEvent={normFile}
+            rules={[
+              {
+                required: true,
+                message: "กรุณาแนบวิดีโอ",
+              },
+            ]}
+          >
+            <Upload
+            {...uploadProps}
+              name="fn_info_vdo"
+              maxCount={3}
+              action="http://localhost:8000/api/report_f_n_upload"
+              listType="picture-card"
+              multiple
+              showUploadList={{ showPreviewIcon: false }}
+              beforeUpload={beforeUpload}
+              onChange={handleChange}
+            >
+              <div>
+                <PlusOutlined />
+                <div style={{ marginTop: 8 }}>Upload</div>
+              </div>
+            </Upload>
+          </Form.Item> */}
           <Form.Item>
             <Button
               type="primary"

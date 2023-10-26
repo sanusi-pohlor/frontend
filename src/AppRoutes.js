@@ -46,8 +46,8 @@ const routes = [
   { path: "/User/Profile", element: <Profile /> },
   { path: "/User/Login", element: <Login /> },
   { path: "/User/Register", element: <Register /> },
-  { path: "/FakeNews/fninfoview/:fn_info_id", element: <Fninfoview /> },
-  { path: "/FakeNews/edit/:fn_info_id", element: <Fninfoedit /> },
+  { path: "/FakeNews/fninfoview/:id", element: <Fninfoview /> },
+  { path: "/FakeNews/edit/:id", element: <Fninfoedit /> },
 ];
 
 const AppRoutes = () => {

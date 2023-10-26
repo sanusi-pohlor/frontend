@@ -7,14 +7,14 @@ const FnInfoView = () => {
   const [fakeNewsInfo, setFakeNewsInfo] = useState(null);
 
   // Get the fn_info_id from the URL using useParams
-  const { fn_info_id } = useParams();
+  const {id } = useParams();
 
-  // Fetch fake news information based on fn_info_id
+  // Fetch fake news information based on id
   const fetchFakeNewsInfo = async () => {
-    console.log("fn_info_id :",fn_info_id);
+    console.log("id :",id);
     try {
       const response = await fetch(
-        `http://localhost:8000/api/FakeNewsInfo_show/${fn_info_id}`
+        `http://localhost:8000/api/FakeNewsInfo_show/${id}`
       );
       if (response.ok) {
         const data = await response.json();
@@ -30,7 +30,7 @@ const FnInfoView = () => {
   // Fetch fake news information when the component mounts
   useEffect(() => {
     fetchFakeNewsInfo();
-  }, [fn_info_id]);
+  }, [id]);
 
   return (
     <UserProfile>

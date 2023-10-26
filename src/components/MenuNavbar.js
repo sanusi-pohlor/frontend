@@ -32,7 +32,6 @@ const pages = [
   { label: "แจ้งข้อมูลเท็จ", link: "/FakeNews" },
 ];
 
-
 function ResponsiveAppBar() {
   const [Login, setLogin] = useState(false);
   const [Register, setRegister] = useState(false);
@@ -109,7 +108,7 @@ function ResponsiveAppBar() {
   const [mobileOpenProfile, setMobileOpenProfile] = React.useState(false);
   const drawerMenu = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
-      <Typography variant="h6" sx={{ my: 2 }}>
+      <Typography variant="h6" sx={{ my: 2, color: "#7BBD8F" }}>
         MUI
       </Typography>
       <Divider />
@@ -121,7 +120,7 @@ function ResponsiveAppBar() {
               component={Link}
               to={page.link}
             >
-              <ListItemText primary={page.label} />
+              <ListItemText primary={page.label} sx={{ color: "#7BBD8F" }} />
             </ListItemButton>
           </ListItem>
         ))}
@@ -131,7 +130,7 @@ function ResponsiveAppBar() {
 
   const drawerProfile = (
     <Box onClick={handleDrawerToggleProfile} sx={{ textAlign: "center" }}>
-      <Typography variant="h6" sx={{ my: 2 }}>
+      <Typography variant="h6" sx={{ my: 2, color: "#7BBD8F" }}>
         MUI
       </Typography>
       <Divider />
@@ -143,7 +142,7 @@ function ResponsiveAppBar() {
               component={Link}
               to={page.link}
             >
-              <ListItemText primary={page.label} />
+              <ListItemText primary={page.label} sx={{ color: "#7BBD8F" }} />
             </ListItemButton>
           </ListItem>
         ))}
@@ -156,8 +155,10 @@ function ResponsiveAppBar() {
     return (
       <Box>
         <CssBaseline />
-        <AppBar sx={{ backgroundColor: "#7BBD8F", height: "10%" }}>
-          <Toolbar disableGutters>
+        <AppBar
+          sx={{ backgroundColor: "#ffffff", color: "#7BBD8F", height: "10%" }}
+        >
+          <Toolbar>
             <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
             <Typography
               variant="h6"
@@ -235,7 +236,13 @@ function ResponsiveAppBar() {
                   component={Link}
                   to={page.link}
                   onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: "white", display: "block", mr: 5 }}
+                  sx={{
+                    my: 2,
+                    fontSize: "20px",
+                    color: "#7BBD8F",
+                    display: "block",
+                    mr: 5,
+                  }}
                 >
                   {page.label}
                 </Button>
@@ -249,19 +256,20 @@ function ResponsiveAppBar() {
                   justifyContent: "flex-end", // This will align the content to the far right
                 }}
               >
-                <LoginButton onClick={() => setLogin(true)} />
-                <LoginDialog
-                  open={Login}
-                  onClose={() => setLogin(false)}
-                  handleSubmit={handleSubmit}
-                  LoginFinish={LoginFinish}
-                />
                 <RegisterButton onClick={() => setRegister(true)} />
                 <RegisterDialog
                   open={Register}
                   onClose={() => setRegister(false)}
                   handleSubmit={handleSubmit}
                   LoginFinish={RegisterFinish}
+                />
+                <div style={{ margin: '5px' }}></div>
+                <LoginButton onClick={() => setLogin(true)} />
+                <LoginDialog
+                  open={Login}
+                  onClose={() => setLogin(false)}
+                  handleSubmit={handleSubmit}
+                  LoginFinish={LoginFinish}
                 />
               </div>
             </Box>
@@ -273,8 +281,10 @@ function ResponsiveAppBar() {
     return (
       <Box>
         <CssBaseline />
-        <AppBar sx={{ backgroundColor: "#7BBD8F", height: "10%" }}>
-          <Toolbar disableGutters>
+        <AppBar
+          sx={{ backgroundColor: "#ffffff", color: "#7BBD8F", height: "10%" }}
+        >
+          <Toolbar>
             <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
             <Typography
               variant="h6"
@@ -300,7 +310,13 @@ function ResponsiveAppBar() {
                   component={Link}
                   to={page.link}
                   onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: "white", display: "block", mr: 5 }}
+                  sx={{
+                    my: 2,
+                    fontSize: "20px",
+                    color: "#7BBD8F",
+                    display: "block",
+                    mr: 5,
+                  }}
                 >
                   {page.label}
                 </Button>
@@ -360,7 +376,7 @@ function ResponsiveAppBar() {
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleDrawerToggleProfile} sx={{ p: 0 }}>
-                  <Avatar />
+                  <Avatar sx={{ color: "#7BBD8F" }} />
                 </IconButton>
               </Tooltip>
               <Drawer

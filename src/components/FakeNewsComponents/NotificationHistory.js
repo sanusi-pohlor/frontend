@@ -1,11 +1,30 @@
 import React, { useEffect, useState } from "react";
-import { Table,Space } from "antd";
+import { Table,Space,Popconfirm,Button,   } from "antd";
 import UserProfile from "../UserComoponents/MenuProfile";
+import {  DeleteOutlined, EditOutlined, EyeOutlined} from '@ant-design/icons';
 import { Link } from "react-router-dom";
 
 const NotificationHistory = () => {
   const [user, setUser] = useState(null);
   const [data, setData] = useState([]);
+  function getThaiMonth(month) {
+    const thaiMonths = [
+      "มกราคม",
+      "กุมภาพันธ์",
+      "มีนาคม",
+      "เมษายน",
+      "พฤษภาคม",
+      "มิถุนายน",
+      "กรกฎาคม",
+      "สิงหาคม",
+      "กันยายน",
+      "ตุลาคม",
+      "พฤศจิกายน",
+      "ธันวาคม",
+    ];
+    return thaiMonths[month];
+  }
+  
   const fetchUser = async () => {
     try {
       const response = await fetch("http://localhost:8000/api/user", {
@@ -81,7 +100,14 @@ const NotificationHistory = () => {
       dataIndex: "created_at",
       width: "15%",
       editable: true,
-    },
+      render: (created_at) => {
+        // Assuming created_at is a valid date string, e.g., "2023-10-26T14:30:00"
+        const date = new Date(created_at);
+        // Use the Date object to format the date as "วัน เดือน ปี"
+        const formattedDate = `${date.getDate()} ${getThaiMonth(date.getMonth())} ${date.getFullYear() + 543}`;
+        return formattedDate;
+      },
+    },    
     {
       title: "สถานะ",
       dataIndex: "fn_info_status",
@@ -94,19 +120,55 @@ const NotificationHistory = () => {
       editable: true,
       render: (text, record) => (
         <Space size="middle">
-          <Link to={`/FakeNews/fninfoview/${record.id}`}>ดู</Link>
+          <Link to={`/FakeNews/fninfoview/${record.id}`}>
+            <EyeOutlined style={{ fontSize: '16px', color: 'blue' }} /> {/* Blue color for "ดู" */}
+          </Link>
           {record.fn_info_status === 1 && (
             <>
-               <Link to={`/FakeNews/edit/${record.id}`}>แก้ไข</Link>
-              <a>ลบ</a>
+              <Link to={`/FakeNews/edit/${record.id}`}>
+                <EditOutlined style={{ fontSize: '16px', color: 'green' }} /> {/* Green color for "แก้ไข" */}
+              </Link>
+              <Popconfirm
+                title="คุณแน่ใจหรือไม่ที่จะลบรายการนี้?"
+                onConfirm={() => handleDelete(record.id)}
+                okText="ใช่"
+                cancelText="ไม่"
+              >
+                <Button type="link">
+                  <DeleteOutlined style={{ fontSize: '16px', color: 'red' }} /> {/* Red color for "ลบ" */}
+                </Button>
+              </Popconfirm>
             </>
           )}
         </Space>
       ),
-    },
-    
-    
+    }
   ];
+  const handleDelete = (id) => {
+    // Show a loading indicator or perform any other necessary actions to indicate the delete process
+    // You can also handle the delete operation here
+    console.log(`ลบรายการ: ${id}`);
+  
+    // Make an API request to delete the record using Laravel
+    fetch(`http://localhost:8000/api/FakeNewsInfo_delete/${id}`, {
+      method: "DELETE",
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.message === "Fake News deleted successfully") {
+          // Handle a successful delete, e.g., update your component's state or reload data
+          console.log("รายการถูกลบสำเร็จ");
+          fetchData();
+        } else {
+          // Handle an error or display a message to the user
+          console.error("เกิดข้อผิดพลาดในการลบรายการ:", data);
+        }
+      })
+      .catch((error) => {
+        // Handle a network error or other exceptions
+        console.error("เกิดข้อผิดพลาดในการลบรายการ:", error);
+      });
+  };
   const mergedColumns = columns.map((col) => {
     if (!col.editable) {
       return col;

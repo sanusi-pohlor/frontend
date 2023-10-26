@@ -18,20 +18,14 @@ const { Option } = Select;
 const { TextArea } = Input;
 
 const FakeNewInformation = () => {
-  const [file, setFile] = useState(null);
   const [user, setUser] = useState(null);
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(true);
-  const [selectedGender, setSelectedGender] = useState("");
-  const [selectedprovince, setSelectedprovince] = useState("");
+  const [selectednum_mem, setSelectednum_mem] = useState("");
   const [selectOptions_med, setSelectOptions_med] = useState([]); // State for select options
-  const [fileList, setFileList] = useState([]);
 
-  const handleprovinceChange = (value) => {
-    setSelectedprovince(value);
-  };
-  const handleGenderChange = (value) => {
-    setSelectedGender(value);
+  const handlenum_memChange = (value) => {
+    setSelectednum_mem(value);
   };
 
   const normFile = (e) => {
@@ -69,7 +63,6 @@ const FakeNewInformation = () => {
       if (response.ok) {
         console.log("Form data sent successfully");
         message.success("Form data sent successfully");
-        setFileList([]);
       } else {
         message.error("Error sending form data");
       }
@@ -293,8 +286,8 @@ const FakeNewInformation = () => {
             <Select
               size="large"
               placeholder="จำนวนสมาชิกที่อยู่ในกลุ่มที่อาจเผยแพร่ข้อมูลเท็จ"
-              onChange={handleGenderChange}
-              value={selectedGender}
+              onChange={handlenum_memChange}
+              value={selectednum_mem}
             >
               <Select.Option value="less50">น้อยกว่า 50</Select.Option>
               <Select.Option value="51-100">51-100</Select.Option>
