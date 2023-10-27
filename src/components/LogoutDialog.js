@@ -14,6 +14,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   });
 const handleLogout = async (e) => {
     localStorage.removeItem('access_token');
+    window.location.reload();
     console.log('Logged out successfully');
 };
 

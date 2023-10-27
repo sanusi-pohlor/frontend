@@ -71,7 +71,7 @@ const MenuProfile = ({ children }) => {
     return (
       <div>
         <Modal
-          title="ต้องเข้าสู่ระบบหรือลงทะเบียนก่อน"
+          title="กรุณาเข้าสู่ระบบหรือลงทะเบียนก่อน"
           visible={isModalVisible}
           onOk={handleOk}
           onCancel={handleCancel}
@@ -81,7 +81,7 @@ const MenuProfile = ({ children }) => {
             </Button>
           ]}
         >
-          <p>ต้องเข้าสู่ระบบหรือลงทะเบียนก่อน</p>
+          <p>กรุณาเข้าสู่ระบบหรือลงทะเบียนก่อน</p>
         </Modal>
       </div>
     );

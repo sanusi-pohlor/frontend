@@ -39,6 +39,17 @@ function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [user, setUser] = useState(null);
+  const [registerVisible, setRegisterVisible] = useState(false);
+
+  // Function to open the RegisterDialog
+  const showRegisterDialog = () => {
+    setRegisterVisible(true);
+  };
+
+  // Function to close the RegisterDialog
+  const closeRegisterDialog = () => {
+    setRegisterVisible(false);
+  };
   const settings = [
     { label: "Login", link: "/User/Login" },
     { label: "Register", link: "/User/Register" },
@@ -257,14 +268,18 @@ function ResponsiveAppBar() {
                   justifyContent: "flex-end", // This will align the content to the far right
                 }}
               >
-                <RegisterButton onClick={() => setRegister(true)} />
-                <RegisterDialog
-                  open={Register}
-                  onClose={() => setRegister(false)}
-                  handleSubmit={handleSubmit}
-                  LoginFinish={RegisterFinish}
-                />
-                <div style={{ margin: '5px' }}></div>
+                <Button onClick={showRegisterDialog}>Register</Button>
+
+                {/* Conditionally render the RegisterDialog based on registerVisible state */}
+                {registerVisible && (
+                  <RegisterDialog
+                    open={registerVisible}
+                    onClose={closeRegisterDialog}
+                    handleSubmit={handleSubmit}
+                    RegisterFinish={RegisterFinish}
+                  />
+                )}
+                <div style={{ margin: "5px" }}></div>
                 <LoginButton onClick={() => setLogin(true)} />
                 <LoginDialog
                   open={Login}

@@ -17,28 +17,19 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 const LoginDialog = ({ open, onClose }) => {
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    console.log(formData);
+  const onFinish = async (values) => {
+    console.log(values);
+    const formData = new FormData();
+    formData.append("email", values.email); // Corrected the field name
+    formData.append("password", values.password);
     try {
       const response = await fetch("http://localhost:8000/api/login", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
+        body: formData,
       });
 
       if (response.ok) {
+        window.location.reload();
         const data = await response.json();
         console.log("Login successful");
         localStorage.setItem("access_token", data.message);
@@ -49,6 +40,11 @@ const LoginDialog = ({ open, onClose }) => {
       console.error("Error:", error);
     }
   };
+
+  const onFinishFailed = (errorInfo) => {
+    console.log("Failed:", errorInfo);
+  };
+
   return (
     <Dialog open={open} onClose={onClose} TransitionComponent={Transition}>
       <DialogContent>
@@ -70,56 +66,22 @@ const LoginDialog = ({ open, onClose }) => {
             เข้าสู่ระบบ
           </Typography>
           <Box>
-          <form layout="vertical" onSubmit={handleSubmit}>
-          <Form.Item
-                name="email"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please input your email!",
-                  },
-                ]}
-              >
-                <input
-                    type="email"
-                    name="email"
-                    placeholder="Email"
-                    value={formData.email}
-                    onChange={handleChange}
-                /></Form.Item>
-                <Form.Item
-                  name="password"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Please input your password!",
-                    },
-                  ]}
-                >
-                <input
-                    type="password"
-                    name="password"
-                    placeholder="Password"
-                    value={formData.password}
-                    onChange={handleChange}
-                /></Form.Item>
-                <Form.Item>
-                <button type="submit">Login</button></Form.Item>
-            </form>
-            {/* <Form
+            <Form
               layout="vertical"
               name="normal_login"
               className="login-form"
               initialValues={{
                 remember: true,
               }}
-              onFinish={handleSubmit} // Changed from onSubmit to onFinish
+              onFinish={onFinish} // Changed from onSubmit to onFinish
+              onFinishFailed={onFinishFailed}
               style={{
                 maxWidth: "100%",
               }}
               size="large"
             >
               <Form.Item
+                label="อีเมล"
                 name="email"
                 rules={[
                   {
@@ -132,11 +94,10 @@ const LoginDialog = ({ open, onClose }) => {
                   size="large"
                   prefix={<MailOutlined className="site-form-item-icon" />}
                   placeholder="อีเมล"
-                  value={formData.email}
-                  onChange={handleChange}
                 />
               </Form.Item>
               <Form.Item
+                label="รหัสผ่าน"
                 name="password"
                 rules={[
                   {
@@ -150,30 +111,20 @@ const LoginDialog = ({ open, onClose }) => {
                   size="large"
                   prefix={<LockOutlined className="site-form-item-icon" />}
                   placeholder="รหัสผ่าน"
-                  value={formData.password}
-                  onChange={handleChange}
                 />
-              </Form.Item>
-              {/* <Form.Item>
-                <Form.Item name="remember" valuePropName="checked" noStyle>
-                  <Checkbox>จดจำการเข้าสู่ระบบ</Checkbox>
-                </Form.Item>
-                <a className="login-form-forgot" href="">
-                  ลืมรหัสผ่าน
-                </a>
               </Form.Item>
               <Form.Item>
                 <Button
-                  // type="submit"
+                  type="primary"
                   htmlType="submit"
                   className="login-form-button"
                   size="large"
                 >
                   เข้าสู่ระบบ
                 </Button>{" "}
-                {/* หรือ <a href="/User/Register">ลงทะเบียน</a>
+                <a href="/User/Register">ลงทะเบียน</a>
               </Form.Item>
-            </Form> */}
+            </Form>
           </Box>
         </Paper>
       </DialogContent>
