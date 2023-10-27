@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Grid, Avatar, Typography, Divider } from "@mui/material";
 import { Card, Tabs, FloatButton } from "antd";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink ,useLocation} from "react-router-dom";
 
 const { TabPane } = Tabs;
 const MenuProfile = ({ children }) => {
+  const location = useLocation();
   const [user, setUser] = useState(null);
   const items = [
     {
@@ -114,6 +115,13 @@ const MenuProfile = ({ children }) => {
                 <TabPane
                   tab={<RouterLink to={item.link}>{item.label}</RouterLink>}
                   key={item.key}
+                  sx={{
+                    my: 2,
+                    fontSize: "20px",
+                    color: items.link === location.pathname ? "#7BBD8F" : "grey",
+                    display: "block",
+                    mr: 5,
+                  }}
                 >
                   {children}
                 </TabPane>

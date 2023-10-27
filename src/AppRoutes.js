@@ -55,8 +55,8 @@ const AppRoutes = () => {
     <Router>
       <div>
         <MenuNavbar />
-        <div id="background" className="background">
-          <Box height="6vh" />
+        <div>
+          <Box height="10vh" />
           <Routes>
             {routes.map((route, index) => (
               <Route key={index} {...route} />
@@ -66,7 +66,9 @@ const AppRoutes = () => {
         <Bottom />
       </div>
     </Router>
+
   );
+
 };
 
 export default AppRoutes;

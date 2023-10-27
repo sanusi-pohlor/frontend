@@ -99,6 +99,11 @@ const Search = ({ children }) => {
 
   return (
     <div>
+      <Box style={{
+        width: "80%",
+        padding: 30,
+        margin: "0 auto", // This centers the paper horizontally
+      }}>
       <Layout>
         <Sider
           width={300}
@@ -225,12 +230,12 @@ const Search = ({ children }) => {
             </Form>
           </Card>
         </Sider>
-        <Layout style={{ padding: "24px 24px 24px" }}>
-          {/* Display the data in GridContent */}
+        <Layout>
           <GridContent data={data} />
         </Layout>
       </Layout>
       <FloatButton.BackTop />
+      </Box>
     </div>
   );
 };

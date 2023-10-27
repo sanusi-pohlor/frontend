@@ -5,7 +5,7 @@ import {
   UserOutlined,
 } from '@ant-design/icons';
 import { Breadcrumb, Layout, Menu, theme,FloatButton  } from 'antd';
-import { Link } from 'react-router-dom';
+import { Link,useLocation } from 'react-router-dom';
 
 const { Content, Sider } = Layout;
 
@@ -65,6 +65,7 @@ const items = [
 
 
 const AdminMenu = ({ children }) => {
+  const location = useLocation();
   const {
     token: { colorBgContainer },
   } = theme.useToken();
@@ -83,6 +84,13 @@ const AdminMenu = ({ children }) => {
           defaultSelectedKeys={['1']}
           defaultOpenKeys={['sub1']}
           style={{ height: '100%', borderRight: 0 }}
+          sx={{
+            my: 2,
+            fontSize: "20px",
+            color: items.link === location.pathname ? "#7BBD8F" : "grey",
+            display: "block",
+            mr: 5,
+          }}
         >
           {items.map((item) => {
             if (item.children) {

@@ -6,6 +6,7 @@ import {
   Paper,
   Grid,
   Box,
+  Container
 } from "@mui/material";
 import Item from "./Item";
 import Carousel from "./Carousel";
@@ -93,7 +94,7 @@ const Dashboard = ({ onSearch }) => {
     <div>
       <Carousel />
       <Box style={{
-        width: "90%",
+        width: "70%",
         padding: 30,
         margin: "0 auto", // This centers the paper horizontally
         textAlign: "center", // This centers the content inside the paper

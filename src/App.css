@@ -45,3 +45,7 @@
   padding: 30px;
   background-color: #ffffff;
 }
+@font-face {
+  font-family: 'CustomFont';
+  src: url('./fonts/TH-Chara.woff') format('opentype');
+}

@@ -19,7 +19,7 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import AdbIcon from "@mui/icons-material/Adb";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import LoginButton from "./LoginButton";
 import LoginDialog from "./LoginDialog";
 import RegisterButton from "./RegisterButton";
@@ -33,6 +33,7 @@ const pages = [
 ];
 
 function ResponsiveAppBar() {
+  const location = useLocation();
   const [Login, setLogin] = useState(false);
   const [Register, setRegister] = useState(false);
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -239,7 +240,7 @@ function ResponsiveAppBar() {
                   sx={{
                     my: 2,
                     fontSize: "20px",
-                    color: "#7BBD8F",
+                    color: page.link === location.pathname ? "#7BBD8F" : "grey",
                     display: "block",
                     mr: 5,
                   }}
