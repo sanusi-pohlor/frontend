@@ -4,7 +4,7 @@ const { Footer } = Layout;
 
 const footerStyle = {
   textAlign: "center",
-  color: "#000000",
+  color: "#ffffff",
   backgroundColor: "#7BBD8F",
   height: "10%", // Change this value to adjust the height
   //position: "fixed",

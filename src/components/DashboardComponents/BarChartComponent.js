@@ -20,7 +20,7 @@ const data = [
 ];
 
 const BarChartComponent = () => {
-  const curveAngle = 0;
+  const curveAngle = 20;
   const paperColor = "#FFFFFF";
   return (
     <Card

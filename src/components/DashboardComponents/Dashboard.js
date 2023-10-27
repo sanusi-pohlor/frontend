@@ -30,20 +30,21 @@ const Dashboard = ({ onSearch }) => {
   const handleSearchSubmit = () => {
     onSearch(searchTerm);
   };
-  const curveAngle = 0;
+  const curveAngle = 20;
   const paperColor = "#FFFFFF";
   const papercard = "rgb(240, 240, 240)";
   const Content = () => {
     return (
       <Card
         hoverable
+        bordered={false}
         style={{
           margin: "auto",
           borderRadius: `${curveAngle}px`,
           backgroundColor: papercard,
-          width: "100%", // Set the desired width
+          width: "90%", // Set the desired width
           height: "100%", // Set the desired height
-          padding: 20,
+          padding: 50,
         }}
         cover={
           <img
@@ -188,7 +189,7 @@ const Dashboard = ({ onSearch }) => {
       <Paper
         elevation={0}
         style={{
-          width: "90%",
+          width: "70%",
           padding: 30,
           margin: "0 auto", // This centers the paper horizontally
           textAlign: "center", // This centers the content inside the paper

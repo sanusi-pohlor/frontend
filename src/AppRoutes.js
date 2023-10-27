@@ -52,10 +52,10 @@ const routes = [
 
 const AppRoutes = () => {
   return (
-    <Router>
-      <div>
+<Router>
+      <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
         <MenuNavbar />
-        <div>
+        <div style={{ flex: 1 }}>
           <Box height="10vh" />
           <Routes>
             {routes.map((route, index) => (
@@ -66,7 +66,6 @@ const AppRoutes = () => {
         <Bottom />
       </div>
     </Router>
-
   );
 
 };

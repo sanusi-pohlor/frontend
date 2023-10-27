@@ -1,10 +1,27 @@
 import React, { useEffect, useState } from "react";
 import { Grid, Avatar, Typography, Divider } from "@mui/material";
-import { Card, Tabs, FloatButton } from "antd";
-import { Link as RouterLink ,useLocation} from "react-router-dom";
+import { Card, Tabs, FloatButton, Modal, Button } from "antd";
+import { Link as RouterLink, useLocation } from "react-router-dom";
 
 const { TabPane } = Tabs;
 const MenuProfile = ({ children }) => {
+  const buttonStyle = {
+    background: "#7BBD8F",
+    border: "none",
+    color: "white",
+  };
+  const [isModalVisible, setIsModalVisible] = useState(true);
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false); // Close the modal when "OK" is clicked
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false); // Close the modal when "Cancel" is clicked
+  };
   const location = useLocation();
   const [user, setUser] = useState(null);
   const items = [
@@ -53,9 +70,20 @@ const MenuProfile = ({ children }) => {
   if (!user) {
     return (
       <div>
-      
-      aaaa
-    </div>
+        <Modal
+          title="ต้องเข้าสู่ระบบหรือลงทะเบียนก่อน"
+          visible={isModalVisible}
+          onOk={handleOk}
+          onCancel={handleCancel}
+          footer={[
+            <Button key="ok" type="primary" onClick={handleOk} style={buttonStyle}>
+              OK
+            </Button>
+          ]}
+        >
+          <p>ต้องเข้าสู่ระบบหรือลงทะเบียนก่อน</p>
+        </Modal>
+      </div>
     );
   }
   return (

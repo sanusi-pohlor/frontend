@@ -22,7 +22,7 @@ const PieChartComponent = () => {
   const handleCellMouseLeave = () => {
     setActiveCell(null);
   };
-  const curveAngle = 0;
+  const curveAngle = 20;
   const paperColor = "#FFFFFF";
   return (
     <Card

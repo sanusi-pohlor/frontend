@@ -6,13 +6,16 @@ const Carousel = () => {
   const paperColor = "#FFFFFF";
 
   return (
-    <Paper
-      elevation={0}
-      style={{
-        width: "100%",
-        height: 500,
-      }}
-    ></Paper>
+<Paper
+  elevation={0}
+  style={{
+    width: "100%",
+    height: 850,
+  }}
+>
+  <img src="https://niubox.legal/wp-content/uploads/2021/09/Recurso-210.jpg" alt="Your Image" style={{ width: '100%', height: '100%' }} />
+</Paper>
+
   );
 };
 
