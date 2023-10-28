@@ -15,7 +15,10 @@ const RegisterDialog = ({ open, onClose, handleSubmit, RegisterFinish }) => {
   const [loading, setLoading] = useState(false);
   const [visible, setVisible] = useState(open);
   const { Option } = Select;
-
+  const [form] = Form.useForm();
+  const handleprovinceChange = (value) => {
+    setSelectedprovince(value);
+  };
   const handleOk = () => {
     setVisible(false);
     onClose();
@@ -28,7 +31,7 @@ const RegisterDialog = ({ open, onClose, handleSubmit, RegisterFinish }) => {
 
   const onFinish = async (values) => {
     console.log(values);
-    console.log(selectedprovince);
+    console.log("receiveCtEmail", receiveCtEmail);
     setLoading(true);
     try {
       let receive = 0;
@@ -44,16 +47,37 @@ const RegisterDialog = ({ open, onClose, handleSubmit, RegisterFinish }) => {
       formData.append("Id_line", values.Id_line);
       formData.append("province", selectedprovince);
       formData.append("receive_ct_email", receive);
-
       const response = await fetch("http://localhost:8000/api/register", {
         method: "POST",
         body: formData,
       });
-
       if (response.ok) {
         message.success("Form data sent successfully");
-        // Reload the page to reset it after a successful registration
-        window.location.reload();
+        const data = await response.json();
+        // Save the token in localStorage
+        localStorage.setItem('access_token', data.message);
+    
+        // Fetch a fresh token immediately after successful registration
+        const loginResponse = await fetch("http://localhost:8000/api/login", {
+          method: "POST",
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email: values.email,
+            password: values.password,
+          }),
+        });
+    
+        if (loginResponse.ok) {
+          const loginData = await loginResponse.json();
+          // Save the token from the login response to localStorage
+          localStorage.setItem('access_token', loginData.message);
+          // Redirect the user or perform any necessary action
+          window.location.reload();
+        } else {
+          message.error("Error logging in after registration");
+        }
       } else {
         message.error("Error sending form data");
       }
@@ -64,7 +88,9 @@ const RegisterDialog = ({ open, onClose, handleSubmit, RegisterFinish }) => {
       setLoading(false);
     }
   };
-
+  const onFinishFailed = (errorInfo) => {
+    console.log("Failed:", errorInfo);
+  };
   const [Login, setLogin] = useState(false);
 
   const onChange = (e) => {
@@ -83,13 +109,14 @@ const RegisterDialog = ({ open, onClose, handleSubmit, RegisterFinish }) => {
     <Modal
       title="ลงทะเบียน"
       visible={visible}
-      onOk={handleOk}
-      onCancel={handleCancel}
+      footer={null}
     >
       <Form
+        form={form}
         layout="vertical"
         name="form_register"
         onFinish={onFinish}
+        onFinishFailed={onFinishFailed}
         style={{
           maxWidth: "100%",
         }}
@@ -154,8 +181,8 @@ const RegisterDialog = ({ open, onClose, handleSubmit, RegisterFinish }) => {
         <Form.Item
           name="password"
           label="password"
-          rules={[{ required: true, message: "Please input your password!" }]
-        }>
+          rules={[{ required: true, message: "Please input your password!" }]}
+        >
           <Input.Password />
         </Form.Item>
         <Form.Item
@@ -223,6 +250,7 @@ const RegisterDialog = ({ open, onClose, handleSubmit, RegisterFinish }) => {
           <Select
             size="large"
             placeholder="จังหวัดที่สังกัด"
+            onChange={handleprovinceChange} // เพิ่มการเรียกฟังก์ชันเมื่อเลือกค่า
             value={selectedprovince}
           >
             <Option value="Krabi">กระบี่</Option>
@@ -257,6 +285,7 @@ const RegisterDialog = ({ open, onClose, handleSubmit, RegisterFinish }) => {
           <LoginDialog
             open={Login}
             onClose={() => setLogin(false)}
+            handleSubmit={handleSubmit}
             LoginFinish={LoginFinish}
           />
         </Form.Item>
