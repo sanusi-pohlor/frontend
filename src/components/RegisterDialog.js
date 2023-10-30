@@ -109,6 +109,7 @@ const RegisterDialog = ({ open, onClose, handleSubmit, RegisterFinish }) => {
     <Modal
       title="ลงทะเบียน"
       visible={visible}
+      onCancel={onClose}
       footer={null}
     >
       <Form
