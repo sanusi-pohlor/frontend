@@ -7,7 +7,8 @@ import Search from "./components/SearchComponents/Search";
 import FakeNewInformation from "./components/FakeNewsComponents/FakeNewInformation";
 import NotificationHistory from "./components/FakeNewsComponents/NotificationHistory";
 import PersonalInformation from "./components/FakeNewsComponents/PersonalInformation";
-import ManageInfo from "./components/Admin/ManageInfo";
+import ManageInfo from "./components/Admin/ManageInfo/ManageInfo";
+import ManageInfo_view from "./components/Admin/ManageInfo/ManageInfo_view";
 import ManageMembers from "./components/Admin/ManageMembers";
 import ManuContent from "./components/Admin/ManageContent/ManuContent";
 import FormContent from "./components/Admin/ManageContent/FormContent";
@@ -33,6 +34,7 @@ const routes = [
   { path: "/FakeNews/NotificationHistory", element: <NotificationHistory /> },
   { path: "/Search", element: <Search /> },
   { path: "/Admin/ManageInfo", element: <ManageInfo /> },
+  { path: "/Admin/ManageInfo/ManageInfo_view/:id", element: <ManageInfo_view /> },
   { path: "/Admin/ManageMembers", element: <ManageMembers /> },
   { path: "/Admin/ManuContent", element: <ManuContent /> },
   { path: "/Admin/FormContent", element: <FormContent /> },

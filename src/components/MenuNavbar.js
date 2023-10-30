@@ -331,7 +331,7 @@ function ResponsiveAppBar() {
                   sx={{
                     my: 2,
                     fontSize: "20px",
-                    color: "#7BBD8F",
+                    color: page.link === location.pathname ? "#7BBD8F" : "grey",
                     display: "block",
                     mr: 5,
                   }}

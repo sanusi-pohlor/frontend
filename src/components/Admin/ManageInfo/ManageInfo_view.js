@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Badge, Descriptions, Image } from "antd";
 import { useParams } from "react-router-dom";
-import UserProfile from "../UserComoponents/MenuProfile";
+import AdminMenu from "../AdminMenu";
 import moment from "moment";
 
-const FnInfoView = () => {
+const ManageInfo_view = () => {
   const [fakeNewsInfo, setFakeNewsInfo] = useState(null);
 
   // Get the fn_info_id from the URL using useParams
@@ -127,17 +127,15 @@ const FnInfoView = () => {
       ),
     },
   ];
-
   return (
-    <UserProfile>
+    <AdminMenu>
       <Descriptions
         title="รายละเอียดการแจ้ง"
         layout="vertical"
         bordered
         items={items}
       />
-    </UserProfile>
+    </AdminMenu>
   );
 };
-
-export default FnInfoView;
+export default ManageInfo_view;

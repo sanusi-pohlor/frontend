@@ -11,7 +11,8 @@ import {
   message,
   Space
 } from "antd";
-import AdminMenu from "./AdminMenu";
+import AdminMenu from "../AdminMenu";
+import ManageInfo_view from './ManageInfo_view';
 import { PlusCircleOutlined, DeleteOutlined, EditOutlined, EyeOutlined} from "@ant-design/icons";
 import { Link } from "react-router-dom";
 
@@ -244,7 +245,7 @@ const ManageMembers = () => {
         editable: true,
         render: (text, record) => (
           <Space size="middle">
-            <Link to={`/FakeNews/fninfoview/${record.id}`}>
+            <Link to={`/Admin/ManageInfo/ManageInfo_view/${record.id}`}>
               <EyeOutlined style={{ fontSize: '16px', color: 'blue' }} /> {/* Blue color for "ดู" */}
             </Link>
             {record.fn_info_status === 1 && (
