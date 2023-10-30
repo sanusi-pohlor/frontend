@@ -29,10 +29,10 @@ const LoginDialog = ({ open, onClose }) => {
       });
 
       if (response.ok) {
-        window.location.reload();
         const data = await response.json();
-        console.log("Login successful");
         localStorage.setItem("access_token", data.message);
+        console.log("Login successful");
+        window.location.reload();
       } else {
         console.error("Login failed");
       }

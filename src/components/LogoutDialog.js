@@ -8,17 +8,18 @@ import {
   Avatar,
   Slide,
 } from "@mui/material";
+import { Button } from "antd";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
-    return <Slide direction="top" ref={ref} {...props} />;
-  });
+  return <Slide direction="top" ref={ref} {...props} />;
+});
 const handleLogout = async (e) => {
-    localStorage.removeItem('access_token');
-    window.location.reload();
-    console.log('Logged out successfully');
+  localStorage.removeItem("access_token");
+  window.location.reload();
+  console.log("Logged out successfully");
 };
 
-const LogoutDialog = ({ open, onClose}) => {
+const LogoutDialog = ({ open, onClose }) => {
   return (
     <Dialog open={open} onClose={onClose} TransitionComponent={Transition}>
       <DialogContent>
@@ -37,12 +38,17 @@ const LogoutDialog = ({ open, onClose}) => {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            ออกจากระบบ
+            คุณต้องการออกจากระบบ
           </Typography>
-          <div>
-            <h2>Logout</h2>
-            <button onClick={handleLogout}>Logout</button>
-          </div>
+          <Button
+            type="primary"
+            htmlType="submit"
+            className="login-form-button"
+            size="large"
+            onClick={handleLogout}
+          >
+            ใช้
+          </Button>
         </Paper>
       </DialogContent>
     </Dialog>

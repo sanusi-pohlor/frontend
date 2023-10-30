@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect,useState } from "react";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import LoginDialog from "./LoginDialog";
 import { Form, Button, Checkbox, Input, Select, message, Modal } from "antd";
 import {
   UserOutlined,
@@ -8,8 +7,10 @@ import {
   PhoneOutlined,
   MessageOutlined,
 } from "@ant-design/icons";
+import { useParams } from "react-router-dom";
 
-const RegisterDialog = ({ open, onClose, handleSubmit, RegisterFinish }) => {
+const Editprofile = ({ open, onClose, handleSubmit, RegisterFinish }) => {
+  const { id } = useParams();
   const [receiveCtEmail, setReceiveCtEmail] = useState(false);
   const [selectedprovince, setSelectedprovince] = useState("");
   const [loading, setLoading] = useState(false);
@@ -28,7 +29,37 @@ const RegisterDialog = ({ open, onClose, handleSubmit, RegisterFinish }) => {
     setVisible(false);
     onClose();
   };
+  useEffect(() => {
+    fetchFakeNewsData(); // Modify the function name accordingly
+  }, [id]);
 
+  const fetchFakeNewsData = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:8000/api/User_edit/${id}`
+      );
+      if (response.ok) {
+        const data = await response.json();
+        // Set initial form values based on the fetched data
+        form.setFieldsValue({
+          username: data.username,
+          lastName: data.lastName,
+          email: data.email,
+          password: data.password,
+          phone_number: data.phone_number,
+          Id_line: data.Id_line,
+          province: data.province, // Assuming the date format is YYYY-MM-DD
+          receive_ct_email: data.receive_ct_email,
+        });
+      } else {
+        // Handle the case where the date is invalid
+        console.error("Invalid date received from the server");
+        // Set a default date or handle it as needed
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
   const onFinish = async (values) => {
     console.log(values);
     console.log("receiveCtEmail", receiveCtEmail);
@@ -47,37 +78,12 @@ const RegisterDialog = ({ open, onClose, handleSubmit, RegisterFinish }) => {
       formData.append("Id_line", values.Id_line);
       formData.append("province", selectedprovince);
       formData.append("receive_ct_email", receive);
-      const response = await fetch("http://localhost:8000/api/register", {
+      const response = await fetch(`http://localhost:8000/api/User_update/${id}`, {
         method: "POST",
         body: formData,
       });
       if (response.ok) {
         message.success("Form data sent successfully");
-        const data = await response.json();
-        // Save the token in localStorage
-        localStorage.setItem('access_token', data.message);
-    
-        // Fetch a fresh token immediately after successful registration
-        const loginResponse = await fetch("http://localhost:8000/api/login", {
-          method: "POST",
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            email: values.email,
-            password: values.password,
-          }),
-        });
-    
-        if (loginResponse.ok) {
-          const loginData = await loginResponse.json();
-          // Save the token from the login response to localStorage
-          localStorage.setItem('access_token', loginData.message);
-          // Redirect the user or perform any necessary action
-          window.location.reload();
-        } else {
-          message.error("Error logging in after registration");
-        }
       } else {
         message.error("Error sending form data");
       }
@@ -110,6 +116,7 @@ const RegisterDialog = ({ open, onClose, handleSubmit, RegisterFinish }) => {
       title="ลงทะเบียน"
       visible={visible}
       footer={null}
+      onCancel={handleCancel}
     >
       <Form
         form={form}
@@ -276,22 +283,10 @@ const RegisterDialog = ({ open, onClose, handleSubmit, RegisterFinish }) => {
           <Button type="primary" htmlType="submit" loading={loading}>
             ลงทะเบียน
           </Button>
-          <br />
-          <br />
-          หรือ{" "}
-          <a href="#" onClick={() => setLogin(true)}>
-            เข้าสู่ระบบ
-          </a>
-          <LoginDialog
-            open={Login}
-            onClose={() => setLogin(false)}
-            handleSubmit={handleSubmit}
-            LoginFinish={LoginFinish}
-          />
         </Form.Item>
       </Form>
     </Modal>
   );
 };
 
-export default RegisterDialog;
+export default Editprofile;

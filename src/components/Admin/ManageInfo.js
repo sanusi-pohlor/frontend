@@ -1,7 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import { Table, Form, Input, InputNumber, Button, Popconfirm, Select, Modal, message } from 'antd';
+import React, { useEffect, useState } from "react";
+import {
+  Table,
+  Form,
+  Input,
+  InputNumber,
+  Button,
+  Popconfirm,
+  Select,
+  Modal,
+  message,
+  Space
+} from "antd";
 import AdminMenu from "./AdminMenu";
-import { PlusCircleOutlined } from '@ant-design/icons';
+import { PlusCircleOutlined, DeleteOutlined, EditOutlined, EyeOutlined} from "@ant-design/icons";
+import { Link } from "react-router-dom";
 
 const { Option } = Select;
 const EditableCell = ({
@@ -42,13 +54,29 @@ const ManageMembers = () => {
   const [form] = Form.useForm();
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [editingKey, setEditingKey] = useState('');
+  const [editingKey, setEditingKey] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
-
+  function getThaiMonth(month) {
+    const thaiMonths = [
+      "มกราคม",
+      "กุมภาพันธ์",
+      "มีนาคม",
+      "เมษายน",
+      "พฤษภาคม",
+      "มิถุนายน",
+      "กรกฎาคม",
+      "สิงหาคม",
+      "กันยายน",
+      "ตุลาคม",
+      "พฤศจิกายน",
+      "ธันวาคม",
+    ];
+    return thaiMonths[month];
+  }
   const fetchData = async () => {
     try {
       const response = await fetch(
-        "http://localhost:8000/api/AmUser"
+        "http://localhost:8000/api/ManageInfo_request"
       );
       if (response.ok) {
         const data = await response.json();
@@ -106,7 +134,7 @@ const ManageMembers = () => {
   };
 
   const cancel = () => {
-    setEditingKey('');
+    setEditingKey("");
   };
 
   const save = async (key) => {
@@ -122,82 +150,123 @@ const ManageMembers = () => {
           ...row,
         });
         setData(newData);
-        setEditingKey('');
+        setEditingKey("");
       } else {
         newData.push(row);
         setData(newData);
-        setEditingKey('');
+        setEditingKey("");
       }
     } catch (errInfo) {
-      console.error('Validate Failed:', errInfo);
+      console.error("Validate Failed:", errInfo);
     }
   };
-
+  const handleDelete = (id) => {
+    // Show a loading indicator or perform any other necessary actions to indicate the delete process
+    // You can also handle the delete operation here
+    console.log(`ลบรายการ: ${id}`);
+  
+    // Make an API request to delete the record using Laravel
+    fetch(`http://localhost:8000/api/FakeNewsInfo_delete/${id}`, {
+      method: "DELETE",
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.message === "Fake News deleted successfully") {
+          // Handle a successful delete, e.g., update your component's state or reload data
+          console.log("รายการถูกลบสำเร็จ");
+          fetchData();
+        } else {
+          // Handle an error or display a message to the user
+          console.error("เกิดข้อผิดพลาดในการลบรายการ:", data);
+        }
+      })
+      .catch((error) => {
+        // Handle a network error or other exceptions
+        console.error("เกิดข้อผิดพลาดในการลบรายการ:", error);
+      });
+  };
+  const getStatusText = (status) => {
+    // Define your logic to map status values to text here
+    switch (status) {
+      case 1:
+        return "รอดำเนินการ";
+      // Add more cases as needed
+      default:
+        return "อื่น ๆ";
+    }
+  };
   const columns = [
     {
-      title: 'ชื่อ',
-      dataIndex: 'username',
-      width: '10%',
-      editable: true,
+      title: "ลำดับ",
+      width: "5%",
+      render: (text, record, index) => index + 1,
     },
     {
-      title: 'นามสกุล',
-      dataIndex: 'lastName',
-      width: '10%',
-      editable: true,
-    },
-    // {
-    //   title: 'ที่อยู่',
-    //   dataIndex: 'vol_mem_address',
-    //   width: '15%',
-    //   editable: true,
-    // },
-    {
-      title: 'จังหวัด',
-      dataIndex: 'province',
-      width: '10%',
-      editable: true,
-    },
-    // {
-    //   title: 'โทรศัพท์',
-    //   dataIndex: 'vol_mem_ph_num',
-    //   width: '10%',
-    //   editable: true,
-    // },
-    {
-      title: 'Email',
-      dataIndex: 'email',
-      width: '15%',
-      editable: true,
-    },
-    {
-      title: 'ยินดีรับข้่าวสาร',
-      dataIndex: 'receive_ct_email',
-      width: '10%',
-      editable: true,
-    },
-    {
-      title: 'Action',
-      dataIndex: 'operation',
-      width: '10%',
-      render: (_, record) => {
-        const editable = isEditing(record);
-        return editable ? (
-          <span>
-            <a onClick={() => save(record.key)} style={{ marginRight: 8 }}>
-              Save
-            </a>
-            <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
-              <a>Cancel</a>
-            </Popconfirm>
-          </span>
-        ) : (
-          <a disabled={editingKey !== ''} onClick={() => edit(record)}>
-            Edit
-          </a>
-        );
+        title: "หัวข้อ",
+        dataIndex: "fn_info_head",
+        width: "15%",
+        editable: true,
       },
+    {
+      title: "ชื่อผู้แจ้ง",
+      dataIndex: "fn_info_nameid",
+      width: "10%",
+      editable: true,
     },
+    {
+      title: "จังหวัด",
+      dataIndex: "fn_info_province",
+      width: "10%",
+      editable: true,
+    },
+    {
+        title: "แจ้งเมื่อ",
+        dataIndex: "created_at",
+        width: "15%",
+        editable: true,
+        render: (created_at) => {
+          // Assuming created_at is a valid date string, e.g., "2023-10-26T14:30:00"
+          const date = new Date(created_at);
+          // Use the Date object to format the date as "วัน เดือน ปี"
+          const formattedDate = `${date.getDate()} ${getThaiMonth(date.getMonth())} ${date.getFullYear() + 543}`;
+          return formattedDate;
+        },
+      }, 
+      {
+        title: "สถานะ",
+        dataIndex: "fn_info_status",
+        width: "15%",
+        render: (status) => getStatusText(status),
+      },
+      {
+        title: "จัดการ",
+        width: "15%",
+        editable: true,
+        render: (text, record) => (
+          <Space size="middle">
+            <Link to={`/FakeNews/fninfoview/${record.id}`}>
+              <EyeOutlined style={{ fontSize: '16px', color: 'blue' }} /> {/* Blue color for "ดู" */}
+            </Link>
+            {record.fn_info_status === 1 && (
+              <>
+                <Link to={`/FakeNews/edit/${record.id}`}>
+                  <EditOutlined style={{ fontSize: '16px', color: 'green' }} /> {/* Green color for "แก้ไข" */}
+                </Link>
+                <Popconfirm
+                  title="คุณแน่ใจหรือไม่ที่จะลบรายการนี้?"
+                  onConfirm={() => handleDelete(record.id)}
+                  okText="ใช่"
+                  cancelText="ไม่"
+                >
+                  <Button type="link">
+                    <DeleteOutlined style={{ fontSize: '16px', color: 'red' }} /> {/* Red color for "ลบ" */}
+                  </Button>
+                </Popconfirm>
+              </>
+            )}
+          </Space>
+        ),
+      }
   ];
 
   const mergedColumns = columns.map((col) => {
@@ -209,7 +278,7 @@ const ManageMembers = () => {
       ...col,
       onCell: (record) => ({
         record,
-        inputType: col.dataIndex === 'vol_mem_id' ? 'number' : 'text',
+        inputType: col.dataIndex === "vol_mem_id" ? "number" : "text",
         dataIndex: col.dataIndex,
         title: col.title,
         editing: isEditing(record),
@@ -218,10 +287,19 @@ const ManageMembers = () => {
   });
   return (
     <AdminMenu>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
         <h1>จัดการสมาชิก</h1>
         <Button
-          type="primary" shape="round" icon={<PlusCircleOutlined />} size="large"
+          type="primary"
+          shape="round"
+          icon={<PlusCircleOutlined />}
+          size="large"
           onClick={() => {
             setModalVisible(true);
           }}
