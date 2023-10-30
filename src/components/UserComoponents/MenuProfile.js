@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Grid, Avatar, Typography, Divider } from "@mui/material";
+import { Grid, Avatar, Typography, Divider, Box } from "@mui/material";
 import { Card, Tabs, FloatButton, Modal, Button } from "antd";
-import { Link as RouterLink, useLocation } from "react-router-dom";
+import { Link as RouterLink, useLocation} from "react-router-dom";
 
 const { TabPane } = Tabs;
 const MenuProfile = ({ children }) => {
+  const location = useLocation();
+  const [user, setUser] = useState(null);
   const buttonStyle = {
     background: "#7BBD8F",
     border: "none",
@@ -22,8 +24,6 @@ const MenuProfile = ({ children }) => {
   const handleCancel = () => {
     setIsModalVisible(false); // Close the modal when "Cancel" is clicked
   };
-  const location = useLocation();
-  const [user, setUser] = useState(null);
   const items = [
     {
       key: "1",
@@ -76,9 +76,14 @@ const MenuProfile = ({ children }) => {
           onOk={handleOk}
           onCancel={handleCancel}
           footer={[
-            <Button key="ok" type="primary" onClick={handleOk} style={buttonStyle}>
+            <Button
+              key="ok"
+              type="primary"
+              onClick={handleOk}
+              style={buttonStyle}
+            >
               OK
-            </Button>
+            </Button>,
           ]}
         >
           <p>กรุณาเข้าสู่ระบบหรือลงทะเบียนก่อน</p>
@@ -88,77 +93,87 @@ const MenuProfile = ({ children }) => {
   }
   return (
     <div>
-      <Grid container spacing={2}>
-        <Grid item xs={12} sm={4}>
-          <Card
-            style={{
-              margin: "auto",
-              backgroundColor: "#FFFFFF",
-              width: "100%",
-              height: "100%",
-            }}
-          >
-            <Grid
-              container
-              direction="column"
-              justifyContent="center"
-              alignItems="center"
-              style={{ marginBottom: "10px" }}
-            >
-              <Grid item style={{ marginBottom: "5px" }}>
-                <Avatar sx={{ width: 100, height: 100 }}>USER</Avatar>
-              </Grid>
-              <Grid item>
-                <Typography variant="h5">Name: {user.username}</Typography>
-                <Typography variant="body1">Email: {user.email}</Typography>
-              </Grid>
-            </Grid>
-            <Divider />
-            <div
+      <Box
+        style={{
+          width: "70%",
+          padding: 30,
+          margin: "0 auto", // This centers the paper horizontally
+          //textAlign: "center", // This centers the content inside the paper
+        }}
+      >
+        <Grid container spacing={2}>
+          <Grid item xs={12} sm={4}>
+            <Card
               style={{
-                display: "flex",
-                alignItems: "center",
-                marginBottom: 20,
-                padding: 24,
+                margin: "auto",
+                backgroundColor: "#FFFFFF",
                 width: "100%",
                 height: "100%",
               }}
             >
-              555
-            </div>
-          </Card>
-          <br />
+              <Grid
+                container
+                direction="column"
+                justifyContent="center"
+                alignItems="center"
+                style={{ marginBottom: "10px" }}
+              >
+                <Grid item style={{ marginBottom: "5px" }}>
+                  <Avatar sx={{ width: 100, height: 100 }}>USER</Avatar>
+                </Grid>
+                <Grid item>
+                  <Typography variant="h5">Name: {user.username}</Typography>
+                  <Typography variant="body1">Email: {user.email}</Typography>
+                </Grid>
+              </Grid>
+              <Divider />
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  marginBottom: 20,
+                  padding: 24,
+                  width: "100%",
+                  height: "100%",
+                }}
+              >
+                555
+              </div>
+            </Card>
+            <br />
+          </Grid>
+          <Grid item xs={12} sm={8}>
+            <Card
+              style={{
+                margin: "auto",
+                backgroundColor: "#FFFFFF",
+                width: "100%",
+                height: "100%",
+              }}
+            >
+              <Tabs>
+                {items.map((item) => (
+                  <TabPane
+                    tab={<RouterLink to={item.link}>{item.label}</RouterLink>}
+                    key={item.key}
+                    sx={{
+                      my: 2,
+                      fontSize: "20px",
+                      color:
+                        items.link === location.pathname ? "#7BBD8F" : "grey",
+                      display: "block",
+                      mr: 5,
+                    }}
+                  >
+                    {children}
+                  </TabPane>
+                ))}
+              </Tabs>
+            </Card>
+          </Grid>
         </Grid>
-        <Grid item xs={12} sm={8}>
-          <Card
-            style={{
-              margin: "auto",
-              backgroundColor: "#FFFFFF",
-              width: "100%",
-              height: "100%",
-            }}
-          >
-            <Tabs>
-              {items.map((item) => (
-                <TabPane
-                  tab={<RouterLink to={item.link}>{item.label}</RouterLink>}
-                  key={item.key}
-                  sx={{
-                    my: 2,
-                    fontSize: "20px",
-                    color: items.link === location.pathname ? "#7BBD8F" : "grey",
-                    display: "block",
-                    mr: 5,
-                  }}
-                >
-                  {children}
-                </TabPane>
-              ))}
-            </Tabs>
-          </Card>
-        </Grid>
-      </Grid>
-      <FloatButton.BackTop />
+        <FloatButton.BackTop />
+      </Box>
     </div>
   );
 };

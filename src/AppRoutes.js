@@ -7,6 +7,7 @@ import Search from "./components/SearchComponents/Search";
 import FakeNewInformation from "./components/FakeNewsComponents/FakeNewInformation";
 import NotificationHistory from "./components/FakeNewsComponents/NotificationHistory";
 import PersonalInformation from "./components/FakeNewsComponents/PersonalInformation";
+import ManageInfo from "./components/Admin/ManageInfo";
 import ManageMembers from "./components/Admin/ManageMembers";
 import ManuContent from "./components/Admin/ManageContent/ManuContent";
 import FormContent from "./components/Admin/ManageContent/FormContent";
@@ -23,7 +24,6 @@ import Login from "./components/UserComoponents/Login";
 import Register from "./components/UserComoponents/Register";
 import Fninfoview from "./components/FakeNewsComponents/Fn_info_view";
 import Fninfoedit from "./components/FakeNewsComponents/Fn_info_edit";
-
 import { Box } from "@mui/material";
 
 const routes = [
@@ -32,7 +32,8 @@ const routes = [
   { path: "/FakeNews/PersonalInformation", element: <PersonalInformation /> },
   { path: "/FakeNews/NotificationHistory", element: <NotificationHistory /> },
   { path: "/Search", element: <Search /> },
-  { path: "/Admin", element: <ManageMembers /> },
+  { path: "/Admin/ManageInfo", element: <ManageInfo /> },
+  { path: "/Admin/ManageMembers", element: <ManageMembers /> },
   { path: "/Admin/ManuContent", element: <ManuContent /> },
   { path: "/Admin/FormContent", element: <FormContent /> },
   { path: "/Admin/ManageValues", element: <ManageValues /> },
