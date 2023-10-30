@@ -40,7 +40,11 @@ function ResponsiveAppBar() {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [user, setUser] = useState(null);
   const [registerVisible, setRegisterVisible] = useState(false);
-
+  const buttonStyle = {
+    background: "#7BBD8F",
+    border: "none",
+    color: "white",
+  };
   // Function to open the RegisterDialog
   const showRegisterDialog = () => {
     setRegisterVisible(true);
@@ -268,9 +272,7 @@ function ResponsiveAppBar() {
                   justifyContent: "flex-end", // This will align the content to the far right
                 }}
               >
-                <Button onClick={showRegisterDialog}>Register</Button>
-
-                {/* Conditionally render the RegisterDialog based on registerVisible state */}
+                <Button size="large" type="primary" style={buttonStyle} onClick={showRegisterDialog}>ลงทะเบียน</Button>
                 {registerVisible && (
                   <RegisterDialog
                     open={registerVisible}

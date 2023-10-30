@@ -15,7 +15,7 @@ import PieChartComponent from "./PieChartComponent";
 import BarChartComponent from "./BarChartComponent";
 import MuiTable from "./MuiTable";
 import "./Dashboard.css";
-import { Card, Select, Input, FloatButton,Form } from "antd";
+import { Card, Select, Input, FloatButton, Form } from "antd";
 const { Option } = Select;
 const { Meta } = Card;
 
@@ -37,14 +37,13 @@ const Dashboard = ({ onSearch }) => {
     return (
       <Card
         hoverable
-        bordered={false}
+        //bordered={false}
         style={{
           margin: "auto",
           borderRadius: `${curveAngle}px`,
-          backgroundColor: papercard,
           width: "90%", // Set the desired width
           height: "100%", // Set the desired height
-          padding: 50,
+          padding: 20,
         }}
         cover={
           <img
@@ -56,6 +55,7 @@ const Dashboard = ({ onSearch }) => {
       >
         <Meta title="title" description="description" />
       </Card>
+
     );
   };
   const fetchDataAndSetOptions = async (endpoint, fieldName, stateSetter) => {
