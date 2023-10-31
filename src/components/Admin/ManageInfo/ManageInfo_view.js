@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { Badge, Descriptions, Image } from "antd";
+import { Badge, Descriptions, Image, Steps, Divider } from "antd";
 import { useParams } from "react-router-dom";
 import AdminMenu from "../AdminMenu";
 import moment from "moment";
 
 const ManageInfo_view = () => {
   const [fakeNewsInfo, setFakeNewsInfo] = useState(null);
-
+  const [current, setCurrent] = useState(0);
+  const description = 'This is a description.';
+  const onChange = (value) => {
+    console.log('onChange:', value);
+    setCurrent(value);
+  };
   // Get the fn_info_id from the URL using useParams
   const { id } = useParams();
 
@@ -106,7 +111,7 @@ const ManageInfo_view = () => {
             width={200}
             src={fakeNewsInfo.fn_info_image}
             alt="รูปภาพข่าวปลอม"
-            //style={{ maxWidth: "100%", height: "auto" }}
+          //style={{ maxWidth: "100%", height: "auto" }}
           />
         </span>
       ),
@@ -129,6 +134,26 @@ const ManageInfo_view = () => {
   ];
   return (
     <AdminMenu>
+      <Steps
+        current={current}
+        onChange={onChange}
+        items={[
+          {
+            title: 'Step 1',
+            description,
+          },
+          {
+            title: 'Step 2',
+            description,
+          },
+          {
+            title: 'Step 3',
+            description,
+          },
+        ]}
+      />
+
+      <Divider />
       <Descriptions
         title="รายละเอียดการแจ้ง"
         layout="vertical"

@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import ReactDOM from "react-dom";
+// import './fonts/TH-Chara.ttf';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 ReactDOM.render(<App />, document.getElementById("root"));

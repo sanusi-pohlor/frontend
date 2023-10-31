@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Badge, Descriptions, Image } from "antd";
+import { Badge, Descriptions, Image, Steps, Divider } from "antd";
 import { useParams } from "react-router-dom";
 import UserProfile from "../UserComoponents/MenuProfile";
 import moment from "moment";
@@ -106,7 +106,7 @@ const FnInfoView = () => {
             width={200}
             src={fakeNewsInfo.fn_info_image}
             alt="รูปภาพข่าวปลอม"
-            //style={{ maxWidth: "100%", height: "auto" }}
+          //style={{ maxWidth: "100%", height: "auto" }}
           />
         </span>
       ),
@@ -130,6 +130,22 @@ const FnInfoView = () => {
 
   return (
     <UserProfile>
+      <Steps
+        size="small"
+        current={1}
+        items={[
+          {
+            title: 'Finished',
+          },
+          {
+            title: 'In Progress',
+          },
+          {
+            title: 'Waiting',
+          },
+        ]}
+      />
+      <Divider />
       <Descriptions
         title="รายละเอียดการแจ้ง"
         layout="vertical"

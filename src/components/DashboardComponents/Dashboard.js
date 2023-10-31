@@ -15,7 +15,7 @@ import PieChartComponent from "./PieChartComponent";
 import BarChartComponent from "./BarChartComponent";
 import MuiTable from "./MuiTable";
 import "./Dashboard.css";
-import { Card, Select, Input, FloatButton, Form } from "antd";
+import { Card, Select, Input, FloatButton, Form, Space } from "antd";
 const { Option } = Select;
 const { Meta } = Card;
 
@@ -276,6 +276,94 @@ const Dashboard = ({ onSearch }) => {
             <Content />
           </Grid>
         </Grid>
+      </Paper>
+      <Paper
+        elevation={0}
+        style={{
+          width: "70%",
+          padding: 30,
+          margin: "0 auto", // This centers the paper horizontally
+          textAlign: "center", // This centers the content inside the paper
+        }}
+      >
+        <Grid container spacing={2}>
+          {" "}
+          {/* Adjust spacing */}
+          <Grid item xs={12} md={4}>
+            {" "}
+            {/* Adjust xs and md values */}
+            <Item></Item>
+          </Grid>
+          <Grid item xs={12} md={4}>
+            {" "}
+            {/* Adjust xs and md values */}
+            <Item>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  height: "100%",
+                  textAlign: "center", // Center the text horizontally
+                  fontSize: "30px",
+                }}
+              >
+                ข่าวสาร
+              </div>
+            </Item>
+          </Grid>
+          <Grid item xs={12} md={4}>
+            {" "}
+            {/* Adjust xs and md values */}
+            <Item>
+              <Input
+                size="large"
+                placeholder="ค้นหา"
+                value={searchTerm}
+                onChange={handleSearchChange}
+                onPressEnter={handleSearchSubmit}
+                prefix={<SearchOutlined className="site-form-item-icon" />}
+              />
+            </Item>
+          </Grid>
+        </Grid>
+        <br />
+        <Space direction="vertical" size={16}>
+          <Card
+            size="small"
+            title="Small size card"
+            extra={<a href="#">More</a>}
+            hoverable
+            style={{
+              margin: "auto",
+              borderRadius: `${curveAngle}px`,
+              backgroundColor: paperColor,
+              width: "60vw",  // Full width of the viewport
+              height: "20vh", // Full height of the viewport
+            }}
+          >
+            <p>Card content</p>
+            <p>Card content</p>
+            <p>Card content</p>
+          </Card>
+          <Card
+            size="small"
+            title="Small size card"
+            extra={<a href="#">More</a>}
+            hoverable
+            style={{
+              margin: "auto",
+              borderRadius: `${curveAngle}px`,
+              backgroundColor: paperColor,
+              width: "60vw",  // Full width of the viewport
+              height: "20vh", // Full height of the viewport
+            }}
+          >
+            <p>Card content</p>
+            <p>Card content</p>
+            <p>Card content</p>
+          </Card>
+        </Space>
       </Paper>
       <FloatButton.BackTop />
     </div>
