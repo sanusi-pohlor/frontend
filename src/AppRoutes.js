@@ -5,6 +5,7 @@ import Bottom from "./components/Bottom";
 import Dashboard from "./components/DashboardComponents/Dashboard";
 import Search from "./components/SearchComponents/Search";
 import Article from "./components/Article/Article";
+import News_views from "./components/News/News_views";
 import FakeNewInformation from "./components/FakeNewsComponents/FakeNewInformation";
 import NotificationHistory from "./components/FakeNewsComponents/NotificationHistory";
 import PersonalInformation from "./components/FakeNewsComponents/PersonalInformation";
@@ -35,6 +36,7 @@ const routes = [
   { path: "/FakeNews/NotificationHistory", element: <NotificationHistory /> },
   { path: "/Search", element: <Search /> },
   { path: "/Article", element: <Article /> },
+  { path: "/News/News_views", element: <News_views /> },
   { path: "/Admin/ManageInfo", element: <ManageInfo /> },
   { path: "/Admin/ManageInfo/ManageInfo_view/:id", element: <ManageInfo_view /> },
   { path: "/Admin/ManageMembers", element: <ManageMembers /> },

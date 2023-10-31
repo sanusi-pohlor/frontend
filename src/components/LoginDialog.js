@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { MailOutlined, LockOutlined } from "@ant-design/icons";
-import { Form, Button, Checkbox, Input } from "antd";
+import RegisterDialog from "./RegisterDialog";
+import { Form, Button, Checkbox, Input, Select, message, Modal } from "antd";
 import {
   Typography,
   Box,
@@ -17,6 +18,16 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 const LoginDialog = ({ open, onClose }) => {
+  const [visible, setVisible] = useState(open);
+  const handleOk = () => {
+    setVisible(false);
+    onClose();
+  };
+
+  const handleCancel = () => {
+    setVisible(false);
+    onClose();
+  };
   const onFinish = async (values) => {
     console.log(values);
     const formData = new FormData();
@@ -46,26 +57,12 @@ const LoginDialog = ({ open, onClose }) => {
   };
 
   return (
-    <Dialog open={open} onClose={onClose} TransitionComponent={Transition}>
-      <DialogContent>
-        <Paper
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            boxShadow: 0,
-            borderRadius: 2,
-            px: 5,
-            py: 5,
-          }}
-        >
-          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            เข้าสู่ระบบ
-          </Typography>
-          <Box>
+    <Modal
+      title="ลงทะเบียน"
+      visible={visible}
+      onCancel={onClose}
+      footer={null}
+    >
             <Form
               layout="vertical"
               name="normal_login"
@@ -125,10 +122,7 @@ const LoginDialog = ({ open, onClose }) => {
                 <a href="/User/Register">ลงทะเบียน</a>
               </Form.Item>
             </Form>
-          </Box>
-        </Paper>
-      </DialogContent>
-    </Dialog>
+            </Modal>
   );
 };
 

@@ -49,8 +49,8 @@ function ResponsiveAppBar() {
   };
   const registerbuttonStyle = {
     //background: "#7BBD8F",
-    border: "#7BBD8F",
-    //color: "white",
+    border: "1px solid #7BBD8F",
+    color: "gray",
   };
   // Function to open the RegisterDialog
   const showLoginDialog = () => {

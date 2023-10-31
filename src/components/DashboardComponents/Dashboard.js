@@ -15,7 +15,7 @@ import PieChartComponent from "./PieChartComponent";
 import BarChartComponent from "./BarChartComponent";
 import MuiTable from "./MuiTable";
 import "./Dashboard.css";
-import { Divider,Button, Card, Flex, Typography, Select, Input, FloatButton, Form, Space } from "antd";
+import { Divider, Button, Card, Flex, Typography, Select, Input, FloatButton, Form, Space } from "antd";
 const { Option } = Select;
 const { Meta } = Card;
 
@@ -201,7 +201,12 @@ const Dashboard = ({ onSearch }) => {
           margin: "0 auto", // This centers the paper horizontally
           textAlign: "center", // This centers the content inside the paper
         }}
-      >          <Divider/>
+      >          
+      <Divider />
+      <Box>
+        ข้อความแทรก
+      </Box>
+      <Divider />
         <Grid container spacing={2}>
           {" "}
           {/* Adjust spacing */}
@@ -292,7 +297,12 @@ const Dashboard = ({ onSearch }) => {
           margin: "0 auto", // This centers the paper horizontally
           textAlign: "center", // This centers the content inside the paper
         }}
-      >          <Divider/>
+      >          
+      <Divider />
+      <Box>
+        ข้อความแทรก
+      </Box>
+      <Divider />
         <Grid container spacing={2}>
           {" "}
           {/* Adjust spacing */}
