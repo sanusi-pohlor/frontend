@@ -15,7 +15,7 @@ import PieChartComponent from "./PieChartComponent";
 import BarChartComponent from "./BarChartComponent";
 import MuiTable from "./MuiTable";
 import "./Dashboard.css";
-import { Card, Select, Input, FloatButton, Form, Space } from "antd";
+import { Divider,Button, Card, Flex, Typography, Select, Input, FloatButton, Form, Space } from "antd";
 const { Option } = Select;
 const { Meta } = Card;
 
@@ -24,6 +24,13 @@ const Dashboard = ({ onSearch }) => {
   const [selectOptions_med, setSelectOptions_med] = useState([]); // State for select options
   const [selectOptions_type, setSelectOptions_type] = useState([]); // State for select options
   const [searchTerm, setSearchTerm] = useState("");
+  const cardStyle = {
+    display: 'flex'
+  };
+  const imgStyle = {
+    display: 'block',
+    width: 273,
+  };
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
   };
@@ -194,7 +201,7 @@ const Dashboard = ({ onSearch }) => {
           margin: "0 auto", // This centers the paper horizontally
           textAlign: "center", // This centers the content inside the paper
         }}
-      >
+      >          <Divider/>
         <Grid container spacing={2}>
           {" "}
           {/* Adjust spacing */}
@@ -285,7 +292,7 @@ const Dashboard = ({ onSearch }) => {
           margin: "0 auto", // This centers the paper horizontally
           textAlign: "center", // This centers the content inside the paper
         }}
-      >
+      >          <Divider/>
         <Grid container spacing={2}>
           {" "}
           {/* Adjust spacing */}
@@ -308,7 +315,7 @@ const Dashboard = ({ onSearch }) => {
                   fontSize: "30px",
                 }}
               >
-                ข่าวสาร
+                บทความ
               </div>
             </Item>
           </Grid>
@@ -327,43 +334,76 @@ const Dashboard = ({ onSearch }) => {
             </Item>
           </Grid>
         </Grid>
-        <br />
-        <Space direction="vertical" size={16}>
+        <br /><Space
+          direction="vertical"
+          size="middle"
+          style={{
+            display: 'flex',
+          }}
+        >
+
           <Card
-            size="small"
-            title="Small size card"
-            extra={<a href="#">More</a>}
             hoverable
-            style={{
-              margin: "auto",
-              borderRadius: `${curveAngle}px`,
-              backgroundColor: paperColor,
-              width: "60vw",  // Full width of the viewport
-              height: "20vh", // Full height of the viewport
+            style={cardStyle}
+            bodyStyle={{
+              padding: 0,
+              overflow: 'hidden',
             }}
           >
-            <p>Card content</p>
-            <p>Card content</p>
-            <p>Card content</p>
+            <Flex justify="space-between">
+              <img
+                alt="avatar"
+                src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+                style={imgStyle}
+              />
+              <Flex
+                vertical
+                align="flex-end"
+                justify="space-between"
+                style={{
+                  padding: 32,
+                }}
+              >
+                <Typography.Title level={3}>
+                  “antd is an enterprise-class UI design language and React UI library.”
+                </Typography.Title>
+                <Button type="primary" href="https://ant.design" target="_blank">
+                  Get Start
+                </Button>
+              </Flex>
+            </Flex>
           </Card>
           <Card
-            size="small"
-            title="Small size card"
-            extra={<a href="#">More</a>}
             hoverable
-            style={{
-              margin: "auto",
-              borderRadius: `${curveAngle}px`,
-              backgroundColor: paperColor,
-              width: "60vw",  // Full width of the viewport
-              height: "20vh", // Full height of the viewport
+            style={cardStyle}
+            bodyStyle={{
+              padding: 0,
+              overflow: 'hidden',
             }}
           >
-            <p>Card content</p>
-            <p>Card content</p>
-            <p>Card content</p>
-          </Card>
-        </Space>
+            <Flex justify="space-between">
+              <img
+                alt="avatar"
+                src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+                style={imgStyle}
+              />
+              <Flex
+                vertical
+                align="flex-end"
+                justify="space-between"
+                style={{
+                  padding: 32,
+                }}
+              >
+                <Typography.Title level={3}>
+                  “antd is an enterprise-class UI design language and React UI library.”
+                </Typography.Title>
+                <Button type="primary" href="https://ant.design" target="_blank">
+                  Get Start
+                </Button>
+              </Flex>
+            </Flex>
+          </Card>  </Space>
       </Paper>
       <FloatButton.BackTop />
     </div>

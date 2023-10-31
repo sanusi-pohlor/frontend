@@ -29,6 +29,7 @@ import PropTypes from "prop-types";
 const pages = [
   { label: "หน้าหลัก", link: "/" },
   { label: "ข่าวสาร", link: "/Search" },
+  { label: "บทความ", link: "/Article" },
   { label: "แจ้งข้อมูลเท็จ", link: "/FakeNews" },
 ];
 
@@ -40,20 +41,35 @@ function ResponsiveAppBar() {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [user, setUser] = useState(null);
   const [registerVisible, setRegisterVisible] = useState(false);
-  const buttonStyle = {
+  const [loginVisible, setLoginVisible] = useState(false);
+  const loginbuttonStyle = {
     background: "#7BBD8F",
     border: "none",
     color: "white",
   };
+  const registerbuttonStyle = {
+    //background: "#7BBD8F",
+    border: "#7BBD8F",
+    //color: "white",
+  };
   // Function to open the RegisterDialog
-  const showRegisterDialog = () => {
-    setRegisterVisible(true);
+  const showLoginDialog = () => {
+    setLoginVisible(true);
   };
 
   // Function to close the RegisterDialog
-  const closeRegisterDialog = () => {
-    setRegisterVisible(false);
+  const closeLoginDialog = () => {
+    setLoginVisible(false);
   };
+    // Function to open the RegisterDialog
+    const showRegisterDialog = () => {
+      setRegisterVisible(true);
+    };
+  
+    // Function to close the RegisterDialog
+    const closeRegisterDialog = () => {
+      setRegisterVisible(false);
+    };
   const settings = [
     { label: "Login", link: "/User/Login" },
     { label: "Register", link: "/User/Register" },
@@ -272,7 +288,7 @@ function ResponsiveAppBar() {
                   justifyContent: "flex-end", // This will align the content to the far right
                 }}
               >
-                <Button size="large" type="primary" style={buttonStyle} onClick={showRegisterDialog}>ลงทะเบียน</Button>
+                <Button size="large" type="primary" style={registerbuttonStyle} onClick={showRegisterDialog}>ลงทะเบียน</Button>
                 {registerVisible && (
                   <RegisterDialog
                     open={registerVisible}
@@ -282,13 +298,22 @@ function ResponsiveAppBar() {
                   />
                 )}
                 <div style={{ margin: "5px" }}></div>
-                <LoginButton onClick={() => setLogin(true)} />
+                <Button size="large" type="primary" style={loginbuttonStyle} onClick={showLoginDialog}>เข้าสู่ระบบ</Button>
+                {loginVisible && (
+                  <LoginDialog
+                    open={loginVisible}
+                    onClose={closeLoginDialog}
+                    handleSubmit={handleSubmit}
+                    RegisterFinish={RegisterFinish}
+                  />
+                )}
+                {/* <LoginButton onClick={() => setLogin(true)} />
                 <LoginDialog
                   open={Login}
                   onClose={() => setLogin(false)}
                   handleSubmit={handleSubmit}
                   LoginFinish={LoginFinish}
-                />
+                /> */}
               </div>
             </Box>
           </Toolbar>
