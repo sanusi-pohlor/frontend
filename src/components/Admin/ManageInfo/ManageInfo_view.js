@@ -8,13 +8,29 @@ const ManageInfo_view = () => {
   const [fakeNewsInfo, setFakeNewsInfo] = useState(null);
   const [current, setCurrent] = useState(0);
   const description = 'This is a description.';
-  const onChange = (value) => {
-    console.log('onChange:', value);
-    setCurrent(value);
-  };
-  // Get the fn_info_id from the URL using useParams
   const { id } = useParams();
+  
+  const onChange = async (value) => {
+    setCurrent(value);
+      try {
+        const response = await fetch(`http://localhost:8000/api/updateFakeNewsStatus/${id}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ status: value }), // Assuming 'status' as the field name to update
+        });
 
+        if (response.ok) {
+          // If the update is successful, fetch the updated data
+          fetchFakeNewsInfo();
+        } else {
+          console.error("Error updating status:", response.statusText);
+        }
+      } catch (error) {
+        console.error("Error updating status:", error);
+      }
+  };
   // Fetch fake news information based on id
   const fetchFakeNewsInfo = async () => {
     console.log("id :", id);

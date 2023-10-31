@@ -9,29 +9,47 @@ const FnInfoView = () => {
 
   // Get the fn_info_id from the URL using useParams
   const { id } = useParams();
-
-  // Fetch fake news information based on id
-  const fetchFakeNewsInfo = async () => {
-    console.log("id :", id);
-    try {
-      const response = await fetch(
-        `http://localhost:8000/api/FakeNewsInfo_show/${id}`
-      );
-      if (response.ok) {
-        const data = await response.json();
-        setFakeNewsInfo(data);
-      } else {
-        console.error("Error fetching data:", response.statusText);
-      }
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
+  const stepsStyle = {
+    current: {
+      color: "#7BBD8F", // Set the color for the current step
+    },
+    tail: {
+      color: "#7BBD8F", // Set the color for the steps after the current step
+    },
+    head: {
+      backgroundColor: "#7BBD8F", // Set the background color for the previous steps
+    },
   };
 
-  // Fetch fake news information when the component mounts
+  // Fetch fake news information based on id
   useEffect(() => {
+    const fetchFakeNewsInfo = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:8000/api/FakeNewsInfo_show/${id}`
+        );
+        if (response.ok) {
+          const data = await response.json();
+          setFakeNewsInfo(data);
+        } else {
+          console.error("Error fetching data:", response.statusText);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
     fetchFakeNewsInfo();
   }, [id]);
+
+  if (fakeNewsInfo === null) {
+    // Data is still loading
+    return (
+      <UserProfile>
+        <div>Loading...</div>
+      </UserProfile>
+    );
+  }
 
   const items = [
     {
@@ -106,7 +124,7 @@ const FnInfoView = () => {
             width={200}
             src={fakeNewsInfo.fn_info_image}
             alt="รูปภาพข่าวปลอม"
-          //style={{ maxWidth: "100%", height: "auto" }}
+            //style={{ maxWidth: "100%", height: "auto" }}
           />
         </span>
       ),
@@ -130,28 +148,31 @@ const FnInfoView = () => {
 
   return (
     <UserProfile>
-      <Steps
-        size="small"
-        current={1}
-        items={[
-          {
-            title: 'Finished',
-          },
-          {
-            title: 'In Progress',
-          },
-          {
-            title: 'Waiting',
-          },
-        ]}
-      />
-      <Divider />
-      <Descriptions
-        title="รายละเอียดการแจ้ง"
-        layout="vertical"
-        bordered
-        items={items}
-      />
+        <React.Fragment>
+          <Steps
+            size="small"
+            current={fakeNewsInfo.fn_info_status}
+            items={[
+              {
+                title: "รอตรวจสอบ",
+              },
+              {
+                title: "กำลังตรวจสอบ",
+              },
+              {
+                title: "ตรวจสอบเรียบร้อย",
+              },
+            ]}
+            style={stepsStyle}
+          />
+          <Divider />
+          <Descriptions
+            title="รายละเอียดการแจ้ง"
+            layout="vertical"
+            bordered
+            items={items}
+          />
+        </React.Fragment>
     </UserProfile>
   );
 };
