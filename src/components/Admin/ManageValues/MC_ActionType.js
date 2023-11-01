@@ -8,6 +8,7 @@ import {
   message,
   Modal,
   InputNumber,
+  Breadcrumb,
 } from "antd";
 import { PlusCircleOutlined } from '@ant-design/icons';
 
@@ -186,6 +187,11 @@ const MC_ActionType = () => {
   });
   return (
     <div>
+      <Breadcrumb style={{ margin: '16px 0' }}>
+            <Breadcrumb.Item>Home</Breadcrumb.Item>
+            <Breadcrumb.Item>List</Breadcrumb.Item>
+            <Breadcrumb.Item>App</Breadcrumb.Item>
+          </Breadcrumb>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <h1>จัดการประเภทการกระทำ</h1>
         <Button

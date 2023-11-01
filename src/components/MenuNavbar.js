@@ -30,6 +30,7 @@ const pages = [
   { label: "หน้าหลัก", link: "/" },
   { label: "ข่าวสาร", link: "/Search" },
   { label: "บทความ", link: "/Article" },
+  { label: "สื่อชวนแชร์", link: "/Media_sh" },
   { label: "แจ้งข้อมูลเท็จ", link: "/FakeNews" },
 ];
 

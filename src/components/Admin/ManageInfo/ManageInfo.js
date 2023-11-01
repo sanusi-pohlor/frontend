@@ -9,11 +9,12 @@ import {
   Select,
   Modal,
   message,
-  Space
+  Space,
+  Breadcrumb,
 } from "antd";
 import AdminMenu from "../AdminMenu";
 import ManageInfo_view from './ManageInfo_view';
-import { PlusCircleOutlined, DeleteOutlined, EditOutlined, EyeOutlined} from "@ant-design/icons";
+import { PlusCircleOutlined, DeleteOutlined, EditOutlined, EyeOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 
 const { Option } = Select;
@@ -165,7 +166,7 @@ const ManageMembers = () => {
     // Show a loading indicator or perform any other necessary actions to indicate the delete process
     // You can also handle the delete operation here
     console.log(`ลบรายการ: ${id}`);
-  
+
     // Make an API request to delete the record using Laravel
     fetch(`http://localhost:8000/api/FakeNewsInfo_delete/${id}`, {
       method: "DELETE",
@@ -203,11 +204,11 @@ const ManageMembers = () => {
       render: (text, record, index) => index + 1,
     },
     {
-        title: "หัวข้อ",
-        dataIndex: "fn_info_head",
-        width: "15%",
-        editable: true,
-      },
+      title: "หัวข้อ",
+      dataIndex: "fn_info_head",
+      width: "15%",
+      editable: true,
+    },
     {
       title: "ชื่อผู้แจ้ง",
       dataIndex: "fn_info_nameid",
@@ -221,53 +222,53 @@ const ManageMembers = () => {
       editable: true,
     },
     {
-        title: "แจ้งเมื่อ",
-        dataIndex: "created_at",
-        width: "15%",
-        editable: true,
-        render: (created_at) => {
-          // Assuming created_at is a valid date string, e.g., "2023-10-26T14:30:00"
-          const date = new Date(created_at);
-          // Use the Date object to format the date as "วัน เดือน ปี"
-          const formattedDate = `${date.getDate()} ${getThaiMonth(date.getMonth())} ${date.getFullYear() + 543}`;
-          return formattedDate;
-        },
-      }, 
-      {
-        title: "สถานะ",
-        dataIndex: "fn_info_status",
-        width: "15%",
-        render: (status) => getStatusText(status),
+      title: "แจ้งเมื่อ",
+      dataIndex: "created_at",
+      width: "15%",
+      editable: true,
+      render: (created_at) => {
+        // Assuming created_at is a valid date string, e.g., "2023-10-26T14:30:00"
+        const date = new Date(created_at);
+        // Use the Date object to format the date as "วัน เดือน ปี"
+        const formattedDate = `${date.getDate()} ${getThaiMonth(date.getMonth())} ${date.getFullYear() + 543}`;
+        return formattedDate;
       },
-      {
-        title: "จัดการ",
-        width: "15%",
-        editable: true,
-        render: (text, record) => (
-          <Space size="middle">
-            <Link to={`/Admin/ManageInfo/ManageInfo_view/${record.id}`}>
-              <EyeOutlined style={{ fontSize: '16px', color: 'blue' }} /> {/* Blue color for "ดู" */}
-            </Link>
-            {record.fn_info_status === 1 && (
-              <>
-                <Link to={`/FakeNews/edit/${record.id}`}>
-                  <EditOutlined style={{ fontSize: '16px', color: 'green' }} /> {/* Green color for "แก้ไข" */}
-                </Link>
-                <Popconfirm
-                  title="คุณแน่ใจหรือไม่ที่จะลบรายการนี้?"
-                  onConfirm={() => handleDelete(record.id)}
-                  okText="ใช่"
-                  cancelText="ไม่"
-                >
-                  <Button type="link">
-                    <DeleteOutlined style={{ fontSize: '16px', color: 'red' }} /> {/* Red color for "ลบ" */}
-                  </Button>
-                </Popconfirm>
-              </>
-            )}
-          </Space>
-        ),
-      }
+    },
+    {
+      title: "สถานะ",
+      dataIndex: "fn_info_status",
+      width: "15%",
+      render: (status) => getStatusText(status),
+    },
+    {
+      title: "จัดการ",
+      width: "15%",
+      editable: true,
+      render: (text, record) => (
+        <Space size="middle">
+          <Link to={`/Admin/ManageInfo/ManageInfo_view/${record.id}`}>
+            <EyeOutlined style={{ fontSize: '16px', color: 'blue' }} /> {/* Blue color for "ดู" */}
+          </Link>
+          {record.fn_info_status === 1 && (
+            <>
+              <Link to={`/FakeNews/edit/${record.id}`}>
+                <EditOutlined style={{ fontSize: '16px', color: 'green' }} /> {/* Green color for "แก้ไข" */}
+              </Link>
+              <Popconfirm
+                title="คุณแน่ใจหรือไม่ที่จะลบรายการนี้?"
+                onConfirm={() => handleDelete(record.id)}
+                okText="ใช่"
+                cancelText="ไม่"
+              >
+                <Button type="link">
+                  <DeleteOutlined style={{ fontSize: '16px', color: 'red' }} /> {/* Red color for "ลบ" */}
+                </Button>
+              </Popconfirm>
+            </>
+          )}
+        </Space>
+      ),
+    }
   ];
 
   const mergedColumns = columns.map((col) => {
@@ -288,6 +289,11 @@ const ManageMembers = () => {
   });
   return (
     <AdminMenu>
+      <Breadcrumb style={{ margin: '16px 0' }}>
+        <Breadcrumb.Item>Home</Breadcrumb.Item>
+        <Breadcrumb.Item>List</Breadcrumb.Item>
+        <Breadcrumb.Item>App</Breadcrumb.Item>
+      </Breadcrumb>
       <div
         style={{
           display: "flex",

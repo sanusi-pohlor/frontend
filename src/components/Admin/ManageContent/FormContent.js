@@ -1,47 +1,125 @@
 import React, { useState } from "react";
 import AdminMenu from "../AdminMenu";
-import { Form, Input, Button, Upload, message } from 'antd';
-import { UploadOutlined } from '@ant-design/icons';
+import { Form, Input, Button, Upload, message, Card, Space, Typography } from 'antd';
+import { CloseOutlined, PlusOutlined } from '@ant-design/icons';
 
 const FormContent = () => {
+    const [form] = Form.useForm();
     const [loading, setLoading] = useState(false);
+
     const onFinish = async (values) => {
         console.log(values);
-        setLoading(true);
         try {
-            const formData = new FormData();
-            formData.append('title', values.title);
-            formData.append('description', values.description);
-            formData.append('image', values.image[0].originFileObj);
-            console.log(formData);
             const response = await fetch('http://localhost:8000/api/upload', {
                 method: 'POST',
-                body: formData,
-                
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(values),
             });
 
             if (response.ok) {
-                message.success('Form data sent successfully');
+                console.log('Form data sent successfully');
             } else {
-                message.error('Error sending form data');
+                console.error('Failed to send form data');
             }
         } catch (error) {
-            console.error('Error sending form data:', error);
-            message.error('Error sending form data');
-        } finally {
-            setLoading(false);
+            console.error('An error occurred:', error);
         }
     };
 
-    const normFile = (e) => {
-        if (Array.isArray(e)) {
-            return e;
-        }
-        return e && e.fileList;
-    };
     return (
         <AdminMenu>
-            <Form name="myForm" onFinish={onFinish} labelCol={{ span: 4 }} wrapperCol={{ span: 20 }}>
+            <Form
+                //labelCol={{ span: 6 }}
+                //wrapperCol={{ span: 18 }}
+                form={form}
+                name="dynamic_form_complex"
+                //style={{ maxWidth: 600 }}
+                autoComplete="off"
+                initialValues={{ items: [{}] }}
+                onFinish={onFinish}
+            >
+                <Form.Item name="title" label="Title" rules={[{ required: true }]}>
+                    <Input />
+                </Form.Item>
+                <Form.List name="items">
+                    {(fields, { add, remove }) => (
+                        <div style={{ display: 'flex', rowGap: 16, flexDirection: 'column' }}>
+                            {fields.map((field) => (
+                                <Card
+                                    size="small"
+                                    title={`Item ${field.name + 1}`}
+                                    key={field.key}
+                                    extra={
+                                        <CloseOutlined
+                                            onClick={() => {
+                                                remove(field.name);
+                                            }}
+                                        />
+                                    }
+                                >
+                                    <Form.Item label="Name" name={[field.name, 'name']}>
+                                        <Input.TextArea />
+                                    </Form.Item>
+                                    {/* Nest Form.List */}
+                                    <Form.Item label="List">
+                                        <Form.List name={[field.name, 'list']}>
+                                            {(subFields, subOpt) => (
+                                                <div style={{ display: 'flex', flexDirection: 'column', rowGap: 16 }}>
+                                                    {subFields.map((subField) => (
+                                                        <Space key={subField.key}>
+                                                            <Form.Item noStyle name={[subField.name, 'first']}>
+                                                                <Upload action="/upload.do" listType="picture-card">
+                                                                    <div>
+                                                                        <PlusOutlined />
+                                                                        <div
+                                                                            style={{
+                                                                                marginTop: 8,
+                                                                            }}
+                                                                        >
+                                                                            Upload
+                                                                        </div>
+                                                                    </div>
+                                                                </Upload>
+                                                            </Form.Item>
+                                                            <CloseOutlined
+                                                                onClick={() => {
+                                                                    subOpt.remove(subField.name);
+                                                                }}
+                                                            />
+                                                        </Space>
+                                                    ))}
+                                                    <Button type="dashed" onClick={() => subOpt.add()} block>
+                                                        + Add Sub Item
+                                                    </Button>
+                                                </div>
+                                            )}
+                                        </Form.List>
+                                    </Form.Item>
+                                </Card>
+                            ))}
+                            <Button type="dashed" onClick={() => add()} block>
+                                + Add Item
+                            </Button>
+                        </div>
+                    )}
+                </Form.List>
+                <Form.Item noStyle shouldUpdate>
+                    {() => (
+                        <Typography>
+                            <pre>{JSON.stringify(form.getFieldsValue(), null, 2)}</pre>
+                        </Typography>
+                    )}
+                </Form.Item>
+                <Form.Item>
+                    <Button type="primary" htmlType="submit" loading={loading}>
+                        Submit
+                    </Button>
+                </Form.Item>
+            </Form>
+
+            {/* <Form name="myForm" onFinish={onFinish} labelCol={{ span: 4 }} wrapperCol={{ span: 20 }}>
                 <Form.Item name="title" label="Title" rules={[{ required: true }]}>
                     <Input />
                 </Form.Item>
@@ -64,8 +142,8 @@ const FormContent = () => {
                         Submit
                     </Button>
                 </Form.Item>
-            </Form>
-        </AdminMenu>
+            </Form> */}
+        </AdminMenu >
     );
 };
 

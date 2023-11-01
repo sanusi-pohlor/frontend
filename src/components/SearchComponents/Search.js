@@ -119,6 +119,39 @@ const Search = ({ children }) => {
         </Grid>
       </Grid>
       <br />
+      <Card
+        hoverable
+        style={{
+          margin: "auto",
+          borderRadius: `${curveAngle}px`,
+          width: "90%",
+          height: "100%",
+          padding: 20,
+        }}
+        cover={
+          <Image
+            alt="Card cover"
+            style={{
+              height: "80%",
+              width: "100%",
+              objectFit: "cover",
+              borderRadius: 20,
+            }}
+          //src={item.image} // Replace 'imageUrl' with the key containing the image URL from the API response
+          />
+        }
+      >
+        <Meta
+          title={
+            <span style={{ textDecoration: "none" }}>sssss</span>
+          } // Replace 'title' with the key containing the title from the API response
+          description={
+            <span style={{ textDecoration: "none" }}>
+              sss
+            </span>
+          } // Replace 'description' with the key containing the description from the API response
+        />
+      </Card>
       <Grid container spacing={2}>
         {data.map((item) => (
           <Grid item key={item.id} xs={12} md={4}>
@@ -163,3 +196,36 @@ const Search = ({ children }) => {
 };
 
 export default Search;
+
+// <Grid item xs={12} md={4}>
+//       <Link to={`/news/${item.id}`}>
+//         {/* Use the Link component to wrap the Card */}
+//         <Card
+//           hoverable
+//           style={{
+//             margin: 'auto',
+//             borderRadius: `${curveAngle}px`,
+//             width: '90%',
+//             height: '100%',
+//             padding: 20,
+//           }}
+//         >
+//           <Image
+//             alt="Card cover"
+//             style={{
+//               height: '80%',
+//               width: '100%',
+//               objectFit: 'cover',
+//               borderRadius: 20,
+//             }}
+//             src={item.image}
+//           />
+//           <Meta
+//             title={<span style={{ textDecoration: 'none' }}>{item.title}</span>}
+//             description={
+//               <span style={{ textDecoration: 'none' }}>{item.description}</span>
+//             }
+//           />
+//         </Card>
+//       </Link>
+//     </Grid>

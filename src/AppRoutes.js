@@ -5,6 +5,7 @@ import Bottom from "./components/Bottom";
 import Dashboard from "./components/DashboardComponents/Dashboard";
 import Search from "./components/SearchComponents/Search";
 import Article from "./components/Article/Article";
+import Article_view from "./components/Article/Article_view";
 import News_views from "./components/News/News_views";
 import FakeNewInformation from "./components/FakeNewsComponents/FakeNewInformation";
 import NotificationHistory from "./components/FakeNewsComponents/NotificationHistory";
@@ -12,9 +13,12 @@ import PersonalInformation from "./components/FakeNewsComponents/PersonalInforma
 import ManageInfo from "./components/Admin/ManageInfo/ManageInfo";
 import ManageInfo_view from "./components/Admin/ManageInfo/ManageInfo_view";
 import ManageMembers from "./components/Admin/ManageMembers";
-import ManuContent from "./components/Admin/ManageContent/ManuContent";
+import ADMDashboard from "./components/Admin/ManageContent/ADMDashboard";
+import ADMNews from "./components/Admin/ManageContent/ADMNews";
+import ADMArticle from "./components/Admin/ManageContent/ADMArticle";
+import ADMMedia_sh from "./components/Admin/ManageContent/ADMMedia_sh";
 import FormContent from "./components/Admin/ManageContent/FormContent";
-import ManageValues from "./components/Admin/ManageContent/ManageValues";
+import ManageValues from "./components/Admin/ManageValues/ManageValues";
 import AdvancedSearch from "./components/Admin/AdvancedSearch";
 import MChecking from "./components/Admin/ManageFakeNews/MChecking";
 import MInformation from "./components/Admin/ManageFakeNews/MInformation";
@@ -36,11 +40,15 @@ const routes = [
   { path: "/FakeNews/NotificationHistory", element: <NotificationHistory /> },
   { path: "/Search", element: <Search /> },
   { path: "/Article", element: <Article /> },
+  { path: "/Article/Article_view", element: <Article_view /> },
   { path: "/News/News_views", element: <News_views /> },
   { path: "/Admin/ManageInfo", element: <ManageInfo /> },
   { path: "/Admin/ManageInfo/ManageInfo_view/:id", element: <ManageInfo_view /> },
   { path: "/Admin/ManageMembers", element: <ManageMembers /> },
-  { path: "/Admin/ManuContent", element: <ManuContent /> },
+  { path: "/Admin/ADMDashboard", element: <ADMDashboard /> },
+  { path: "/Admin/ADMNews", element: <ADMNews /> },
+  { path: "/Admin/ADMArticle", element: <ADMArticle /> },
+  { path: "/Admin/ADMMedia_sh", element: <ADMMedia_sh /> },
   { path: "/Admin/FormContent", element: <FormContent /> },
   { path: "/Admin/ManageValues", element: <ManageValues /> },
   { path: "/Admin/AdvancedSearch", element: <AdvancedSearch /> },

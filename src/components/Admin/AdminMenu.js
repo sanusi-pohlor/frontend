@@ -14,7 +14,29 @@ const items = [
     key: "sub1",
     icon: <LaptopOutlined />,
     label: "จัดการคอนเทนต์",
-    link: "ManuContent", // Add a link property
+    //link: "ManuContent", // Add a link property
+    children: [
+      {
+        key: "1",
+        label: "หนัาหลัก",
+        link: "ADMDashboard", // Add a link property
+      },
+      {
+        key: "2",
+        label: "ข่าวสาร",
+        link: "ADMNews", // Add a link property
+      },
+      {
+        key: "3",
+        label: "บทความ",
+        link: "ADMArticle", // Add a link property
+      },
+      {
+        key: "4",
+        label: "สื่อชานแชร์",
+        link: "ADMMedia_sh", // Add a link property
+      },
+    ],
   },
   {
     key: "sub2",
@@ -32,7 +54,7 @@ const items = [
     key: "sub4",
     icon: <NotificationOutlined />,
     label: "จัดการข้อมูลเท็จ",
-    link: "", // Add a link property
+    //link: "", // Add a link property
     children: [
       {
         key: "1",
@@ -63,6 +85,12 @@ const items = [
   },
   {
     key: "sub5",
+    icon: <UserOutlined />,
+    label: "จัดการค่า",
+    link: "ManageValues", // Add a link property
+  },
+  {
+    key: "sub6",
     icon: <LaptopOutlined />,
     label: "ค้นหาขั้นสูง",
     link: "AdvancedSearch", // Add a link property
@@ -139,11 +167,6 @@ const AdminMenu = ({ children }) => {
           </Menu>
         </Sider>
         <Layout style={{ padding: "0 24px 24px" }}>
-          <Breadcrumb style={{ margin: "16px 0" }}>
-            <Breadcrumb.Item>Home</Breadcrumb.Item>
-            <Breadcrumb.Item>List</Breadcrumb.Item>
-            <Breadcrumb.Item>App</Breadcrumb.Item>
-          </Breadcrumb>
           <Content
             style={{
               padding: 24,

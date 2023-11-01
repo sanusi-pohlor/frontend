@@ -5,7 +5,7 @@ import { CalendarOutlined } from '@ant-design/icons';
 
 const { Title, Paragraph, Text } = Typography;
 
-const News_views = () => {
+const Article_view = () => {
   const curveAngle = 20;
   const paperColor = '#FFFFFF';
   const [newsData, setNewsData] = useState(null);
@@ -41,9 +41,9 @@ const News_views = () => {
           <Breadcrumb separator=">" style={{ marginBottom: '16px' }}>
             <Breadcrumb.Item>หน้าหลัก</Breadcrumb.Item>
             <Breadcrumb.Item>
-              <a href="">ข่าว</a>
+              <a href="">บทความ</a>
             </Breadcrumb.Item>
-            <Breadcrumb.Item>หัวข้อข่าว</Breadcrumb.Item>
+            <Breadcrumb.Item>หัวข้อบทความ</Breadcrumb.Item>
           </Breadcrumb>
           <div>
             {newsData ? (
@@ -58,7 +58,7 @@ const News_views = () => {
                 <Title level={4}>#{newsData.source}</Title>
               </Typography>
             ) : (
-              <p>Loading...</p>
+              <p>Loading........</p>
             )}
           </div>
         </Card>
@@ -67,8 +67,7 @@ const News_views = () => {
   );
 };
 
-export default News_views;
-
+export default Article_view;
 
 
 // import React from 'react';
@@ -84,7 +83,7 @@ export default News_views;
 
 // const { Title, Paragraph, Text } = Typography;
 
-// const News_views = () => {
+// const Article_view = () => {
 //   const curveAngle = 20;
 //   const paperColor = '#FFFFFF';
 
@@ -149,4 +148,4 @@ export default News_views;
 //   );
 // };
 
-// export default News_views;
+// export default Article_view;

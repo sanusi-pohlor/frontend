@@ -16,9 +16,12 @@ import BarChartComponent from "./BarChartComponent";
 import MuiTable from "./MuiTable";
 import "./Dashboard.css";
 import { Divider, Button, Card, Flex, Typography, Select, Input, FloatButton, Form, Space } from "antd";
+import Flickity from 'react-flickity-component'
 const { Option } = Select;
 const { Meta } = Card;
-
+const flickityOptions = {
+  initialIndex: 2
+}
 const Dashboard = ({ onSearch }) => {
   const [form] = Form.useForm();
   const [selectOptions_med, setSelectOptions_med] = useState([]); // State for select options
@@ -31,6 +34,11 @@ const Dashboard = ({ onSearch }) => {
     display: 'block',
     width: 273,
   };
+  const images = [
+    '/images/placeholder.png',
+    '/images/placeholder.png',
+    '/images/placeholder.png',
+  ];
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
   };
@@ -201,12 +209,12 @@ const Dashboard = ({ onSearch }) => {
           margin: "0 auto", // This centers the paper horizontally
           textAlign: "center", // This centers the content inside the paper
         }}
-      >          
-      <Divider />
-      <Box>
-        ข้อความแทรก
-      </Box>
-      <Divider />
+      >
+        <Divider />
+        <Box>
+          ข้อความแทรก
+        </Box>
+        <Divider />
         <Grid container spacing={2}>
           {" "}
           {/* Adjust spacing */}
@@ -297,12 +305,12 @@ const Dashboard = ({ onSearch }) => {
           margin: "0 auto", // This centers the paper horizontally
           textAlign: "center", // This centers the content inside the paper
         }}
-      >          
-      <Divider />
-      <Box>
-        ข้อความแทรก
-      </Box>
-      <Divider />
+      >
+        <Divider />
+        <Box>
+          ข้อความแทรก
+        </Box>
+        <Divider />
         <Grid container spacing={2}>
           {" "}
           {/* Adjust spacing */}
@@ -414,6 +422,84 @@ const Dashboard = ({ onSearch }) => {
               </Flex>
             </Flex>
           </Card>  </Space>
+      </Paper>
+      <Paper
+        elevation={0}
+        style={{
+          width: "70%",
+          padding: 30,
+          margin: "0 auto", // This centers the paper horizontally
+          textAlign: "center", // This centers the content inside the paper
+        }}
+      >
+        <Divider />
+        <Box>
+          ข้อความแทรก
+        </Box>
+        <Divider />
+        <Grid container spacing={2}>
+          {" "}
+          {/* Adjust spacing */}
+          <Grid item xs={12} md={4}>
+            {" "}
+            {/* Adjust xs and md values */}
+            <Item></Item>
+          </Grid>
+          <Grid item xs={12} md={4}>
+            {" "}
+            {/* Adjust xs and md values */}
+            <Item>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  height: "100%",
+                  textAlign: "center", // Center the text horizontally
+                  fontSize: "30px",
+                }}
+              >
+                สื่อชวนแชร์
+              </div>
+            </Item>
+          </Grid>
+          <Grid item xs={12} md={4}>
+            {" "}
+            {/* Adjust xs and md values */}
+            <Item>
+              <Input
+                size="large"
+                placeholder="ค้นหา"
+                value={searchTerm}
+                onChange={handleSearchChange}
+                onPressEnter={handleSearchSubmit}
+                prefix={<SearchOutlined className="site-form-item-icon" />}
+              />
+            </Item>
+          </Grid>
+        </Grid>
+        <br />
+        <Space
+          direction="vertical"
+          size="middle"
+          style={{
+            display: 'flex',
+          }}
+        >
+          <Flickity
+            className={'carousel'}
+            elementType={'div'}
+            options={flickityOptions}
+            disableImagesLoaded={false}
+            reloadOnUpdate
+            static
+          >
+            {images.map((src, index) => (
+              <img key={index} src={src} alt={`Image ${index}`} />
+            ))}
+          </Flickity>
+
+        </Space>
       </Paper>
       <FloatButton.BackTop />
     </div>

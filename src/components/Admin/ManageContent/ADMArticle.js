@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { PlusCircleOutlined, EditOutlined, DeleteOutlined, UnorderedListOutlined } from '@ant-design/icons';
-import { Space, Table, Tag, Button, Popconfirm, message } from 'antd';
+import { Space, Table, Breadcrumb, Button, Popconfirm, message } from 'antd';
 import AdminMenu from "../AdminMenu";
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-const ManuContont = () => {
+const ADMArticle = () => {
   const [dataSource, setDataSource] = useState([]);
 
   const fetchData = async () => {
@@ -80,19 +80,17 @@ const ManuContont = () => {
     },
   ];
   return (
-    <AdminMenu>
+    <AdminMenu><Breadcrumb style={{ margin: '16px 0' }}>
+    <Breadcrumb.Item>Home</Breadcrumb.Item>
+    <Breadcrumb.Item>List</Breadcrumb.Item>
+    <Breadcrumb.Item>App</Breadcrumb.Item>
+  </Breadcrumb>
       <div style={{ display: 'flex', justifyContent: 'space-between', gap: '16px', alignItems: 'center' }}>
-        <h1 style={{ margin: 0 }}>จัดการคอนเท็น</h1>
+        <h1 style={{ margin: 0 }}>จัดการคอนเท็นหน้าบทความ</h1>
         <div>
           <Link to="/Admin/FormContent">
             <Button type="primary" shape="round" icon={<PlusCircleOutlined />} size="large">
               Add Content
-            </Button>
-          </Link>
-          {" "}
-          <Link to="/Admin/ManageValues">
-            <Button type="primary" shape="round" icon={<UnorderedListOutlined />} size="large">
-              Manage Values
             </Button>
           </Link>
         </div>
@@ -103,4 +101,4 @@ const ManuContont = () => {
   );
 };
 
-export default ManuContont;
+export default ADMArticle;
