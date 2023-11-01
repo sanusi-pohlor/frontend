@@ -76,11 +76,12 @@ const NotificationHistory = () => {
   const getStatusText = (status) => {
     // Define your logic to map status values to text here
     switch (status) {
+      case 0:
+        return "รอตรวจสอบ";
       case 1:
-        return "รอดำเนินการ";
-      // Add more cases as needed
-      default:
-        return "อื่น ๆ";
+        return "กำลังตรวจสอบ";
+      case 2:
+        return "ตรวจสอบเสร็จสิ้น";
     }
   };
   const columns = [
@@ -92,7 +93,7 @@ const NotificationHistory = () => {
     {
       title: "หัวข้อ",
       dataIndex: "fn_info_head",
-      width: "40%",
+      width: "45%",
       editable: true,
     },
     {
@@ -123,7 +124,7 @@ const NotificationHistory = () => {
           <Link to={`/FakeNews/fninfoview/${record.id}`}>
             <EyeOutlined style={{ fontSize: '16px', color: 'blue' }} /> {/* Blue color for "ดู" */}
           </Link>
-          {record.fn_info_status === 1 && (
+          {record.fn_info_status === 0 && (
             <>
               <Link to={`/FakeNews/edit/${record.id}`}>
                 <EditOutlined style={{ fontSize: '16px', color: 'green' }} /> {/* Green color for "แก้ไข" */}

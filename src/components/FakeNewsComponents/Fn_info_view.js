@@ -136,9 +136,19 @@ const FnInfoView = () => {
       children: fakeNewsInfo && (
         <React.Fragment>
           <Badge
-            status={fakeNewsInfo.fn_info_status === 1 ? "warning" : "success"}
+            status={
+              fakeNewsInfo.fn_info_status === 0
+                ? "warning" // ถ้าสถานะเท่ากับ 1 (รอตรวจสอบ)
+                : fakeNewsInfo.fn_info_status === 1
+                ? "processing" // ถ้าสถานะเท่ากับ 0 (กำลังตรวจสอบ)
+                : "success" // ถ้าสถานะเท่ากับอื่น ๆ (ตรวจสอบแล้ว)
+            }
             text={
-              fakeNewsInfo.fn_info_status === 1 ? "รอตรวจสอบ" : "ตรวจสอบแล้ว"
+              fakeNewsInfo.fn_info_status === 0
+                ? "รอตรวจสอบ"
+                : fakeNewsInfo.fn_info_status === 1
+                ? "กำลังตรวจสอบ"
+                : "ตรวจสอบแล้ว"
             }
           />
         </React.Fragment>
@@ -148,31 +158,35 @@ const FnInfoView = () => {
 
   return (
     <UserProfile>
-        <React.Fragment>
-          <Steps
-            size="small"
-            current={fakeNewsInfo.fn_info_status}
-            items={[
-              {
-                title: "รอตรวจสอบ",
-              },
-              {
-                title: "กำลังตรวจสอบ",
-              },
-              {
-                title: "ตรวจสอบเรียบร้อย",
-              },
-            ]}
-            style={stepsStyle}
-          />
-          <Divider />
-          <Descriptions
-            title="รายละเอียดการแจ้ง"
-            layout="vertical"
-            bordered
-            items={items}
-          />
-        </React.Fragment>
+      <React.Fragment>
+        <Steps
+          current={fakeNewsInfo?.fn_info_status}
+          items={[
+            {
+              title: "รอรับเรื่อง",
+              description: "สมาชิกแจ้งข้อมูลแล้ว",
+              disabled: true,
+            },
+            {
+              title: "ตรวจสอบ",
+              description: "รับเรื่องไปตรวจสอบ",
+              disabled: fakeNewsInfo?.fn_info_status > 0,
+            },
+            {
+              title: "เสร็จสิ้น",
+              description: "ตรวจสอบเสร็จสิ้น",
+              disabled: fakeNewsInfo?.fn_info_status > 1,
+            },
+          ]}
+        />
+        <Divider />
+        <Descriptions
+          title="รายละเอียดการแจ้ง"
+          layout="vertical"
+          bordered
+          items={items}
+        />
+      </React.Fragment>
     </UserProfile>
   );
 };

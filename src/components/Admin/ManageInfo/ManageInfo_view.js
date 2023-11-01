@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Badge, Descriptions, Image, Steps, Divider } from "antd";
+import { Badge, Descriptions, Image, Steps, Divider, Modal } from "antd";
 import { useParams } from "react-router-dom";
 import AdminMenu from "../AdminMenu";
 import moment from "moment";
@@ -7,30 +7,45 @@ import moment from "moment";
 const ManageInfo_view = () => {
   const [fakeNewsInfo, setFakeNewsInfo] = useState(null);
   const [current, setCurrent] = useState(0);
-  const description = 'This is a description.';
-  const { id } = useParams();
-  
-  const onChange = async (value) => {
-    setCurrent(value);
-      try {
-        const response = await fetch(`http://localhost:8000/api/updateFakeNewsStatus/${id}`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ status: value }), // Assuming 'status' as the field name to update
-        });
+  const [modalVisible, setModalVisible] = useState(false);
+  const [confirmedStep, setConfirmedStep] = useState(-1); // สถานะการยืนยัน
 
-        if (response.ok) {
-          // If the update is successful, fetch the updated data
-          fetchFakeNewsInfo();
-        } else {
-          console.error("Error updating status:", response.statusText);
-        }
-      } catch (error) {
-        console.error("Error updating status:", error);
-      }
+  const { id } = useParams();
+
+  const onChange = (value) => {
+    if (value > confirmedStep) {
+      setCurrent(value);
+      setModalVisible(true);
+    }
   };
+
+  const handleConfirm = async () => {
+    setModalVisible(false);
+    setConfirmedStep(current);
+    console.log("current: ", current);
+
+    try {
+      const formData = new FormData();
+      formData.append("status", current); // ใช้ append ให้ถูกต้อง
+
+      const response = await fetch(
+        `http://localhost:8000/api/updateFakeNewsStatus/${id}`,
+        {
+          method: "POST",
+          body: formData, // ส่งข้อมูลผ่าน FormData
+        }
+      );
+      if (response.ok) {
+        fetchFakeNewsInfo(); // เมื่อส่งข้อมูลสำเร็จให้ดึงข้อมูลอัพเดท
+        window.location.reload(); // รีโหลดหน้าเพื่อแสดงข้อมูลที่อัพเดทแล้ว
+      } else {
+        console.error("Error updating status:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error updating status:", error);
+    }
+  };
+
   // Fetch fake news information based on id
   const fetchFakeNewsInfo = async () => {
     console.log("id :", id);
@@ -127,7 +142,7 @@ const ManageInfo_view = () => {
             width={200}
             src={fakeNewsInfo.fn_info_image}
             alt="รูปภาพข่าวปลอม"
-          //style={{ maxWidth: "100%", height: "auto" }}
+            //style={{ maxWidth: "100%", height: "auto" }}
           />
         </span>
       ),
@@ -139,9 +154,19 @@ const ManageInfo_view = () => {
       children: fakeNewsInfo && (
         <React.Fragment>
           <Badge
-            status={fakeNewsInfo.fn_info_status === 1 ? "warning" : "success"}
+            status={
+              fakeNewsInfo.fn_info_status === 0
+                ? "warning" // ถ้าสถานะเท่ากับ 1 (รอตรวจสอบ)
+                : fakeNewsInfo.fn_info_status === 1
+                ? "processing" // ถ้าสถานะเท่ากับ 0 (กำลังตรวจสอบ)
+                : "success" // ถ้าสถานะเท่ากับอื่น ๆ (ตรวจสอบแล้ว)
+            }
             text={
-              fakeNewsInfo.fn_info_status === 1 ? "รอตรวจสอบ" : "ตรวจสอบแล้ว"
+              fakeNewsInfo.fn_info_status === 0
+                ? "รอตรวจสอบ"
+                : fakeNewsInfo.fn_info_status === 1
+                ? "กำลังตรวจสอบ"
+                : "ตรวจสอบแล้ว"
             }
           />
         </React.Fragment>
@@ -151,24 +176,34 @@ const ManageInfo_view = () => {
   return (
     <AdminMenu>
       <Steps
-        current={current}
+        current={fakeNewsInfo?.fn_info_status}
         onChange={onChange}
         items={[
           {
-            title: 'Step 1',
-            description,
+            title: "รอรับเรื่อง",
+            description: "สมาชิกแจ้งข้อมูลแล้ว",
+            disabled: true,
           },
           {
-            title: 'Step 2',
-            description,
+            title: "ตรวจสอบ",
+            description: "รับเรื่องไปตรวจสอบ",
+            disabled: fakeNewsInfo?.fn_info_status > 0,
           },
           {
-            title: 'Step 3',
-            description,
+            title: "เสร็จสิ้น",
+            description: "ตรวจสอบเสร็จสิ้น",
+            disabled: fakeNewsInfo?.fn_info_status > 1,
           },
         ]}
       />
-
+      <Modal
+        title="ยืนยันการเลือกขั้นตอน"
+        visible={modalVisible}
+        onOk={handleConfirm}
+        onCancel={() => setModalVisible(false)}
+      >
+        <p>คุณแน่ใจหรือไม่ที่ต้องการทำขั้นตอนนี้?</p>
+      </Modal>
       <Divider />
       <Descriptions
         title="รายละเอียดการแจ้ง"
@@ -179,4 +214,5 @@ const ManageInfo_view = () => {
     </AdminMenu>
   );
 };
+
 export default ManageInfo_view;

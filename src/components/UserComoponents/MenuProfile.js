@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Grid, Avatar, Typography, Divider, Box } from "@mui/material";
-import { Card, Tabs, FloatButton, Modal, Button } from "antd";
+import { Grid, Avatar, Divider, Box } from "@mui/material";
+import { Card, Tabs, FloatButton, Modal, Button ,Typography } from "antd";
 import { Link as RouterLink, useLocation} from "react-router-dom";
+const { Title } = Typography;
 
 const { TabPane } = Tabs;
 const MenuProfile = ({ children }) => {
@@ -137,7 +138,7 @@ const MenuProfile = ({ children }) => {
                   height: "100%",
                 }}
               >
-                555
+                <Title level={5}>จำนวนครั้งที่แจ้งข่าว : </Title>
               </div>
             </Card>
             <br />
