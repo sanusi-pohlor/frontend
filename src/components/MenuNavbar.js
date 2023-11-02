@@ -30,7 +30,7 @@ const pages = [
   { label: "หน้าหลัก", link: "/" },
   { label: "ข่าวสาร", link: "/Search" },
   { label: "บทความ", link: "/Article" },
-  { label: "สื่อชวนแชร์", link: "/Media_sh" },
+  { label: "สื่อชวนแชร์", link: "/MediaShare" },
   { label: "แจ้งข้อมูลเท็จ", link: "/FakeNews" },
 ];
 
@@ -271,10 +271,11 @@ function ResponsiveAppBar() {
                   onClick={handleCloseNavMenu}
                   sx={{
                     my: 2,
-                    fontSize: "20px",
+                    fontSize: "25px",
                     color: page.link === location.pathname ? "#7BBD8F" : "grey",
                     display: "block",
                     mr: 5,
+                    fontWeight: 'bold',
                   }}
                 >
                   {page.label}
@@ -356,7 +357,7 @@ function ResponsiveAppBar() {
                   onClick={handleCloseNavMenu}
                   sx={{
                     my: 2,
-                    fontSize: "20px",
+                    fontSize: "25px",
                     color: page.link === location.pathname ? "#7BBD8F" : "grey",
                     display: "block",
                     mr: 5,

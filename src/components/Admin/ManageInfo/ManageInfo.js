@@ -190,11 +190,12 @@ const ManageMembers = () => {
   const getStatusText = (status) => {
     // Define your logic to map status values to text here
     switch (status) {
+      case 0:
+        return "รอตรวจสอบ";
       case 1:
-        return "รอดำเนินการ";
-      // Add more cases as needed
-      default:
-        return "อื่น ๆ";
+        return "กำลังตรวจสอบ";
+      case 2:
+        return "ตรวจสอบเสร็จสิ้น";
     }
   };
   const columns = [
@@ -249,23 +250,6 @@ const ManageMembers = () => {
           <Link to={`/Admin/ManageInfo/ManageInfo_view/${record.id}`}>
             <EyeOutlined style={{ fontSize: '16px', color: 'blue' }} /> {/* Blue color for "ดู" */}
           </Link>
-          {record.fn_info_status === 1 && (
-            <>
-              <Link to={`/FakeNews/edit/${record.id}`}>
-                <EditOutlined style={{ fontSize: '16px', color: 'green' }} /> {/* Green color for "แก้ไข" */}
-              </Link>
-              <Popconfirm
-                title="คุณแน่ใจหรือไม่ที่จะลบรายการนี้?"
-                onConfirm={() => handleDelete(record.id)}
-                okText="ใช่"
-                cancelText="ไม่"
-              >
-                <Button type="link">
-                  <DeleteOutlined style={{ fontSize: '16px', color: 'red' }} /> {/* Red color for "ลบ" */}
-                </Button>
-              </Popconfirm>
-            </>
-          )}
         </Space>
       ),
     }
@@ -301,8 +285,8 @@ const ManageMembers = () => {
           alignItems: "center",
         }}
       >
-        <h1>จัดการสมาชิก</h1>
-        <Button
+        <h1>จัดการข้อมูลรับแจ้ง</h1>
+        {/* <Button
           type="primary"
           shape="round"
           icon={<PlusCircleOutlined />}
@@ -313,7 +297,7 @@ const ManageMembers = () => {
           style={{ marginBottom: 16 }}
         >
           เพิ่มสมาชิกใหม่
-        </Button>
+        </Button> */}
       </div>
       <Modal
         title="เพิ่มสมาชิกใหม่"

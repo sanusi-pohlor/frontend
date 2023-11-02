@@ -1,16 +1,23 @@
 import React, { useState, useEffect } from "react";
-import { Box,  Grid, Paper } from "@mui/material";
-import {
-  SearchOutlined
-} from "@ant-design/icons";
+import { Box, Grid, Paper } from "@mui/material";
+import { SearchOutlined } from "@ant-design/icons";
 import {
   DatePicker,
   Layout,
-  Button, Card, Flex, Typography, Select, Input, FloatButton, Form, Space
+  Button,
+  Card,
+  Flex,
+  Typography,
+  Select,
+  Input,
+  FloatButton,
+  Form,
+  Space,
 } from "antd";
 import Item from "./Item";
-import FilterDialog from './FilterDialog'; // Make sure to import FilterDialog
-
+import FilterDialog from "./FilterDialog"; // Make sure to import FilterDialog
+import { Link } from "react-router-dom";
+const { Title } = Typography;
 const { Content, Sider } = Layout;
 const { Option } = Select;
 const { Meta } = Card;
@@ -53,10 +60,10 @@ const Article = ({ children }) => {
   const paperColor = "#FFFFFF";
   const [filterVisible, setFilterVisible] = useState(false);
   const cardStyle = {
-    display: 'flex'
+    display: "flex",
   };
   const imgStyle = {
-    display: 'block',
+    display: "block",
     width: 273,
   };
   const buttonStyle = {
@@ -74,12 +81,12 @@ const Article = ({ children }) => {
 
   const handleSubmit = (values) => {
     // Handle form submission
-    console.log('Form values:', values);
+    console.log("Form values:", values);
   };
 
   const FilterFinish = (values) => {
     // Handle filter finish
-    console.log('Filter values:', values);
+    console.log("Filter values:", values);
     closeFilterDialog();
   };
   const handleSearchChange = (event) => {
@@ -103,14 +110,18 @@ const Article = ({ children }) => {
         cover={
           <img
             alt="Card cover"
-            style={{ height: "80%", width: "100%", objectFit: "cover", borderRadius: 20, }}
+            style={{
+              height: "80%",
+              width: "100%",
+              objectFit: "cover",
+              borderRadius: 20,
+            }}
             src="https://t3.ftcdn.net/jpg/05/37/73/58/360_F_537735846_kufBp10E8L4iV7OLw1Kn3LpeNnOIWbvf.jpg"
           />
         }
       >
-        <Meta title="title" description="description" />
+        <Meta title="หัวข้อ" description="เนื่อหาเบื้องต้น" />
       </Card>
-
     );
   };
   useEffect(() => {
@@ -178,8 +189,7 @@ const Article = ({ children }) => {
         <Grid item xs={12} md={4}>
           {" "}
           {/* Adjust xs and md values */}
-          <Item>
-          </Item>
+          <Item></Item>
         </Grid>
         <Grid item xs={12} md={4}>
           {" "}
@@ -195,7 +205,7 @@ const Article = ({ children }) => {
                 fontSize: "30px",
               }}
             >
-              บทความ
+              <Title level={2}>บทความ</Title>
             </div>
           </Item>
         </Grid>
@@ -203,18 +213,27 @@ const Article = ({ children }) => {
           {" "}
           {/* Adjust xs and md values */}
           <Item>
-            <div style={{ display: 'flex', alignItems: 'center' }}>
+            <div style={{ display: "flex", alignItems: "center" }}>
               <Input
                 size="large"
                 placeholder="ค้นหา"
-                style={{ marginRight: '10px' }}
+                style={{ marginRight: "10px" }}
                 value={searchTerm}
                 prefix={<SearchOutlined className="site-form-item-icon" />}
               />
-              <Button size="large" type="primary" style={{ ...buttonStyle, marginRight: '20px' }}>
+              <Button
+                size="large"
+                type="primary"
+                style={{ ...buttonStyle, marginRight: "20px" }}
+              >
                 ค้นหา
               </Button>
-              <Button size="large" type="primary" style={buttonStyle} onClick={showFilterDialog}>
+              <Button
+                size="large"
+                type="primary"
+                style={buttonStyle}
+                onClick={showFilterDialog}
+              >
                 ตัวกรอง
               </Button>
 
@@ -235,72 +254,78 @@ const Article = ({ children }) => {
         direction="vertical"
         size="middle"
         style={{
-          display: 'flex',
+          display: "flex",
         }}
       >
-
-        <Card
-          hoverable
-          style={cardStyle}
-          bodyStyle={{
-            padding: 0,
-            overflow: 'hidden',
-          }}
-        >
-          <Flex justify="space-between">
-            <img
-              alt="avatar"
-              src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-              style={imgStyle}
-            />
-            <Flex
-              vertical
-              align="flex-end"
-              justify="space-between"
-              style={{
-                padding: 32,
-              }}
-            >
-              <Typography.Title level={3}>
-                “antd is an enterprise-class UI design language and React UI library.”
-              </Typography.Title>
-              <Button type="primary" href="https://ant.design" target="_blank">
-                Get Start
-              </Button>
+        <Link to={`/Article/Article_view`}>
+          <Card
+            hoverable
+            style={cardStyle}
+            bodyStyle={{
+              padding: 0,
+              overflow: "hidden",
+            }}
+          >
+            <Flex justify="space-between">
+              <img
+                alt="avatar"
+                src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+                style={imgStyle}
+              />
+              <Flex
+                vertical
+                align="flex-start"
+                justify="space-between"
+                style={{
+                  padding: 32,
+                }}
+              >
+                <Typography.Title level={3}>
+                  หัวข้อหัวข้อหัวข้อหัวข้อ
+                </Typography.Title>
+                <Typography>
+                  เนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้น
+                  เนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้น
+                </Typography>
+              </Flex>
             </Flex>
-          </Flex>
-        </Card>
-        <Card
-          hoverable
-          style={cardStyle}
-          bodyStyle={{
-            padding: 0,
-            overflow: 'hidden',
-          }}
-        >
-          <Flex justify="space-between">
-            <img
-              alt="avatar"
-              src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-              style={imgStyle}
-            />
-            <Flex
-              vertical
-              align="flex-end"
-              justify="space-between"
-              style={{
-                padding: 32,
-              }}
-            >
-              <Typography.Title level={3}>
-                “antd is an enterprise-class UI design language and React UI library.”
-              </Typography.Title>
-              <Button type="primary" href="https://ant.design" target="_blank">
-                Get Start
-              </Button>
+          </Card>
+        </Link>
+        <Link to={`/Article/Article_view`}>
+          <Card
+            hoverable
+            style={cardStyle}
+            bodyStyle={{
+              padding: 0,
+              overflow: "hidden",
+            }}
+          >
+            <Flex justify="space-between">
+              <img
+                alt="avatar"
+                src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+                style={imgStyle}
+              />
+              <Flex
+                vertical
+                align="flex-start"
+                justify="space-between"
+                style={{
+                  padding: 32,
+                }}
+              >
+                <Typography.Title level={3}>
+                  หัวข้อหัวข้อหัวข้อหัวข้อ
+                </Typography.Title>
+                <Typography>
+                  เนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้น
+                  เนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้น
+                </Typography>
+              </Flex>
             </Flex>
-          </Flex>
-        </Card>  </Space>
+          </Card>{" "}
+        </Link>{" "}
+      </Space>
     </Paper>
     // <div>
     //   <Box style={{

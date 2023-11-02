@@ -7,7 +7,7 @@ import FilterDialog from "./FilterDialog"; // Ensure to import FilterDialog
 import { Link } from "react-router-dom";
 const { Meta } = Card;
 const { Title } = Typography;
-const Search = () => {
+const MediaShare_view = () => {
   const [data, setData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const curveAngle = 20;
@@ -100,7 +100,7 @@ const Search = () => {
                 fontSize: "30px",
               }}
             >
-              <Title level={2}>ข่าวสาร</Title>
+              <Title level={2}>สื่อชวนแชร์</Title>
             </div>
           </Item>
         </Grid>
@@ -226,7 +226,7 @@ const Search = () => {
   );
 };
 
-export default Search;
+export default MediaShare_view;
 
 {
   /* <Grid item xs={12} md={4}>

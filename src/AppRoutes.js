@@ -6,6 +6,7 @@ import Dashboard from "./components/DashboardComponents/Dashboard";
 import Search from "./components/SearchComponents/Search";
 import Article from "./components/Article/Article";
 import Article_view from "./components/Article/Article_view";
+import MediaShare_view from "./components/MediaShare/MediaShare_view";
 import News_views from "./components/News/News_views";
 import FakeNewInformation from "./components/FakeNewsComponents/FakeNewInformation";
 import NotificationHistory from "./components/FakeNewsComponents/NotificationHistory";
@@ -41,6 +42,7 @@ const routes = [
   { path: "/Search", element: <Search /> },
   { path: "/Article", element: <Article /> },
   { path: "/Article/Article_view", element: <Article_view /> },
+  { path: "/MediaShare", element: <MediaShare_view /> },
   { path: "/News/News_views", element: <News_views /> },
   { path: "/Admin/ManageInfo", element: <ManageInfo /> },
   { path: "/Admin/ManageInfo/ManageInfo_view/:id", element: <ManageInfo_view /> },

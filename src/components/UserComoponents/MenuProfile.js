@@ -120,11 +120,11 @@ const MenuProfile = ({ children }) => {
                 style={{ marginBottom: "10px" }}
               >
                 <Grid item style={{ marginBottom: "5px" }}>
-                  <Avatar sx={{ width: 100, height: 100 }}>USER</Avatar>
+                  <Avatar sx={{ width: 100, height: 100 }}>{user.username}</Avatar>
                 </Grid>
                 <Grid item>
-                  <Typography variant="h5">Name: {user.username}</Typography>
-                  <Typography variant="body1">Email: {user.email}</Typography>
+                  <Typography variant="h5">ชื่อ-สกุล : {user.username}</Typography>
+                  <Typography variant="body1">อีเมล : {user.email}</Typography>
                 </Grid>
               </Grid>
               <Divider />

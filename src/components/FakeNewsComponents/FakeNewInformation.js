@@ -11,13 +11,15 @@ import "./FakeNewInformation.css";
 import { Typography } from "@mui/material";
 import moment from "moment";
 import "moment/locale/th";
+import { useNavigate } from "react-router-dom";
 
 moment.locale("th");
 
 const { Option } = Select;
 const { TextArea } = Input;
 
-const FakeNewInformation = () => {
+const FakeNewInformation = ({ history }) => {
+  const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(true);
@@ -63,6 +65,7 @@ const FakeNewInformation = () => {
       if (response.ok) {
         console.log("Form data sent successfully");
         message.success("Form data sent successfully");
+        navigate("/FakeNews/NotificationHistory");
       } else {
         message.error("Error sending form data");
       }
@@ -367,7 +370,7 @@ const FakeNewInformation = () => {
           >
             <Upload
               name="fn_info_image"
-              maxCount={1}
+              maxCount={3}
               listType="picture-card"
               beforeUpload={() => false}
             >

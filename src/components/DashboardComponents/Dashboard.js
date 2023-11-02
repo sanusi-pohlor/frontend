@@ -1,13 +1,6 @@
 import React, { useState } from "react";
-import {
-  SearchOutlined
-} from "@ant-design/icons";
-import {
-  Paper,
-  Grid,
-  Box,
-  Container
-} from "@mui/material";
+import { SearchOutlined } from "@ant-design/icons";
+import { Paper, Grid, Box, Container } from "@mui/material";
 import Item from "./Item";
 import Carousel from "./Carousel";
 import ThailandMap from "./ThailandMap";
@@ -15,29 +8,42 @@ import PieChartComponent from "./PieChartComponent";
 import BarChartComponent from "./BarChartComponent";
 import MuiTable from "./MuiTable";
 import "./Dashboard.css";
-import { Divider, Button, Card, Flex, Typography, Select, Input, FloatButton, Form, Space } from "antd";
-import Flickity from 'react-flickity-component'
+import {
+  Divider,
+  Button,
+  Card,
+  Flex,
+  Typography,
+  Select,
+  Input,
+  FloatButton,
+  Form,
+  Space,
+} from "antd";
+import Flickity from "react-flickity-component";
+import { Link } from "react-router-dom";
 const { Option } = Select;
 const { Meta } = Card;
+const { Title } = Typography;
 const flickityOptions = {
-  initialIndex: 2
-}
+  initialIndex: 2,
+};
 const Dashboard = ({ onSearch }) => {
   const [form] = Form.useForm();
   const [selectOptions_med, setSelectOptions_med] = useState([]); // State for select options
   const [selectOptions_type, setSelectOptions_type] = useState([]); // State for select options
   const [searchTerm, setSearchTerm] = useState("");
   const cardStyle = {
-    display: 'flex'
+    display: "flex",
   };
   const imgStyle = {
-    display: 'block',
+    display: "block",
     width: 273,
   };
   const images = [
-    '/images/placeholder.png',
-    '/images/placeholder.png',
-    '/images/placeholder.png',
+    "/images/placeholder.png",
+    "/images/placeholder.png",
+    "/images/placeholder.png",
   ];
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
@@ -50,27 +56,31 @@ const Dashboard = ({ onSearch }) => {
   const papercard = "rgb(240, 240, 240)";
   const Content = () => {
     return (
-      <Card
-        hoverable
-        //bordered={false}
-        style={{
-          margin: "auto",
-          borderRadius: `${curveAngle}px`,
-          width: "90%", // Set the desired width
-          height: "100%", // Set the desired height
-          padding: 20,
-        }}
-        cover={
-          <img
-            alt="Card cover"
-            style={{ height: "80%", width: "100%", objectFit: "cover" }}
-            src="https://t3.ftcdn.net/jpg/05/37/73/58/360_F_537735846_kufBp10E8L4iV7OLw1Kn3LpeNnOIWbvf.jpg"
+      <Link to={`/News/News_views`}>
+        <Card
+          hoverable
+          //bordered={false}
+          style={{
+            margin: "auto",
+            borderRadius: `${curveAngle}px`,
+            width: "90%", // Set the desired width
+            height: "100%", // Set the desired height
+            padding: 20,
+          }}
+          cover={
+            <img
+              alt="Card cover"
+              style={{ height: "80%", width: "100%", objectFit: "cover" }}
+              src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+            />
+          }
+        >
+          <Meta
+            title="หัวข้อ"
+            description="เนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้น"
           />
-        }
-      >
-        <Meta title="title" description="description" />
-      </Card>
-
+        </Card>
+      </Link>
     );
   };
   const fetchDataAndSetOptions = async (endpoint, fieldName, stateSetter) => {
@@ -92,7 +102,10 @@ const Dashboard = ({ onSearch }) => {
         ]);
         stateSetter(options);
       } else {
-        console.error(`Error fetching ${fieldName} codes:`, response.statusText);
+        console.error(
+          `Error fetching ${fieldName} codes:`,
+          response.statusText
+        );
       }
     } catch (error) {
       console.error(`Error fetching ${fieldName} codes:`, error);
@@ -100,29 +113,45 @@ const Dashboard = ({ onSearch }) => {
   };
 
   const onChange_dnc_med_id = () => {
-    fetchDataAndSetOptions("MediaChannels_request", "med_c", setSelectOptions_med);
+    fetchDataAndSetOptions(
+      "MediaChannels_request",
+      "med_c",
+      setSelectOptions_med
+    );
   };
   const onTypeChange = () => {
-    fetchDataAndSetOptions("TypeInformation_request", "type_info", setSelectOptions_type);
+    fetchDataAndSetOptions(
+      "TypeInformation_request",
+      "type_info",
+      setSelectOptions_type
+    );
   };
 
   return (
     <div>
       <Carousel />
-      <Box style={{
-        width: "70%",
-        padding: 30,
-        margin: "0 auto", // This centers the paper horizontally
-        textAlign: "center", // This centers the content inside the paper
-      }}>
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", }}>
+      <Box
+        style={{
+          width: "70%",
+          padding: 30,
+          margin: "0 auto", // This centers the paper horizontally
+          textAlign: "center", // This centers the content inside the paper
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
           <Select
             onChange={onTypeChange}
             size="large"
             placeholder="ประเภท"
             // onChange={onGenderChange}
             allowClear
-            style={{ marginRight: "10px", flex: 1, }} // Add margin to the right
+            style={{ marginRight: "10px", flex: 1 }} // Add margin to the right
           >
             {selectOptions_type} {/* Populate the options */}
           </Select>
@@ -132,7 +161,7 @@ const Dashboard = ({ onSearch }) => {
             placeholder="สื่อ"
             // onChange={onGenderChange}
             allowClear
-            style={{ marginRight: "10px", flex: 1, }} // Add margin to the right
+            style={{ marginRight: "10px", flex: 1 }} // Add margin to the right
           >
             {selectOptions_med} {/* Populate the options */}
           </Select>
@@ -141,7 +170,7 @@ const Dashboard = ({ onSearch }) => {
             placeholder="เดือน/ปี"
             // onChange={onGenderChange}
             allowClear
-            style={{ flex: 1, }} // Add margin to the right
+            style={{ flex: 1 }} // Add margin to the right
           >
             <Select.Option value="2017">2017</Select.Option>
             <Select.Option value="2018">2018</Select.Option>
@@ -211,9 +240,7 @@ const Dashboard = ({ onSearch }) => {
         }}
       >
         <Divider />
-        <Box>
-          ข้อความแทรก
-        </Box>
+        <Box>ข้อความแทรก</Box>
         <Divider />
         <Grid container spacing={2}>
           {" "}
@@ -237,7 +264,7 @@ const Dashboard = ({ onSearch }) => {
                   fontSize: "30px",
                 }}
               >
-                สาระน่ารู้
+                <Title level={2}>สาระน่ารู้</Title>
               </div>
             </Item>
           </Grid>
@@ -307,9 +334,7 @@ const Dashboard = ({ onSearch }) => {
         }}
       >
         <Divider />
-        <Box>
-          ข้อความแทรก
-        </Box>
+        <Box>ข้อความแทรก</Box>
         <Divider />
         <Grid container spacing={2}>
           {" "}
@@ -333,133 +358,7 @@ const Dashboard = ({ onSearch }) => {
                   fontSize: "30px",
                 }}
               >
-                บทความ
-              </div>
-            </Item>
-          </Grid>
-          <Grid item xs={12} md={4}>
-            {" "}
-            {/* Adjust xs and md values */}
-            <Item>
-              <Input
-                size="large"
-                placeholder="ค้นหา"
-                value={searchTerm}
-                onChange={handleSearchChange}
-                onPressEnter={handleSearchSubmit}
-                prefix={<SearchOutlined className="site-form-item-icon" />}
-              />
-            </Item>
-          </Grid>
-        </Grid>
-        <br /><Space
-          direction="vertical"
-          size="middle"
-          style={{
-            display: 'flex',
-          }}
-        >
-
-          <Card
-            hoverable
-            style={cardStyle}
-            bodyStyle={{
-              padding: 0,
-              overflow: 'hidden',
-            }}
-          >
-            <Flex justify="space-between">
-              <img
-                alt="avatar"
-                src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-                style={imgStyle}
-              />
-              <Flex
-                vertical
-                align="flex-end"
-                justify="space-between"
-                style={{
-                  padding: 32,
-                }}
-              >
-                <Typography.Title level={3}>
-                  “antd is an enterprise-class UI design language and React UI library.”
-                </Typography.Title>
-                <Button type="primary" href="https://ant.design" target="_blank">
-                  Get Start
-                </Button>
-              </Flex>
-            </Flex>
-          </Card>
-          <Card
-            hoverable
-            style={cardStyle}
-            bodyStyle={{
-              padding: 0,
-              overflow: 'hidden',
-            }}
-          >
-            <Flex justify="space-between">
-              <img
-                alt="avatar"
-                src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-                style={imgStyle}
-              />
-              <Flex
-                vertical
-                align="flex-end"
-                justify="space-between"
-                style={{
-                  padding: 32,
-                }}
-              >
-                <Typography.Title level={3}>
-                  “antd is an enterprise-class UI design language and React UI library.”
-                </Typography.Title>
-                <Button type="primary" href="https://ant.design" target="_blank">
-                  Get Start
-                </Button>
-              </Flex>
-            </Flex>
-          </Card>  </Space>
-      </Paper>
-      <Paper
-        elevation={0}
-        style={{
-          width: "70%",
-          padding: 30,
-          margin: "0 auto", // This centers the paper horizontally
-          textAlign: "center", // This centers the content inside the paper
-        }}
-      >
-        <Divider />
-        <Box>
-          ข้อความแทรก
-        </Box>
-        <Divider />
-        <Grid container spacing={2}>
-          {" "}
-          {/* Adjust spacing */}
-          <Grid item xs={12} md={4}>
-            {" "}
-            {/* Adjust xs and md values */}
-            <Item></Item>
-          </Grid>
-          <Grid item xs={12} md={4}>
-            {" "}
-            {/* Adjust xs and md values */}
-            <Item>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  height: "100%",
-                  textAlign: "center", // Center the text horizontally
-                  fontSize: "30px",
-                }}
-              >
-                สื่อชวนแชร์
+                <Title level={2}>บทความ</Title>
               </div>
             </Item>
           </Grid>
@@ -483,12 +382,143 @@ const Dashboard = ({ onSearch }) => {
           direction="vertical"
           size="middle"
           style={{
-            display: 'flex',
+            display: "flex",
+          }}
+        >
+          <Link to={`/Article/Article_view`}>
+            <Card
+              hoverable
+              style={cardStyle}
+              bodyStyle={{
+                padding: 0,
+                overflow: "hidden",
+              }}
+            >
+              <Flex justify="space-between">
+                <img
+                  alt="avatar"
+                  src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+                  style={imgStyle}
+                />
+                <Flex
+                  vertical
+                  align="flex-start"
+                  justify="space-between"
+                  style={{
+                    padding: 32,
+                  }}
+                >
+                  <Typography.Title level={3}>
+                    หัวข้อหัวข้อหัวข้อหัวข้อ
+                  </Typography.Title>
+                  <Typography>
+                    เนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้น
+                    เนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้น
+                  </Typography>
+                </Flex>
+              </Flex>
+            </Card>
+          </Link>
+          <Link to={`/Article/Article_view`}>
+            <Card
+              hoverable
+              style={cardStyle}
+              bodyStyle={{
+                padding: 0,
+                overflow: "hidden",
+              }}
+            >
+              <Flex justify="space-between">
+                <img
+                  alt="avatar"
+                  src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+                  style={imgStyle}
+                />
+                <Flex
+                  vertical
+                  align="flex-start"
+                  justify="space-between"
+                  style={{
+                    padding: 32,
+                  }}
+                >
+                  <Typography.Title level={3}>
+                    หัวข้อหัวข้อหัวข้อหัวข้อ
+                  </Typography.Title>
+                  <Typography>
+                    เนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้น
+                    เนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้น
+                  </Typography>
+                </Flex>
+              </Flex>
+            </Card>
+          </Link>
+        </Space>
+      </Paper>
+      <Paper
+        elevation={0}
+        style={{
+          width: "70%",
+          padding: 30,
+          margin: "0 auto", // This centers the paper horizontally
+          textAlign: "center", // This centers the content inside the paper
+        }}
+      >
+        <Divider />
+        <Box>ข้อความแทรก</Box>
+        <Divider />
+        <Grid container spacing={2}>
+          {" "}
+          {/* Adjust spacing */}
+          <Grid item xs={12} md={4}>
+            {" "}
+            {/* Adjust xs and md values */}
+            <Item></Item>
+          </Grid>
+          <Grid item xs={12} md={4}>
+            {" "}
+            {/* Adjust xs and md values */}
+            <Item>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  height: "100%",
+                  textAlign: "center", // Center the text horizontally
+                  fontSize: "30px",
+                }}
+              >
+                <Title level={2}>สื่อชวนแชร์</Title>
+              </div>
+            </Item>
+          </Grid>
+          <Grid item xs={12} md={4}>
+            {" "}
+            {/* Adjust xs and md values */}
+            <Item>
+              <Input
+                size="large"
+                placeholder="ค้นหา"
+                value={searchTerm}
+                onChange={handleSearchChange}
+                onPressEnter={handleSearchSubmit}
+                prefix={<SearchOutlined className="site-form-item-icon" />}
+              />
+            </Item>
+          </Grid>
+        </Grid>
+        <br />
+        <Space
+          direction="vertical"
+          size="middle"
+          style={{
+            display: "flex",
           }}
         >
           <Flickity
-            className={'carousel'}
-            elementType={'div'}
+            className={"carousel"}
+            elementType={"div"}
             options={flickityOptions}
             disableImagesLoaded={false}
             reloadOnUpdate
@@ -498,7 +528,6 @@ const Dashboard = ({ onSearch }) => {
               <img key={index} src={src} alt={`Image ${index}`} />
             ))}
           </Flickity>
-
         </Space>
       </Paper>
       <FloatButton.BackTop />

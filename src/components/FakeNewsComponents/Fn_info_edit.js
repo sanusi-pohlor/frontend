@@ -6,13 +6,13 @@ import {
 } from "@ant-design/icons";
 import UserProfile from "../UserComoponents/MenuProfile";
 import React, { useEffect, useState } from "react";
-import { Button, DatePicker, Form, Input, Select, Upload, message } from "antd";
+import { Button, DatePicker, Form, Input, Select, Upload, message ,Image } from "antd";
 import "./FakeNewInformation.css";
 import { Typography } from "@mui/material";
 import moment from "moment";
 import "moment/locale/th";
 import { useParams } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 moment.locale("th");
 
 const { Option } = Select;
@@ -21,11 +21,12 @@ const { TextArea } = Input;
 const FnInfoEdit = () => {
   const { id } = useParams();
   const [user, setUser] = useState(null);
+  const [img, setImg] = useState(null);
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(true);
   const [selectednum_mem, setSelectednum_mem] = useState("");
   const [selectOptions_med, setSelectOptions_med] = useState([]);
-
+  const navigate = useNavigate();
   const handlenum_memChange = (value) => {
     setSelectednum_mem(value);
   };
@@ -48,6 +49,7 @@ const FnInfoEdit = () => {
       );
       if (response.ok) {
         const data = await response.json();
+        setImg(data);
         // Set initial form values based on the fetched data
         form.setFieldsValue({
           fn_info_head: data.fn_info_head,
@@ -57,7 +59,7 @@ const FnInfoEdit = () => {
           fn_info_more: data.fn_info_more,
           fn_info_link: data.fn_info_link,
           fn_info_dmy: moment(data.fn_info_dmy, "YYYY-MM-DD"), // Assuming the date format is YYYY-MM-DD
-          fn_info_image: data.fn_info_image[0].originFileObj,
+          //fn_info_image: data.fn_info_image[0].originFileObj,
         });
       } else {
         // Handle the case where the date is invalid
@@ -98,6 +100,7 @@ const FnInfoEdit = () => {
       if (response.ok) {
         console.log("Form data updated successfully");
         message.success("Form data updated successfully");
+        navigate("/FakeNews/NotificationHistory");
       } else {
         message.error("Error updating form data");
       }
@@ -389,7 +392,12 @@ const FnInfoEdit = () => {
                 message: "กรุณาแนบภาพบันทึกหน้าจอหรือภาพถ่ายที่พบข้อมูลเท็จ",
               },
             ]}
-          >
+          ><Image
+          width={200}
+          src={img.fn_info_image}
+          alt="รูปภาพข่าวปลอม"
+        />
+        <br/><br />
             <Upload
               name="fn_info_image"
               maxCount={2}
