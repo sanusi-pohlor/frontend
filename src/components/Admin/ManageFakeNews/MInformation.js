@@ -12,7 +12,7 @@ import {
   Select,
   message,
 } from "antd";
-import AdminMenu from "../AdminMenu";
+import AdminMenu from "../Adm_Menu";
 import { PlusCircleOutlined } from '@ant-design/icons';
 
 const { Option } = Select;

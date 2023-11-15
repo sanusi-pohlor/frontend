@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Form, Input, InputNumber, Popconfirm, Table, Typography, Button, Modal, message } from "antd";
-import AdminMenu from "../AdminMenu";
+import AdminMenu from "../Adm_Menu";
 import { PlusCircleOutlined } from '@ant-design/icons';
 
 const EditableCell = ({

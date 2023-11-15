@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import AdminMenu from "../AdminMenu";
+import AdminMenu from "../Adm_Menu";
 import {
   Form,
   Input,
