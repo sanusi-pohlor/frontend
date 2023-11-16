@@ -5,17 +5,11 @@ import {
   Form,
   Input,
   Button,
-  Upload,
-  message,
-  Card,
-  Space,
-  Typography,
 } from "antd";
-import { CloseOutlined, PlusOutlined, UploadOutlined } from "@ant-design/icons";
 import ReactQuill from "react-quill";
 const { TextArea } = Input;
 
-const Adm_News_Form = () => {
+const Adm_Article_Form = () => {
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
   const modules = {
@@ -48,7 +42,6 @@ const Adm_News_Form = () => {
     const file = e.target.files[0];
     const formData = new FormData();
     formData.append('image', file);
-
     try {
       const response = await fetch('http://localhost:8000/api/Adm_News_upload', {
         method: 'POST',
@@ -115,4 +108,4 @@ const Adm_News_Form = () => {
   );
 };
 
-export default Adm_News_Form;
+export default Adm_Article_Form;

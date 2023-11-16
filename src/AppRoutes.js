@@ -13,10 +13,13 @@ import NotificationHistory from "./components/Fninfo_Components/Fninfo_History";
 import ManageInfo from "./components/Admin/Manage_Info/Adm_Info_Menu";
 import ManageInfo_view from "./components/Admin/Manage_Info/Adm_Info_View";
 import ManageMembers from "./components/Admin/Manage_Members/Adm_Mm_Menu";
-import ADMDashboard from "./components/Admin/ManageContent/Adm_Dashboard";
-import ADMNews from "./components/Admin/ManageContent/Adm_News/Adm_News_view";
-import ADMArticle from "./components/Admin/ManageContent/Adm_Article";
-import ADMMedia_sh from "./components/Admin/ManageContent/Adm_MdShare";
+import Adm_Dashboard_View from "./components/Admin/ManageContent/Adm_Dashboard/Adm_Dashboard_View";
+import Adm_News_View from "./components/Admin/ManageContent/Adm_News/Adm_News_View";
+import Adm_Article_View from "./components/Admin/ManageContent/Adm_Article/Adm_Article_View";
+import Adm_MdShare_View from "./components/Admin/ManageContent/Adm_MdShare/Adm_MdShare_View";
+import Adm_Dashboard_Form from "./components/Admin/ManageContent/Adm_Dashboard/Adm_Dashboard_Form";
+import Adm_Article_Form from "./components/Admin/ManageContent/Adm_Article/Adm_Article_Form";
+import Adm_MdShare_Form from "./components/Admin/ManageContent/Adm_MdShare/Adm_MdShare_Form";
 import Adm_News_Form from "./components/Admin/ManageContent/Adm_News/Adm_News_Form";
 import ManageValues from "./components/Admin/Manage_Values/MV_Routes";
 import AdvancedSearch from "./components/Admin/Adm_Adv_Search";
@@ -45,10 +48,13 @@ const routes = [
   { path: "/Admin/ManageInfo", element: <ManageInfo /> },
   { path: "/Admin/ManageInfo/ManageInfo_view/:id", element: <ManageInfo_view /> },
   { path: "/Admin/ManageMembers", element: <ManageMembers /> },
-  { path: "/Admin/ADMDashboard", element: <ADMDashboard /> },
-  { path: "/Admin/ADMNews", element: <ADMNews /> },
-  { path: "/Admin/ADMArticle", element: <ADMArticle /> },
-  { path: "/Admin/ADMMedia_sh", element: <ADMMedia_sh /> },
+  { path: "/Admin/Adm_Dashboard_View", element: <Adm_Dashboard_View /> },
+  { path: "/Admin/Adm_News_View", element: <Adm_News_View /> },
+  { path: "/Admin/Adm_Article_View", element: <Adm_Article_View /> },
+  { path: "/Admin/Adm_MdShare_View", element: <Adm_MdShare_View /> },
+  { path: "/Admin/Adm_Dashboard_Form", element: <Adm_Dashboard_Form /> },
+  { path: "/Admin/Adm_Article_Form", element: <Adm_Article_Form /> },
+  { path: "/Admin/Adm_MdShare_Form", element: <Adm_MdShare_Form /> },
   { path: "/Admin/Adm_News_Form", element: <Adm_News_Form /> },
   { path: "/Admin/ManageValues", element: <ManageValues /> },
   { path: "/Admin/AdvancedSearch", element: <AdvancedSearch /> },
@@ -69,6 +75,9 @@ const routes = [
 
 const AppRoutes = () => {
   return (
+    <div>
+    <br/><br/><br/><br/><br/><br/>
+    <h1>สื่อชวนแชร์</h1>
 <Router>
       <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
         <MenuNavbar />
@@ -82,7 +91,7 @@ const AppRoutes = () => {
         </div>
         <Bottom />
       </div>
-    </Router>
+    </Router></div>
   );
 
 };

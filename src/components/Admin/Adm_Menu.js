@@ -19,22 +19,22 @@ const items = [
       {
         key: "1",
         label: "หนัาหลัก",
-        link: "ADMDashboard", // Add a link property
+        link: "Adm_Dashboard_View", // Add a link property
       },
       {
         key: "2",
         label: "ข่าวสาร",
-        link: "ADMNews", // Add a link property
+        link: "Adm_News_View", // Add a link property
       },
       {
         key: "3",
         label: "บทความ",
-        link: "ADMArticle", // Add a link property
+        link: "Adm_Article_View", // Add a link property
       },
       {
         key: "4",
         label: "สื่อชานแชร์",
-        link: "ADMMedia_sh", // Add a link property
+        link: "Adm_MdShare_View", // Add a link property
       },
     ],
   },

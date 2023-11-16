@@ -5,7 +5,7 @@ import AdminMenu from "../../Adm_Menu";
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-const ADMNews = () => {
+const Adm_News_View = () => {
   const [dataSource, setDataSource] = useState([]);
 
   const fetchData = async () => {
@@ -101,4 +101,4 @@ const ADMNews = () => {
   );
 };
 
-export default ADMNews;
+export default Adm_News_View;

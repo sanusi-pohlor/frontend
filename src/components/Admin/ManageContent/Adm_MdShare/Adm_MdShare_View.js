@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { PlusCircleOutlined, EditOutlined, DeleteOutlined, UnorderedListOutlined } from '@ant-design/icons';
 import { Space, Table, Breadcrumb, Button, Popconfirm, message } from 'antd';
-import AdminMenu from "../Adm_Menu";
+import AdminMenu from "../../Adm_Menu";
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-const ADMArticle = () => {
+const Adm_MdShare_View = () => {
   const [dataSource, setDataSource] = useState([]);
 
   const fetchData = async () => {
@@ -86,9 +86,9 @@ const ADMArticle = () => {
     <Breadcrumb.Item>App</Breadcrumb.Item>
   </Breadcrumb>
       <div style={{ display: 'flex', justifyContent: 'space-between', gap: '16px', alignItems: 'center' }}>
-        <h1 style={{ margin: 0 }}>จัดการคอนเท็นหน้าบทความ</h1>
+        <h1 style={{ margin: 0 }}>จัดการคอนเท็นหน้าสื่อชวนแชร์</h1>
         <div>
-          <Link to="/Admin/FormContent">
+          <Link to="/Admin/Adm_MdShare_Form">
             <Button type="primary" shape="round" icon={<PlusCircleOutlined />} size="large">
               Add Content
             </Button>
@@ -101,4 +101,4 @@ const ADMArticle = () => {
   );
 };
 
-export default ADMArticle;
+export default Adm_MdShare_View;

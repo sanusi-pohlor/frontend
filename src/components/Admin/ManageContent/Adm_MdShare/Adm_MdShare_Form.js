@@ -15,7 +15,7 @@ import { CloseOutlined, PlusOutlined, UploadOutlined } from "@ant-design/icons";
 import ReactQuill from "react-quill";
 const { TextArea } = Input;
 
-const Adm_News_Form = () => {
+const Adm_MdShare_Form = () => {
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
   const modules = {
@@ -115,4 +115,4 @@ const Adm_News_Form = () => {
   );
 };
 
-export default Adm_News_Form;
+export default Adm_MdShare_Form;
