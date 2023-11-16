@@ -1,11 +1,21 @@
-import { createTheme } from '@mui/material/styles';
+import { createTheme } from "@mui/material/styles";
 
 const theme = createTheme({
   typography: {
-    fontFamily: '"Th Sarabun New", sans-serif',
-    // other typography configurations
+    fontFamily: [
+      "Th Sarabun New",
+      "-apple-system",
+      "BlinkMacSystemFont",
+      '"Segoe UI"',
+      "Roboto",
+      '"Helvetica Neue"',
+      "Arial",
+      "sans-serif",
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(","),
   },
-  // other theme configurations
 });
 
 export default theme;

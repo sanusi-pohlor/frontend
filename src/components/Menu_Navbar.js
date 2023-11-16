@@ -22,6 +22,7 @@ import { Link, useLocation } from "react-router-dom";
 import LoginDialog from "./User_Comoponents/Login_Dialog";
 import RegisterDialog from "./User_Comoponents/Register_Dialog";
 import PropTypes from "prop-types";
+import "../App.css";
 
 const pages = [
   { label: "หน้าหลัก", link: "/" },
@@ -59,15 +60,15 @@ function ResponsiveAppBar() {
   const closeLoginDialog = () => {
     setLoginVisible(false);
   };
-    // Function to open the RegisterDialog
-    const showRegisterDialog = () => {
-      setRegisterVisible(true);
-    };
-  
-    // Function to close the RegisterDialog
-    const closeRegisterDialog = () => {
-      setRegisterVisible(false);
-    };
+  // Function to open the RegisterDialog
+  const showRegisterDialog = () => {
+    setRegisterVisible(true);
+  };
+
+  // Function to close the RegisterDialog
+  const closeRegisterDialog = () => {
+    setRegisterVisible(false);
+  };
   const settings = [
     { label: "Login", link: "/User/Login" },
     { label: "Register", link: "/User/Register" },
@@ -183,7 +184,7 @@ function ResponsiveAppBar() {
 
   if (!user) {
     return (
-      <Box>
+      <Box className="custom-font">
         <CssBaseline />
         <AppBar
           sx={{ backgroundColor: "#ffffff", color: "#7BBD8F", height: "10%" }}
@@ -272,7 +273,7 @@ function ResponsiveAppBar() {
                     color: page.link === location.pathname ? "#7BBD8F" : "grey",
                     display: "block",
                     mr: 5,
-                    fontWeight: 'bold',
+                    fontWeight: "bold",
                   }}
                 >
                   {page.label}
@@ -287,7 +288,14 @@ function ResponsiveAppBar() {
                   justifyContent: "flex-end", // This will align the content to the far right
                 }}
               >
-                <Button size="large" type="primary" style={registerbuttonStyle} onClick={showRegisterDialog}>ลงทะเบียน</Button>
+                <Button
+                  size="large"
+                  type="primary"
+                  style={registerbuttonStyle}
+                  onClick={showRegisterDialog}
+                >
+                  ลงทะเบียน
+                </Button>
                 {registerVisible && (
                   <RegisterDialog
                     open={registerVisible}
@@ -297,7 +305,14 @@ function ResponsiveAppBar() {
                   />
                 )}
                 <div style={{ margin: "5px" }}></div>
-                <Button size="large" type="primary" style={loginbuttonStyle} onClick={showLoginDialog}>เข้าสู่ระบบ</Button>
+                <Button
+                  size="large"
+                  type="primary"
+                  style={loginbuttonStyle}
+                  onClick={showLoginDialog}
+                >
+                  เข้าสู่ระบบ
+                </Button>
                 {loginVisible && (
                   <LoginDialog
                     open={loginVisible}

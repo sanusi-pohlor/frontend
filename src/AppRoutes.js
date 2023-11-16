@@ -46,7 +46,10 @@ const routes = [
   { path: "/News/News_views", element: <News_views /> },
 
   { path: "/Admin/ManageInfo", element: <ManageInfo /> },
-  { path: "/Admin/ManageInfo/ManageInfo_view/:id", element: <ManageInfo_view /> },
+  {
+    path: "/Admin/ManageInfo/ManageInfo_view/:id",
+    element: <ManageInfo_view />,
+  },
   { path: "/Admin/ManageMembers", element: <ManageMembers /> },
   { path: "/Admin/Adm_Dashboard_View", element: <Adm_Dashboard_View /> },
   { path: "/Admin/Adm_News_View", element: <Adm_News_View /> },
@@ -75,11 +78,10 @@ const routes = [
 
 const AppRoutes = () => {
   return (
-    <div>
-    <br/><br/><br/><br/><br/><br/>
-    <h1>สื่อชวนแชร์</h1>
-<Router>
-      <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
+    <Router>
+      <div
+        style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
+      >
         <MenuNavbar />
         <div style={{ flex: 1 }}>
           <Box height="10vh" />
@@ -91,9 +93,8 @@ const AppRoutes = () => {
         </div>
         <Bottom />
       </div>
-    </Router></div>
+    </Router>
   );
-
 };
 
 export default AppRoutes;

@@ -241,31 +241,30 @@ const Dashboard = ({ onSearch }) => {
         <Box>ข้อความแทรก</Box>
         <Divider />
         <Grid container spacing={2}>
-        <Grid item xs={12} md={4}>
+          <Grid item xs={12} md={4}></Grid>
+          <Grid item xs={12} md={4}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "100%",
+                textAlign: "center", // Center the text horizontally
+                fontSize: "30px",
+              }}
+            >
+              <Title level={2}>สาระน่ารู้</Title>
+            </div>
           </Grid>
           <Grid item xs={12} md={4}>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  height: "100%",
-                  textAlign: "center", // Center the text horizontally
-                  fontSize: "30px",
-                }}
-              >
-                <Title level={2}>สาระน่ารู้</Title>
-              </div>
-          </Grid>
-          <Grid item xs={12} md={4}>
-              <Input
-                size="large"
-                placeholder="ค้นหา"
-                value={searchTerm}
-                onChange={handleSearchChange}
-                onPressEnter={handleSearchSubmit}
-                prefix={<SearchOutlined className="site-form-item-icon" />}
-              />
+            <Input
+              size="large"
+              placeholder="ค้นหา"
+              value={searchTerm}
+              onChange={handleSearchChange}
+              onPressEnter={handleSearchSubmit}
+              prefix={<SearchOutlined className="site-form-item-icon" />}
+            />
           </Grid>
         </Grid>
         <br />
@@ -322,31 +321,30 @@ const Dashboard = ({ onSearch }) => {
         <Box>ข้อความแทรก</Box>
         <Divider />
         <Grid container spacing={2}>
-        <Grid item xs={12} md={4}>
+          <Grid item xs={12} md={4}></Grid>
+          <Grid item xs={12} md={4}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "100%",
+                textAlign: "center", // Center the text horizontally
+                fontSize: "30px",
+              }}
+            >
+              <Title level={2}>บทความ</Title>
+            </div>
           </Grid>
           <Grid item xs={12} md={4}>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  height: "100%",
-                  textAlign: "center", // Center the text horizontally
-                  fontSize: "30px",
-                }}
-              >
-                <Title level={2}>บทความ</Title>
-              </div>
-          </Grid>
-          <Grid item xs={12} md={4}>
-              <Input
-                size="large"
-                placeholder="ค้นหา"
-                value={searchTerm}
-                onChange={handleSearchChange}
-                onPressEnter={handleSearchSubmit}
-                prefix={<SearchOutlined className="site-form-item-icon" />}
-              />
+            <Input
+              size="large"
+              placeholder="ค้นหา"
+              value={searchTerm}
+              onChange={handleSearchChange}
+              onPressEnter={handleSearchSubmit}
+              prefix={<SearchOutlined className="site-form-item-icon" />}
+            />
           </Grid>
         </Grid>
         <br />
@@ -440,31 +438,30 @@ const Dashboard = ({ onSearch }) => {
         <Box>ข้อความแทรก</Box>
         <Divider />
         <Grid container spacing={2}>
-        <Grid item xs={12} md={4}>
+          <Grid item xs={12} md={4}></Grid>
+          <Grid item xs={12} md={4}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "100%",
+                textAlign: "center", // Center the text horizontally
+                fontSize: "30px",
+              }}
+            >
+              <Title level={2}>สื่อชวนแชร์</Title>
+            </div>
           </Grid>
           <Grid item xs={12} md={4}>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  height: "100%",
-                  textAlign: "center", // Center the text horizontally
-                  fontSize: "30px",
-                }}
-              >
-                <Title level={2}>สื่อชวนแชร์</Title>
-              </div>
-          </Grid>
-          <Grid item xs={12} md={4}>
-              <Input
-                size="large"
-                placeholder="ค้นหา"
-                value={searchTerm}
-                onChange={handleSearchChange}
-                onPressEnter={handleSearchSubmit}
-                prefix={<SearchOutlined className="site-form-item-icon" />}
-              />
+            <Input
+              size="large"
+              placeholder="ค้นหา"
+              value={searchTerm}
+              onChange={handleSearchChange}
+              onPressEnter={handleSearchSubmit}
+              prefix={<SearchOutlined className="site-form-item-icon" />}
+            />
           </Grid>
         </Grid>
         <br />

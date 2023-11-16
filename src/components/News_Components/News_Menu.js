@@ -97,7 +97,7 @@ const Search = () => {
                 fontSize: "30px",
               }}
             >
-              <Title level={2}>ข่าวสาร</Title>
+              <h1>ข่าวสาร</h1>
             </div>
         </Grid>
         <Grid item xs={12} md={4}>
