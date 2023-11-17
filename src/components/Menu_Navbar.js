@@ -73,7 +73,7 @@ function ResponsiveAppBar() {
     { label: "Login", link: "/User/Login" },
     { label: "Register", link: "/User/Register" },
     { label: "User Profile", link: "/User/Profile" },
-    { label: "Admin", link: "/Admin/ADMDashboard" },
+    { label: "Admin", link: "/Admin/Adm_Dashboard_View" },
     { label: "Loguot", link: "/" },
   ];
   useEffect(() => {

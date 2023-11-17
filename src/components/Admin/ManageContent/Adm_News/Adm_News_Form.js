@@ -1,23 +1,15 @@
 import React, { useState } from "react";
 import AdminMenu from "../../Adm_Menu";
 import "react-quill/dist/quill.snow.css";
-import {
-  Form,
-  Input,
-  Button,
-  Upload,
-  message,
-  Card,
-  Space,
-  Typography,
-} from "antd";
-import { CloseOutlined, PlusOutlined, UploadOutlined } from "@ant-design/icons";
+import { Form, Input, Button, message } from "antd";
 import ReactQuill from "react-quill";
 const { TextArea } = Input;
 
 const Adm_News_Form = () => {
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
+  const [editorHtml, setEditorHtml] = useState('');
+
   const modules = {
     toolbar: [
       [{ header: '1' }, { header: '2' }, { font: [] }],
@@ -44,32 +36,40 @@ const Adm_News_Form = () => {
     'video',
   ];
 
-  const onFinish = async (e) => {
-    const file = e.target.files[0];
-    const formData = new FormData();
-    formData.append('image', file);
+  const handleEditorChange = (html) => {
+    setEditorHtml(html);
+  };
 
+  const onFinish = async (values) => {
+    console.log("values :",values)
     try {
+      setLoading(true);
       const response = await fetch('http://localhost:8000/api/Adm_News_upload', {
         method: 'POST',
-        body: formData,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          title: values.title,
+          description: values.description,
+          details: editorHtml,
+          tag: values.tag,
+          // Add image data if needed by your API
+        }),
       });
 
       if (response.ok) {
-        const data = await response.json();
-        const imageUrl = data.imageUrl;
-
-        const range = quillRef.getEditor().getSelection(true);
-        quillRef.getEditor().insertEmbed(range.index, 'image', imageUrl);
+        message.success('Data saved successfully');
       } else {
-        console.error('Failed to upload image');
+        message.error('Failed to save data');
       }
     } catch (error) {
-      console.error('Error uploading image:', error);
+      console.error('Error:', error);
+      message.error('An error occurred');
+    } finally {
+      setLoading(false);
     }
   };
-
-  let quillRef;
 
   return (
     <AdminMenu>
@@ -77,32 +77,28 @@ const Adm_News_Form = () => {
         form={form}
         name="dynamic_form_complex"
         autoComplete="off"
-        initialValues={{ items: [{}] }}
         onFinish={onFinish}
       >
         <Form.Item name="title" label="หัวข้อ" rules={[{ required: true }]}>
           <Input />
         </Form.Item>
-        <Form.Item name="title" label="หัวข้อ" rules={[{ required: true }]}>
+        <Form.Item name="description" label="คำอธิบาย" rules={[{ required: true }]}>
           <TextArea rows={4} />
         </Form.Item>
-        <Form.Item name="title" label="หัวข้อ" rules={[{ required: true }]}>
-          <div style={{ width: '100%', height: '200px' }}>
-            <ReactQuill
-              theme="snow"
-              modules={modules}
-              formats={formats}
-              value={quillRef}
-              onChange={quillRef}
-              style={{ width: '100%', height: '100%' }}
-            />
+        <Form.Item name="details" label="รายละเอียด" rules={[{ required: false }]}>
+        <div style={{ width: '100%', height: '200px' }}>
+          <ReactQuill
+            theme="snow"
+            modules={modules}
+            formats={formats}
+            value={editorHtml}
+            onChange={handleEditorChange}
+            style={{ width: '100%', height: '100%' }}
+          />
           </div>
         </Form.Item>
-        <br /><br />
-        <Form.Item name="title" label="หัวข้อ" rules={[{ required: true }]}>
-          <Input />
-        </Form.Item>
-        <Form.Item name="title" label="หัวข้อ" rules={[{ required: true }]}>
+        <br/><br/>
+        <Form.Item name="tag" label="แท็ก" rules={[{ required: true }]}>
           <Input />
         </Form.Item>
         <Form.Item>
