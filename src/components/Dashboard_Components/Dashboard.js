@@ -250,10 +250,10 @@ const Dashboard = ({ onSearch }) => {
                 alignItems: "center",
                 height: "100%",
                 textAlign: "center", // Center the text horizontally
-                fontSize: "30px",
+                fontSize: "50px",
               }}
             >
-              <Title level={2}>สาระน่ารู้</Title>
+              สาระน่ารู้
             </div>
           </Grid>
           <Grid item xs={12} md={4}>
@@ -330,10 +330,10 @@ const Dashboard = ({ onSearch }) => {
                 alignItems: "center",
                 height: "100%",
                 textAlign: "center", // Center the text horizontally
-                fontSize: "30px",
+                fontSize: "50px",
               }}
             >
-              <Title level={2}>บทความ</Title>
+              บทความ
             </div>
           </Grid>
           <Grid item xs={12} md={4}>
@@ -447,10 +447,10 @@ const Dashboard = ({ onSearch }) => {
                 alignItems: "center",
                 height: "100%",
                 textAlign: "center", // Center the text horizontally
-                fontSize: "30px",
+                fontSize: "50px",
               }}
             >
-              <Title level={2}>สื่อชวนแชร์</Title>
+              สื่อชวนแชร์
             </div>
           </Grid>
           <Grid item xs={12} md={4}>

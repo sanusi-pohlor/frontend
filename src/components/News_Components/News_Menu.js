@@ -18,6 +18,7 @@ const Search = () => {
   };
   const Content = () => {
     return (
+      <div style={{ fontFamily: "'Th Sarabun New', sans-serif",fontSize: "10px", }}>
       <Link to={`/News/News_views`}>
         <Card
           hoverable
@@ -28,6 +29,8 @@ const Search = () => {
             width: "90%", // Set the desired width
             height: "100%", // Set the desired height
             padding: 20,
+            fontFamily: "'Th Sarabun New', sans-serif",
+            fontSize: "20px",
           }}
           cover={
             <img
@@ -39,7 +42,7 @@ const Search = () => {
         >
           <Meta title="หัวข้อ" description="เนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้น" />
         </Card>
-      </Link>
+      </Link></div>
     );
   };
   useEffect(() => {
@@ -94,10 +97,10 @@ const Search = () => {
                 alignItems: "center",
                 height: "100%",
                 textAlign: "center",
-                fontSize: "30px",
+                fontSize: "50px",
               }}
             >
-              <h1>ข่าวสาร</h1>
+              ข่าวสาร
             </div>
         </Grid>
         <Grid item xs={12} md={4}>
