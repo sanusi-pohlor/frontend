@@ -47,11 +47,17 @@ const items = [
   {
     key: "sub3",
     icon: <UserOutlined />,
+    label: "จัดการข้อมูลเท็จ",
+    link: "ManageFakeInfo", // Add a link property
+  },
+  {
+    key: "sub4",
+    icon: <UserOutlined />,
     label: "จัดการสมาชิก",
     link: "ManageMembers", // Add a link property
   },
   {
-    key: "sub4",
+    key: "sub5",
     icon: <NotificationOutlined />,
     label: "จัดการข้อมูลเท็จ",
     //link: "", // Add a link property
@@ -84,13 +90,13 @@ const items = [
     ],
   },
   {
-    key: "sub5",
+    key: "sub6",
     icon: <UserOutlined />,
     label: "จัดการค่า",
     link: "ManageValues", // Add a link property
   },
   {
-    key: "sub6",
+    key: "sub7",
     icon: <LaptopOutlined />,
     label: "ค้นหาขั้นสูง",
     link: "AdvancedSearch", // Add a link property

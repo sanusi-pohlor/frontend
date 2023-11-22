@@ -294,7 +294,7 @@ function ResponsiveAppBar() {
                   style={registerbuttonStyle}
                   onClick={showRegisterDialog}
                 >
-                  ลงทะเบียน
+                  สมัครสมาชิก
                 </Button>
                 {registerVisible && (
                   <RegisterDialog

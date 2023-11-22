@@ -69,17 +69,61 @@
 
 // export default News_views;
 
-import React from "react";
-import { Card, Typography, Rate, Breadcrumb, Space, Image } from "antd";
+import React, { useState } from "react";
+import {
+  Card,
+  Typography,
+  Rate,
+  Breadcrumb,
+  Space,
+  Image,
+  Modal,
+  Descriptions,
+} from "antd";
 import { Box } from "@mui/material";
 import { CalendarOutlined } from "@ant-design/icons";
+import { Link } from "react-router-dom";
 
 const { Title, Paragraph, Text } = Typography;
-
+const items = [
+  {
+    key: "1",
+    label: "UserName",
+    children: "Zhou Maomao",
+  },
+  {
+    key: "2",
+    label: "Telephone",
+    children: "1810000000",
+  },
+  {
+    key: "3",
+    label: "Live",
+    children: "Hangzhou, Zhejiang",
+  },
+  {
+    key: "4",
+    label: "Remark",
+    children: "empty",
+  },
+  {
+    key: "5",
+    label: "Address",
+    children: "No. 18, Wantang Road, Xihu District, Hangzhou, Zhejiang, China",
+  },
+];
 const News_views = () => {
   const curveAngle = 20;
   const paperColor = "#FFFFFF";
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
   return (
     <div>
       <Box
@@ -130,31 +174,36 @@ const News_views = () => {
                   projects, lower the unnecessary cost of design differences and
                   implementation and liberate the resources of design and
                   front-end development.
-                </Text><br />
+                </Text>
+                <br />
                 <Text>
                   uniform the user interface specs for internal background
                   projects, lower the unnecessary cost of design differences and
                   implementation and liberate the resources of design and
                   front-end development.
-                </Text><br />
+                </Text>
+                <br />
                 <Text strong>
                   uniform the user interface specs for internal background
                   projects, lower the unnecessary cost of design differences and
                   implementation and liberate the resources of design and
                   front-end development.
-                </Text><br />
+                </Text>
+                <br />
                 <Text>
                   uniform the user interface specs for internal background
                   projects, lower the unnecessary cost of design differences and
                   implementation and liberate the resources of design and
                   front-end development.
-                </Text><br />
+                </Text>
+                <br />
                 <Text strong>
                   uniform the user interface specs for internal background
                   projects, lower the unnecessary cost of design differences and
                   implementation and liberate the resources of design and
                   front-end development.
-                </Text><br />
+                </Text>
+                <br />
                 <Text>
                   uniform the user interface specs for internal background
                   projects, lower the unnecessary cost of design differences and
@@ -177,9 +226,31 @@ const News_views = () => {
             <br />
             <br />
             <br />
-            <Rate />
-            <Title level={5}>อ้างอิง -https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.</Title>
-            <Title level={4}>#</Title>
+            <Title level={5}>
+              บทความนี้มีประโยชน์หรือไม่ <Rate />
+            </Title>
+            <Title level={5}>จำนวนคนดู :</Title>
+            <Title level={5}>
+              อ้างอิง
+              -https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.
+            </Title>
+            <Title level={5}>#</Title>
+            <div>
+              <Title level={5}>
+                เรียบเรียงโดย :{" "}
+                <span onClick={showModal} style={{ cursor: "pointer",color: 'blue' }}>
+                  Mister...
+                </span>
+              </Title>
+              <Modal
+                title="Profile"
+                visible={isModalVisible}
+                onCancel={handleCancel}
+                footer={null}
+              >
+                <Descriptions title="User Info" items={items} />;
+              </Modal>
+            </div>{" "}
           </div>
         </Card>
       </Box>
