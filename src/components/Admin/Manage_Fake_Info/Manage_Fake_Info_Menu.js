@@ -13,8 +13,13 @@ import {
   Breadcrumb,
 } from "antd";
 import AdminMenu from "../Adm_Menu";
-import ManageInfo_view from './Adm_Info_View';
-import { PlusCircleOutlined, DeleteOutlined, EditOutlined, EyeOutlined } from "@ant-design/icons";
+import Manage_Fake_Info_View from "./Manage_Fake_Info_View";
+import {
+  PlusCircleOutlined,
+  DeleteOutlined,
+  EditOutlined,
+  EyeOutlined,
+} from "@ant-design/icons";
 import { Link } from "react-router-dom";
 
 const { Option } = Select;
@@ -105,7 +110,7 @@ const Manage_Fake_Info_Menu = () => {
   }, []);
 
   const onFinish = async (values) => {
-    console.log(values);
+    console.log("values", values);
     setLoading(true);
     try {
       const formData = new FormData();
@@ -356,7 +361,9 @@ const Manage_Fake_Info_Menu = () => {
         // Assuming created_at is a valid date string, e.g., "2023-10-26T14:30:00"
         const date = new Date(created_at);
         // Use the Date object to format the date as "วัน เดือน ปี"
-        const formattedDate = `${date.getDate()} ${getThaiMonth(date.getMonth())} ${date.getFullYear() + 543}`;
+        const formattedDate = `${date.getDate()} ${getThaiMonth(
+          date.getMonth()
+        )} ${date.getFullYear() + 543}`;
         return formattedDate;
       },
     },
@@ -373,11 +380,12 @@ const Manage_Fake_Info_Menu = () => {
       render: (text, record) => (
         <Space size="middle">
           <Link to={`/Admin/ManageInfo/ManageInfo_view/${record.id}`}>
-            <EyeOutlined style={{ fontSize: '16px', color: 'blue' }} /> {/* Blue color for "ดู" */}
+            <EyeOutlined style={{ fontSize: "16px", color: "blue" }} />{" "}
+            {/* Blue color for "ดู" */}
           </Link>
         </Space>
       ),
-    }
+    },
   ];
 
   const mergedColumns = columns.map((col) => {
@@ -416,7 +424,10 @@ const Manage_Fake_Info_Menu = () => {
         ]);
         stateSetter(options);
       } else {
-        console.error(`Error fetching ${fieldName} codes:`, response.statusText);
+        console.error(
+          `Error fetching ${fieldName} codes:`,
+          response.statusText
+        );
       }
     } catch (error) {
       console.error(`Error fetching ${fieldName} codes:`, error);
@@ -424,30 +435,54 @@ const Manage_Fake_Info_Menu = () => {
   };
 
   const onChange_mfi_mem_id = () => {
-    fetchDataAndSetOptions("VolunteerMembers_request", "vol_mem", setSelectOptions_vol);
+    fetchDataAndSetOptions(
+      "VolunteerMembers_request",
+      "vol_mem",
+      setSelectOptions_vol
+    );
   };
 
   const onChange_mfi_med_c_id = () => {
-    fetchDataAndSetOptions("VolunteerMembers_request", "med_c", setSelectOptions_med);
+    fetchDataAndSetOptions(
+      "MediaChannels_request",
+      "med_c",
+      setSelectOptions_med
+    );
   };
 
   const onChange_mfi_c_info_id = () => {
-    fetchDataAndSetOptions("Motivation_request", "c_info", setSelectOptions_c_info);
+    fetchDataAndSetOptions(
+      "Motivation_request",
+      "c_info",
+      setSelectOptions_c_info
+    );
   };
 
   const onChange_mfi_fm_d_id = () => {
-    fetchDataAndSetOptions("ActionType_request", "fm_d", setSelectOptions_fm);
+    fetchDataAndSetOptions("FormatData_request", "fm_d", setSelectOptions_fm);
   };
 
   const onChange_mfi_dis_c_id = () => {
-    fetchDataAndSetOptions("DataCharacteristics_request", "dis_c", setSelectOptions_dis);
+    fetchDataAndSetOptions(
+      "DetailsNotiChannels_request",
+      "dis_c",
+      setSelectOptions_dis
+    );
   };
   const onChange_mfi_ty_info_id = () => {
-    fetchDataAndSetOptions("Subpoint_request", "ty_info", setSelectOptions_ty);
+    fetchDataAndSetOptions(
+      "TypeInformation_request",
+      "type_info",
+      setSelectOptions_ty
+    );
   };
 
   const onChange_mfi_con_about_id = () => {
-    fetchDataAndSetOptions("VolunteerMembers_request", "con_about", setSelectOptions_con);
+    fetchDataAndSetOptions(
+      "VolunteerMembers_request",
+      "con_about",
+      setSelectOptions_con
+    );
   };
 
   const onChange_mfi_moti_id = () => {
@@ -455,12 +490,16 @@ const Manage_Fake_Info_Menu = () => {
   };
 
   const onChange_mfi_data_cha_id = () => {
-    fetchDataAndSetOptions("ActionType_request", "data_cha", setSelectOptions_data);
+    fetchDataAndSetOptions(
+      "DataCharacteristics_request",
+      "data_cha",
+      setSelectOptions_data
+    );
   };
 
   return (
     <AdminMenu>
-      <Breadcrumb style={{ margin: '16px 0' }}>
+      <Breadcrumb style={{ margin: "16px 0" }}>
         <Breadcrumb.Item>Home</Breadcrumb.Item>
         <Breadcrumb.Item>List</Breadcrumb.Item>
         <Breadcrumb.Item>App</Breadcrumb.Item>
@@ -480,11 +519,15 @@ const Manage_Fake_Info_Menu = () => {
           size="large"
           onClick={() => {
             setModalVisible(true);
-            onChange_info_subp_id();
-            onChange_info_vol_mem_id();
-            onChange_info_moti_id();
-            onChange_info_act_id();
-            onChange_info_d_c_id();
+            onChange_mfi_mem_id();
+            onChange_mfi_med_c_id();
+            onChange_mfi_c_info_id();
+            onChange_mfi_fm_d_id();
+            onChange_mfi_dis_c_id();
+            onChange_mfi_ty_info_id();
+            onChange_mfi_con_about_id();
+            onChange_mfi_moti_id();
+            onChange_mfi_data_cha_id();
           }}
           style={{ marginBottom: 16 }}
         >
@@ -509,7 +552,7 @@ const Manage_Fake_Info_Menu = () => {
             label="ประทับเวลา"
             rules={[
               {
-                required: true,
+                required: false,
                 message: "Please input the title of collection!",
               },
             ]}
@@ -521,7 +564,7 @@ const Manage_Fake_Info_Menu = () => {
             label="จังหวัดของท่าน"
             rules={[
               {
-                required: true,
+                required: false,
                 message: "Please input the title of collection!",
               },
             ]}
@@ -535,7 +578,7 @@ const Manage_Fake_Info_Menu = () => {
               <Option value="Chumphon">ชุมพร</Option>
               <Option value="Trang">ตรัง</Option>
               <Option value="NakhonSiThammarat">นครศรีธรรมราช</Option>
-              <Option value="Trang">นราธิวาส</Option>
+              <Option value="Narathiwat">นราธิวาส</Option>
               <Option value="Pattani">ปัตตานี</Option>
               <Option value="PhangNga">พังงา</Option>
               <Option value="Phattalung">พัทลุง</Option>
@@ -552,7 +595,7 @@ const Manage_Fake_Info_Menu = () => {
             label="ผู้ส่งรายงาน"
             rules={[
               {
-                required: true,
+                required: false,
                 message: "Please input the title of collection!",
               },
             ]}
@@ -570,7 +613,7 @@ const Manage_Fake_Info_Menu = () => {
             label="แหล่งที่มาของข่าวปลอม"
             rules={[
               {
-                required: true,
+                required: false,
                 message: "Please input the title of collection!",
               },
             ]}
@@ -588,7 +631,7 @@ const Manage_Fake_Info_Menu = () => {
             label="ส่งภาพบันทึกหน้าจอหรือภาพถ่ายที่พบข้อมูลเท็จ"
             rules={[
               {
-                required: true,
+                required: false,
                 message: "Please input the title of collection!",
               },
             ]}
@@ -600,7 +643,7 @@ const Manage_Fake_Info_Menu = () => {
             label="ระบุลิ้งค์ข้อมูล (ถ้ามี)"
             rules={[
               {
-                required: true,
+                required: false,
                 message: "Please input the title of collection!",
               },
             ]}
@@ -612,7 +655,7 @@ const Manage_Fake_Info_Menu = () => {
             label="แหล่งที่มาของข้อมูล"
             rules={[
               {
-                required: true,
+                required: false,
                 message: "Please input the title of collection!",
               },
             ]}
@@ -630,7 +673,7 @@ const Manage_Fake_Info_Menu = () => {
             label="จำนวนสมาชิกที่อยู่ในกลุ่มที่อาจเผยแพร่ข้อมูลเท็จ"
             rules={[
               {
-                required: true,
+                required: false,
                 message: "Please input the title of collection!",
               },
             ]}
@@ -642,7 +685,7 @@ const Manage_Fake_Info_Menu = () => {
             label="หน่วยงานที่เก็บข้อมูล"
             rules={[
               {
-                required: true,
+                required: false,
                 message: "Please input the title of collection!",
               },
             ]}
@@ -654,7 +697,7 @@ const Manage_Fake_Info_Menu = () => {
             label="หัวข้อข้อมูลผิดพลาด"
             rules={[
               {
-                required: true,
+                required: false,
                 message: "Please input the title of collection!",
               },
             ]}
@@ -666,7 +709,7 @@ const Manage_Fake_Info_Menu = () => {
             label="รูปแบบของข้อมูล"
             rules={[
               {
-                required: true,
+                required: false,
                 message: "Please input the title of collection!",
               },
             ]}
@@ -684,7 +727,7 @@ const Manage_Fake_Info_Menu = () => {
             label="ช่องทางการเผยแพร่"
             rules={[
               {
-                required: true,
+                required: false,
                 message: "Please input the title of collection!",
               },
             ]}
@@ -702,7 +745,7 @@ const Manage_Fake_Info_Menu = () => {
             label="ผู้เผยแพร่ข้อมูล"
             rules={[
               {
-                required: true,
+                required: false,
                 message: "Please input the title of collection!",
               },
             ]}
@@ -714,7 +757,7 @@ const Manage_Fake_Info_Menu = () => {
             label="ประเภทของข้อมูล"
             rules={[
               {
-                required: true,
+                required: false,
                 message: "Please input the title of collection!",
               },
             ]}
@@ -732,7 +775,7 @@ const Manage_Fake_Info_Menu = () => {
             label="เฉพาะโควิด-15"
             rules={[
               {
-                required: true,
+                required: false,
                 message: "Please input the title of collection!",
               },
             ]}
@@ -744,7 +787,7 @@ const Manage_Fake_Info_Menu = () => {
             label="มีเนื้อหาเกี่ยวกับ"
             rules={[
               {
-                required: true,
+                required: false,
                 message: "Please input the title of collection!",
               },
             ]}
@@ -762,7 +805,7 @@ const Manage_Fake_Info_Menu = () => {
             label="แรงจูงใจการเผยแพร่"
             rules={[
               {
-                required: true,
+                required: false,
                 message: "Please input the title of collection!",
               },
             ]}
@@ -780,7 +823,7 @@ const Manage_Fake_Info_Menu = () => {
             label="จำนวนการวนซ้ำ"
             rules={[
               {
-                required: true,
+                required: false,
                 message: "Please input the title of collection!",
               },
             ]}
@@ -792,7 +835,7 @@ const Manage_Fake_Info_Menu = () => {
             label="การตรวจสอบข้อมูล"
             rules={[
               {
-                required: true,
+                required: false,
                 message: "Please input the title of collection!",
               },
             ]}
@@ -804,7 +847,7 @@ const Manage_Fake_Info_Menu = () => {
             label="ลักษณะข้อมูล"
             rules={[
               {
-                required: true,
+                required: false,
                 message: "Please input the title of collection!",
               },
             ]}
