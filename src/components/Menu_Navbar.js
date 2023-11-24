@@ -23,6 +23,7 @@ import LoginDialog from "./User_Comoponents/Login_Dialog";
 import RegisterDialog from "./User_Comoponents/Register_Dialog";
 import PropTypes from "prop-types";
 import "../App.css";
+import PSU from "./Images/PSU.jpg";
 
 const pages = [
   { label: "หน้าหลัก", link: "/" },
@@ -45,6 +46,10 @@ function ResponsiveAppBar() {
     background: "#7BBD8F",
     border: "none",
     color: "white",
+  };
+  const imageStyle = {
+    width: "140px", // กำหนดขนาดรูปภาพทั้งสองให้เท่ากัน
+    height: "90px", // กำหนดขนาดรูปภาพทั้งสองให้เท่ากัน
   };
   const registerbuttonStyle = {
     //background: "#7BBD8F",
@@ -190,7 +195,7 @@ function ResponsiveAppBar() {
           sx={{ backgroundColor: "#ffffff", color: "#7BBD8F", height: "10%" }}
         >
           <Toolbar>
-            <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+            <img src={PSU} alt="WMO Logo" style={imageStyle} />
             <Typography
               variant="h6"
               noWrap
@@ -206,7 +211,7 @@ function ResponsiveAppBar() {
                 textDecoration: "none",
               }}
             >
-              LOGO
+
             </Typography>
             {/* Responsive App bar with Drawer */}
             <IconButton
@@ -241,7 +246,6 @@ function ResponsiveAppBar() {
                 {drawerMenu}
               </Drawer>
             </Box>
-            <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
             <Typography
               variant="h5"
               noWrap
@@ -258,7 +262,7 @@ function ResponsiveAppBar() {
                 textDecoration: "none",
               }}
             >
-              LOGO0
+
             </Typography>
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
               {pages.map((page) => (
@@ -269,7 +273,7 @@ function ResponsiveAppBar() {
                   onClick={handleCloseNavMenu}
                   sx={{
                     my: 2,
-                    fontSize: "25px",
+                    fontSize: "30px",
                     color: page.link === location.pathname ? "#7BBD8F" : "grey",
                     display: "block",
                     mr: 5,
@@ -291,7 +295,7 @@ function ResponsiveAppBar() {
                 <Button
                   size="large"
                   type="primary"
-                  style={registerbuttonStyle}
+                  style={{...registerbuttonStyle, fontWeight: "bold", fontSize: "20px"}}
                   onClick={showRegisterDialog}
                 >
                   สมัครสมาชิก
@@ -308,7 +312,7 @@ function ResponsiveAppBar() {
                 <Button
                   size="large"
                   type="primary"
-                  style={loginbuttonStyle}
+                  style={{...loginbuttonStyle, fontWeight: "bold", fontSize: "20px"}}
                   onClick={showLoginDialog}
                 >
                   เข้าสู่ระบบ
@@ -342,7 +346,7 @@ function ResponsiveAppBar() {
           sx={{ backgroundColor: "#ffffff", color: "#7BBD8F", height: "10%" }}
         >
           <Toolbar>
-            <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+            <img src={PSU} alt="WMO Logo" style={imageStyle} />
             <Typography
               variant="h6"
               noWrap
@@ -358,7 +362,7 @@ function ResponsiveAppBar() {
                 textDecoration: "none",
               }}
             >
-              LOGO
+
             </Typography>
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
               {pages.map((page) => (
@@ -411,7 +415,7 @@ function ResponsiveAppBar() {
                 {drawerMenu}
               </Drawer>
             </Box>
-            <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
+            <img src={PSU} alt="WMO Logo" style={imageStyle} />
             <Typography
               variant="h5"
               noWrap
@@ -428,7 +432,7 @@ function ResponsiveAppBar() {
                 textDecoration: "none",
               }}
             >
-              LOGO0
+
             </Typography>
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">

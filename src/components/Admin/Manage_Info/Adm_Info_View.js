@@ -1,14 +1,37 @@
 import React, { useEffect, useState } from "react";
-import { Badge, Descriptions, Image, Steps, Divider, Modal } from "antd";
+import { Badge, Descriptions, Image, Steps, Divider, Modal, Select, Radio } from "antd";
 import { useParams } from "react-router-dom";
 import AdminMenu from "../Adm_Menu";
 import moment from "moment";
 
+const plainOptions = ['1', '2'];
+const options = [
+  {
+    label: 'ข่าวจริง',
+    value: '1',
+  },
+  {
+    label: 'ข่าวเท็จ',
+    value: '2',
+  },
+];
+const optionsWithDisabled = [
+  {
+    label: 'ข่าวจริง',
+    value: '1',
+  },
+  {
+    label: 'ข่าวเท็จ',
+    value: '2',
+  },
+
+];
 const ManageInfo_view = () => {
   const [fakeNewsInfo, setFakeNewsInfo] = useState(null);
   const [current, setCurrent] = useState(0);
   const [modalVisible, setModalVisible] = useState(false);
   const [confirmedStep, setConfirmedStep] = useState(-1); // สถานะการยืนยัน
+  const [value3, setValue3] = useState('Apple');
 
   const { id } = useParams();
 
@@ -142,7 +165,7 @@ const ManageInfo_view = () => {
             width={200}
             src={fakeNewsInfo.fn_info_image}
             alt="รูปภาพข่าวปลอม"
-            //style={{ maxWidth: "100%", height: "auto" }}
+          //style={{ maxWidth: "100%", height: "auto" }}
           />
         </span>
       ),
@@ -158,21 +181,25 @@ const ManageInfo_view = () => {
               fakeNewsInfo.fn_info_status === 0
                 ? "warning" // ถ้าสถานะเท่ากับ 1 (รอตรวจสอบ)
                 : fakeNewsInfo.fn_info_status === 1
-                ? "processing" // ถ้าสถานะเท่ากับ 0 (กำลังตรวจสอบ)
-                : "success" // ถ้าสถานะเท่ากับอื่น ๆ (ตรวจสอบแล้ว)
+                  ? "processing" // ถ้าสถานะเท่ากับ 0 (กำลังตรวจสอบ)
+                  : "success" // ถ้าสถานะเท่ากับอื่น ๆ (ตรวจสอบแล้ว)
             }
             text={
               fakeNewsInfo.fn_info_status === 0
                 ? "รอตรวจสอบ"
                 : fakeNewsInfo.fn_info_status === 1
-                ? "กำลังตรวจสอบ"
-                : "ตรวจสอบแล้ว"
+                  ? "กำลังตรวจสอบ"
+                  : "ตรวจสอบแล้ว"
             }
           />
         </React.Fragment>
       ),
     },
   ];
+  const onChange3 = ({ target: { value } }) => {
+    console.log('radio3 checked', value);
+    setValue3(value);
+  };
   return (
     <AdminMenu>
       <Steps
@@ -202,7 +229,24 @@ const ManageInfo_view = () => {
         onOk={handleConfirm}
         onCancel={() => setModalVisible(false)}
       >
-        <p>คุณแน่ใจหรือไม่ที่ต้องการทำขั้นตอนนี้?</p>
+        <div>ผลการตรวจสอบ</div>
+        <div><Radio.Group options={options} onChange={onChange3} value={value3} optionType="button" /></div>
+        <div>ประเภทข่าว</div>
+        <div>
+          <Select
+            //defaultValue="lucy"
+            style={{
+              width: 120,
+            }}
+            //onChange={handleChange}
+            options={[
+              {
+                value: 'jack',
+                label: 'Jack',
+              },
+            ]}
+          />
+        </div>
       </Modal>
       <Divider />
       <Descriptions
