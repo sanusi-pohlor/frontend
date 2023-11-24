@@ -24,6 +24,7 @@ import RegisterDialog from "./User_Comoponents/Register_Dialog";
 import PropTypes from "prop-types";
 import "../App.css";
 import PSU from "./Images/PSU.jpg";
+import COMMSCI from "./Images/COMMSCI.png";
 
 const pages = [
   { label: "หน้าหลัก", link: "/" },
@@ -210,9 +211,7 @@ function ResponsiveAppBar() {
                 color: "inherit",
                 textDecoration: "none",
               }}
-            >
-
-            </Typography>
+            ></Typography>
             {/* Responsive App bar with Drawer */}
             <IconButton
               color="inherit"
@@ -261,9 +260,7 @@ function ResponsiveAppBar() {
                 color: "inherit",
                 textDecoration: "none",
               }}
-            >
-
-            </Typography>
+            ></Typography>
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
               {pages.map((page) => (
                 <Button
@@ -295,7 +292,11 @@ function ResponsiveAppBar() {
                 <Button
                   size="large"
                   type="primary"
-                  style={{...registerbuttonStyle, fontWeight: "bold", fontSize: "20px"}}
+                  style={{
+                    ...registerbuttonStyle,
+                    fontWeight: "bold",
+                    fontSize: "20px",
+                  }}
                   onClick={showRegisterDialog}
                 >
                   สมัครสมาชิก
@@ -312,7 +313,11 @@ function ResponsiveAppBar() {
                 <Button
                   size="large"
                   type="primary"
-                  style={{...loginbuttonStyle, fontWeight: "bold", fontSize: "20px"}}
+                  style={{
+                    ...loginbuttonStyle,
+                    fontWeight: "bold",
+                    fontSize: "20px",
+                  }}
                   onClick={showLoginDialog}
                 >
                   เข้าสู่ระบบ
@@ -361,9 +366,7 @@ function ResponsiveAppBar() {
                 color: "inherit",
                 textDecoration: "none",
               }}
-            >
-
-            </Typography>
+            ></Typography>
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
               {pages.map((page) => (
                 <Button
@@ -373,10 +376,11 @@ function ResponsiveAppBar() {
                   onClick={handleCloseNavMenu}
                   sx={{
                     my: 2,
-                    fontSize: "25px",
+                    fontSize: "30px",
                     color: page.link === location.pathname ? "#7BBD8F" : "grey",
                     display: "block",
                     mr: 5,
+                    fontWeight: "bold",
                   }}
                 >
                   {page.label}
@@ -415,7 +419,7 @@ function ResponsiveAppBar() {
                 {drawerMenu}
               </Drawer>
             </Box>
-            <img src={PSU} alt="WMO Logo" style={imageStyle} />
+            {/* <img src={PSU} alt="WMO Logo" style={imageStyle} /> */}
             <Typography
               variant="h5"
               noWrap
@@ -431,9 +435,7 @@ function ResponsiveAppBar() {
                 color: "inherit",
                 textDecoration: "none",
               }}
-            >
-
-            </Typography>
+            ></Typography>
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleDrawerToggleProfile} sx={{ p: 0 }}>

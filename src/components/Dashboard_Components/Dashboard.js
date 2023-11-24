@@ -153,7 +153,7 @@ const Dashboard = ({ onSearch }) => {
           >
             {selectOptions_type} {/* Populate the options */}
           </Select>
-          <Select
+          {/* <Select
             onChange={onChange_dnc_med_id}
             size="large"
             placeholder="สื่อ"
@@ -161,8 +161,8 @@ const Dashboard = ({ onSearch }) => {
             allowClear
             style={{ marginRight: "10px", flex: 1 }} // Add margin to the right
           >
-            {selectOptions_med} {/* Populate the options */}
-          </Select>
+            {selectOptions_med}
+          </Select> */}
           <Select
             size="large"
             placeholder="เดือน/ปี"
