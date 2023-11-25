@@ -110,36 +110,15 @@ const Manage_Fake_Info_Menu = () => {
   }, []);
 
   const onFinish = async (values) => {
-    console.log("values", values);
-    setLoading(true);
     try {
-      const formData = new FormData();
-      formData.append("mfi_time", values.mfi_time);
-      formData.append("mfi_province", values.mfi_province);
-      formData.append("mfi_mem", values.mfi_mem);
-      formData.append("mfi_med_c", values.mfi_med_c);
-      formData.append("mfi_img", values.mfi_img);
-      formData.append("mfi_link", values.mfi_link);
-      formData.append("mfi_c_info", values.mfi_c_info);
-      formData.append("mfi_num_mem", values.mfi_num_mem);
-      formData.append("mfi_agency", values.mfi_agency);
-      formData.append("mfi_d_topic", values.mfi_d_topic);
-      formData.append("mfi_fm_d", values.mfi_fm_d);
-      formData.append("mfi_dis_c", values.mfi_dis_c);
-      formData.append("mfi_publ", values.mfi_publ);
-      formData.append("mfi_ty_info", values.mfi_ty_info);
-      formData.append("mfi_only_cv", values.mfi_only_cv);
-      formData.append("mfi_con_about", values.mfi_con_about);
-      formData.append("mfi_moti", values.mfi_moti);
-      formData.append("mfi_iteration", values.mfi_iteration);
-      formData.append("mfi_che_d", values.mfi_che_d);
-      formData.append("mfi_data_cha", values.mfi_data_cha);
-      console.log(formData);
       const response = await fetch(
         "http://localhost:8000/api/Manage_Fake_Info_upload",
         {
           method: "POST",
-          body: formData,
+          headers: {
+            "Content-Type": "application/json", // ระบุ Content-Type เป็น JSON
+          },
+          body: JSON.stringify(values), // แปลงข้อมูลให้เป็น JSON string
         }
       );
 
@@ -151,9 +130,11 @@ const Manage_Fake_Info_Menu = () => {
     } catch (error) {
       console.error("Error sending form data:", error);
       message.error("Error sending form data");
-    } finally {
-      setLoading(false);
     }
+  };
+
+  const onFinishFailed = (errorInfo) => {
+    console.log("Failed:", errorInfo);
   };
 
   const isEditing = (record) => record.key === editingKey;
@@ -545,6 +526,7 @@ const Manage_Fake_Info_Menu = () => {
           layout="vertical"
           name="member_form"
           onFinish={onFinish}
+          onFinishFailed={onFinishFailed}
         >
           {/* Add form fields for creating a new member */}
           <Form.Item
