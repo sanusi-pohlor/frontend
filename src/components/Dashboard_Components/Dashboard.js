@@ -130,7 +130,7 @@ const Dashboard = ({ onSearch }) => {
       <Carousel />
       <Box
         style={{
-          width: "70%",
+          //width: "70%",
           padding: 30,
           margin: "0 auto", // This centers the paper horizontally
           textAlign: "center", // This centers the content inside the paper
@@ -183,10 +183,10 @@ const Dashboard = ({ onSearch }) => {
         <Grid container spacing={2}>
           {" "}
           {/* Adjust spacing */}
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} md={8}>
             <BarChartComponent />
           </Grid>
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} md={4}>
             <PieChartComponent />
           </Grid>
         </Grid>

@@ -72,6 +72,7 @@ const Manage_Fake_Info_Menu = () => {
   const [selectOptions_con, setSelectOptions_con] = useState([]); // State for select options
   const [selectOptions_moti, setSelectOptions_moti] = useState([]); // State for select options
   const [selectOptions_data, setSelectOptions_data] = useState([]); // State for select optionsons
+  const [selectOptions_prov, setSelectOptions_prov] = useState([]); // State for select optionsons
 
   function getThaiMonth(month) {
     const thaiMonths = [
@@ -415,6 +416,14 @@ const Manage_Fake_Info_Menu = () => {
     }
   };
 
+  const onChange_mfi_province = () => {
+    fetchDataAndSetOptions(
+      "Province_request",
+      "prov",
+      setSelectOptions_prov
+    );
+  };
+
   const onChange_mfi_mem_id = () => {
     fetchDataAndSetOptions(
       "VolunteerMembers_request",
@@ -500,6 +509,7 @@ const Manage_Fake_Info_Menu = () => {
           size="large"
           onClick={() => {
             setModalVisible(true);
+            onChange_mfi_province();
             onChange_mfi_mem_id();
             onChange_mfi_med_c_id();
             onChange_mfi_c_info_id();
@@ -553,23 +563,10 @@ const Manage_Fake_Info_Menu = () => {
           >
             <Select
               placeholder="Select a option and change input text above"
-              //onChange={onGenderChange}
+              onChange={onChange_mfi_province}
               allowClear
             >
-              <Option value="Krabi">กระบี่</Option>
-              <Option value="Chumphon">ชุมพร</Option>
-              <Option value="Trang">ตรัง</Option>
-              <Option value="NakhonSiThammarat">นครศรีธรรมราช</Option>
-              <Option value="Narathiwat">นราธิวาส</Option>
-              <Option value="Pattani">ปัตตานี</Option>
-              <Option value="PhangNga">พังงา</Option>
-              <Option value="Phattalung">พัทลุง</Option>
-              <Option value="Phuket">ภูเก็ต</Option>
-              <Option value="Yala">ยะลา</Option>
-              <Option value="Ranong">ระนอง</Option>
-              <Option value="Songkhla">สงขลา</Option>
-              <Option value="Satun">สตูล</Option>
-              <Option value="SuratThani">สุราษฎร์ธานี</Option>
+              {selectOptions_prov} {/* Populate the options */}
             </Select>
           </Form.Item>
           <Form.Item
