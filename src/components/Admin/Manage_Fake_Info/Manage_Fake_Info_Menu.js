@@ -449,7 +449,10 @@ const Manage_Fake_Info_Menu = () => {
   };
 
   const onChange_mfi_fm_d_id = () => {
-    fetchDataAndSetOptions("FormatData_request", "fm_d", setSelectOptions_fm);
+    fetchDataAndSetOptions(
+      "FormatData_request",
+      "fm_d",
+      setSelectOptions_fm);
   };
 
   const onChange_mfi_dis_c_id = () => {
@@ -476,7 +479,11 @@ const Manage_Fake_Info_Menu = () => {
   };
 
   const onChange_mfi_moti_id = () => {
-    fetchDataAndSetOptions("Motivation_request", "moti", setSelectOptions_moti);
+    fetchDataAndSetOptions(
+      "Motivation_request",
+      "moti",
+      setSelectOptions_moti
+    );
   };
 
   const onChange_mfi_data_cha_id = () => {
