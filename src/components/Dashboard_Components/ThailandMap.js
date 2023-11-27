@@ -25,7 +25,8 @@ const MapWidget = () => {
       <UncontrolledReactSVGPanZoom
         ref={Viewer}
         width="100%"
-        height="100%">
+        height="100%"
+        >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="-60 630 500 400"

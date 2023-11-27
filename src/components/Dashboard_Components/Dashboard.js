@@ -195,20 +195,7 @@ const Dashboard = ({ onSearch }) => {
           {" "}
           {/* Adjust spacing */}
           <Grid item xs={12} md={6}>
-            {" "}
-            {/* Adjust xs and md values */}
-            <Card
-              hoverable
-              style={{
-                margin: "auto",
-                borderRadius: `${curveAngle}px`,
-                backgroundColor: paperColor,
-                width: "100%",
-                height: "100%",
-              }}
-            >
               <ThailandMap />
-            </Card>
           </Grid>
           <Grid item xs={12} md={6}>
             {" "}
@@ -223,7 +210,13 @@ const Dashboard = ({ onSearch }) => {
                 height: "100%",
               }}
             >
-              <MuiTable />
+              <MuiTable style={{
+                margin: "auto",
+                borderRadius: `${curveAngle}px`,
+                backgroundColor: paperColor,
+                width: "100%",
+                height: "100%",
+              }}/>
             </Card>
           </Grid>
         </Grid>

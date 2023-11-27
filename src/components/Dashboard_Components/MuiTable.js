@@ -1,38 +1,109 @@
-import React from 'react';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from '@mui/material';
+import React, { useState, useEffect } from "react";
+import { Table, Card, Select } from "antd";
 
-const data = [
-  { id: 1, name: 'John Doe', age: 30, email: 'john@example.com' },
-  { id: 2, name: 'Jane Smith', age: 25, email: 'jane@example.com' },
-  { id: 3, name: 'Bob Johnson', age: 40, email: 'bob@example.com' },
-  { id: 4, name: 'Alice Williams', age: 35, email: 'alice@example.com' },
-];
+const MyTable = () => {
+  const curveAngle = 20;
+  const paperColor = "#FFFFFF";
+  const [tableData, setTableData] = useState([]);
+  const [selectedOption, setSelectedOption] = useState("");
+  const [options] = useState([
+    {
+      title: "แหล่งที่มาของข้อมูล",
+      value: "MediaChannels_request",
+      name: "med_c_name",
+      dataIndex: "mfi_med_c",
+    },
+    {
+      title: "รูปแบบข้อมูล",
+      value: "FormatData_request",
+      name: "fm_d_name",
+      dataIndex: "mfi_fm_d",
+    },
+    {
+      title: "ประเภทข้อมูล",
+      value: "TypeInformation_request",
+      name: "type_info_name",
+      dataIndex: "mfi_ty_info",
+    },
+  ]);
 
-const MuiTable = () => {
+  useEffect(() => {
+    if (options.length > 0 && !selectedOption) {
+      setSelectedOption(options[0].title);
+    }
+  }, [options, selectedOption]);
+
+  useEffect(() => {
+    const fetchData = async (endpoint, name, dataIndex) => {
+      try {
+        const Manage_Fake_Info = await fetch(
+          "http://localhost:8000/api/Manage_Fake_Info_request"
+        );
+        const MediaChannels = await fetch(
+          `http://localhost:8000/api/${endpoint}`
+        );
+
+        if (Manage_Fake_Info.ok && MediaChannels.ok) {
+          const Manage_Fake_Infodata = await Manage_Fake_Info.json();
+          const MediaChannelsData = await MediaChannels.json();
+
+          const countByMedCId = MediaChannelsData.map((channel) => {
+            const count = Manage_Fake_Infodata.filter(
+              (fakeInfo) => fakeInfo[dataIndex] === channel.id
+            ).length;
+
+            return {
+              name: channel[name],
+              value: count,
+            };
+          });
+
+          setTableData(countByMedCId);
+        } else {
+          console.error("Failed to fetch data");
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    if (selectedOption) {
+      const selected = options.find((opt) => opt.title === selectedOption);
+      if (selected) {
+        fetchData(selected.value, selected.name, selected.dataIndex);
+      }
+    }
+  }, [selectedOption, options]);
+
+  const handleSelectChange = (value) => {
+    setSelectedOption(value);
+  };
+
+  const columns = [
+    {
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
+    },
+    {
+      title: "Value",
+      dataIndex: "value",
+      key: "value",
+    },
+  ];
+
   return (
-    <TableContainer style={{ width: "100%" ,height:"100%" , margin: 'auto' }}>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>ID</TableCell>
-            <TableCell>Name</TableCell>
-            <TableCell>Age</TableCell>
-            <TableCell>Email</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {data.map((row) => (
-            <TableRow key={row.id}>
-              <TableCell>{row.id}</TableCell>
-              <TableCell>{row.name}</TableCell>
-              <TableCell>{row.age}</TableCell>
-              <TableCell>{row.email}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <div>
+      <Select value={selectedOption} onChange={handleSelectChange}>
+        {options.map((option) => (
+          <Select.Option key={option.value} value={option.title}>
+            {option.title}
+          </Select.Option>
+        ))}
+      </Select>
+      <Table dataSource={tableData} columns={columns} />
+    </div>
   );
 };
 
-export default MuiTable;
+export default MyTable;
