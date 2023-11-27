@@ -8,9 +8,11 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
-import { Select } from "antd";
+import { Card, Select } from "antd";
 
 const MyLineChart = () => {
+  const curveAngle = 20;
+  const paperColor = "#FFFFFF";
   const [chartData, setChartData] = useState([]);
   const [selectedOption, setSelectedOption] = useState("");
   const [options] = useState([
@@ -88,22 +90,33 @@ const MyLineChart = () => {
 
   return (
     <div>
-      <Select value={selectedOption} onChange={handleSelectChange}>
-        {options.map((option) => (
-          <Select.Option key={option.value} value={option.title}>
-            {option.title}
-          </Select.Option>
-        ))}
-      </Select>
-      <ResponsiveContainer width="100%" height={300}>
-        <LineChart data={chartData}>
-          <XAxis dataKey="name" />
-          <YAxis />
-          <Tooltip />
-          <Legend />
-          <Line type="monotone" dataKey="value" stroke="#8884d8" />
-        </LineChart>
-      </ResponsiveContainer>
+      <Card
+        hoverable
+        style={{
+          margin: "auto",
+          borderRadius: `${curveAngle}px`,
+          backgroundColor: paperColor,
+          width: "100%",
+          height: "100%",
+        }}
+      >
+        <Select value={selectedOption} onChange={handleSelectChange}>
+          {options.map((option) => (
+            <Select.Option key={option.value} value={option.title}>
+              {option.title}
+            </Select.Option>
+          ))}
+        </Select>
+        <ResponsiveContainer width="100%" height={300}>
+          <LineChart data={chartData}>
+            <XAxis dataKey="name" />
+            <YAxis />
+            <Tooltip />
+            <Legend />
+            <Line type="monotone" dataKey="value" stroke="#8884d8" />
+          </LineChart>
+        </ResponsiveContainer>
+      </Card>
     </div>
   );
 };

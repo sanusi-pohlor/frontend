@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { PieChart, Pie, Tooltip, Legend, ResponsiveContainer } from "recharts";
-import { Select } from "antd";
+import { PieChart, Pie, Tooltip, Legend, ResponsiveContainer , Cell} from "recharts";
+import { Card, Select } from "antd";
 
 const MyPieChart = () => {
+  const curveAngle = 20;
+  const paperColor = "#FFFFFF";
   const [chartData, setChartData] = useState([]);
   const [selectedOption, setSelectedOption] = useState("");
+  const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#AF19FF"]; // Array of different colors
   const [options] = useState([
     {
       title: "แหล่งที่มาของข้อมูล",
@@ -80,29 +83,43 @@ const MyPieChart = () => {
 
   return (
     <div>
-      <Select value={selectedOption} onChange={handleSelectChange}>
-        {options.map((option) => (
-          <Select.Option key={option.value} value={option.title}>
-            {option.title}
-          </Select.Option>
-        ))}
-      </Select>
-      <ResponsiveContainer width="100%" height={300}>
-        <PieChart>
-          <Tooltip />
-          <Legend />
-          <Pie
-            data={chartData}
-            dataKey="value"
-            nameKey="name"
-            cx="50%"
-            cy="50%"
-            outerRadius={100}
-            fill="#8884d8"
-            label
-          />
-        </PieChart>
-      </ResponsiveContainer>
+      <Card
+        hoverable
+        style={{
+          margin: "auto",
+          borderRadius: `${curveAngle}px`,
+          backgroundColor: paperColor,
+          width: "100%",
+          height: "100%",
+        }}
+      >
+        <Select value={selectedOption} onChange={handleSelectChange}>
+          {options.map((option) => (
+            <Select.Option key={option.value} value={option.title}>
+              {option.title}
+            </Select.Option>
+          ))}
+        </Select>
+        <ResponsiveContainer width="100%" height={300}>
+          <PieChart>
+            <Tooltip />
+            <Legend />
+            <Pie
+              data={chartData}
+              dataKey="value"
+              nameKey="name"
+              cx="50%"
+              cy="50%"
+              outerRadius={100}
+              label
+            >
+              {chartData.map((entry, index) => (
+                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+              ))}
+            </Pie>
+          </PieChart>
+        </ResponsiveContainer>
+      </Card>
     </div>
   );
 };
