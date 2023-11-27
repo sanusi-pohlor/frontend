@@ -73,10 +73,31 @@ const Dashboard = ({ onSearch }) => {
             />
           }
         >
-          <Meta
-            title="หัวข้อ"
-            description="เนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้น"
-          />
+           <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "100%",
+                textAlign: "center", // Center the text horizontally
+                fontSize: "30px",
+                fontFamily: "'Th Sarabun New', sans-serif",
+              }}
+            >
+              หัวข้อ
+            </div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "100%",
+                textAlign: "center", // Center the text horizontally
+                fontSize: "15px",
+              }}
+            >
+              เนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้น
+            </div>
         </Card>
       </Link>
     );
@@ -246,7 +267,7 @@ const Dashboard = ({ onSearch }) => {
                 fontSize: "50px",
               }}
             >
-              สาระน่ารู้
+              ข่าวสาร
             </div>
           </Grid>
           <Grid item xs={12} md={4}>

@@ -1,20 +1,22 @@
 import React, { useState, useEffect } from "react";
 import {
-  LineChart,
+  BarChart,
   XAxis,
   YAxis,
-  Line,
+  Bar,
   Tooltip,
   Legend,
   ResponsiveContainer,
+  Cell,
 } from "recharts";
 import { Card, Select } from "antd";
 
-const MyLineChart = () => {
+const MyBarChart = () => {
   const curveAngle = 20;
   const paperColor = "#FFFFFF";
   const [chartData, setChartData] = useState([]);
   const [selectedOption, setSelectedOption] = useState("");
+  const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#FF0000"];
   const [options] = useState([
     {
       title: "แหล่งที่มาของข้อมูล",
@@ -108,17 +110,24 @@ const MyLineChart = () => {
           ))}
         </Select>
         <ResponsiveContainer width="100%" height={300}>
-          <LineChart data={chartData}>
+          <BarChart data={chartData}>
             <XAxis dataKey="name" />
             <YAxis />
             <Tooltip />
             <Legend />
-            <Line type="monotone" dataKey="value" stroke="#8884d8" />
-          </LineChart>
+            <Bar dataKey="value" nameKey="name">
+              {chartData.map((entry, index) => (
+                <Cell
+                  key={`cell-${index}`}
+                  fill={COLORS[index % COLORS.length]}
+                />
+              ))}
+            </Bar>
+          </BarChart>
         </ResponsiveContainer>
       </Card>
     </div>
   );
 };
 
-export default MyLineChart;
+export default MyBarChart;

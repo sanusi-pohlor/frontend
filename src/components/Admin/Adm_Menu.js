@@ -33,7 +33,7 @@ const items = [
       },
       {
         key: "4",
-        label: "สื่อชานแชร์",
+        label: "สื่อชวนแชร์",
         link: "Adm_MdShare_View", // Add a link property
       },
     ],

@@ -144,17 +144,7 @@ const Search = () => {
       <Grid container spacing={2}>
         {" "}
         {/* Adjust spacing */}
-        <Grid item xs={12} md={4}>
-          {" "}
-          {/* Adjust xs and md values */}
-          <Content />
-        </Grid>
-        <Grid item xs={12} md={4}>
-          {" "}
-          {/* Adjust xs and md values */}
-          <Content />
-        </Grid>
-        <Grid item xs={12} md={4}>
+        <Grid item xs={12} md={12}>
           {" "}
           {/* Adjust xs and md values */}
           <Content />
