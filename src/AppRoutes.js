@@ -45,7 +45,7 @@ const routes = [
   { path: "/MediaShare", element: <MediaShare_view /> },
 
   { path: "/News", element: <News /> },
-  { path: "/News/News_views", element: <News_views /> },
+  { path: "/News/News_views/:id", element: <News_views /> },
 
   { path: "/Admin/ManageInfo", element: <ManageInfo /> },
   { path: "/Admin/ManageFakeInfo", element: <Manage_Fake_Info /> },
