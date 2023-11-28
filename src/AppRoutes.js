@@ -15,6 +15,7 @@ import ManageInfo_view from "./components/Admin/Manage_Info/Adm_Info_View";
 import Manage_Fake_Info from "./components/Admin/Manage_Fake_Info/Manage_Fake_Info_Menu";
 import ManageMembers from "./components/Admin/Manage_Members/Adm_Mm_Menu";
 import Adm_Dashboard_View from "./components/Admin/ManageContent/Adm_Dashboard/Adm_Dashboard_View";
+import Adm_News_Menu from "./components/Admin/ManageContent/Adm_News/Adm_News_Menu";
 import Adm_News_View from "./components/Admin/ManageContent/Adm_News/Adm_News_View";
 import Adm_Article_View from "./components/Admin/ManageContent/Adm_Article/Adm_Article_View";
 import Adm_MdShare_View from "./components/Admin/ManageContent/Adm_MdShare/Adm_MdShare_View";
@@ -54,7 +55,8 @@ const routes = [
   },
   { path: "/Admin/ManageMembers", element: <ManageMembers /> },
   { path: "/Admin/Adm_Dashboard_View", element: <Adm_Dashboard_View /> },
-  { path: "/Admin/Adm_News_View", element: <Adm_News_View /> },
+  { path: "/Admin/Adm_News_Menu", element: <Adm_News_Menu /> },
+  { path: "/Admin/Adm_News_View/:id", element: <Adm_News_View /> },
   { path: "/Admin/Adm_Article_View", element: <Adm_Article_View /> },
   { path: "/Admin/Adm_MdShare_View", element: <Adm_MdShare_View /> },
   { path: "/Admin/Adm_Dashboard_Form", element: <Adm_Dashboard_Form /> },

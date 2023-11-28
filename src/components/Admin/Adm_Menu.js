@@ -24,7 +24,7 @@ const items = [
       {
         key: "2",
         label: "ข่าวสาร",
-        link: "Adm_News_View", // Add a link property
+        link: "Adm_News_Menu", // Add a link property
       },
       {
         key: "3",

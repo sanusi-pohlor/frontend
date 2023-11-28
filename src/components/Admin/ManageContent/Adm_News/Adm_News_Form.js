@@ -113,8 +113,6 @@
 
 // export default Adm_News_Form;
 
-
-
 // import React, { useState } from "react";
 // import AdminMenu from "../../Adm_Menu";
 // import "react-quill/dist/quill.snow.css";
@@ -265,7 +263,6 @@
 
 // export default Adm_News_Form;
 
-
 import React, { useState } from "react";
 import AdminMenu from "../../Adm_Menu";
 import "react-quill/dist/quill.snow.css";
@@ -277,28 +274,6 @@ const Adm_News_Form = () => {
   const [loading, setLoading] = useState(false);
   const [editorHtml, setEditorHtml] = useState("");
 
-  const imageHandler = async() => {
-    const input = document.createElement('input');
-    input.setAttribute('type', 'file');
-    input.setAttribute('accept', 'image/*');
-    input.click();
-
-    input.onchange = async () => {
-      const file = input.files[0];
-      const formData = new FormData();
-      formData.append('image', file);
-
-      try {
-        const imageLocation = await uploadImage(formData);
-
-        const quill = this.quill.getEditor();
-        const range = quill.getSelection(true);
-        quill.insertEmbed(range.index, 'image', imageLocation);
-      } catch (error) {
-        console.error('Error uploading image:', error);
-      }
-    };
-  };
   const modules = {
     toolbar: {
       handlers: {
@@ -323,7 +298,6 @@ const Adm_News_Form = () => {
     clipboard: {
       matchVisual: true,
     },
-
   };
 
   const formats = [
@@ -344,35 +318,6 @@ const Adm_News_Form = () => {
 
   const handleChange = (html) => {
     setEditorHtml(html);
-  };
-
-  const uploadImage = async (file) => {
-    const formData = new FormData();
-    formData.append("image", file);
-
-    try {
-      const response = await fetch("http://localhost:8000/api/uploadimage", {
-        method: "POST",
-        body: formData,
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        return data.imageUrl; // Return the URL received from the server
-      } else {
-        throw new Error("Failed to upload image");
-      }
-    } catch (error) {
-      console.error("Error uploading image:", error);
-      return ""; // Return empty string or handle error as needed
-    }
-  };
-
-  const handleImageUpload = async (file) => {
-    const imageUrl = await uploadImage(file);
-    const quill = document.getElementsByClassName("ql-editor")[0];
-    const cursorPosition = quill.selection.savedRange.index || 0;
-    quill.insertEmbed(cursorPosition, "image", imageUrl, "user");
   };
 
   const onFinish = async (values) => {
