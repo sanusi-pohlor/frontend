@@ -19,7 +19,7 @@ const items = [
       {
         key: "1",
         label: "หนัาหลัก",
-        link: "Adm_Dashboard_View", // Add a link property
+        link: "Adm_Dashboard_Menu", // Add a link property
       },
       {
         key: "2",
@@ -29,12 +29,12 @@ const items = [
       {
         key: "3",
         label: "บทความ",
-        link: "Adm_Article_View", // Add a link property
+        link: "Adm_Article_Menu", // Add a link property
       },
       {
         key: "4",
         label: "สื่อชวนแชร์",
-        link: "Adm_MdShare_View", // Add a link property
+        link: "Adm_MdShare_Menu", // Add a link property
       },
     ],
   },

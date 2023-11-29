@@ -25,10 +25,15 @@ import Manage_Fake_Info from "./components/Admin/Manage_Fake_Info/Manage_Fake_In
 import ManageMembers from "./components/Admin/Manage_Members/Adm_Mm_Menu";
 
 import Adm_Dashboard_View from "./components/Admin/ManageContent/Adm_Dashboard/Adm_Dashboard_View";
-import Adm_News_Menu from "./components/Admin/ManageContent/Adm_News/Adm_News_Menu";
 import Adm_News_View from "./components/Admin/ManageContent/Adm_News/Adm_News_view";
 import Adm_Article_View from "./components/Admin/ManageContent/Adm_Article/Adm_Article_View";
 import Adm_MdShare_View from "./components/Admin/ManageContent/Adm_MdShare/Adm_MdShare_View";
+
+import Adm_Dashboard_Menu from "./components/Admin/ManageContent/Adm_Dashboard/Adm_Dashboard_Menu";
+import Adm_News_Menu from "./components/Admin/ManageContent/Adm_News/Adm_News_Menu";
+import Adm_Article_Menu from "./components/Admin/ManageContent/Adm_Article/Adm_Article_Menu";
+import Adm_MdShare_Menu from "./components/Admin/ManageContent/Adm_MdShare/Adm_MdShare_Menu";
+
 import Adm_Dashboard_Form from "./components/Admin/ManageContent/Adm_Dashboard/Adm_Dashboard_Form";
 import Adm_Article_Form from "./components/Admin/ManageContent/Adm_Article/Adm_Article_Form";
 import Adm_MdShare_Form from "./components/Admin/ManageContent/Adm_MdShare/Adm_MdShare_Form";
@@ -73,12 +78,16 @@ const routes = [
   { path: "/Admin/ManageInfo", element: <ManageInfo /> },
   { path: "/Admin/ManageFakeInfo", element: <Manage_Fake_Info /> },
   {
-    path: "/Admin/ManageInfo/ManageInfo_view/:id",
-    element: <ManageInfo_view />,
+    path: "/Admin/ManageInfo/ManageInfo_view/:id", element: <ManageInfo_view />,
   },
   { path: "/Admin/ManageMembers", element: <ManageMembers /> },
   { path: "/Admin/Adm_Dashboard_View", element: <Adm_Dashboard_View /> },
+  
+  { path: "/Admin/Adm_Dashboard_Menu", element: <Adm_Dashboard_Menu /> },
   { path: "/Admin/Adm_News_Menu", element: <Adm_News_Menu /> },
+  { path: "/Admin/Adm_Article_Menu", element: <Adm_Article_Menu /> },
+  { path: "/Admin/Adm_MdShare_Menu", element: <Adm_MdShare_Menu /> },
+
   { path: "/Admin/Adm_News_View/:id", element: <Adm_News_View /> },
   { path: "/Admin/Adm_Article_View", element: <Adm_Article_View /> },
   { path: "/Admin/Adm_MdShare_View", element: <Adm_MdShare_View /> },
