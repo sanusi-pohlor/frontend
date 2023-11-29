@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { SearchOutlined } from "@ant-design/icons";
 import { Paper, Grid, Box, Container } from "@mui/material";
 import Carousel from "./Carousel";
@@ -17,6 +17,7 @@ import {
   FloatButton,
   Form,
   Space,
+  DatePicker,
 } from "antd";
 import Flickity from "react-flickity-component";
 import { Link } from "react-router-dom";
@@ -27,10 +28,33 @@ const flickityOptions = {
   initialIndex: 2,
 };
 const Dashboard = ({ onSearch }) => {
+  const [data, setData] = useState([]);
   const [form] = Form.useForm();
   const [selectOptions_med, setSelectOptions_med] = useState([]); // State for select options
   const [selectOptions_type, setSelectOptions_type] = useState([]); // State for select options
   const [searchTerm, setSearchTerm] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(12);
+  const buttonStyle = {
+    background: "#7BBD8F",
+    border: "none",
+    color: "white",
+  };
+
+  useEffect(() => {
+    fetch("http://localhost:8000/api/data")
+      .then((response) => response.json())
+      .then((data) => {
+        setData(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, []);
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
   const cardStyle = {
     display: "flex",
   };
@@ -52,55 +76,46 @@ const Dashboard = ({ onSearch }) => {
   const curveAngle = 20;
   const paperColor = "#FFFFFF";
   const papercard = "rgb(240, 240, 240)";
+  const config = {
+    rules: [
+      {
+        type: 'object',
+        required: true,
+        message: 'Please select time!',
+      },
+    ],
+  };
+
   const Content = () => {
-    return (
-      <Link to={`/News/News_views`}>
-        <Card
-          hoverable
-          //bordered={false}
-          style={{
-            margin: "auto",
-            borderRadius: `${curveAngle}px`,
-            width: "90%", // Set the desired width
-            height: "100%", // Set the desired height
-            padding: 20,
-          }}
-          cover={
-            <img
-              alt="Card cover"
-              style={{ height: "80%", width: "100%", objectFit: "cover" }}
-              src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-            />
-          }
-        >
-           <div
+    return data.map((item) => (
+      <Grid item xs={12} md={4} key={item.id}>
+        <div style={{ fontFamily: "'Th Sarabun New', sans-serif", fontSize: "10px" }}>
+          <Link to={`/News/News_views/${item.id}`}>
+            <Card
+              hoverable
               style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
+                margin: "auto",
+                borderRadius: `${curveAngle}px`,
+                width: "90%",
                 height: "100%",
-                textAlign: "center", // Center the text horizontally
-                fontSize: "30px",
+                padding: 20,
                 fontFamily: "'Th Sarabun New', sans-serif",
+                fontSize: "20px",
               }}
+              cover={
+                <img
+                  alt="Card cover"
+                  style={{ height: "80%", width: "100%", objectFit: "cover" }}
+                  src={item.imageURL}
+                />
+              }
             >
-              หัวข้อ
-            </div>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                height: "100%",
-                textAlign: "center", // Center the text horizontally
-                fontSize: "15px",
-              }}
-            >
-              เนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้น
-            </div>
-        </Card>
-      </Link>
-    );
+              <Meta title={item.title} description={item.description} />
+            </Card>
+          </Link>
+        </div>
+      </Grid>
+    ));
   };
   const fetchDataAndSetOptions = async (endpoint, fieldName, stateSetter) => {
     try {
@@ -174,31 +189,7 @@ const Dashboard = ({ onSearch }) => {
           >
             {selectOptions_type} {/* Populate the options */}
           </Select>
-          {/* <Select
-            onChange={onChange_dnc_med_id}
-            size="large"
-            placeholder="สื่อ"
-            // onChange={onGenderChange}
-            allowClear
-            style={{ marginRight: "10px", flex: 1 }} // Add margin to the right
-          >
-            {selectOptions_med}
-          </Select> */}
-          <Select
-            size="large"
-            placeholder="เดือน/ปี"
-            // onChange={onGenderChange}
-            allowClear
-            style={{ flex: 1 }} // Add margin to the right
-          >
-            <Select.Option value="2017">2017</Select.Option>
-            <Select.Option value="2018">2018</Select.Option>
-            <Select.Option value="2019">2019</Select.Option>
-            <Select.Option value="2020">2020</Select.Option>
-            <Select.Option value="2021">2021</Select.Option>
-            <Select.Option value="2022">2022</Select.Option>
-            <Select.Option value="2023">2023</Select.Option>
-          </Select>
+          <DatePicker picker="month" size="large" style={{ marginRight: "10px", flex: 1 }} />
         </div>
         <br />
         <Grid container spacing={2}>
@@ -216,7 +207,7 @@ const Dashboard = ({ onSearch }) => {
           {" "}
           {/* Adjust spacing */}
           <Grid item xs={12} md={6}>
-              <ThailandMap />
+            <ThailandMap />
           </Grid>
           <Grid item xs={12} md={6}>
             {" "}
@@ -237,7 +228,7 @@ const Dashboard = ({ onSearch }) => {
                 backgroundColor: paperColor,
                 width: "100%",
                 height: "100%",
-              }}/>
+              }} />
             </Card>
           </Grid>
         </Grid>
@@ -282,45 +273,40 @@ const Dashboard = ({ onSearch }) => {
           </Grid>
         </Grid>
         <br />
-        <Grid container spacing={2}>
-          {" "}
-          {/* Adjust spacing */}
-          <Grid item xs={12} md={4}>
-            {" "}
-            {/* Adjust xs and md values */}
-            <Content />
+        <Paper elevation={0} style={{ width: "70%", padding: 30, margin: "0 auto", textAlign: "center" }}>
+          {/* ... โค้ดอื่นๆ ที่มีอยู่ ... */}
+          <Grid container spacing={2}>
+            {currentItems.map((item) => (
+              <Grid item xs={12} md={4} key={item.id}>
+                <Link to={`/News/News_views/${item.id}`}>
+                  <Card
+                    hoverable
+                    style={{
+                      margin: "auto",
+                      borderRadius: "20px",
+                      width: "90%",
+                      height: "100%",
+                      padding: 20,
+                      fontFamily: "'Th Sarabun New', sans-serif",
+                      fontSize: "20px",
+                    }}
+                    cover={<img alt="Card cover" style={{ height: "80%", width: "100%", objectFit: "cover" }} src={item.image} />}
+                  >
+                    <Meta title={item.title} description={item.description} />
+                  </Card>
+                </Link>
+              </Grid>
+            ))}
           </Grid>
-          <Grid item xs={12} md={4}>
-            {" "}
-            {/* Adjust xs and md values */}
-            <Content />
-          </Grid>
-          <Grid item xs={12} md={4}>
-            {" "}
-            {/* Adjust xs and md values */}
-            <Content />
-          </Grid>
-        </Grid>
-        <br />
-        <Grid container spacing={2}>
-          {" "}
-          {/* Adjust spacing */}
-          <Grid item xs={12} md={4}>
-            {" "}
-            {/* Adjust xs and md values */}
-            <Content />
-          </Grid>
-          <Grid item xs={12} md={4}>
-            {" "}
-            {/* Adjust xs and md values */}
-            <Content />
-          </Grid>
-          <Grid item xs={12} md={4}>
-            {" "}
-            {/* Adjust xs and md values */}
-            <Content />
-          </Grid>
-        </Grid>
+          <Box mt={4} display="flex" justifyContent="center">
+            <Button onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1}>
+              Prev Page
+            </Button>
+            <Button onClick={() => paginate(currentPage + 1)} disabled={indexOfLastItem >= data.length}>
+              Next Page
+            </Button>
+          </Box>
+        </Paper>
       </Paper>
       <Paper
         elevation={0}
@@ -362,82 +348,40 @@ const Dashboard = ({ onSearch }) => {
           </Grid>
         </Grid>
         <br />
-        <Space
-          direction="vertical"
-          size="middle"
-          style={{
-            display: "flex",
-          }}
-        >
-          <Link to={`/Article/Article_view`}>
-            <Card
-              hoverable
-              style={cardStyle}
-              bodyStyle={{
-                padding: 0,
-                overflow: "hidden",
-              }}
-            >
-              <Flex justify="space-between">
-                <img
-                  alt="avatar"
-                  src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-                  style={imgStyle}
-                />
-                <Flex
-                  vertical
-                  align="flex-start"
-                  justify="space-between"
-                  style={{
-                    padding: 32,
-                  }}
-                >
-                  <Typography.Title level={3}>
-                    หัวข้อหัวข้อหัวข้อหัวข้อ
-                  </Typography.Title>
-                  <Typography>
-                    เนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้น
-                    เนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้น
-                  </Typography>
-                </Flex>
-              </Flex>
-            </Card>
-          </Link>
-          <Link to={`/Article/Article_view`}>
-            <Card
-              hoverable
-              style={cardStyle}
-              bodyStyle={{
-                padding: 0,
-                overflow: "hidden",
-              }}
-            >
-              <Flex justify="space-between">
-                <img
-                  alt="avatar"
-                  src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-                  style={imgStyle}
-                />
-                <Flex
-                  vertical
-                  align="flex-start"
-                  justify="space-between"
-                  style={{
-                    padding: 32,
-                  }}
-                >
-                  <Typography.Title level={3}>
-                    หัวข้อหัวข้อหัวข้อหัวข้อ
-                  </Typography.Title>
-                  <Typography>
-                    เนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้น
-                    เนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้นเนื่อหาเบื้องต้น
-                  </Typography>
-                </Flex>
-              </Flex>
-            </Card>
-          </Link>
-        </Space>
+        <Paper elevation={0} style={{ width: "70%", padding: 30, margin: "0 auto", textAlign: "center" }}>
+          {/* ... โค้ดอื่นๆ ที่มีอยู่ ... */}
+          <Grid container spacing={2}>
+            {currentItems.map((item) => (
+              <Grid item xs={12} md={4} key={item.id}>
+                <Link to={`/News/News_views/${item.id}`}>
+                  <Card
+                    hoverable
+                    style={{
+                      margin: "auto",
+                      borderRadius: "20px",
+                      width: "90%",
+                      height: "100%",
+                      padding: 20,
+                      fontFamily: "'Th Sarabun New', sans-serif",
+                      fontSize: "20px",
+                    }}
+                    cover={<img alt="Card cover" style={{ height: "80%", width: "100%", objectFit: "cover" }} src={item.image} />}
+                  >
+                    <Meta title={item.title} description={item.description} />
+                  </Card>
+                </Link>
+              </Grid>
+            ))}
+          </Grid>
+          <Box mt={4} display="flex" justifyContent="center">
+            <Button onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1}>
+              Prev Page
+            </Button>
+            <Button onClick={() => paginate(currentPage + 1)} disabled={indexOfLastItem >= data.length}>
+              Next Page
+            </Button>
+          </Box>
+        </Paper>
       </Paper>
       <Paper
         elevation={0}

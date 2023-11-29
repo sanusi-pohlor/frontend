@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import AdminMenu from "../../Adm_Menu";
 import { Breadcrumb } from "antd";
 
-const ViewNews = () => {
+const Adm_News_view = () => {
   const { id } = useParams();
   const [newsData, setNewsData] = useState({});
 
@@ -45,4 +45,4 @@ const ViewNews = () => {
   );
 };
 
-export default ViewNews;
+export default Adm_News_view;

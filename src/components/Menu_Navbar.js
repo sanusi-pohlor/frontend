@@ -28,10 +28,10 @@ import COMMSCI from "./Images/COMMSCI.png";
 
 const pages = [
   { label: "หน้าหลัก", link: "/" },
-  { label: "ข่าวสาร", link: "/News" },
-  { label: "บทความ", link: "/Article" },
-  { label: "สื่อชวนแชร์", link: "/MediaShare" },
-  { label: "แจ้งข้อมูลเท็จ", link: "/FakeNews" },
+  { label: "ข่าวสาร", link: "/News_Menu" },
+  { label: "บทความ", link: "/Article_Menu" },
+  { label: "สื่อชวนแชร์", link: "/MediaShare_Menu" },
+  { label: "แจ้งข้อมูลเท็จ", link: "/FakeNews_Menu" },
 ];
 
 function ResponsiveAppBar() {
@@ -330,13 +330,6 @@ function ResponsiveAppBar() {
                     RegisterFinish={RegisterFinish}
                   />
                 )}
-                {/* <LoginButton onClick={() => setLogin(true)} />
-                <LoginDialog
-                  open={Login}
-                  onClose={() => setLogin(false)}
-                  handleSubmit={handleSubmit}
-                  LoginFinish={LoginFinish}
-                /> */}
               </div>
             </Box>
           </Toolbar>

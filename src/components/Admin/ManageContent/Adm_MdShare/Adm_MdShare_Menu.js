@@ -5,12 +5,12 @@ import AdminMenu from "../../Adm_Menu";
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-const Adm_News_View = () => {
+const Adm_MdShare_Menu = () => {
   const [dataSource, setDataSource] = useState([]);
 
   const fetchData = async () => {
     try {
-      const response = await fetch('http://localhost:8000/api/News_request');
+      const response = await fetch('http://localhost:8000/api/MdShare_request');
       if (response.ok) {
         const data = await response.json();
         setDataSource(data);
@@ -25,6 +25,10 @@ const Adm_News_View = () => {
     fetchData();
   }, []);
   const handleDelete = (record) => {
+    // Make a DELETE request to your API endpoint to delete the record
+    // Update the dataSource after successful deletion
+    // You can use axios or fetch for the API call
+    // Example:
     axios.delete(`http://localhost:8000/api/data/${record.id}`)
       .then(() => {
         const updatedDataSource = dataSource.filter(item => item.id !== record.id);
@@ -58,14 +62,14 @@ const Adm_News_View = () => {
       title: 'status',
       dataIndex: 'status',
       key: 'status',
-  },
+    },
     {
       title: 'Actions',
       dataIndex: 'actions',
       key: 'actions',
       render: (_, record) => (
         <Space>
-          <Link to={`/Admin/Adm_News_View/${record.id}`}>
+          <Link to={`/Admin/Adm_MdShare_View/${record.id}`}>
             <Button type="primary" icon={<EditOutlined />} />
           </Link>
           <Popconfirm
@@ -82,14 +86,14 @@ const Adm_News_View = () => {
   ];
   return (
     <AdminMenu><Breadcrumb style={{ margin: '16px 0' }}>
-    <Breadcrumb.Item>Home</Breadcrumb.Item>
-    <Breadcrumb.Item>List</Breadcrumb.Item>
-    <Breadcrumb.Item>App</Breadcrumb.Item>
-  </Breadcrumb>
+      <Breadcrumb.Item>Home</Breadcrumb.Item>
+      <Breadcrumb.Item>List</Breadcrumb.Item>
+      <Breadcrumb.Item>App</Breadcrumb.Item>
+    </Breadcrumb>
       <div style={{ display: 'flex', justifyContent: 'space-between', gap: '16px', alignItems: 'center' }}>
         <h1 style={{ margin: 0 }}>จัดการคอนเท็นหน้าข่าว</h1>
         <div>
-          <Link to="/Admin/Adm_News_Form">
+          <Link to="/Admin/Adm_MdShare_Form">
             <Button type="primary" shape="round" icon={<PlusCircleOutlined />} size="large">
               Add Content
             </Button>
@@ -102,4 +106,4 @@ const Adm_News_View = () => {
   );
 };
 
-export default Adm_News_View;
+export default Adm_MdShare_Menu;

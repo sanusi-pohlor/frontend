@@ -3,49 +3,72 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import MenuNavbar from "./components/Menu_Navbar";
 import Bottom from "./components/Bottom";
 import Dashboard from "./components/Dashboard_Components/Dashboard";
+
 import News from "./components/News_Components/News_Menu";
+import News_views from "./components/News_Components/News_views";
+
 import Article from "./components/Article_Components/Article_Menu";
 import Article_view from "./components/Article_Components/Article_view";
+
+import MediaShare from "./components/MediaShare_Components/MdShare_Menu";
 import MediaShare_view from "./components/MediaShare_Components/MdShare_view";
-import News_views from "./components/News_Components/News_views";
+
 import FakeNewInformation from "./components/Fninfo_Components/Fninfo_Form";
+
 import NotificationHistory from "./components/Fninfo_Components/Fninfo_History";
+
 import ManageInfo from "./components/Admin/Manage_Info/Adm_Info_Menu";
 import ManageInfo_view from "./components/Admin/Manage_Info/Adm_Info_View";
+
 import Manage_Fake_Info from "./components/Admin/Manage_Fake_Info/Manage_Fake_Info_Menu";
+
 import ManageMembers from "./components/Admin/Manage_Members/Adm_Mm_Menu";
+
 import Adm_Dashboard_View from "./components/Admin/ManageContent/Adm_Dashboard/Adm_Dashboard_View";
 import Adm_News_Menu from "./components/Admin/ManageContent/Adm_News/Adm_News_Menu";
-import Adm_News_View from "./components/Admin/ManageContent/Adm_News/Adm_News_View";
+import Adm_News_View from "./components/Admin/ManageContent/Adm_News/Adm_News_view";
 import Adm_Article_View from "./components/Admin/ManageContent/Adm_Article/Adm_Article_View";
 import Adm_MdShare_View from "./components/Admin/ManageContent/Adm_MdShare/Adm_MdShare_View";
 import Adm_Dashboard_Form from "./components/Admin/ManageContent/Adm_Dashboard/Adm_Dashboard_Form";
 import Adm_Article_Form from "./components/Admin/ManageContent/Adm_Article/Adm_Article_Form";
 import Adm_MdShare_Form from "./components/Admin/ManageContent/Adm_MdShare/Adm_MdShare_Form";
 import Adm_News_Form from "./components/Admin/ManageContent/Adm_News/Adm_News_Form";
+
 import ManageValues from "./components/Admin/Manage_Values/MV_Routes";
+
 import AdvancedSearch from "./components/Admin/Adm_Adv_Search";
+
 import MChecking from "./components/Admin/ManageFakeNews/MChecking";
 import MInformation from "./components/Admin/ManageFakeNews/MInformation";
 import MMedia from "./components/Admin/ManageFakeNews/MMedia";
 import MProblem from "./components/Admin/ManageFakeNews/MProblem";
 import MType from "./components/Admin/ManageFakeNews/MType";
+
 import MenuProfile from "./components/User_Comoponents/Profile_Menu";
+
 import Profile from "./components/User_Comoponents/Profile_View";
+
 import Fninfoview from "./components/Fninfo_Components/Fninfo_View";
 import Fninfoedit from "./components/Fninfo_Components/Fninfo_Edit";
+
 import { Box } from "@mui/material";
 
 const routes = [
   { path: "/", element: <Dashboard /> },
 
-  { path: "/Article", element: <Article /> },
+  { path: "/Article_Menu/:id", element: <Article /> },
   { path: "/Article/Article_view", element: <Article_view /> },
 
-  { path: "/MediaShare", element: <MediaShare_view /> },
+  { path: "/MediaShare_view/:id", element: <MediaShare_view /> },
+  { path: "/MediaShare_Menu", element: <MediaShare /> },
 
-  { path: "/News", element: <News /> },
   { path: "/News/News_views/:id", element: <News_views /> },
+  { path: "/News_Menu", element: <News /> },
+
+  { path: "/FakeNews_Menu", element: <FakeNewInformation /> },
+  { path: "/FakeNews/NotificationHistory", element: <NotificationHistory /> },
+  { path: "/FakeNews/fninfoview/:id", element: <Fninfoview /> },
+  { path: "/FakeNews/edit/:id", element: <Fninfoedit /> },
 
   { path: "/Admin/ManageInfo", element: <ManageInfo /> },
   { path: "/Admin/ManageFakeInfo", element: <Manage_Fake_Info /> },
@@ -73,11 +96,6 @@ const routes = [
 
   { path: "/User/MenuProfile", element: <MenuProfile /> },
   { path: "/User/Profile", element: <Profile /> },
-
-  { path: "/FakeNews", element: <FakeNewInformation /> },
-  { path: "/FakeNews/NotificationHistory", element: <NotificationHistory /> },
-  { path: "/FakeNews/fninfoview/:id", element: <Fninfoview /> },
-  { path: "/FakeNews/edit/:id", element: <Fninfoedit /> },
 ];
 
 const AppRoutes = () => {
