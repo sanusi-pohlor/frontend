@@ -12,6 +12,12 @@ const { Content, Sider } = Layout;
 const items = [
   {
     key: "sub1",
+    icon: <UserOutlined />,
+    label: "Admin Dashboard",
+    link: "M_DB_Adm_Menu", // Add a link property
+  },
+  {
+    key: "sub2",
     icon: <LaptopOutlined />,
     label: "จัดการคอนเทนต์",
     //link: "ManuContent", // Add a link property
@@ -39,25 +45,25 @@ const items = [
     ],
   },
   {
-    key: "sub2",
+    key: "sub3",
     icon: <UserOutlined />,
     label: "จัดการข้อมูลรับแจ้ง",
     link: "ManageInfo", // Add a link property
   },
   {
-    key: "sub3",
+    key: "sub4",
     icon: <UserOutlined />,
     label: "จัดการข้อมูลเท็จ",
     link: "ManageFakeInfo", // Add a link property
   },
   {
-    key: "sub4",
+    key: "sub5",
     icon: <UserOutlined />,
     label: "จัดการสมาชิก",
     link: "ManageMembers", // Add a link property
   },
   {
-    key: "sub5",
+    key: "sub6",
     icon: <NotificationOutlined />,
     label: "จัดการข้อมูลเท็จ",
     //link: "", // Add a link property
@@ -90,13 +96,13 @@ const items = [
     ],
   },
   {
-    key: "sub6",
+    key: "sub7",
     icon: <UserOutlined />,
     label: "จัดการค่า",
     link: "ManageValues", // Add a link property
   },
   {
-    key: "sub7",
+    key: "sub8",
     icon: <LaptopOutlined />,
     label: "ค้นหาขั้นสูง",
     link: "AdvancedSearch", // Add a link property

@@ -68,10 +68,10 @@ const News_Menu = () => {
               alignItems: "center",
               height: "100%",
               textAlign: "center", // Center the text horizontally
-              fontSize: "30px",
+              fontSize: "50px",
             }}
           >
-            <Title level={2}>บทความ</Title>
+            ข่าวสาร
           </div>
         </Grid>
         <Grid item xs={12} md={4}>

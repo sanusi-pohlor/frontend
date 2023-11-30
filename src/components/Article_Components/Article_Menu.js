@@ -61,18 +61,18 @@ const Article_Menu = () => {
         <Grid item xs={12} md={4}>
         </Grid>
         <Grid item xs={12} md={4}>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              height: "100%",
-              textAlign: "center", // Center the text horizontally
-              fontSize: "30px",
-            }}
-          >
-            <Title level={2}>บทความ</Title>
-          </div>
+        <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "100%",
+                textAlign: "center", // Center the text horizontally
+                fontSize: "50px",
+              }}
+            >
+              บทความ
+            </div>
         </Grid>
         <Grid item xs={12} md={4}>
           <div style={{ display: "flex", alignItems: "center" }}>

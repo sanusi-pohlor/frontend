@@ -56,13 +56,15 @@ import Profile from "./components/User_Comoponents/Profile_View";
 import Fninfoview from "./components/Fninfo_Components/Fninfo_View";
 import Fninfoedit from "./components/Fninfo_Components/Fninfo_Edit";
 
+import M_DB_Adm_Menu from "./components/Admin/Manage_Dashboard_Adm/M_DB_Adm_Menu";
+
 import { Box } from "@mui/material";
 
 const routes = [
   { path: "/", element: <Dashboard /> },
 
-  { path: "/Article_Menu/:id", element: <Article /> },
-  { path: "/Article/Article_view", element: <Article_view /> },
+  { path: "/Article/Article_view/:id", element: <Article_view /> },
+  { path: "/Article_Menu", element: <Article /> },
 
   { path: "/MediaShare_view/:id", element: <MediaShare_view /> },
   { path: "/MediaShare_Menu", element: <MediaShare /> },
@@ -74,6 +76,8 @@ const routes = [
   { path: "/FakeNews/NotificationHistory", element: <NotificationHistory /> },
   { path: "/FakeNews/fninfoview/:id", element: <Fninfoview /> },
   { path: "/FakeNews/edit/:id", element: <Fninfoedit /> },
+
+  { path: "/Admin/M_DB_Adm_Menu", element: <M_DB_Adm_Menu /> },
 
   { path: "/Admin/ManageInfo", element: <ManageInfo /> },
   { path: "/Admin/ManageFakeInfo", element: <Manage_Fake_Info /> },

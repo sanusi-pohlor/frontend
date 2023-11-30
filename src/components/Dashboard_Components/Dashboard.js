@@ -28,32 +28,48 @@ const flickityOptions = {
   initialIndex: 2,
 };
 const Dashboard = ({ onSearch }) => {
-  const [data, setData] = useState([]);
+  const [newdata, setNewData] = useState([]);
+  const [articledata, setArticleData] = useState([]);
+  const [mdSharedata, setMdShareData] = useState([]);
   const [form] = Form.useForm();
-  const [selectOptions_med, setSelectOptions_med] = useState([]); // State for select options
-  const [selectOptions_type, setSelectOptions_type] = useState([]); // State for select options
+  const [selectOptions_med, setSelectOptions_med] = useState([]);
+  const [selectOptions_type, setSelectOptions_type] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(12);
+  const [itemsPerPage] = useState(6);
   const buttonStyle = {
     background: "#7BBD8F",
     border: "none",
     color: "white",
   };
 
+  // ฟังก์ชัน useEffect สำหรับดึงข้อมูล
   useEffect(() => {
-    fetch("http://localhost:8000/api/data")
-      .then((response) => response.json())
-      .then((data) => {
-        setData(data);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
+    // ฟังก์ชัน fetchData สำหรับการดึงข้อมูล
+    const fetchData = async (endpoint, setter) => {
+      try {
+        const response = await fetch(`http://localhost:8000/api/${endpoint}`);
+        if (response.ok) {
+          const data = await response.json();
+          setter(data);
+        } else {
+          throw new Error(`Error fetching ${endpoint}`);
+        }
+      } catch (error) {
+        console.error(`Error fetching ${endpoint}:`, error);
+      }
+    };
+
+    fetchData("News_request", setNewData);
+    fetchData("Article_request", setArticleData);
+    fetchData("MdShare_request", setMdShareData);
   }, []);
+
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
+  const newcurrentItems = newdata.slice(indexOfFirstItem, indexOfLastItem);
+  const articlecurrentItems = articledata.slice(indexOfFirstItem, indexOfLastItem);
+  const mdSharecurrentItems = mdSharedata.slice(indexOfFirstItem, indexOfLastItem);
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
   const cardStyle = {
     display: "flex",
@@ -86,37 +102,6 @@ const Dashboard = ({ onSearch }) => {
     ],
   };
 
-  const Content = () => {
-    return data.map((item) => (
-      <Grid item xs={12} md={4} key={item.id}>
-        <div style={{ fontFamily: "'Th Sarabun New', sans-serif", fontSize: "10px" }}>
-          <Link to={`/News/News_views/${item.id}`}>
-            <Card
-              hoverable
-              style={{
-                margin: "auto",
-                borderRadius: `${curveAngle}px`,
-                width: "90%",
-                height: "100%",
-                padding: 20,
-                fontFamily: "'Th Sarabun New', sans-serif",
-                fontSize: "20px",
-              }}
-              cover={
-                <img
-                  alt="Card cover"
-                  style={{ height: "80%", width: "100%", objectFit: "cover" }}
-                  src={item.imageURL}
-                />
-              }
-            >
-              <Meta title={item.title} description={item.description} />
-            </Card>
-          </Link>
-        </div>
-      </Grid>
-    ));
-  };
   const fetchDataAndSetOptions = async (endpoint, fieldName, stateSetter) => {
     try {
       const response = await fetch(`http://localhost:8000/api/${endpoint}`);
@@ -276,7 +261,7 @@ const Dashboard = ({ onSearch }) => {
         <Paper elevation={0} style={{ width: "70%", padding: 30, margin: "0 auto", textAlign: "center" }}>
           {/* ... โค้ดอื่นๆ ที่มีอยู่ ... */}
           <Grid container spacing={2}>
-            {currentItems.map((item) => (
+            {newcurrentItems.map((item) => (
               <Grid item xs={12} md={4} key={item.id}>
                 <Link to={`/News/News_views/${item.id}`}>
                   <Card
@@ -302,7 +287,7 @@ const Dashboard = ({ onSearch }) => {
             <Button onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1}>
               Prev Page
             </Button>
-            <Button onClick={() => paginate(currentPage + 1)} disabled={indexOfLastItem >= data.length}>
+            <Button onClick={() => paginate(currentPage + 1)} disabled={indexOfLastItem >= newdata.length}>
               Next Page
             </Button>
           </Box>
@@ -351,7 +336,7 @@ const Dashboard = ({ onSearch }) => {
         <Paper elevation={0} style={{ width: "70%", padding: 30, margin: "0 auto", textAlign: "center" }}>
           {/* ... โค้ดอื่นๆ ที่มีอยู่ ... */}
           <Grid container spacing={2}>
-            {currentItems.map((item) => (
+            {articlecurrentItems.map((item) => (
               <Grid item xs={12} md={4} key={item.id}>
                 <Link to={`/News/News_views/${item.id}`}>
                   <Card
@@ -377,7 +362,7 @@ const Dashboard = ({ onSearch }) => {
             <Button onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1}>
               Prev Page
             </Button>
-            <Button onClick={() => paginate(currentPage + 1)} disabled={indexOfLastItem >= data.length}>
+            <Button onClick={() => paginate(currentPage + 1)} disabled={indexOfLastItem >= articledata.length}>
               Next Page
             </Button>
           </Box>
@@ -423,26 +408,40 @@ const Dashboard = ({ onSearch }) => {
           </Grid>
         </Grid>
         <br />
-        <Space
-          direction="vertical"
-          size="middle"
-          style={{
-            display: "flex",
-          }}
-        >
-          <Flickity
-            className={"carousel"}
-            elementType={"div"}
-            options={flickityOptions}
-            disableImagesLoaded={false}
-            reloadOnUpdate
-            static
-          >
-            {images.map((src, index) => (
-              <img key={index} src={src} alt={`Image ${index}`} />
+        <Paper elevation={0} style={{ width: "70%", padding: 30, margin: "0 auto", textAlign: "center" }}>
+          {/* ... โค้ดอื่นๆ ที่มีอยู่ ... */}
+          <Grid container spacing={2}>
+            {mdSharecurrentItems.map((item) => (
+              <Grid item xs={12} md={4} key={item.id}>
+                <Link to={`/News/News_views/${item.id}`}>
+                  <Card
+                    hoverable
+                    style={{
+                      margin: "auto",
+                      borderRadius: "20px",
+                      width: "90%",
+                      height: "100%",
+                      padding: 20,
+                      fontFamily: "'Th Sarabun New', sans-serif",
+                      fontSize: "20px",
+                    }}
+                    cover={<img alt="Card cover" style={{ height: "80%", width: "100%", objectFit: "cover" }} src={item.image} />}
+                  >
+                    <Meta title={item.title} description={item.description} />
+                  </Card>
+                </Link>
+              </Grid>
             ))}
-          </Flickity>
-        </Space>
+          </Grid>
+          <Box mt={4} display="flex" justifyContent="center">
+            <Button onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1}>
+              Prev Page
+            </Button>
+            <Button onClick={() => paginate(currentPage + 1)} disabled={indexOfLastItem >= mdSharedata.length}>
+              Next Page
+            </Button>
+          </Box>
+        </Paper>
       </Paper>
       <FloatButton.BackTop />
     </div>
