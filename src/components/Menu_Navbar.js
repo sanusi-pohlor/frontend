@@ -18,7 +18,7 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import AdbIcon from "@mui/icons-material/Adb";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate   } from "react-router-dom";
 import LoginDialog from "./User_Comoponents/Login_Dialog";
 import RegisterDialog from "./User_Comoponents/Register_Dialog";
 import PropTypes from "prop-types";
@@ -43,6 +43,8 @@ function ResponsiveAppBar() {
   const [user, setUser] = useState(null);
   const [registerVisible, setRegisterVisible] = useState(false);
   const [loginVisible, setLoginVisible] = useState(false);
+  const Navigate = useNavigate ();
+
   const loginbuttonStyle = {
     background: "#7BBD8F",
     border: "none",
@@ -79,7 +81,7 @@ function ResponsiveAppBar() {
     { label: "Login", link: "/User/Login" },
     { label: "Register", link: "/User/Register" },
     { label: "User Profile", link: "/User/Profile" },
-    { label: "Admin", link: "/Admin/M_DB_Adm_Menu" },
+    { label: "Admin", link: "/Admin/Adm_Dashboard_View" },
     { label: "Loguot", link: "/" },
   ];
   useEffect(() => {
@@ -138,9 +140,17 @@ function ResponsiveAppBar() {
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
-  const handleDrawerToggleProfile = () => {
-    setMobileOpenProfile((prevState) => !prevState);
+
+  const handleDrawerToggleProfile = async () => {
+    if (user.level === 3) {
+      Navigate("/User/MenuProfile");
+      
+    } else{
+      // ไปยังหน้าอื่น
+      Navigate("/Admin/M_DB_Adm_Menu");
+    }
   };
+
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [mobileOpenProfile, setMobileOpenProfile] = React.useState(false);
   const drawerMenu = (
@@ -151,28 +161,6 @@ function ResponsiveAppBar() {
       <Divider />
       <List>
         {pages.map((page) => (
-          <ListItem key={page.label} disablePadding>
-            <ListItemButton
-              sx={{ textAlign: "center" }}
-              component={Link}
-              to={page.link}
-            >
-              <ListItemText primary={page.label} sx={{ color: "#7BBD8F" }} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-    </Box>
-  );
-
-  const drawerProfile = (
-    <Box onClick={handleDrawerToggleProfile} sx={{ textAlign: "center" }}>
-      <Typography variant="h6" sx={{ my: 2, color: "#7BBD8F" }}>
-        MUI
-      </Typography>
-      <Divider />
-      <List>
-        {settings.map((page) => (
           <ListItem key={page.label} disablePadding>
             <ListItemButton
               sx={{ textAlign: "center" }}
@@ -429,32 +417,9 @@ function ResponsiveAppBar() {
                 textDecoration: "none",
               }}
             ></Typography>
-            <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="Open settings">
-                <IconButton onClick={handleDrawerToggleProfile} sx={{ p: 0 }}>
-                  <Avatar sx={{ color: "#7BBD8F" }} />
-                </IconButton>
-              </Tooltip>
-              <Drawer
-                anchor="right"
-                container={container}
-                variant="temporary"
-                open={mobileOpenProfile}
-                onClose={handleDrawerToggleProfile}
-                ModalProps={{
-                  keepMounted: true, // Better open performance on mobile.
-                }}
-                sx={{
-                  display: { xs: "block", sm: "block" },
-                  "& .MuiDrawer-paper": {
-                    boxSizing: "border-box",
-                    width: drawerWidth,
-                  },
-                }}
-              >
-                {drawerProfile}
-              </Drawer>
-            </Box>
+            <IconButton onClick={handleDrawerToggleProfile} sx={{ p: 0 }}>
+              <Avatar sx={{ color: "#7BBD8F" }} />
+            </IconButton>
           </Toolbar>
         </AppBar>
       </Box>
