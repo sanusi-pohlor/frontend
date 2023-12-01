@@ -17,7 +17,7 @@ moment.locale("th");
 const { Option } = Select;
 const { TextArea } = Input;
 
-const FakeNewInformation = ({ history }) => {
+const FakeNewInformation = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [form] = Form.useForm();

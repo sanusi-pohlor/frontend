@@ -1,14 +1,51 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AdminMenu from "../../Adm_Menu";
 import "react-quill/dist/quill.snow.css";
-import { Form, Input, Button, message } from "antd";
+import { Form, Input, Button, message, Select } from "antd";
 import ReactQuill from "react-quill";
+import {
+  UserOutlined,
+} from "@ant-design/icons";
 
 const Adm_News_Form = () => {
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
   const [editorHtml, setEditorHtml] = useState("");
+  const [user, setUser] = useState(null);
+  const options = [];
+  for (let i = 10; i < 36; i++) {
+    options.push({
+      value: i.toString(36) + i,
+      label: i.toString(36) + i,
+    });
+  }
+  const handleChangetag = (value) => {
+    console.log(`selected ${value}`);
+  };
 
+  const fetchUser = async () => {
+    try {
+      const response = await fetch("http://localhost:8000/api/user", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setUser(data);
+      } else {
+        console.error("User data retrieval failed");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchUser();
+  }, []);
   const modules = {
     toolbar: {
       handlers: {
@@ -98,15 +135,25 @@ const Adm_News_Form = () => {
         autoComplete="off"
         onFinish={onFinish}
       >
+        <Form.Item
+          label="ผู้เขียน"
+          //name="fn_info_nameid"
+          rules={[
+            {
+              required: true,
+              message: "Please input your email!",
+            },
+          ]}
+        >
+          <Input
+            size="large"
+            prefix={<UserOutlined className="site-form-item-icon" />}
+            placeholder={user.username}
+            disabled
+          />
+        </Form.Item>
         <Form.Item name="title" label="Title" rules={[{ required: true }]}>
           <Input />
-        </Form.Item>
-        <Form.Item
-          name="description"
-          label="Description"
-          rules={[{ required: true }]}
-        >
-          <Input.TextArea rows={4} />
         </Form.Item>
         <Form.Item name="details" label="Details" rules={[{ required: false }]}>
           <div className="text-editor">
@@ -121,7 +168,15 @@ const Adm_News_Form = () => {
           </div>
         </Form.Item>
         <Form.Item name="tag" label="Tag" rules={[{ required: true }]}>
-          <Input />
+          <Select
+            mode="tags"
+            style={{
+              width: '100%',
+            }}
+            onChange={handleChangetag}
+            tokenSeparators={[',']}
+            options={options}
+          />
         </Form.Item>
         <Form.Item>
           <Button type="primary" htmlType="submit" loading={loading}>

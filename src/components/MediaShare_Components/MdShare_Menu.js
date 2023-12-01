@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Box, Grid, Paper } from "@mui/material";
-import { SearchOutlined } from "@ant-design/icons";
+import { Box, Grid, Paper, IconButton } from "@mui/material";
+import { SearchOutlined, RightCircleOutlined, LeftCircleOutlined } from "@ant-design/icons";
 import { Card, Button, Image, Input, Typography } from "antd";
 import FilterDialog from "./MdShare_Filter_Dialog";
 import { Link } from "react-router-dom";
@@ -134,12 +134,18 @@ const MdShare_Menu = () => {
                 ))}
             </Grid>
             <Box mt={4} display="flex" justifyContent="center">
-                <Button onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1}>
-                    Prev Page
-                </Button>
-                <Button onClick={() => paginate(currentPage + 1)} disabled={indexOfLastItem >= data.length}>
-                    Next Page
-                </Button>
+                <IconButton
+                    onClick={() => paginate(currentPage - 1)}
+                    disabled={currentPage === 1}
+                >
+                    <LeftCircleOutlined style={{ fontSize: '3rem', color: "#7BBD8F" }} />
+                </IconButton>
+                <IconButton
+                    onClick={() => paginate(currentPage + 1)}
+                    disabled={indexOfLastItem >= data.length}
+                >
+                    <RightCircleOutlined style={{ fontSize: '3rem', color: "#7BBD8F" }} />
+                </IconButton>
             </Box>
         </Paper>
     );

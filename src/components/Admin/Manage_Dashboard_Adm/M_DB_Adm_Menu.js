@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { PlusCircleOutlined, EditOutlined, DeleteOutlined, UnorderedListOutlined } from '@ant-design/icons';
-import { Space, Table, Breadcrumb, Button, Popconfirm, message } from 'antd';
+import { Space, Table, Breadcrumb, Button, Popconfirm, message, Card, Row } from 'antd';
 import AdminMenu from "../Adm_Menu";
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { Paper, Grid, Box, Container } from "@mui/material";
 
 const M_DB_Adm_Menu = () => {
     const [dataSource, setDataSource] = useState([]);
-
+    const curveAngle = 20;
+    const paperColor = "#FFFFFF";
     const fetchData = async () => {
         try {
             const response = await fetch('http://localhost:8000/api/Dashboard_request');
@@ -25,10 +27,6 @@ const M_DB_Adm_Menu = () => {
         fetchData();
     }, []);
     const handleDelete = (record) => {
-        // Make a DELETE request to your API endpoint to delete the record
-        // Update the dataSource after successful deletion
-        // You can use axios or fetch for the API call
-        // Example:
         axios.delete(`http://localhost:8000/api/data/${record.id}`)
             .then(() => {
                 const updatedDataSource = dataSource.filter(item => item.id !== record.id);
@@ -90,18 +88,50 @@ const M_DB_Adm_Menu = () => {
             <Breadcrumb.Item>List</Breadcrumb.Item>
             <Breadcrumb.Item>App</Breadcrumb.Item>
         </Breadcrumb>
-            <div style={{ display: 'flex', justifyContent: 'space-between', gap: '16px', alignItems: 'center' }}>
-                <h1 style={{ margin: 0 }}>จัดการคอนเท็นหน้าข่าว</h1>
-                <div>
-                    <Link to="/Admin/Adm_Dashboard_Form">
-                        <Button type="primary" shape="round" icon={<PlusCircleOutlined />} size="large">
-                            Add Content
-                        </Button>
-                    </Link>
-                </div>
-            </div>
-            <br />
-            <Table dataSource={dataSource} columns={columns} />
+        <Grid container spacing={2}>
+          <Grid item xs={12} md={4}>
+          <Card
+              hoverable
+              style={{
+                margin: "auto",
+                borderRadius: `${curveAngle}px`,
+                backgroundColor: paperColor,
+                width: "100%",
+                height: "100%",
+              }}
+            >
+aaa
+            </Card>
+          </Grid>
+          <Grid item xs={12} md={4}>
+          <Card
+              hoverable
+              style={{
+                margin: "auto",
+                borderRadius: `${curveAngle}px`,
+                backgroundColor: paperColor,
+                width: "100%",
+                height: "100%",
+              }}
+            >
+aaa
+            </Card>
+          </Grid>
+          <Grid item xs={12} md={4}>
+          <Card
+              hoverable
+              style={{
+                margin: "auto",
+                borderRadius: `${curveAngle}px`,
+                backgroundColor: paperColor,
+                width: "100%",
+                height: "100%",
+              }}
+            >
+aaa
+            </Card>
+          </Grid>
+        </Grid>
         </AdminMenu>
     );
 };

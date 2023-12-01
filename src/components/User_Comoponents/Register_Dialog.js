@@ -10,6 +10,7 @@ import {
 } from "@ant-design/icons";
 
 const RegisterDialog = ({ open, onClose, handleSubmit, RegisterFinish }) => {
+  const [selectOptions_prov, setSelectOptions_prov] = useState([]); // State for select optionsons
   const [receiveCtEmail, setReceiveCtEmail] = useState(false);
   const [selectedprovince, setSelectedprovince] = useState("");
   const [loading, setLoading] = useState(false);
@@ -105,12 +106,52 @@ const RegisterDialog = ({ open, onClose, handleSubmit, RegisterFinish }) => {
     console.log("Received values of form: ", values);
   };
 
+  const fetchDataAndSetOptions = async (endpoint, fieldName, stateSetter) => {
+    try {
+      const response = await fetch(`http://localhost:8000/api/${endpoint}`);
+      if (response.ok) {
+        const typeCodes = await response.json();
+        const options = typeCodes.map((code) => (
+          <Option key={code[`${fieldName}_id`]} value={code[`${fieldName}_id`]}>
+            {code[`${fieldName}_name`]}
+          </Option>
+        ));
+        form.setFieldsValue({ [fieldName]: undefined });
+        form.setFields([
+          {
+            name: fieldName,
+            value: undefined,
+          },
+        ]);
+        stateSetter(options);
+      } else {
+        console.error(
+          `Error fetching ${fieldName} codes:`,
+          response.statusText
+        );
+      }
+    } catch (error) {
+      console.error(`Error fetching ${fieldName} codes:`, error);
+    }
+  };
+
+  const onChange_mfi_province = () => {
+    fetchDataAndSetOptions(
+      "Province_request",
+      "prov",
+      setSelectOptions_prov
+    );
+  };
+
   return (
     <Modal
       title="ลงทะเบียน"
       visible={visible}
       onCancel={onClose}
       footer={null}
+      onChange={() => {
+        onChange_mfi_province();
+      }}
     >
       <Form
         form={form}
@@ -248,27 +289,13 @@ const RegisterDialog = ({ open, onClose, handleSubmit, RegisterFinish }) => {
             },
           ]}
         >
-          <Select
-            size="large"
-            placeholder="จังหวัดที่สังกัด"
-            onChange={handleprovinceChange} // เพิ่มการเรียกฟังก์ชันเมื่อเลือกค่า
-            value={selectedprovince}
-          >
-            <Option value="Krabi">กระบี่</Option>
-            <Option value="Chumphon">ชุมพร</Option>
-            <Option value="Trang">ตรัง</Option>
-            <Option value="NakhonSiThammarat">นครศรีธรรมราช</Option>
-            <Option value="Narathiwat">นราธิวาส</Option>
-            <Option value="Pattani">ปัตตานี</Option>
-            <Option value="PhangNga">พังงา</Option>
-            <Option value="Phattalung">พัทลุง</Option>
-            <Option value="Phuket">ภูเก็ต</Option>
-            <Option value="Yala">ยะลา</Option>
-            <Option value="Ranong">ระนอง</Option>
-            <Option value="Songkhla">สงขลา</Option>
-            <Option value="Satun">สตูล</Option>
-            <Option value="SuratThani">สุราษฎร์ธานี</Option>
-          </Select>
+            <Select
+              placeholder="Select a option and change input text above"
+              onChange={onChange_mfi_province}
+              allowClear
+            >
+              {selectOptions_prov} {/* Populate the options */}
+            </Select>
         </Form.Item>
         <Form.Item name="CheckboxContent">
           <Checkbox onChange={onChange}>รับคอนเทนต์ผ่านอีเมล</Checkbox>

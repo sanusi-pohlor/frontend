@@ -1,11 +1,12 @@
 import React, { useState, useRef, useEffect } from "react";
-import { UncontrolledReactSVGPanZoom } from 'react-svg-pan-zoom';
 import "./MapWidget.css"; // Add the CSS file for styling
 import Tooltip from "@mui/material/Tooltip";
+import { Card, Select } from "antd";
 
 const MapWidget = () => {
   const [highlightedRegion, setHighlightedRegion] = useState(null);
-
+  const curveAngle = 20;
+  const paperColor = "#FFFFFF";
   const handleMouseEnter = (event) => {
     const regionId = event.target.id;
     setHighlightedRegion(regionId);
@@ -14,19 +15,24 @@ const MapWidget = () => {
   const handleMouseLeave = () => {
     setHighlightedRegion(null);
   };
-  const Viewer = useRef(null);
+  // const Viewer = useRef(null);
 
-  useEffect(() => {
-    Viewer.current.fitToViewer();
-  }, []);
+  // useEffect(() => {
+  //   Viewer.current.fitToViewer();
+  // }, []);
 
   return (
     <div>
-      <UncontrolledReactSVGPanZoom
-        ref={Viewer}
-        width="100%"
-        height="100%"
-        >
+      <Card
+        hoverable
+        style={{
+          margin: "auto",
+          borderRadius: `${curveAngle}px`,
+          backgroundColor: paperColor,
+          width: "100%",
+          height: "100%",
+        }}
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="-60 630 500 400"
@@ -243,9 +249,10 @@ const MapWidget = () => {
             />
           </Tooltip>
           {/* Add more paths for other regions */}
-        </svg></UncontrolledReactSVGPanZoom>
+        </svg></Card>
     </div>
   );
 };
 
 export default MapWidget;
+

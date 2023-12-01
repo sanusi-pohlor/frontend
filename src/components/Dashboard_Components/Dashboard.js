@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { SearchOutlined } from "@ant-design/icons";
-import { Paper, Grid, Box, Container } from "@mui/material";
+import { SearchOutlined, RightCircleOutlined, LeftCircleOutlined } from "@ant-design/icons";
+import { Paper, Grid, Box, IconButton } from "@mui/material";
 import Carousel from "./Carousel";
 import ThailandMap from "./ThailandMap";
 import PieChartComponent from "./PieChartComponent";
@@ -21,6 +21,8 @@ import {
 } from "antd";
 import Flickity from "react-flickity-component";
 import { Link } from "react-router-dom";
+import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
+import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
 const { Option } = Select;
 const { Meta } = Card;
 const { Title } = Typography;
@@ -71,18 +73,6 @@ const Dashboard = ({ onSearch }) => {
   const articlecurrentItems = articledata.slice(indexOfFirstItem, indexOfLastItem);
   const mdSharecurrentItems = mdSharedata.slice(indexOfFirstItem, indexOfLastItem);
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
-  const cardStyle = {
-    display: "flex",
-  };
-  const imgStyle = {
-    display: "block",
-    width: 273,
-  };
-  const images = [
-    "/images/placeholder.png",
-    "/images/placeholder.png",
-    "/images/placeholder.png",
-  ];
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
   };
@@ -91,17 +81,6 @@ const Dashboard = ({ onSearch }) => {
   };
   const curveAngle = 20;
   const paperColor = "#FFFFFF";
-  const papercard = "rgb(240, 240, 240)";
-  const config = {
-    rules: [
-      {
-        type: 'object',
-        required: true,
-        message: 'Please select time!',
-      },
-    ],
-  };
-
   const fetchDataAndSetOptions = async (endpoint, fieldName, stateSetter) => {
     try {
       const response = await fetch(`http://localhost:8000/api/${endpoint}`);
@@ -168,13 +147,12 @@ const Dashboard = ({ onSearch }) => {
             onChange={onTypeChange}
             size="large"
             placeholder="ประเภท"
-            // onChange={onGenderChange}
             allowClear
-            style={{ marginRight: "10px", flex: 1 }} // Add margin to the right
+            style={{ marginRight: "20px", flex: 1, fontSize: "20px" }} // Add margin to the right and adjust font size
           >
             {selectOptions_type} {/* Populate the options */}
           </Select>
-          <DatePicker picker="month" size="large" style={{ marginRight: "10px", flex: 1 }} />
+          <DatePicker placeholder="เดือน/ปี" picker="month" size="large" style={{ marginRight: "20px", flex: 1, fontSize: "20px"  }} />
         </div>
         <br />
         <Grid container spacing={2}>
@@ -284,12 +262,18 @@ const Dashboard = ({ onSearch }) => {
             ))}
           </Grid>
           <Box mt={4} display="flex" justifyContent="center">
-            <Button onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1}>
-              Prev Page
-            </Button>
-            <Button onClick={() => paginate(currentPage + 1)} disabled={indexOfLastItem >= newdata.length}>
-              Next Page
-            </Button>
+            <IconButton
+              onClick={() => paginate(currentPage - 1)}
+              disabled={currentPage === 1}
+            >
+              <LeftCircleOutlined style={{ fontSize: '3rem', color: "#7BBD8F" }} />
+            </IconButton>
+            <IconButton
+              onClick={() => paginate(currentPage + 1)}
+              disabled={indexOfLastItem >= newdata.length}
+            >
+              <RightCircleOutlined style={{ fontSize: '3rem', color: "#7BBD8F" }} />
+            </IconButton>
           </Box>
         </Paper>
       </Paper>
@@ -359,12 +343,18 @@ const Dashboard = ({ onSearch }) => {
             ))}
           </Grid>
           <Box mt={4} display="flex" justifyContent="center">
-            <Button onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1}>
-              Prev Page
-            </Button>
-            <Button onClick={() => paginate(currentPage + 1)} disabled={indexOfLastItem >= articledata.length}>
-              Next Page
-            </Button>
+            <IconButton
+              onClick={() => paginate(currentPage - 1)}
+              disabled={currentPage === 1}
+            >
+              <LeftCircleOutlined style={{ fontSize: '3rem', color: "#7BBD8F" }} />
+            </IconButton>
+            <IconButton
+              onClick={() => paginate(currentPage + 1)}
+              disabled={indexOfLastItem >= articledata.length}
+            >
+              <RightCircleOutlined style={{ fontSize: '3rem', color: "#7BBD8F" }} />
+            </IconButton>
           </Box>
         </Paper>
       </Paper>
@@ -434,12 +424,18 @@ const Dashboard = ({ onSearch }) => {
             ))}
           </Grid>
           <Box mt={4} display="flex" justifyContent="center">
-            <Button onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1}>
-              Prev Page
-            </Button>
-            <Button onClick={() => paginate(currentPage + 1)} disabled={indexOfLastItem >= mdSharedata.length}>
-              Next Page
-            </Button>
+            <IconButton
+              onClick={() => paginate(currentPage - 1)}
+              disabled={currentPage === 1}
+            >
+              <LeftCircleOutlined style={{ fontSize: '3rem', color: "#7BBD8F" }} />
+            </IconButton>
+            <IconButton
+              onClick={() => paginate(currentPage + 1)}
+              disabled={indexOfLastItem >= mdSharedata.length}
+            >
+              <RightCircleOutlined style={{ fontSize: '3rem', color: "#7BBD8F" }} />
+            </IconButton>
           </Box>
         </Paper>
       </Paper>

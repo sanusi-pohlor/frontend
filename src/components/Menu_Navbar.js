@@ -77,13 +77,6 @@ function ResponsiveAppBar() {
   const closeRegisterDialog = () => {
     setRegisterVisible(false);
   };
-  const settings = [
-    { label: "Login", link: "/User/Login" },
-    { label: "Register", link: "/User/Register" },
-    { label: "User Profile", link: "/User/Profile" },
-    { label: "Admin", link: "/Admin/Adm_Dashboard_View" },
-    { label: "Loguot", link: "/" },
-  ];
   useEffect(() => {
     const fetchUser = async () => {
       try {
@@ -108,20 +101,11 @@ function ResponsiveAppBar() {
 
     fetchUser();
   }, []);
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
 
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -144,9 +128,7 @@ function ResponsiveAppBar() {
   const handleDrawerToggleProfile = async () => {
     if (user.level === 3) {
       Navigate("/User/MenuProfile");
-      
     } else{
-      // ไปยังหน้าอื่น
       Navigate("/Admin/M_DB_Adm_Menu");
     }
   };
@@ -315,7 +297,7 @@ function ResponsiveAppBar() {
                     open={loginVisible}
                     onClose={closeLoginDialog}
                     handleSubmit={handleSubmit}
-                    RegisterFinish={RegisterFinish}
+                    RegisterFinish={LoginFinish}
                   />
                 )}
               </div>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Box, Grid, Paper } from "@mui/material";
-import { SearchOutlined } from "@ant-design/icons";
+import { Box, Grid, Paper, IconButton } from "@mui/material";
+import { SearchOutlined, RightCircleOutlined, LeftCircleOutlined } from "@ant-design/icons";
 import { Card, Button, Image, Input, Typography } from "antd";
 import FilterDialog from "./Article_Filter_Dialog";
 import { Link } from "react-router-dom";
@@ -61,18 +61,18 @@ const Article_Menu = () => {
         <Grid item xs={12} md={4}>
         </Grid>
         <Grid item xs={12} md={4}>
-        <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                height: "100%",
-                textAlign: "center", // Center the text horizontally
-                fontSize: "50px",
-              }}
-            >
-              บทความ
-            </div>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height: "100%",
+              textAlign: "center", // Center the text horizontally
+              fontSize: "50px",
+            }}
+          >
+            บทความ
+          </div>
         </Grid>
         <Grid item xs={12} md={4}>
           <div style={{ display: "flex", alignItems: "center" }}>
@@ -135,12 +135,18 @@ const Article_Menu = () => {
         ))}
       </Grid>
       <Box mt={4} display="flex" justifyContent="center">
-        <Button onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1}>
-          Prev Page
-        </Button>
-        <Button onClick={() => paginate(currentPage + 1)} disabled={indexOfLastItem >= data.length}>
-          Next Page
-        </Button>
+        <IconButton
+          onClick={() => paginate(currentPage - 1)}
+          disabled={currentPage === 1}
+        >
+          <LeftCircleOutlined style={{ fontSize: '3rem', color: "#7BBD8F" }} />
+        </IconButton>
+        <IconButton
+          onClick={() => paginate(currentPage + 1)}
+          disabled={indexOfLastItem >= data.length}
+        >
+          <RightCircleOutlined style={{ fontSize: '3rem', color: "#7BBD8F" }} />
+        </IconButton>
       </Box>
     </Paper>
   );
