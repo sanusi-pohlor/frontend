@@ -1,12 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import AdminMenu from "../../Adm_Menu";
-import { Breadcrumb } from "antd";
+import { Breadcrumb ,Button, Modal ,Descriptions } from "antd";
 
 const Adm_News_view = () => {
   const { id } = useParams();
   const [newsData, setNewsData] = useState({});
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
   useEffect(() => {
     // การดึงข้อมูลข่าวจาก API หรือฐานข้อมูล
     const fetchData = async () => {
@@ -27,7 +36,33 @@ const Adm_News_view = () => {
 
     fetchData();
   }, [id]);
-
+  const items = [
+    {
+      key: '1',
+      label: 'UserName',
+      children: 'Zhou Maomao',
+    },
+    {
+      key: '2',
+      label: 'Telephone',
+      children: '1810000000',
+    },
+    {
+      key: '3',
+      label: 'Live',
+      children: 'Hangzhou, Zhejiang',
+    },
+    {
+      key: '4',
+      label: 'Remark',
+      children: 'empty',
+    },
+    {
+      key: '5',
+      label: 'Address',
+      children: 'No. 18, Wantang Road, Xihu District, Hangzhou, Zhejiang, China',
+    },
+  ];
   return (
     <AdminMenu>
       <Breadcrumb style={{ margin: "16px 0" }}>
@@ -37,9 +72,20 @@ const Adm_News_view = () => {
       </Breadcrumb>
       <div>
         <h1>{newsData.title}</h1>
-        <p>Description: {newsData.description}</p>
+        <h1>ผู้เขียน : {newsData.username}</h1>
+        <h1>ลงเมื่อ : {newsData.creatat}</h1>
         <div dangerouslySetInnerHTML={{ __html: newsData.details }} />
+        <p>Video: {newsData.video}</p>
+        <p>Link: {newsData.link}</p>
         <p>Tag: {newsData.tag}</p>
+        <>
+      <p onClick={showModal}>
+        โปรไฟลผู้เขียน
+      </p>
+      <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+      <Descriptions title="User Info" items={items} />
+      </Modal>
+    </>
       </div>
     </AdminMenu>
   );

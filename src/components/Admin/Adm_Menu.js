@@ -54,7 +54,7 @@ const items = [
     key: "sub4",
     icon: <UserOutlined />,
     label: "จัดการข้อมูลเท็จ",
-    link: "ManageFakeInfo", // Add a link property
+    link: "Manage_Fake_Info_Menu", // Add a link property
   },
   {
     key: "sub5",

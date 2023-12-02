@@ -31,8 +31,8 @@ const imageStyle = {
   height: "70px", // กำหนดขนาดรูปภาพทั้งสองให้เท่ากัน
 };
 const imageStyle1 = {
-  width: "120px", // กำหนดขนาดรูปภาพทั้งสองให้เท่ากัน
-  height: "70px", // กำหนดขนาดรูปภาพทั้งสองให้เท่ากัน
+  width: "170px", // กำหนดขนาดรูปภาพทั้งสองให้เท่ากัน
+  height: "120px", // กำหนดขนาดรูปภาพทั้งสองให้เท่ากัน
 };
 
 const Bottom = () => {
@@ -46,7 +46,11 @@ const Bottom = () => {
       <div style={imageContainerStyle}>
         <Space align="center">
           <span>
-          <img src={PSU} alt="WMO Logo" style={imageStyle1} />
+            <img
+              src="https://www.commsci.psu.ac.th/wp-content/uploads/2023/09/logo-web-V2.0.svg"
+              alt="WMO Logo"
+              style={imageStyle1}
+            />
             <div
               style={{
                 fontFamily: "'Th Sarabun New', sans-serif",

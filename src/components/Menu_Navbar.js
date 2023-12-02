@@ -18,7 +18,7 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import AdbIcon from "@mui/icons-material/Adb";
-import { Link, useLocation, useNavigate   } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import LoginDialog from "./User_Comoponents/Login_Dialog";
 import RegisterDialog from "./User_Comoponents/Register_Dialog";
 import PropTypes from "prop-types";
@@ -43,7 +43,7 @@ function ResponsiveAppBar() {
   const [user, setUser] = useState(null);
   const [registerVisible, setRegisterVisible] = useState(false);
   const [loginVisible, setLoginVisible] = useState(false);
-  const Navigate = useNavigate ();
+  const Navigate = useNavigate();
 
   const loginbuttonStyle = {
     background: "#7BBD8F",
@@ -51,8 +51,8 @@ function ResponsiveAppBar() {
     color: "white",
   };
   const imageStyle = {
-    width: "140px", // กำหนดขนาดรูปภาพทั้งสองให้เท่ากัน
-    height: "90px", // กำหนดขนาดรูปภาพทั้งสองให้เท่ากัน
+    width: '300px', // ปรับค่าความกว้างตามที่ต้องการ
+    height: 'auto', // ให้สูงปรับตามอัตราส่วนเพื่อไม่ทำให้ภาพเบลอ
   };
   const registerbuttonStyle = {
     //background: "#7BBD8F",
@@ -128,7 +128,7 @@ function ResponsiveAppBar() {
   const handleDrawerToggleProfile = async () => {
     if (user.level === 3) {
       Navigate("/User/MenuProfile");
-    } else{
+    } else {
       Navigate("/Admin/M_DB_Adm_Menu");
     }
   };
@@ -166,15 +166,20 @@ function ResponsiveAppBar() {
           sx={{ backgroundColor: "#ffffff", color: "#7BBD8F", height: "10%" }}
         >
           <Toolbar>
-            <img src={PSU} alt="WMO Logo" style={imageStyle} />
+            <img
+              src="https://www.commsci.psu.ac.th/wp-content/uploads/2023/09/logo-web-V2.0.svg"
+              alt="WMO Logo"
+              style={imageStyle}
+            />
             <Typography
               variant="h6"
               noWrap
               component="a"
               href="/"
               sx={{
+                flexGrow: 1,
                 mr: 5,
-                display: { xs: "none", md: "flex" },
+                display: { xs: "none", sm: 'block' },
                 fontFamily: "monospace",
                 fontWeight: 700,
                 letterSpacing: ".3rem",
@@ -231,7 +236,7 @@ function ResponsiveAppBar() {
                 textDecoration: "none",
               }}
             ></Typography>
-            <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+            <Box sx={{ display: { xs: "none", md: "flex" } }}>
               {pages.map((page) => (
                 <Button
                   key={page.label}
@@ -265,7 +270,7 @@ function ResponsiveAppBar() {
                   style={{
                     ...registerbuttonStyle,
                     fontWeight: "bold",
-                    fontSize: "20px",
+                    fontSize: "25px",
                   }}
                   onClick={showRegisterDialog}
                 >
@@ -286,7 +291,7 @@ function ResponsiveAppBar() {
                   style={{
                     ...loginbuttonStyle,
                     fontWeight: "bold",
-                    fontSize: "20px",
+                    fontSize: "25px",
                   }}
                   onClick={showLoginDialog}
                 >
@@ -321,8 +326,9 @@ function ResponsiveAppBar() {
               component="a"
               href="/"
               sx={{
+                flexGrow: 1,
                 mr: 5,
-                display: { xs: "none", md: "flex" },
+                display: { xs: "none", sm: 'block' },
                 fontFamily: "monospace",
                 fontWeight: 700,
                 letterSpacing: ".3rem",

@@ -20,7 +20,8 @@ import NotificationHistory from "./components/Fninfo_Components/Fninfo_History";
 import ManageInfo from "./components/Admin/Manage_Info/Adm_Info_Menu";
 import ManageInfo_view from "./components/Admin/Manage_Info/Adm_Info_View";
 
-import Manage_Fake_Info from "./components/Admin/Manage_Fake_Info/Manage_Fake_Info_Menu";
+import Manage_Fake_Info_Menu from "./components/Admin/Manage_Fake_Info/Manage_Fake_Info_Menu";
+import Manage_Fake_Info_View from "./components/Admin/Manage_Fake_Info/Manage_Fake_Info_View";
 
 import ManageMembers from "./components/Admin/Manage_Members/Adm_Mm_Menu";
 
@@ -80,7 +81,9 @@ const routes = [
   { path: "/Admin/M_DB_Adm_Menu", element: <M_DB_Adm_Menu /> },
 
   { path: "/Admin/ManageInfo", element: <ManageInfo /> },
-  { path: "/Admin/ManageFakeInfo", element: <Manage_Fake_Info /> },
+
+  { path: "/Admin/Manage_Fake_Info_Menu", element: <Manage_Fake_Info_Menu /> },
+  { path: "/Admin/Manage_Fake_Info_View/:id", element: <Manage_Fake_Info_View /> },
   {
     path: "/Admin/ManageInfo/ManageInfo_view/:id", element: <ManageInfo_view />,
   },

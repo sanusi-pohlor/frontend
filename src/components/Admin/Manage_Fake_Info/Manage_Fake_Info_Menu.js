@@ -361,7 +361,7 @@ const Manage_Fake_Info_Menu = () => {
       editable: true,
       render: (text, record) => (
         <Space size="middle">
-          <Link to={`/Admin/ManageInfo/ManageInfo_view/${record.id}`}>
+          <Link to={`/Admin/Manage_Fake_Info/Manage_Fake_Info_View/${record.id}`}>
             <EyeOutlined style={{ fontSize: "16px", color: "blue" }} />{" "}
             {/* Blue color for "ดู" */}
           </Link>

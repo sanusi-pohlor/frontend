@@ -1,137 +1,168 @@
 import React, { useEffect, useState } from 'react';
-import { PlusCircleOutlined, EditOutlined, DeleteOutlined, UnorderedListOutlined } from '@ant-design/icons';
-import { Space, Table, Breadcrumb, Button, Popconfirm, message, Card, Row } from 'antd';
+import { Breadcrumb, Card,Badge, Descriptions } from 'antd';
 import AdminMenu from "../Adm_Menu";
-import { Link } from 'react-router-dom';
-import axios from 'axios';
-import { Paper, Grid, Box, Container } from "@mui/material";
+import { Grid } from "@mui/material";
 
 const M_DB_Adm_Menu = () => {
-    const [dataSource, setDataSource] = useState([]);
     const curveAngle = 20;
     const paperColor = "#FFFFFF";
-    const fetchData = async () => {
+    const [options] = useState([
+        {
+            title: "แหล่งที่มาของข้อมูล",
+            value: "MediaChannels_request",
+            name: "med_c_name",
+            dataIndex: "mfi_med_c",
+        },
+        {
+            title: "รูปแบบข้อมูล",
+            value: "FormatData_request",
+            name: "fm_d_name",
+            dataIndex: "mfi_fm_d",
+        },
+        {
+            title: "ประเภทข้อมูล",
+            value: "TypeInformation_request",
+            name: "type_info_name",
+            dataIndex: "mfi_ty_info",
+        },
+    ]);
+    const items = [
+        {
+          key: '1',
+          label: 'Product',
+          children: 'Cloud Database',
+        },
+        {
+          key: '2',
+          label: 'Billing Mode',
+          children: 'Prepaid',
+        },
+        {
+          key: '3',
+          label: 'Automatic Renewal',
+          children: 'YES',
+        },
+        {
+          key: '4',
+          label: 'Order time',
+          children: '2018-04-24 18:00:00',
+        },
+        {
+          key: '5',
+          label: 'Usage Time',
+          children: '2019-04-24 18:00:00',
+          span: 2,
+        },
+        {
+          key: '6',
+          label: 'Status',
+          children: <Badge status="processing" text="Running" />,
+          span: 3,
+        },
+        {
+          key: '7',
+          label: 'Negotiated Amount',
+          children: '$80.00',
+        },
+        {
+          key: '8',
+          label: 'Discount',
+          children: '$20.00',
+        },
+        {
+          key: '9',
+          label: 'Official Receipts',
+          children: '$60.00',
+        },
+        {
+          key: '10',
+          label: 'Config Info',
+          children: (
+            <>
+              Data disk type: MongoDB
+              <br />
+              Database version: 3.4
+              <br />
+              Package: dds.mongo.mid
+              <br />
+              Storage space: 10 GB
+              <br />
+              Replication factor: 3
+              <br />
+              Region: East China 1
+              <br />
+            </>
+          ),
+        },
+      ];
+    const [chartData, setChartData] = useState([]);
+
+    const fetchData = async (endpoint, name, dataIndex) => {
         try {
-            const response = await fetch('http://localhost:8000/api/Dashboard_request');
+            const response = await fetch(`http://localhost:8000/api/${endpoint}`);
             if (response.ok) {
                 const data = await response.json();
-                setDataSource(data);
+
+                const countByCategory = data.map((item) => {
+                    // Perform any necessary data manipulation here
+                    // Using a sample logic of counting occurrences
+                    return {
+                        name: item[name],
+                        value: item[dataIndex],
+                    };
+                });
+
+                setChartData(countByCategory);
             } else {
-                console.error('Error fetching data:', response.statusText);
+                console.error("Failed to fetch data");
             }
         } catch (error) {
-            console.error('Error fetching data:', error);
+            console.error("Error fetching data:", error);
         }
     };
-    useEffect(() => {
-        fetchData();
-    }, []);
-    const handleDelete = (record) => {
-        axios.delete(`http://localhost:8000/api/data/${record.id}`)
-            .then(() => {
-                const updatedDataSource = dataSource.filter(item => item.id !== record.id);
-                setDataSource(updatedDataSource);
-                message.success('Item deleted successfully');
-            })
-            .catch((error) => {
-                console.error('Error deleting item:', error);
-                message.error('Error deleting item');
-            });
-    };
 
-    const columns = [
-        {
-            title: 'Title',
-            dataIndex: 'title',
-            key: 'title',
-        },
-        {
-            title: 'Description',
-            dataIndex: 'description',
-            key: 'description',
-        },
-        {
-            title: 'Image',
-            dataIndex: 'image',
-            key: 'image',
-            render: (image) => <img src={image} alt="Item" style={{ maxWidth: '100px' }} />,
-        },
-        {
-            title: 'status',
-            dataIndex: 'status',
-            key: 'status',
-        },
-        {
-            title: 'Actions',
-            dataIndex: 'actions',
-            key: 'actions',
-            render: (_, record) => (
-                <Space>
-                    <Link to={`/Admin/Adm_Dashboard_View/${record.id}`}>
-                        <Button type="primary" icon={<EditOutlined />} />
-                    </Link>
-                    <Popconfirm
-                        title="Are you sure you want to delete this item?"
-                        onConfirm={() => handleDelete(record)}
-                        okText="Yes"
-                        cancelText="No"
-                    >
-                        <Button type="primary" icon={<DeleteOutlined />} danger />
-                    </Popconfirm>
-                </Space>
-            ),
-        },
-    ];
+    useEffect(() => {
+        if (options.length > 0) {
+            options.forEach((option) => {
+                fetchData(option.value, option.name, option.dataIndex);
+            });
+        }
+    }, [options]);
+
     return (
-        <AdminMenu><Breadcrumb style={{ margin: '16px 0' }}>
-            <Breadcrumb.Item>Home</Breadcrumb.Item>
-            <Breadcrumb.Item>List</Breadcrumb.Item>
-            <Breadcrumb.Item>App</Breadcrumb.Item>
-        </Breadcrumb>
-        <Grid container spacing={2}>
-          <Grid item xs={12} md={4}>
-          <Card
-              hoverable
-              style={{
-                margin: "auto",
-                borderRadius: `${curveAngle}px`,
-                backgroundColor: paperColor,
-                width: "100%",
-                height: "100%",
-              }}
-            >
-aaa
-            </Card>
-          </Grid>
-          <Grid item xs={12} md={4}>
-          <Card
-              hoverable
-              style={{
-                margin: "auto",
-                borderRadius: `${curveAngle}px`,
-                backgroundColor: paperColor,
-                width: "100%",
-                height: "100%",
-              }}
-            >
-aaa
-            </Card>
-          </Grid>
-          <Grid item xs={12} md={4}>
-          <Card
-              hoverable
-              style={{
-                margin: "auto",
-                borderRadius: `${curveAngle}px`,
-                backgroundColor: paperColor,
-                width: "100%",
-                height: "100%",
-              }}
-            >
-aaa
-            </Card>
-          </Grid>
-        </Grid>
+        <AdminMenu>
+            <Breadcrumb style={{ margin: '16px 0' }}>
+                <Breadcrumb.Item>Home</Breadcrumb.Item>
+                <Breadcrumb.Item>List</Breadcrumb.Item>
+                <Breadcrumb.Item>App</Breadcrumb.Item>
+            </Breadcrumb>
+            <Grid container spacing={2}>
+                {options.map((option, index) => (
+                    <Grid key={index} item xs={12} md={4}>
+                        <Card
+                            hoverable
+                            style={{
+                                margin: "auto",
+                                borderRadius: `${curveAngle}px`,
+                                backgroundColor: paperColor,
+                                width: "100%",
+                                height: "100%",
+                            }}
+                        >
+                            <h3>{option.title}</h3>
+                            {/* Display data fetched from API */}
+                            <ul>
+                                {chartData.map((data, idx) => (
+                                    <li key={idx}>
+                                        {data.name}: {data.value}
+                                    </li>
+                                ))}
+                            </ul>
+                        </Card>
+                    </Grid>
+                ))}
+            </Grid>
+            <Descriptions title="User Info" bordered items={items} />
         </AdminMenu>
     );
 };

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Table, Card, Select } from "antd";
+import { Box } from "@mui/material";
 
 const MyTable = () => {
   const curveAngle = 20;
@@ -101,6 +102,7 @@ const MyTable = () => {
           </Select.Option>
         ))}
       </Select>
+      <Box/>
       <Table dataSource={tableData} columns={columns} />
     </div>
   );

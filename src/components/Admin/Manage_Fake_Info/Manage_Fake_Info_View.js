@@ -51,7 +51,7 @@ const Manage_Fake_Info_View = () => {
     console.log("id :", id);
     try {
       const response = await fetch(
-        `http://localhost:8000/api/FakeNewsInfo_show/${id}`
+        `http://localhost:8000/api/Manage_Fake_Info_show/${id}`
       );
       if (response.ok) {
         const data = await response.json();
@@ -72,75 +72,37 @@ const Manage_Fake_Info_View = () => {
   const items = [
     {
       key: "1",
-      label: "หัวข้อ",
-      children: fakeNewsInfo && <span>{fakeNewsInfo.fn_info_head}</span>,
+      label: "ประทับเวลา",
+      children: fakeNewsInfo && (
+        <span>
+          {fakeNewsInfo.mfi_time &&
+            moment(fakeNewsInfo.mfi_time).locale("th").format("DD MMMM YYYY")}
+        </span>
+      ),
     },
     {
       key: "2",
-      label: "ผู้แจ้ง",
-      children: fakeNewsInfo && <span>{fakeNewsInfo.fn_info_nameid}</span>,
+      label: "จังหวัดของท่าน",
+      children: fakeNewsInfo && <span>{fakeNewsInfo.จังหวัดของท่าน}</span>,
     },
     {
       key: "3",
-      label: "จังหวัด",
-      children: fakeNewsInfo && <span>{fakeNewsInfo.fn_info_province}</span>,
+      label: "ผู้ส่งรายงาน",
+      children: fakeNewsInfo && <span>{fakeNewsInfo.mfi_mem}</span>,
     },
     {
       key: "4",
-      label: "เนื้อหา",
-      children: fakeNewsInfo && <span>{fakeNewsInfo.fn_info_content}</span>,
+      label: "แหล่งที่มาของข่าวปลอม",
+      children: fakeNewsInfo && <span>{fakeNewsInfo.mfi_med_c}</span>,
     },
     {
       key: "5",
-      label: "แหล่งที่มาของข่าวปลอม",
-      children: fakeNewsInfo && <span>{fakeNewsInfo.fn_info_source}</span>,
-    },
-    {
-      key: "6",
-      label: "แจ้งเมื่อ",
-      children: fakeNewsInfo && (
-        <span>
-          {fakeNewsInfo.created_at &&
-            moment(fakeNewsInfo.created_at).locale("th").format("DD MMMM YYYY")}
-        </span>
-      ),
-    },
-    {
-      key: "7",
-      label: "รายละเอียดเพิ่มเติม",
-      span: 3,
-      children: fakeNewsInfo && <span>{fakeNewsInfo.fn_info_more}</span>,
-    },
-    {
-      key: "8",
-      label: "ลิ้งค์ข้อมูล",
-      children: fakeNewsInfo && <span>{fakeNewsInfo.fn_info_link}</span>,
-    },
-    {
-      key: "9",
-      label: "จำนวนสมาชิกที่อยู่ในกลุ่มที่อาจเผยแพร่ข้อมูลเท็จ",
-      children: fakeNewsInfo && <span>{fakeNewsInfo.fn_info_num_mem}</span>,
-    },
-    {
-      key: "10",
-      label: "วัน/เดือน/ปี ที่เกิดเหตุ",
-      children: fakeNewsInfo && (
-        <span>
-          {fakeNewsInfo.fn_info_dmy &&
-            moment(fakeNewsInfo.fn_info_dmy)
-              .locale("th")
-              .format("DD MMMM YYYY")}
-        </span>
-      ),
-    },
-    {
-      key: "11",
-      label: "ภาพบันทึกหน้าจอหรือภาพถ่ายที่พบข้อมูลเท็จ",
+      label: "ส่งภาพบันทึกหน้าจอหรือภาพถ่ายที่พบข้อมูลเท็จ",
       children: fakeNewsInfo && (
         <span>
           <Image
             width={200}
-            src={fakeNewsInfo.fn_info_image}
+            src={fakeNewsInfo.mfi_img}
             alt="รูปภาพข่าวปลอม"
             //style={{ maxWidth: "100%", height: "auto" }}
           />
@@ -148,7 +110,93 @@ const Manage_Fake_Info_View = () => {
       ),
     },
     {
+      key: "6",
+      label: "ระบุลิ้งค์ข้อมูล (ถ้ามี)",
+      children: fakeNewsInfo && <span>{fakeNewsInfo.mfi_link}</span>,
+    },
+    {
+      key: "7",
+      label: "แหล่งที่มาของข้อมูล",
+      span: 3,
+      children: fakeNewsInfo && <span>{fakeNewsInfo.mfi_c_info}</span>,
+    },
+    {
+      key: "8",
+      label: "จำนวนสมาชิกที่อยู่ในกลุ่มที่อาจเผยแพร่ข้อมูลเท็จ",
+      children: fakeNewsInfo && <span>{fakeNewsInfo.mfi_num_mem}</span>,
+    },
+    {
+      key: "9",
+      label: "หน่วยงานที่เก็บข้อมูล",
+      children: fakeNewsInfo && <span>{fakeNewsInfo.mfi_agency}</span>,
+    },
+    {
+      key: "10",
+      label: "หัวข้อข้อมูลผิดพลาด",
+      children: fakeNewsInfo && <span>{fakeNewsInfo.mfi_d_topic}</span>,
+    },
+    {
+      key: "11",
+      label: "รูปแบบของข้อมูล",
+      children: fakeNewsInfo && <span>{fakeNewsInfo.mfi_fm_d}</span>,
+    },
+    {
       key: "12",
+      label: "ช่องทางการเผยแพร่",
+      children: fakeNewsInfo && <span>{fakeNewsInfo.mfi_dis_c}</span>,
+    },
+    {
+      key: "12",
+      label: "ช่องทางการเผยแพร่",
+      children: fakeNewsInfo && <span>{fakeNewsInfo.mfi_dis_c}</span>,
+    },
+    {
+      key: "13",
+      label: "ผู้เผยแพร่ข้อมูล",
+      children: fakeNewsInfo && <span>{fakeNewsInfo.mfi_publ}</span>,
+    },
+    {
+      key: "14",
+      label: "ประเภทของข้อมูล",
+      children: fakeNewsInfo && <span>{fakeNewsInfo.mfi_ty_info}</span>,
+    },
+    {
+      key: "15",
+      label: "เฉพาะโควิด-15",
+      children: fakeNewsInfo && <span>{fakeNewsInfo.mfi_only_cv}</span>,
+    },
+    {
+      key: "16",
+      label: "มีเนื้อหาเกี่ยวกับ",
+      children: fakeNewsInfo && <span>{fakeNewsInfo.mfi_con_about}</span>,
+    },
+    {
+      key: "17",
+      label: "แรงจูงใจการเผยแพร่",
+      children: fakeNewsInfo && <span>{fakeNewsInfo.mfi_moti}</span>,
+    },
+    {
+      key: "18",
+      label: "จำนวนการวนซ้ำ",
+      children: fakeNewsInfo && <span>{fakeNewsInfo.mfi_iteration}</span>,
+    },
+    {
+      key: "19",
+      label: "การตรวจสอบข้อมูล",
+      children: fakeNewsInfo && <span>{fakeNewsInfo.mfi_che_d}</span>,
+    },
+    {
+      key: "20",
+      label: "ลักษณะข้อมูล",
+      children: fakeNewsInfo && <span>{fakeNewsInfo.mfi_data_cha}</span>,
+    },
+    {
+      key: "21",
+      label: "เพิ่มเมื่อ",
+      children: fakeNewsInfo && <span>{fakeNewsInfo.created_at}</span>,
+    },
+    {
+      key: "22",
       label: "สถานะ",
       span: 3,
       children: fakeNewsInfo && (

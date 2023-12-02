@@ -99,24 +99,57 @@ const Adm_News_Form = () => {
     setEditorHtml(html);
   };
 
+  // const onFinish = async (values) => {
+  //   console.log("values :", values);
+  //   try {
+  //     setLoading(true);
+  //     // Send other form data to the server
+  //     const response = await fetch("http://localhost:8000/api/News_upload", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({
+  //         username: user.username,
+  //         title: values.title,
+  //         details: editorHtml,
+  //         video: values.video,
+  //         link: values.link,
+  //         tag: values.tag,
+  //       }),
+  //     });
+
+  //     if (response.ok) {
+  //       message.success("Data saved successfully");
+  //     } else {
+  //       message.error("Failed to save data");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error:", error);
+  //     message.error("An error occurred");
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+
   const onFinish = async (values) => {
     console.log("values :", values);
     try {
       setLoading(true);
-      // Send other form data to the server
+  
+      const formData = new FormData();
+      formData.append("username", user.username);
+      formData.append("title", values.title);
+      formData.append("details", editorHtml);
+      formData.append("video", values.video);
+      formData.append("link", values.link);
+      formData.append("tag", values.tag);
+      formData.append("status", 1);
       const response = await fetch("http://localhost:8000/api/News_upload", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          title: values.title,
-          description: values.description,
-          details: editorHtml,
-          tag: values.tag,
-        }),
+        body: formData,
       });
-
+  
       if (response.ok) {
         message.success("Data saved successfully");
       } else {
@@ -129,7 +162,7 @@ const Adm_News_Form = () => {
       setLoading(false);
     }
   };
-
+  
   return (
     <AdminMenu>
       <Form

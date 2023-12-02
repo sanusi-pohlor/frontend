@@ -7,19 +7,28 @@ const MapWidget = () => {
   const [highlightedRegion, setHighlightedRegion] = useState(null);
   const curveAngle = 20;
   const paperColor = "#FFFFFF";
-  const handleMouseEnter = (event) => {
+
+  const handleMouseEnter = async (event) => {
     const regionId = event.target.id;
     setHighlightedRegion(regionId);
+
+    try {
+      const response = await fetch(`http://example.com/api/region/${regionId}`);
+      if (response.ok) {
+        const data = await response.json();
+        console.log("Region Data:", data);
+        // ทำการใช้ข้อมูลที่ได้มาในการแสดงผลหรือทำอะไรต่อได้ตามต้องการ
+      } else {
+        console.error("Failed to fetch region data");
+      }
+    } catch (error) {
+      console.error("Error fetching region data:", error);
+    }
   };
 
   const handleMouseLeave = () => {
     setHighlightedRegion(null);
   };
-  // const Viewer = useRef(null);
-
-  // useEffect(() => {
-  //   Viewer.current.fitToViewer();
-  // }, []);
 
   return (
     <div>
