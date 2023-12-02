@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
 import AdminMenu from "../../Adm_Menu";
 import "react-quill/dist/quill.snow.css";
-import { Form, Input, Button, message, Select } from "antd";
+import { Form, Input, Button, message,Upload, Select } from "antd";
 import ReactQuill from "react-quill";
-import {
-  UserOutlined,
-} from "@ant-design/icons";
+import { PlusOutlined,UserOutlined } from "@ant-design/icons";
 
 const Adm_News_Form = () => {
   const [form] = Form.useForm();
@@ -13,6 +11,14 @@ const Adm_News_Form = () => {
   const [editorHtml, setEditorHtml] = useState("");
   const [user, setUser] = useState(null);
   const options = [];
+  const normFile = (e) => {
+    if (Array.isArray(e)) {
+      return e;
+    }
+    return e && e.fileList;
+  };
+
+
   for (let i = 10; i < 36; i++) {
     options.push({
       value: i.toString(36) + i,
@@ -46,6 +52,7 @@ const Adm_News_Form = () => {
   useEffect(() => {
     fetchUser();
   }, []);
+
   const modules = {
     toolbar: {
       handlers: {
@@ -97,21 +104,18 @@ const Adm_News_Form = () => {
     try {
       setLoading(true);
       // Send other form data to the server
-      const response = await fetch(
-        "http://localhost:8000/api/News_upload",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            title: values.title,
-            description: values.description,
-            details: editorHtml,
-            tag: values.tag,
-          }),
-        }
-      );
+      const response = await fetch("http://localhost:8000/api/News_upload", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          title: values.title,
+          description: values.description,
+          details: editorHtml,
+          tag: values.tag,
+        }),
+      });
 
       if (response.ok) {
         message.success("Data saved successfully");
@@ -148,33 +152,59 @@ const Adm_News_Form = () => {
           <Input
             size="large"
             prefix={<UserOutlined className="site-form-item-icon" />}
-            placeholder={user.username}
+            placeholder={user ? user.username : "Username"}
             disabled
           />
         </Form.Item>
-        <Form.Item name="title" label="Title" rules={[{ required: true }]}>
+        <Form.Item name="title" label="หัวข้อ" rules={[{ required: true }]}>
           <Input />
         </Form.Item>
-        <Form.Item name="details" label="Details" rules={[{ required: false }]}>
-          <div className="text-editor">
-            {JSON.stringify(editorHtml)}
-            <hr />
+        <Form.Item name="details" label="รายละเอียด" rules={[{ required: false }]}>
+          <div style={{ height: "300px" }}>
             <ReactQuill
               onChange={handleChange}
               placeholder="Write something..."
               formats={formats}
               modules={modules}
+              style={{ height: "250px" }}
             />
           </div>
+        </Form.Item>
+        <Form.Item
+            label="video"
+            name="video"
+            valuePropName="fileList"
+            getValueFromEvent={normFile}
+            rules={[
+              {
+                required: true,
+                message: "กรุณาแนบภาพบันทึกหน้าจอหรือภาพถ่ายที่พบข้อมูลเท็จ",
+              },
+            ]}
+          >
+            <Upload
+              name="video"
+              maxCount={3}
+              listType="picture-card"
+              beforeUpload={() => false}
+            >
+              <div>
+                <PlusOutlined />
+                <div style={{ marginTop: 8 }}>Upload</div>
+              </div>
+            </Upload>
+          </Form.Item>
+        <Form.Item name="link" label="Link" rules={[{ required: true }]}>
+          <Input />
         </Form.Item>
         <Form.Item name="tag" label="Tag" rules={[{ required: true }]}>
           <Select
             mode="tags"
             style={{
-              width: '100%',
+              width: "100%",
             }}
             onChange={handleChangetag}
-            tokenSeparators={[',']}
+            tokenSeparators={[","]}
             options={options}
           />
         </Form.Item>
