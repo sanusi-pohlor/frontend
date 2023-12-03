@@ -9,7 +9,7 @@ const { Footer } = Layout;
 const footerStyle = {
   textAlign: "center",
   color: "#ffffff",
-  backgroundColor: "#7BBD8F",
+  backgroundColor: "#ffffff",
   height: "30vh",
   width: "100%",
   fontFamily: "'Th Sarabun New', sans-serif",

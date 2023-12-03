@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Badge, Descriptions, Image, Steps, Divider, Modal, Select, Radio } from "antd";
+import { Badge, Descriptions, Image, Steps,message,Button, Divider, Modal, Radio ,Input,Select,Form} from "antd";
 import { useParams } from "react-router-dom";
 import AdminMenu from "../Adm_Menu";
 import moment from "moment";
+const { Option } = Select;
 
 const plainOptions = ['1', '2'];
 const options = [
@@ -45,6 +46,32 @@ const ManageInfo_view = () => {
   const [selectOptions_data, setSelectOptions_data] = useState([]); // State for select optionsons
   const [selectOptions_prov, setSelectOptions_prov] = useState([]); // State for select optionsons
 
+  const onFinish = async (values) => {
+    try {
+      const response = await fetch(
+        "http://localhost:8000/api/Manage_Fake_Info_upload",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json", // ระบุ Content-Type เป็น JSON
+          },
+          body: JSON.stringify(values), // แปลงข้อมูลให้เป็น JSON string
+        }
+      );
+
+      if (response.ok) {
+        message.success("Form data sent successfully");
+      } else {
+        message.error("Error sending form data");
+      }
+    } catch (error) {
+      console.error("Error sending form data:", error);
+      message.error("Error sending form data");
+    }
+  };
+  const onFinishFailed = (errorInfo) => {
+    console.log("Failed:", errorInfo);
+  };
 
   const onChange = (newStatus) => {
     // ตรวจสอบเงื่อนไขเพื่อแสดง Modal
@@ -355,9 +382,9 @@ const ManageInfo_view = () => {
           },
         ]}
       />
-      {isModalVisible && (
+      {/* {isModalVisible && (
         <WaitingModal onClose={() => setIsModalVisible(false)} />
-      )}
+      )} */}
       <Modal
         title="ยืนยันการเลือกขั้นตอน"
         visible={modalVisible}

@@ -319,7 +319,11 @@ function ResponsiveAppBar() {
           sx={{ backgroundColor: "#ffffff", color: "#7BBD8F", height: "10%" }}
         >
           <Toolbar>
-            <img src={PSU} alt="WMO Logo" style={imageStyle} />
+          <img
+              src="https://www.commsci.psu.ac.th/wp-content/uploads/2023/09/logo-web-V2.0.svg"
+              alt="WMO Logo"
+              style={imageStyle}
+            />
             <Typography
               variant="h6"
               noWrap
@@ -336,7 +340,7 @@ function ResponsiveAppBar() {
                 textDecoration: "none",
               }}
             ></Typography>
-            <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+            <Box sx={{ display: { xs: "none", md: "flex" } }}>
               {pages.map((page) => (
                 <Button
                   key={page.label}
