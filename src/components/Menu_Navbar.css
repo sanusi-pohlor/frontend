@@ -34,7 +34,22 @@
 
 .menu-button {
     font-size: 20px;
-    padding: 8px 12px;
+    padding: 10px 12px;
     align-items: center;
     font-weight: bold; 
 }
+
+
+  /* Import Th Sarabun New font */
+  @import url('https://fonts.cdnfonts.com/css/th-sarabun-new-4');
+  
+  /* Apply the font to specific elements using custom classes */
+  .custom-font {
+    font-family: 'Th Sarabun New', sans-serif;
+  }
+  
+  /* Optional: You can also apply the font globally */
+  body {
+    font-family: 'Th Sarabun New', sans-serif;
+  }
+  

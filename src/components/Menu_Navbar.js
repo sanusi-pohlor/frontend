@@ -48,8 +48,8 @@ function Menu_Navbar() {
     color: "white",
   };
   const imageStyle = {
-    width: '100px', // ปรับค่าความกว้างตามที่ต้องการ
-    height: 'auto', // ให้สูงปรับตามอัตราส่วนเพื่อไม่ทำให้ภาพเบลอ
+    width: "100px", // ปรับค่าความกว้างตามที่ต้องการ
+    height: "auto", // ให้สูงปรับตามอัตราส่วนเพื่อไม่ทำให้ภาพเบลอ
   };
   const registerbuttonStyle = {
     //background: "#7BBD8F",
@@ -150,11 +150,12 @@ function Menu_Navbar() {
     return (
       <Box className="custom-font">
         <CssBaseline />
-        <AppBar className="AppBarContainer"
+        <AppBar
+          className="AppBarContainer"
           sx={{ backgroundColor: "#ffffff", color: "#7BBD8F", height: "10%" }}
         >
           <Toolbar>
-          <IconButton
+            <IconButton
               color="inherit"
               aria-label="open drawer"
               edge="start"
@@ -179,7 +180,7 @@ function Menu_Navbar() {
               sx={{
                 flexGrow: 1,
                 mr: 5,
-                display: { xs: "none", sm: 'block' },
+                display: { xs: "none", sm: "block" },
                 fontFamily: "monospace",
                 fontWeight: 700,
                 letterSpacing: ".3rem",
@@ -251,11 +252,14 @@ function Menu_Navbar() {
                   justifyContent: "flex-end", // This will align the content to the far right
                 }}
               >
-                <Button className="menu-button"
+                <Button
+                  className="menu-button"
                   size="large"
                   type="primary"
                   style={{
                     ...registerbuttonStyle,
+                    fontWeight: "bold",
+                    fontSize: "25px",
                   }}
                   onClick={showRegisterDialog}
                 >
@@ -270,11 +274,14 @@ function Menu_Navbar() {
                   />
                 )}
                 <div style={{ margin: "5px" }}></div>
-                <Button className="menu-button"
+                <Button
+                  className="menu-button"
                   size="large"
                   type="primary"
                   style={{
                     ...loginbuttonStyle,
+                    fontWeight: "bold",
+                    fontSize: "25px",
                   }}
                   onClick={showLoginDialog}
                 >
@@ -302,8 +309,19 @@ function Menu_Navbar() {
           sx={{ backgroundColor: "#ffffff", color: "#7BBD8F", height: "10%" }}
         >
           <Toolbar>
-            <img src={PSU} alt="WMO Logo" style={imageStyle} />
-          <img
+          <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              edge="start"
+              onClick={handleDrawerToggle}
+              sx={{
+                mr: 2,
+                display: { xs: "flex", md: "none" },
+              }}
+            >
+              <MenuIcon />
+            </IconButton>
+            <img
               src="https://www.commsci.psu.ac.th/wp-content/uploads/2023/09/logo-web-V2.0.svg"
               alt="WMO Logo"
               style={imageStyle}
@@ -316,7 +334,43 @@ function Menu_Navbar() {
               sx={{
                 flexGrow: 1,
                 mr: 5,
-                display: { xs: "none", sm: 'block' },
+                display: { xs: "none", sm: "block" },
+                fontFamily: "monospace",
+                fontWeight: 700,
+                letterSpacing: ".3rem",
+                color: "inherit",
+                textDecoration: "none",
+              }}
+            ></Typography>
+            <Box component="nav">
+              <Drawer
+                container={container}
+                variant="temporary"
+                open={mobileOpen}
+                onClose={handleDrawerToggle}
+                ModalProps={{
+                  keepMounted: false, // Better open performance on mobile.
+                }}
+                sx={{
+                  display: { xs: "block", sm: "block" },
+                  "& .MuiDrawer-paper": {
+                    boxSizing: "border-box",
+                    width: drawerWidth,
+                  },
+                }}
+              >
+                {drawerMenu}
+              </Drawer>
+            </Box>
+            <Typography
+              variant="h5"
+              noWrap
+              component="a"
+              href="/"
+              sx={{
+                mr: 2,
+                display: { xs: "flex", md: "none" },
+                flexGrow: 1,
                 fontFamily: "monospace",
                 fontWeight: 700,
                 letterSpacing: ".3rem",
@@ -344,55 +398,6 @@ function Menu_Navbar() {
                 </Button>
               ))}
             </Box>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              edge="start"
-              onClick={handleDrawerToggle}
-              sx={{
-                mr: 2,
-                display: { xs: "flex", md: "none" },
-              }}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Box component="nav">
-              <Drawer
-                container={container}
-                variant="temporary"
-                open={mobileOpen}
-                onClose={handleDrawerToggle}
-                ModalProps={{
-                  keepMounted: false, // Better open performance on mobile.
-                }}
-                sx={{
-                  display: { xs: "block", sm: "block" },
-                  "& .MuiDrawer-paper": {
-                    boxSizing: "border-box",
-                    width: drawerWidth,
-                  },
-                }}
-              >
-                {drawerMenu}
-              </Drawer>
-            </Box>
-            {/* <img src={PSU} alt="WMO Logo" style={imageStyle} /> */}
-            <Typography
-              variant="h5"
-              noWrap
-              component="a"
-              href="/"
-              sx={{
-                mr: 2,
-                display: { xs: "flex", md: "none" },
-                flexGrow: 1,
-                fontFamily: "monospace",
-                fontWeight: 700,
-                letterSpacing: ".3rem",
-                color: "inherit",
-                textDecoration: "none",
-              }}
-            ></Typography>
             <IconButton onClick={handleDrawerToggleProfile} sx={{ p: 0 }}>
               <Avatar sx={{ color: "#7BBD8F" }} />
             </IconButton>
