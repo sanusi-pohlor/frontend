@@ -22,10 +22,9 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import LoginDialog from "./User_Comoponents/Login_Dialog";
 import RegisterDialog from "./User_Comoponents/Register_Dialog";
 import PropTypes from "prop-types";
-import "../App.css";
+import "./Menu_Navbar.css";
 import PSU from "./Images/PSU.jpg";
 import COMMSCI from "./Images/COMMSCI.png";
-
 const pages = [
   { label: "หน้าหลัก", link: "/" },
   { label: "ข่าวสาร", link: "/News_Menu" },
@@ -33,8 +32,7 @@ const pages = [
   { label: "สื่อชวนแชร์", link: "/MediaShare_Menu" },
   { label: "แจ้งข้อมูลเท็จ", link: "/FakeNews_Menu" },
 ];
-
-function ResponsiveAppBar() {
+function Menu_Navbar() {
   const location = useLocation();
   const [Login, setLogin] = useState(false);
   const [Register, setRegister] = useState(false);
@@ -44,14 +42,13 @@ function ResponsiveAppBar() {
   const [registerVisible, setRegisterVisible] = useState(false);
   const [loginVisible, setLoginVisible] = useState(false);
   const Navigate = useNavigate();
-
   const loginbuttonStyle = {
     background: "#7BBD8F",
     border: "none",
     color: "white",
   };
   const imageStyle = {
-    width: '300px', // ปรับค่าความกว้างตามที่ต้องการ
+    width: '100px', // ปรับค่าความกว้างตามที่ต้องการ
     height: 'auto', // ให้สูงปรับตามอัตราส่วนเพื่อไม่ทำให้ภาพเบลอ
   };
   const registerbuttonStyle = {
@@ -63,7 +60,6 @@ function ResponsiveAppBar() {
   const showLoginDialog = () => {
     setLoginVisible(true);
   };
-
   // Function to close the RegisterDialog
   const closeLoginDialog = () => {
     setLoginVisible(false);
@@ -72,7 +68,6 @@ function ResponsiveAppBar() {
   const showRegisterDialog = () => {
     setRegisterVisible(true);
   };
-
   // Function to close the RegisterDialog
   const closeRegisterDialog = () => {
     setRegisterVisible(false);
@@ -86,7 +81,6 @@ function ResponsiveAppBar() {
             Authorization: `Bearer ${localStorage.getItem("access_token")}`,
           },
         });
-
         if (response.ok) {
           const data = await response.json();
           setUser(data);
@@ -98,14 +92,11 @@ function ResponsiveAppBar() {
         console.error("Error:", error);
       }
     };
-
     fetchUser();
   }, []);
-
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
-
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -124,7 +115,6 @@ function ResponsiveAppBar() {
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
-
   const handleDrawerToggleProfile = async () => {
     if (user.level === 3) {
       Navigate("/User/MenuProfile");
@@ -132,7 +122,6 @@ function ResponsiveAppBar() {
       Navigate("/Admin/M_DB_Adm_Menu");
     }
   };
-
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [mobileOpenProfile, setMobileOpenProfile] = React.useState(false);
   const drawerMenu = (
@@ -157,15 +146,26 @@ function ResponsiveAppBar() {
     </Box>
   );
   const container = window.document.body;
-
   if (!user) {
     return (
       <Box className="custom-font">
         <CssBaseline />
-        <AppBar
+        <AppBar className="AppBarContainer"
           sx={{ backgroundColor: "#ffffff", color: "#7BBD8F", height: "10%" }}
         >
           <Toolbar>
+          <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              edge="start"
+              onClick={handleDrawerToggle}
+              sx={{
+                mr: 2,
+                display: { xs: "flex", md: "none" },
+              }}
+            >
+              <MenuIcon />
+            </IconButton>
             <img
               src="https://www.commsci.psu.ac.th/wp-content/uploads/2023/09/logo-web-V2.0.svg"
               alt="WMO Logo"
@@ -187,19 +187,6 @@ function ResponsiveAppBar() {
                 textDecoration: "none",
               }}
             ></Typography>
-            {/* Responsive App bar with Drawer */}
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              edge="start"
-              onClick={handleDrawerToggle}
-              sx={{
-                mr: 2,
-                display: { xs: "flex", md: "none" },
-              }}
-            >
-              <MenuIcon />
-            </IconButton>
             <Box component="nav">
               <Drawer
                 container={container}
@@ -264,13 +251,11 @@ function ResponsiveAppBar() {
                   justifyContent: "flex-end", // This will align the content to the far right
                 }}
               >
-                <Button
+                <Button className="menu-button"
                   size="large"
                   type="primary"
                   style={{
                     ...registerbuttonStyle,
-                    fontWeight: "bold",
-                    fontSize: "25px",
                   }}
                   onClick={showRegisterDialog}
                 >
@@ -285,13 +270,11 @@ function ResponsiveAppBar() {
                   />
                 )}
                 <div style={{ margin: "5px" }}></div>
-                <Button
+                <Button className="menu-button"
                   size="large"
                   type="primary"
                   style={{
                     ...loginbuttonStyle,
-                    fontWeight: "bold",
-                    fontSize: "25px",
                   }}
                   onClick={showLoginDialog}
                 >
@@ -319,6 +302,7 @@ function ResponsiveAppBar() {
           sx={{ backgroundColor: "#ffffff", color: "#7BBD8F", height: "10%" }}
         >
           <Toolbar>
+            <img src={PSU} alt="WMO Logo" style={imageStyle} />
           <img
               src="https://www.commsci.psu.ac.th/wp-content/uploads/2023/09/logo-web-V2.0.svg"
               alt="WMO Logo"
@@ -418,13 +402,11 @@ function ResponsiveAppBar() {
     );
   }
 }
-
-ResponsiveAppBar.propTypes = {
+Menu_Navbar.propTypes = {
   /**
    * Injected by the documentation to work in an iframe.
    * You won't need it on your project.
    */
   window: PropTypes.func,
 };
-
-export default ResponsiveAppBar;
+export default Menu_Navbar;

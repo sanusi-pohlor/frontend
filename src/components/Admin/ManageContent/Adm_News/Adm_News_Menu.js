@@ -15,7 +15,7 @@ const Adm_News_View = () => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch("http://localhost:8000/api/News_request");
+      const response = await fetch("http://localhost:8000/api/Adm_News_request");
       if (response.ok) {
         const data = await response.json();
         setDataSource(data);
@@ -44,30 +44,49 @@ const Adm_News_View = () => {
         message.error("Error deleting item");
       });
   };
-
+  const getStatusText = (status) => {
+    // Define your logic to map status values to text here
+    switch (status) {
+      case 0:
+        return "เปิดเผยแพร่";
+      case 1:
+        return "ปิดเผยแพร่";
+    }
+  };
   const columns = [
+    {
+      title: "Author",
+      dataIndex: "Author",
+      key: "Author",
+    },
     {
       title: "Title",
       dataIndex: "title",
       key: "title",
     },
-    {
-      title: "Description",
-      dataIndex: "description",
-      key: "description",
-    },
-    {
-      title: "Image",
-      dataIndex: "image",
-      key: "image",
-      render: (image) => (
-        <img src={image} alt="Item" style={{ maxWidth: "100px" }} />
-      ),
-    },
+    // {
+    //   title: "link",
+    //   dataIndex: "link",
+    //   key: "link",
+    // },
+    // {
+    //   title: "tag",
+    //   dataIndex: "tag",
+    //   key: "tag",
+    // },
+    // {
+    //   title: "Image",
+    //   dataIndex: "image",
+    //   key: "image",
+    //   render: (image) => (
+    //     <img src={image} alt="Item" style={{ maxWidth: "100px" }} />
+    //   ),
+    // },
     {
       title: "status",
       dataIndex: "status",
       key: "status",
+      render: (status) => getStatusText(status),
     },
     {
       title: "Actions",

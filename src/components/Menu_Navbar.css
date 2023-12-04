@@ -1,0 +1,40 @@
+/* Menu_Navbar.css */
+
+/* Flexbox styles for centering content horizontally and vertically */
+.AppBarContainer {
+    display: flex;
+    justify-content: center;
+    /* Center content horizontally */
+
+    /* Center content vertically */
+    height: 100%;
+    /* Make sure the AppBar takes the full height */
+}
+
+/* Style the AppBar content as needed */
+/* You can apply these styles to individual components within AppBar */
+.AppBarContent {
+    display: flex;
+    flex-direction: row;
+    /* Arrange content in a row */
+    align-items: center;
+    /* Align content vertically */
+    gap: 20px;
+    /* Spacing between elements */
+    /* Add other styles as needed */
+}
+
+/* Example styles for specific elements within AppBarContent */
+/* Modify these styles based on your components */
+.AppBarContent img {
+    width: 50px;
+    /* Adjust image size */
+    height: auto;
+}
+
+.menu-button {
+    font-size: 20px;
+    padding: 8px 12px;
+    align-items: center;
+    font-weight: bold; 
+}

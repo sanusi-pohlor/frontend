@@ -72,7 +72,7 @@ const Adm_News_view = () => {
       </Breadcrumb>
       <div>
         <h1>{newsData.title}</h1>
-        <h1>ผู้เขียน : {newsData.username}</h1>
+        <h1>ผู้เขียน : {newsData.Author}</h1>
         <h1>ลงเมื่อ : {newsData.creatat}</h1>
         <div dangerouslySetInnerHTML={{ __html: newsData.details }} />
         <p>Video: {newsData.video}</p>
