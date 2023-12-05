@@ -129,7 +129,7 @@ const News_Menu = () => {
                   }}
                   cover={<img alt="Card cover" style={{ height: "80%", width: "100%", objectFit: "cover" }} src={item.image} />}
                 >
-                  <Meta title={item.title} description={item.description} />
+                  <Meta title={item.title} details={item.details} />
                 </Card>
               </Link>
             </Grid>
