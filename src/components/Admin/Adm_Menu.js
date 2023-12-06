@@ -108,6 +108,7 @@ const AdminMenu = ({ children }) => {
                     key={item.key}
                     icon={item.icon}
                     style={{
+                      fontSize: "15px",
                       color:
                         item.link === location.pathname ? "#7BBD8F" : "grey",
                     }}

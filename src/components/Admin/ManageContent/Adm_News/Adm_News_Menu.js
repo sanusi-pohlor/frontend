@@ -48,9 +48,9 @@ const Adm_News_View = () => {
     // Define your logic to map status values to text here
     switch (status) {
       case 0:
-        return "เปิดเผยแพร่";
-      case 1:
         return "ปิดเผยแพร่";
+      case 1:
+        return "เปิดเผยแพร่";
     }
   };
   const columns = [
