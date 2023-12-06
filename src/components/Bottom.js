@@ -1,8 +1,9 @@
 import React from "react";
-import { Layout, Space } from "antd";
+import { Layout, Divider, Space } from "antd";
 import CASLogo from "./Images/CAS.png";
 import WMOLogo from "./Images/WMO.png";
 import PSU from "./Images/PSU.jpg";
+import { Paper, Grid, Box, IconButton } from "@mui/material";
 
 const { Footer } = Layout;
 
@@ -10,7 +11,7 @@ const footerStyle = {
   textAlign: "center",
   color: "#ffffff",
   backgroundColor: "#ffffff",
-  height: "30vh",
+  height: "40vh",
   width: "100%",
   fontFamily: "'Th Sarabun New', sans-serif",
   display: "flex",
@@ -38,13 +39,9 @@ const imageStyle1 = {
 const Bottom = () => {
   return (
     <Footer style={footerStyle}>
-      <div
-        style={{ fontFamily: "'Th Sarabun New', sans-serif", fontSize: "30px" }}
-      >
-        เครือข่ายความร่วมมือ
-      </div>
-      <div style={imageContainerStyle}>
-        <Space align="center">
+      <Divider />
+      <Grid container spacing={2}>
+        <Grid item xs={12} md={4}>
           <span>
             <img
               src="https://www.commsci.psu.ac.th/wp-content/uploads/2023/09/logo-web-V2.0.svg"
@@ -54,36 +51,53 @@ const Bottom = () => {
             <div
               style={{
                 fontFamily: "'Th Sarabun New', sans-serif",
-                fontSize: "25px",
+                fontSize: "20px",
+                color: "gray",
               }}
             >
-              ชื่อโครงการ
+              สร้างสรรค์โดย โครงการวิจัย เรื่อง การศึกษาและสร้างสรรค์สื่อเพื่อเฝ้าระวังข้อมูลผิดพลาดสำหรับเครือข่ายผู้บริโภคภาคใต้ (The Study and Media Creation to Misinformation Surveillance for Southern Consumer Network) ภายใต้การสนับสนุนของกองทุนวิจัย คณะวิทยาการสื่อสาร มหาวิทยาลัยสงขลานครินทร์ วิทยาเขตปัตตานี
             </div>
           </span>
-          <span>
-            <img src={WMOLogo} alt="WMO Logo" style={imageStyle} />
-            <div
-              style={{
-                fontFamily: "'Th Sarabun New', sans-serif",
-                fontSize: "25px",
-              }}
-            >
-              เครือข่ายเฝ้าระวังสื่อออนไลน์ภาคใต้
-            </div>
-          </span>
-          <span>
-            <img src={CASLogo} alt="CAS Logo" style={imageStyle} />
-            <div
-              style={{
-                fontFamily: "'Th Sarabun New', sans-serif",
-                fontSize: "25px",
-              }}
-            >
-              สมาคมผู้บริโภคสงขลา
-            </div>
-          </span>
-        </Space>
-      </div>
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <div style={imageContainerStyle}>
+            <Space align="center">
+
+              <span>
+                <img src={WMOLogo} alt="WMO Logo" style={imageStyle} />
+                <div
+                  style={{
+                    fontFamily: "'Th Sarabun New', sans-serif",
+                    fontSize: "30px",
+                    color: "gray",
+                  }}
+                >
+                  เครือข่ายเฝ้าระวังสื่อออนไลน์ภาคใต้
+                </div>
+              </span>
+              <span>
+                <img src={CASLogo} alt="CAS Logo" style={imageStyle} />
+                <div
+                  style={{
+                    fontFamily: "'Th Sarabun New', sans-serif",
+                    fontSize: "30px",
+                    color: "gray",
+                  }}
+                >
+                  สมาคมผู้บริโภคสงขลา
+                </div>
+              </span>
+            </Space>
+          </div>
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <div
+            style={{ fontFamily: "'Th Sarabun New', sans-serif", fontSize: "30px", color: "gray", }}
+          >
+            เครือข่ายความร่วมมือ
+          </div>
+        </Grid>
+      </Grid>
     </Footer>
   );
 };

@@ -48,7 +48,7 @@ function Menu_Navbar() {
     color: "white",
   };
   const imageStyle = {
-    width: "100px", // ปรับค่าความกว้างตามที่ต้องการ
+    width: "200px", // ปรับค่าความกว้างตามที่ต้องการ
     height: "auto", // ให้สูงปรับตามอัตราส่วนเพื่อไม่ทำให้ภาพเบลอ
   };
   const registerbuttonStyle = {
@@ -127,7 +127,7 @@ function Menu_Navbar() {
   const drawerMenu = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
       <Typography variant="h6" sx={{ my: 2, color: "#7BBD8F" }}>
-        MUI
+        รู้เท่า ทันสื่อ - Check ก่อน
       </Typography>
       <Divider />
       <List>
@@ -171,23 +171,21 @@ function Menu_Navbar() {
               src="https://www.commsci.psu.ac.th/wp-content/uploads/2023/09/logo-web-V2.0.svg"
               alt="WMO Logo"
               style={imageStyle}
-            />
+            /><div style={{ margin: "15px" }}></div>
             <Typography
-              variant="h6"
-              noWrap
-              component="a"
               href="/"
               sx={{
                 flexGrow: 1,
                 mr: 5,
                 display: { xs: "none", sm: "block" },
-                fontFamily: "monospace",
-                fontWeight: 700,
-                letterSpacing: ".3rem",
-                color: "inherit",
+                fontFamily: "'Th Sarabun New', sans-serif",
+                fontWeight: "bold",
+                letterSpacing: ".1rem",
+                color: "gray",
                 textDecoration: "none",
+                fontSize: "30px",
               }}
-            ></Typography>
+            >รู้เท่า ทันสื่อ - Check ก่อน</Typography>
             <Box component="nav">
               <Drawer
                 container={container}
@@ -259,7 +257,7 @@ function Menu_Navbar() {
                   style={{
                     ...registerbuttonStyle,
                     fontWeight: "bold",
-                    fontSize: "25px",
+                    fontSize: "20px",
                   }}
                   onClick={showRegisterDialog}
                 >
@@ -281,7 +279,7 @@ function Menu_Navbar() {
                   style={{
                     ...loginbuttonStyle,
                     fontWeight: "bold",
-                    fontSize: "25px",
+                    fontSize: "20px",
                   }}
                   onClick={showLoginDialog}
                 >
@@ -309,7 +307,7 @@ function Menu_Navbar() {
           sx={{ backgroundColor: "#ffffff", color: "#7BBD8F", height: "10%" }}
         >
           <Toolbar>
-          <IconButton
+            <IconButton
               color="inherit"
               aria-label="open drawer"
               edge="start"
@@ -335,13 +333,13 @@ function Menu_Navbar() {
                 flexGrow: 1,
                 mr: 5,
                 display: { xs: "none", sm: "block" },
-                fontFamily: "monospace",
+                fontFamily: "'Th Sarabun New', sans-serif",
                 fontWeight: 700,
                 letterSpacing: ".3rem",
-                color: "inherit",
+                color: "gray",
                 textDecoration: "none",
               }}
-            ></Typography>
+            >รู้เท่า ทันสื่อ - Check ก่อน </Typography>
             <Box component="nav">
               <Drawer
                 container={container}

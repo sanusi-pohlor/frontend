@@ -188,17 +188,7 @@ const NotificationHistory = () => {
   if (!user) {
     return (
       <UserProfile>
-        <div>
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
           Loading...
-        </div>
       </UserProfile>
     );
   } else {
