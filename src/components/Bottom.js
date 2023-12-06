@@ -2,8 +2,7 @@ import React from "react";
 import { Layout, Divider, Space } from "antd";
 import CASLogo from "./Images/CAS.png";
 import WMOLogo from "./Images/WMO.png";
-import PSU from "./Images/PSU.jpg";
-import { Paper, Grid, Box, IconButton } from "@mui/material";
+import { Grid, Box } from "@mui/material";
 
 const { Footer } = Layout;
 
@@ -37,53 +36,42 @@ const imageStyle1 = {
 };
 
 const Bottom = () => {
+  const isMobile = window.innerWidth <= 768;
+  const textStyle = {
+    fontFamily: "'Th Sarabun New', sans-serif",
+    fontSize: isMobile ? "14px" : "20px",
+    color: "gray",
+  };
+
   return (
-    <Footer style={footerStyle}>
+    <Footer style={{ ...footerStyle }}>
       <Divider />
+      <br/>
       <Grid container spacing={2}>
         <Grid item xs={12} md={4}>
-          <span>
+          <Box>
             <img
               src="https://www.commsci.psu.ac.th/wp-content/uploads/2023/09/logo-web-V2.0.svg"
               alt="WMO Logo"
               style={imageStyle1}
             />
-            <div
-              style={{
-                fontFamily: "'Th Sarabun New', sans-serif",
-                fontSize: "20px",
-                color: "gray",
-              }}
-            >
+            <div style={textStyle}>
               สร้างสรรค์โดย โครงการวิจัย เรื่อง การศึกษาและสร้างสรรค์สื่อเพื่อเฝ้าระวังข้อมูลผิดพลาดสำหรับเครือข่ายผู้บริโภคภาคใต้ (The Study and Media Creation to Misinformation Surveillance for Southern Consumer Network) ภายใต้การสนับสนุนของกองทุนวิจัย คณะวิทยาการสื่อสาร มหาวิทยาลัยสงขลานครินทร์ วิทยาเขตปัตตานี
             </div>
-          </span>
+          </Box>
         </Grid>
         <Grid item xs={12} md={4}>
           <div style={imageContainerStyle}>
             <Space align="center">
-
               <span>
                 <img src={WMOLogo} alt="WMO Logo" style={imageStyle} />
-                <div
-                  style={{
-                    fontFamily: "'Th Sarabun New', sans-serif",
-                    fontSize: "30px",
-                    color: "gray",
-                  }}
-                >
+                <div style={textStyle}>
                   เครือข่ายเฝ้าระวังสื่อออนไลน์ภาคใต้
                 </div>
               </span>
               <span>
                 <img src={CASLogo} alt="CAS Logo" style={imageStyle} />
-                <div
-                  style={{
-                    fontFamily: "'Th Sarabun New', sans-serif",
-                    fontSize: "30px",
-                    color: "gray",
-                  }}
-                >
+                <div style={textStyle}>
                   สมาคมผู้บริโภคสงขลา
                 </div>
               </span>
@@ -91,9 +79,7 @@ const Bottom = () => {
           </div>
         </Grid>
         <Grid item xs={12} md={4}>
-          <div
-            style={{ fontFamily: "'Th Sarabun New', sans-serif", fontSize: "30px", color: "gray", }}
-          >
+          <div style={textStyle}>
             เครือข่ายความร่วมมือ
           </div>
         </Grid>

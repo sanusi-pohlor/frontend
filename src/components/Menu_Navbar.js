@@ -183,7 +183,7 @@ function Menu_Navbar() {
                 letterSpacing: ".1rem",
                 color: "gray",
                 textDecoration: "none",
-                fontSize: "30px",
+                fontSize: "25px",
               }}
             >รู้เท่า ทันสื่อ - Check ก่อน</Typography>
             <Box component="nav">
@@ -231,7 +231,7 @@ function Menu_Navbar() {
                   onClick={handleCloseNavMenu}
                   sx={{
                     my: 2,
-                    fontSize: "30px",
+                    fontSize: "25px",
                     color: page.link === location.pathname ? "#7BBD8F" : "grey",
                     display: "block",
                     mr: 5,
@@ -338,6 +338,7 @@ function Menu_Navbar() {
                 letterSpacing: ".3rem",
                 color: "gray",
                 textDecoration: "none",
+                fontSize: "25px",
               }}
             >รู้เท่า ทันสื่อ - Check ก่อน </Typography>
             <Box component="nav">
@@ -385,7 +386,7 @@ function Menu_Navbar() {
                   onClick={handleCloseNavMenu}
                   sx={{
                     my: 2,
-                    fontSize: "30px",
+                    fontSize: "25px",
                     color: page.link === location.pathname ? "#7BBD8F" : "grey",
                     display: "block",
                     mr: 5,

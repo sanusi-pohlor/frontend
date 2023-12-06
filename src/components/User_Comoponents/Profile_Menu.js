@@ -3,11 +3,23 @@ import { Grid, Avatar, Divider, Box } from "@mui/material";
 import { Card, Tabs, FloatButton, Modal, Button ,Typography } from "antd";
 import { Link as RouterLink, useLocation} from "react-router-dom";
 const { Title } = Typography;
-
 const { TabPane } = Tabs;
+
 const MenuProfile = ({ children }) => {
   const location = useLocation();
   const [user, setUser] = useState(null);
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    function handleResize() {
+      setIsMobile(window.innerWidth < 768); // 768px คือขนาดหน้าจอสำหรับมือถือ
+    }
+
+    window.addEventListener("resize", handleResize);
+
+    handleResize(); // เช็คขนาดหน้าจอเมื่อโหลดหน้าแรก
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
   const buttonStyle = {
     background: "#7BBD8F",
     border: "none",
@@ -96,14 +108,15 @@ const MenuProfile = ({ children }) => {
     <div>
       <Box
         style={{
-          width: "70%",
-          padding: 30,
+          width: "100%",
+          padding: 20,
           margin: "0 auto", // This centers the paper horizontally
           //textAlign: "center", // This centers the content inside the paper
         }}
       >
         <Grid container spacing={2}>
           <Grid item xs={12} sm={4}>
+          {!isMobile && (
             <Card
               style={{
                 margin: "auto",
@@ -141,6 +154,7 @@ const MenuProfile = ({ children }) => {
                 <Title level={5}>จำนวนครั้งที่แจ้งข่าว : </Title>
               </div>
             </Card>
+            )}
             <br />
           </Grid>
           <Grid item xs={12} sm={8}>
