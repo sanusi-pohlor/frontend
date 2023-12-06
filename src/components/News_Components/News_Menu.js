@@ -58,6 +58,19 @@ const News_Menu = () => {
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
   };
+  const parseHtmlString = (htmlString) => {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(htmlString, 'text/html');
+    const imgTags = doc.getElementsByTagName('img');
+    const imageSources = [];
+
+    for (let i = 0; i < imgTags.length; i++) {
+      const src = imgTags[i].getAttribute('src');
+      imageSources.push(src);
+    }
+
+    return imageSources;
+  };
 
   return (
     <Paper elevation={0} style={{ width: "70%", padding: 30, margin: "0 auto", textAlign: "center" }}>
@@ -107,7 +120,7 @@ const News_Menu = () => {
                 }}
                 cover={<img alt="Card cover" style={{ height: "80%", width: "100%", objectFit: "cover" }} src={item.image} />}
               >
-                <Meta title={item.title} details={item.details} />
+                <Meta title={item.title} details={parseHtmlString(item.details)} />
               </Card>
             </Link>
           </Grid>

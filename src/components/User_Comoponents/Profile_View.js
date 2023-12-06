@@ -61,42 +61,15 @@ const Profile = () => {
     fetchUser();
   }, []);
   const items = [
-    {
-      key: "1",
-      label: "ชื่อ-นามสกุล",
-      children: user && <span>{user.username}</span>,
-    },
-    {
-      key: "2",
-      label: "นามสกุล",
-      children: user && <span>{user.lastName}</span>,
-    },
-    {
-      key: "3",
-      label: "จังหวัดที่อยู่",
-      children: user && <span>{user.province}</span>,
-    },
-    {
-      key: "4",
-      label: "อีเมล",
-      children: user && <span>{user.email}</span>,
-    },
-    {
-      key: "5",
-      label: "เบอร์โทรศัพท์",
-      children: user && <span>{user.phone_number}</span>,
-    },
-    {
-      key: "6",
-      label: "ไลน์ไอดี",
-      children: user && <span>{user.Id_line}</span>,
-    },
-    {
-      key: "6",
-      label: "รับข้อมูลผ่านอีเมล",
-      children: user && <span>{user.receive_ct_email}</span>,
-    },
-  ];
+    { key: "1", label: "ชื่อ-นามสกุล", children: user && <span>{user.username}</span> },
+    { key: "2", label: "นามสกุล", children: user && <span>{user.lastName}</span> },
+    { key: "3", label: "จังหวัดที่อยู่", children: user && <span>{user.province}</span> },
+    { key: "4", label: "อีเมล", children: user && <span>{user.email}</span> },
+    { key: "5", label: "เบอร์โทรศัพท์", children: user && <span>{user.phone_number}</span> },
+    { key: "6", label: "ไลน์ไอดี", children: user && <span>{user.Id_line}</span> },
+    { key: "7", label: "รับข้อมูลผ่านอีเมล", children: user && <span>{user.receive_ct_email}</span> },
+  ];  
+  
   if (!user) {
     return (
       <UserProfile>
@@ -104,11 +77,10 @@ const Profile = () => {
       </UserProfile>
     );
   }
-
   return (
     <UserProfile>
       <div>
-        <Descriptions title="ข้อมูลสมาชิก" items={items} />
+        <Descriptions title="ข้อมูลสมาชิก" bordered items={items} />
       </div>
       <Button
         type="primary"

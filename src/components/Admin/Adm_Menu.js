@@ -3,110 +3,50 @@ import {
   LaptopOutlined,
   NotificationOutlined,
   UserOutlined,
+  PieChartOutlined,
+  FormOutlined,
+  HomeOutlined,
+  FileAddOutlined,
+  BookOutlined,
+  CommentOutlined,
+  SendOutlined,
+  FileSearchOutlined,
+  BarsOutlined,
+  MessageOutlined,
 } from "@ant-design/icons";
 import { Breadcrumb, Layout, Menu, theme, FloatButton } from "antd";
 import { Link, useLocation } from "react-router-dom";
-
 const { Content, Sider } = Layout;
-
 const items = [
-  {
-    key: "sub1",
-    icon: <UserOutlined />,
-    label: "Admin Dashboard",
-    link: "M_DB_Adm_Menu", // Add a link property
-  },
+  { key: "sub1", icon: <PieChartOutlined />, label: "Admin Dashboard", link: "M_DB_Adm_Menu", },
   {
     key: "sub2",
-    icon: <LaptopOutlined />,
+    icon: <FormOutlined />,
     label: "จัดการคอนเทนต์",
-    //link: "ManuContent", // Add a link property
     children: [
-      {
-        key: "1",
-        label: "หนัาหลัก",
-        link: "Adm_Dashboard_Menu", // Add a link property
-      },
-      {
-        key: "2",
-        label: "ข่าวสาร",
-        link: "Adm_News_Menu", // Add a link property
-      },
-      {
-        key: "3",
-        label: "บทความ",
-        link: "Adm_Article_Menu", // Add a link property
-      },
-      {
-        key: "4",
-        label: "สื่อชวนแชร์",
-        link: "Adm_MdShare_Menu", // Add a link property
-      },
+      { key: "1", icon: <HomeOutlined />, label: "หน้าหลัก", link: "Adm_Dashboard_Menu" },
+      { key: "2", label: "ข่าวสาร", icon: <MessageOutlined />, link: "Adm_News_Menu" },
+      { key: "3", label: "บทความ", icon: <BookOutlined />, link: "Adm_Article_Menu" },
+      { key: "4", label: "สื่อชวนแชร์", icon: <CommentOutlined />, link: "Adm_MdShare_Menu" },
     ],
   },
-  {
-    key: "sub3",
-    icon: <UserOutlined />,
-    label: "จัดการข้อมูลรับแจ้ง",
-    link: "ManageInfo", // Add a link property
-  },
-  {
-    key: "sub4",
-    icon: <UserOutlined />,
-    label: "จัดการข้อมูลเท็จ",
-    link: "Manage_Fake_Info_Menu", // Add a link property
-  },
-  {
-    key: "sub5",
-    icon: <UserOutlined />,
-    label: "จัดการสมาชิก",
-    link: "ManageMembers", // Add a link property
-  },
+  { key: "sub3", icon: <SendOutlined />, label: "จัดการข้อมูลรับแจ้ง", link: "ManageInfo", },
+  { key: "sub4", icon: <FileSearchOutlined />, label: "จัดการข้อมูลเท็จ", link: "Manage_Fake_Info_Menu", },
+  { key: "sub5", icon: <UserOutlined />, label: "จัดการสมาชิก", link: "ManageMembers", },
   {
     key: "sub6",
     icon: <NotificationOutlined />,
     label: "จัดการข้อมูลเท็จ",
-    //link: "", // Add a link property
     children: [
-      {
-        key: "1",
-        label: "สื่อ",
-        link: "MMedia", // Add a link property
-      },
-      {
-        key: "2",
-        label: "ประเภท",
-        link: "MType", // Add a link property
-      },
-      {
-        key: "3",
-        label: "ข้อมูลที่แจ้ง",
-        link: "MInformation", // Add a link property
-      },
-      {
-        key: "4",
-        label: "การตรวจสอบ",
-        link: "MChecking", // Add a link property
-      },
-      {
-        key: "5",
-        label: "การจัดการปัญหา",
-        link: "MProblem", // Add a link property
-      },
+      { key: "1", label: "สื่อ", icon: <FileAddOutlined />, link: "MMedia" },
+      { key: "2", label: "ประเภท", icon: <FileAddOutlined />, link: "MType" },
+      { key: "3", label: "ข้อมูลที่แจ้ง", icon: <FileAddOutlined />, link: "MInformation" },
+      { key: "4", label: "การตรวจสอบ", icon: <FileAddOutlined />, link: "MChecking" },
+      { key: "5", label: "การจัดการปัญหา", icon: <FileAddOutlined />, link: "MProblem" },
     ],
   },
-  {
-    key: "sub7",
-    icon: <UserOutlined />,
-    label: "จัดการค่า",
-    link: "ManageValues", // Add a link property
-  },
-  {
-    key: "sub8",
-    icon: <LaptopOutlined />,
-    label: "ค้นหาขั้นสูง",
-    link: "AdvancedSearch", // Add a link property
-  },
+  { key: "sub7", icon: <BarsOutlined />, label: "จัดการค่า", link: "ManageValues", },
+  { key: "sub8", icon: <LaptopOutlined />, label: "ค้นหาขั้นสูง", link: "AdvancedSearch", },
 ];
 
 const AdminMenu = ({ children }) => {

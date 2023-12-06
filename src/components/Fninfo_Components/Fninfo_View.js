@@ -52,83 +52,17 @@ const FnInfoView = () => {
   }
 
   const items = [
-    {
-      key: "1",
-      label: "หัวข้อ",
-      children: fakeNewsInfo && <span>{fakeNewsInfo.fn_info_head}</span>,
-    },
-    {
-      key: "2",
-      label: "ผู้แจ้ง",
-      children: fakeNewsInfo && <span>{fakeNewsInfo.fn_info_nameid}</span>,
-    },
-    {
-      key: "3",
-      label: "จังหวัด",
-      children: fakeNewsInfo && <span>{fakeNewsInfo.fn_info_province}</span>,
-    },
-    {
-      key: "4",
-      label: "เนื้อหา",
-      children: fakeNewsInfo && <span>{fakeNewsInfo.fn_info_content}</span>,
-    },
-    {
-      key: "5",
-      label: "แหล่งที่มาของข่าวปลอม",
-      children: fakeNewsInfo && <span>{fakeNewsInfo.fn_info_source}</span>,
-    },
-    {
-      key: "6",
-      label: "แจ้งเมื่อ",
-      children: fakeNewsInfo && (
-        <span>
-          {fakeNewsInfo.created_at &&
-            moment(fakeNewsInfo.created_at).locale("th").format("DD MMMM YYYY")}
-        </span>
-      ),
-    },
-    {
-      key: "7",
-      label: "รายละเอียดเพิ่มเติม",
-      span: 3,
-      children: fakeNewsInfo && <span>{fakeNewsInfo.fn_info_more}</span>,
-    },
-    {
-      key: "8",
-      label: "ลิ้งค์ข้อมูล",
-      children: fakeNewsInfo && <span>{fakeNewsInfo.fn_info_link}</span>,
-    },
-    {
-      key: "9",
-      label: "จำนวนสมาชิกที่อยู่ในกลุ่มที่อาจเผยแพร่ข้อมูลเท็จ",
-      children: fakeNewsInfo && <span>{fakeNewsInfo.fn_info_num_mem}</span>,
-    },
-    {
-      key: "10",
-      label: "วัน/เดือน/ปี ที่เกิดเหตุ",
-      children: fakeNewsInfo && (
-        <span>
-          {fakeNewsInfo.fn_info_dmy &&
-            moment(fakeNewsInfo.fn_info_dmy)
-              .locale("th")
-              .format("DD MMMM YYYY")}
-        </span>
-      ),
-    },
-    {
-      key: "11",
-      label: "ภาพบันทึกหน้าจอหรือภาพถ่ายที่พบข้อมูลเท็จ",
-      children: fakeNewsInfo && (
-        <span>
-          <Image
-            width={200}
-            src={fakeNewsInfo.fn_info_image}
-            alt="รูปภาพข่าวปลอม"
-            //style={{ maxWidth: "100%", height: "auto" }}
-          />
-        </span>
-      ),
-    },
+    { key: "1", label: "หัวข้อ", children: fakeNewsInfo && <span>{fakeNewsInfo.fn_info_head}</span> },
+    { key: "2", label: "ผู้แจ้ง", children: fakeNewsInfo && <span>{fakeNewsInfo.fn_info_nameid}</span> },
+    { key: "3", label: "จังหวัด", children: fakeNewsInfo && <span>{fakeNewsInfo.fn_info_province}</span> },
+    { key: "4", label: "เนื้อหา", children: fakeNewsInfo && <span>{fakeNewsInfo.fn_info_content}</span> },
+    { key: "5", label: "แหล่งที่มาของข่าวปลอม", children: fakeNewsInfo && <span>{fakeNewsInfo.fn_info_source}</span> },
+    { key: "6", label: "แจ้งเมื่อ", children: fakeNewsInfo && <span>{fakeNewsInfo.created_at && moment(fakeNewsInfo.created_at).locale("th").format("DD MMMM YYYY")}</span> },
+    { key: "7", label: "รายละเอียดเพิ่มเติม", span: 3, children: fakeNewsInfo && <span>{fakeNewsInfo.fn_info_more}</span> },
+    { key: "8", label: "ลิ้งค์ข้อมูล", children: fakeNewsInfo && <span>{fakeNewsInfo.fn_info_link}</span> },
+    { key: "9", label: "จำนวนสมาชิกที่อยู่ในกลุ่มที่อาจเผยแพร่ข้อมูลเท็จ", children: fakeNewsInfo && <span>{fakeNewsInfo.fn_info_num_mem}</span> },
+    { key: "10", label: "วัน/เดือน/ปี ที่เกิดเหตุ", children: fakeNewsInfo && <span>{fakeNewsInfo.fn_info_dmy && moment(fakeNewsInfo.fn_info_dmy).locale("th").format("DD MMMM YYYY")}</span> },
+    { key: "11", label: "ภาพบันทึกหน้าจอหรือภาพถ่ายที่พบข้อมูลเท็จ", children: fakeNewsInfo && <span><Image width={200} src={fakeNewsInfo.fn_info_image} alt="รูปภาพข่าวปลอม" /></span> },
     {
       key: "12",
       label: "สถานะ",
@@ -138,10 +72,10 @@ const FnInfoView = () => {
           <Badge
             status={
               fakeNewsInfo.fn_info_status === 0
-                ? "warning" // ถ้าสถานะเท่ากับ 1 (รอตรวจสอบ)
+                ? "warning"
                 : fakeNewsInfo.fn_info_status === 1
-                ? "processing" // ถ้าสถานะเท่ากับ 0 (กำลังตรวจสอบ)
-                : "success" // ถ้าสถานะเท่ากับอื่น ๆ (ตรวจสอบแล้ว)
+                ? "processing"
+                : "success"
             }
             text={
               fakeNewsInfo.fn_info_status === 0
@@ -154,7 +88,7 @@ const FnInfoView = () => {
         </React.Fragment>
       ),
     },
-  ];
+  ];  
 
   return (
     <UserProfile>

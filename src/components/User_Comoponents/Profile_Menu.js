@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Grid, Avatar, Divider, Box } from "@mui/material";
-import { Card, Tabs, FloatButton, Modal, Button ,Typography } from "antd";
-import { Link as RouterLink, useLocation} from "react-router-dom";
+import { Card, Tabs, FloatButton, Modal, Button, Typography } from "antd";
+import { Link as RouterLink, useLocation } from "react-router-dom";
 const { Title } = Typography;
 const { TabPane } = Tabs;
 
@@ -38,21 +38,9 @@ const MenuProfile = ({ children }) => {
     setIsModalVisible(false); // Close the modal when "Cancel" is clicked
   };
   const items = [
-    {
-      key: "1",
-      label: "ข้อมูลส่วนตัว",
-      link: "/User/Profile",
-    },
-    {
-      key: "2",
-      label: "แจ้งข้อมูลเท็จ",
-      link: "/FakeNews",
-    },
-    {
-      key: "3",
-      label: "ประวัติการแจ้ง",
-      link: "/FakeNews/NotificationHistory",
-    },
+    { key: "1", label: "ข้อมูลส่วนตัว", link: "/User/Profile" },
+    { key: "2", label: "แจ้งข้อมูลเท็จ", link: "/FakeNews" },
+    { key: "3", label: "ประวัติการแจ้ง", link: "/FakeNews/NotificationHistory" },
   ];
 
   useEffect(() => {
@@ -116,44 +104,44 @@ const MenuProfile = ({ children }) => {
       >
         <Grid container spacing={2}>
           <Grid item xs={12} sm={4}>
-          {!isMobile && (
-            <Card
-              style={{
-                margin: "auto",
-                backgroundColor: "#FFFFFF",
-                width: "100%",
-                height: "100%",
-              }}
-            >
-              <Grid
-                container
-                direction="column"
-                justifyContent="center"
-                alignItems="center"
-                style={{ marginBottom: "10px" }}
-              >
-                <Grid item style={{ marginBottom: "5px" }}>
-                  <Avatar sx={{ width: 100, height: 100 }}>{user.username}</Avatar>
-                </Grid>
-                <Grid item>
-                  <Typography variant="h5">ชื่อ-สกุล : {user.username}</Typography>
-                  <Typography variant="body1">อีเมล : {user.email}</Typography>
-                </Grid>
-              </Grid>
-              <Divider />
-              <div
+            {!isMobile && (
+              <Card
                 style={{
-                  display: "flex",
-                  alignItems: "center",
-                  marginBottom: 20,
-                  padding: 24,
+                  margin: "auto",
+                  backgroundColor: "#FFFFFF",
                   width: "100%",
                   height: "100%",
                 }}
               >
-                <Title level={5}>จำนวนครั้งที่แจ้งข่าว : </Title>
-              </div>
-            </Card>
+                <Grid
+                  container
+                  direction="column"
+                  justifyContent="center"
+                  alignItems="center"
+                  style={{ marginBottom: "10px" }}
+                >
+                  <Grid item style={{ marginBottom: "5px" }}>
+                    <Avatar sx={{ width: 100, height: 100 }}>{user.username}</Avatar>
+                  </Grid>
+                  <Grid item>
+                    <Typography variant="h5">ชื่อ-สกุล : {user.username}</Typography>
+                    <Typography variant="body1">อีเมล : {user.email}</Typography>
+                  </Grid>
+                </Grid>
+                <Divider />
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    marginBottom: 20,
+                    padding: 24,
+                    width: "100%",
+                    height: "100%",
+                  }}
+                >
+                  <Title level={5}>จำนวนครั้งที่แจ้งข่าว : </Title>
+                </div>
+              </Card>
             )}
             <br />
           </Grid>
