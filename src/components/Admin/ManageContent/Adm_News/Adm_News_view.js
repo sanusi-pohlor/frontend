@@ -63,7 +63,7 @@ const Adm_News_view = () => {
         <Breadcrumb.Item>App</Breadcrumb.Item>
       </Breadcrumb>
       <div>
-        <Link to={`/Admin/Adm_News/edit/${record.id}`}>
+        <Link to={`/Admin/Adm_News/edit/${id}`}>
           <Button
             type="primary"
             shape="round"

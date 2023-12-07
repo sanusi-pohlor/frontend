@@ -16,6 +16,7 @@ import {
   Divider,
   Drawer,
 } from "@mui/material";
+import { UserOutlined } from "@ant-design/icons";
 import MenuIcon from "@mui/icons-material/Menu";
 import AdbIcon from "@mui/icons-material/Adb";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -398,7 +399,7 @@ function Menu_Navbar() {
               ))}
             </Box>
             <IconButton onClick={handleDrawerToggleProfile} sx={{ p: 0 }}>
-              <Avatar sx={{ color: "#7BBD8F" }} />
+              <UserOutlined style={{ fontSize: '2rem', color: "#7BBD8F" }}/>
             </IconButton>
           </Toolbar>
         </AppBar>

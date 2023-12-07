@@ -5,7 +5,7 @@ import Bottom from "./components/Bottom";
 import Dashboard from "./components/Dashboard_Components/Dashboard";
 
 import News from "./components/News_Components/News_Menu";
-import News_views from "./components/News_Components/News_views";
+import News_views from "./components/News_Components/News_Views";
 
 import Article from "./components/Article_Components/Article_Menu";
 import Article_view from "./components/Article_Components/Article_view";
