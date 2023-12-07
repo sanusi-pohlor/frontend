@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Box, Grid, Paper, IconButton } from "@mui/material";
 import { SearchOutlined, RightCircleOutlined, LeftCircleOutlined } from "@ant-design/icons";
-import { Card, Button, Input, Typography } from "antd";
+import { Card, Button, Input, Typography,Image } from "antd";
 import FilterDialog from "./News_Filter_Dialog";
 import { Link } from "react-router-dom";
 
@@ -90,7 +90,6 @@ const News_Menu = () => {
             />
             <Button size="large" type="primary" style={{ ...buttonStyle, marginRight: "20px" }}>ค้นหา</Button>
             <Button size="large" type="primary" style={buttonStyle} onClick={showFilterDialog}>ตัวกรอง</Button>
-
             {filterVisible && (
               <FilterDialog
                 open={filterVisible}
@@ -118,7 +117,7 @@ const News_Menu = () => {
                   fontFamily: "'Th Sarabun New', sans-serif",
                   fontSize: "20px",
                 }}
-                cover={<img alt="Card cover" style={{ height: "80%", width: "100%", objectFit: "cover" }} src={item.image} />}
+                cover={<Image alt="Card cover" style={{ height: "80%", width: "100%", objectFit: "cover" }} src={item.cover_image} />}
               >
                 <Meta title={item.title} details={parseHtmlString(item.details)} />
               </Card>

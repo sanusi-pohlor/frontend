@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Table,Space,Popconfirm,Button,   } from "antd";
+import { Table, Space, Popconfirm, Button, } from "antd";
 import UserProfile from "../User_Comoponents/Profile_Menu";
-import {  DeleteOutlined, EditOutlined, EyeOutlined} from '@ant-design/icons';
+import { DeleteOutlined, EditOutlined, EyeOutlined } from '@ant-design/icons';
 import { Link } from "react-router-dom";
 
 const NotificationHistory = () => {
@@ -24,7 +24,7 @@ const NotificationHistory = () => {
     ];
     return thaiMonths[month];
   }
-  
+
   const fetchUser = async () => {
     try {
       const response = await fetch("http://localhost:8000/api/user", {
@@ -55,7 +55,7 @@ const NotificationHistory = () => {
           setData(filteredData);
         } else {
           console.error("Data is missing or null");
-        }        
+        }
       } else {
         console.error("Error fetching data:", response.statusText);
       }
@@ -74,7 +74,6 @@ const NotificationHistory = () => {
   }, [user]);
 
   const getStatusText = (status) => {
-    // Define your logic to map status values to text here
     switch (status) {
       case 0:
         return "รอตรวจสอบ";
@@ -102,13 +101,11 @@ const NotificationHistory = () => {
       width: "15%",
       editable: true,
       render: (created_at) => {
-        // Assuming created_at is a valid date string, e.g., "2023-10-26T14:30:00"
         const date = new Date(created_at);
-        // Use the Date object to format the date as "วัน เดือน ปี"
         const formattedDate = `${date.getDate()} ${getThaiMonth(date.getMonth())} ${date.getFullYear() + 543}`;
         return formattedDate;
       },
-    },    
+    },
     {
       title: "สถานะ",
       dataIndex: "fn_info_status",
@@ -146,27 +143,20 @@ const NotificationHistory = () => {
     }
   ];
   const handleDelete = (id) => {
-    // Show a loading indicator or perform any other necessary actions to indicate the delete process
-    // You can also handle the delete operation here
     console.log(`ลบรายการ: ${id}`);
-  
-    // Make an API request to delete the record using Laravel
     fetch(`http://localhost:8000/api/FakeNewsInfo_delete/${id}`, {
       method: "DELETE",
     })
       .then((response) => response.json())
       .then((data) => {
         if (data.message === "Fake News deleted successfully") {
-          // Handle a successful delete, e.g., update your component's state or reload data
           console.log("รายการถูกลบสำเร็จ");
           fetchData();
         } else {
-          // Handle an error or display a message to the user
           console.error("เกิดข้อผิดพลาดในการลบรายการ:", data);
         }
       })
       .catch((error) => {
-        // Handle a network error or other exceptions
         console.error("เกิดข้อผิดพลาดในการลบรายการ:", error);
       });
   };
@@ -188,7 +178,7 @@ const NotificationHistory = () => {
   if (!user) {
     return (
       <UserProfile>
-          Loading...
+        Loading...
       </UserProfile>
     );
   } else {
@@ -202,8 +192,8 @@ const NotificationHistory = () => {
             dataSource={data}
             columns={mergedColumns}
             rowClassName="editable-row"
-          /> 
-        </div>  
+          />
+        </div>
       </UserProfile>
     );
   }

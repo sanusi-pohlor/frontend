@@ -323,7 +323,7 @@ function Menu_Navbar() {
               src="https://www.commsci.psu.ac.th/wp-content/uploads/2023/09/logo-web-V2.0.svg"
               alt="WMO Logo"
               style={imageStyle}
-            />
+            /><div style={{ margin: "15px" }}></div>
             <Typography
               variant="h6"
               noWrap

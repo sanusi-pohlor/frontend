@@ -2,11 +2,18 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import AdminMenu from "../../Adm_Menu";
 import { Breadcrumb, Button, Modal, Descriptions } from "antd";
+import { Paper } from "@mui/material";
+import { Link } from "react-router-dom";
+import {
+  PlusCircleOutlined,
+} from "@ant-design/icons";
 
 const Adm_News_view = () => {
   const { id } = useParams();
   const [newsData, setNewsData] = useState({});
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const isMobile = window.innerWidth <= 768;
+
   const showModal = () => {
     setIsModalOpen(true);
   };
@@ -43,7 +50,11 @@ const Adm_News_view = () => {
     { key: '4', label: 'Remark', children: 'empty' },
     { key: '5', label: 'Address', children: 'No. 18, Wantang Road, Xihu District, Hangzhou, Zhejiang, China' },
   ];
-
+  const commonStyles = {
+    fontFamily: "'Th Sarabun New', sans-serif",
+    fontSize: isMobile ? "14px" : "20px",
+    color: "gray",
+  };
   return (
     <AdminMenu>
       <Breadcrumb style={{ margin: "16px 0" }}>
@@ -52,21 +63,33 @@ const Adm_News_view = () => {
         <Breadcrumb.Item>App</Breadcrumb.Item>
       </Breadcrumb>
       <div>
-        <h1>{newsData.title}</h1>
-        <h1>ผู้เขียน : {newsData.Author}</h1>
-        <h1>ลงเมื่อ : {newsData.creatat}</h1>
-        <div dangerouslySetInnerHTML={{ __html: newsData.details }} />
-        <p>Video: {newsData.video}</p>
-        <p>Link: {newsData.link}</p>
-        <p>Tag: {newsData.tag}</p>
-        <>
-          <p onClick={showModal}>
-            โปรไฟลผู้เขียน
-          </p>
+        <Link to={`/Admin/Adm_News/edit/${record.id}`}>
+          <Button
+            type="primary"
+            shape="round"
+            icon={<PlusCircleOutlined />}
+            size="large"
+          >
+            เพิ่มข่าว
+          </Button>
+        </Link>
+      </div>
+      <div>
+        <Paper elevation={0} style={{ width: "70%", padding: 30, margin: "0 auto", textAlign: "center" }}>
+          <div style={{ ...commonStyles, fontSize: "50px" }}>ข่าวสาร</div>
+          <br />
+          <h1 style={commonStyles}>{newsData.title}</h1>
+          <h1 style={commonStyles}>ผู้เขียน : {newsData.Author}</h1>
+          <h1 style={commonStyles}>ลงเมื่อ : {newsData.creatat}</h1>
+          <div style={commonStyles} dangerouslySetInnerHTML={{ __html: newsData.details }} />
+          <p style={commonStyles}>Video: {newsData.video}</p>
+          <p style={commonStyles}>Link: {newsData.link}</p>
+          <p style={commonStyles}>Tag: {newsData.tag}</p>
+          <p style={commonStyles} onClick={showModal}>โปรไฟลผู้เขียน</p>
           <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-            <Descriptions title="User Info" items={items} />
+            <Descriptions style={commonStyles} title="User Info" items={items} />
           </Modal>
-        </>
+        </Paper>
       </div>
     </AdminMenu>
   );
