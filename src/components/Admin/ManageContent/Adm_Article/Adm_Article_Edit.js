@@ -5,7 +5,7 @@ import { Form, Input, Button, message, Upload, Select } from "antd";
 import ReactQuill from "react-quill";
 import { PlusOutlined, UserOutlined } from "@ant-design/icons";
 
-const Adm_Article_Form = () => {
+const Adm_Article_Edit = () => {
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
   const [editorHtml, setEditorHtml] = useState("");
@@ -97,7 +97,34 @@ const Adm_Article_Form = () => {
   const handleChange = (html) => {
     setEditorHtml(html);
   };
+  useEffect(() => {
+    fetchData();
+  }, [id]);
 
+  const fetchData = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:8000/api/Adm_Article_edit/${id}`
+      );
+      if (response.ok) {
+        const data = await response.json();
+        setImg(data);
+        form.setFieldsValue({
+          title: data.title,
+          details: data.details,
+          link: data.link,
+          tag: data.tag,
+        });
+      } else {
+        console.error("Invalid date received from the server");
+        form.setFieldsValue({
+          fn_info_dmy: moment(),
+        });
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
   const onFinish = async (values) => {
     console.log("values :", values);
     console.log("values :", editorHtml);
@@ -111,9 +138,8 @@ const Adm_Article_Form = () => {
       formData.append("video", values.video);
       formData.append("link", values.link);
       formData.append("tag", values.tag);
-
       const response = await fetch(
-        "http://localhost:8000/api/Adm_Article_upload",
+        `http://localhost:8000/api/Adm_Article_update/${id}`,
         {
           method: "POST",
           body: formData,
@@ -132,7 +158,9 @@ const Adm_Article_Form = () => {
       setLoading(false);
     }
   };
-
+  const onFinishFailed = (errorInfo) => {
+    console.log("Failed:", errorInfo);
+  };
   return (
     <AdminMenu>
       <Form
@@ -249,4 +277,4 @@ const Adm_Article_Form = () => {
   );
 };
 
-export default Adm_Article_Form;
+export default Adm_Article_Edit;

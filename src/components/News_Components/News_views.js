@@ -5,7 +5,7 @@ import { Modal, Descriptions } from "antd";
 
 const News_views = () => {
   const { id } = useParams();
-  const [newsData, setNewsData] = useState({});
+  const [Data, setData] = useState({});
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [user, setUser] = useState(null);
   const isMobile = window.innerWidth <= 768;
@@ -17,7 +17,7 @@ const News_views = () => {
   useEffect(() => {
     fetch(`http://localhost:8000/api/News_show/${id}`)
       .then((response) => response.json())
-      .then((data) => setNewsData(data))
+      .then((data) => setData(data))
       .catch((error) => console.error("Error fetching news data:", error));
   }, [id]);
 
@@ -63,13 +63,13 @@ const News_views = () => {
     <Paper elevation={0} style={{ width: "70%", padding: 30, margin: "0 auto", textAlign: "center" }}>
       <div style={{ ...commonStyles, fontSize: "50px" }}>ข่าวสาร</div>
       <br />
-      <h1 style={commonStyles}>{newsData.title}</h1>
-      <h1 style={commonStyles}>ผู้เขียน : {newsData.Author}</h1>
-      <h1 style={commonStyles}>ลงเมื่อ : {newsData.creatat}</h1>
-      <div style={commonStyles} dangerouslySetInnerHTML={{ __html: newsData.details }} />
-      <p style={commonStyles}>Video: {newsData.video}</p>
-      <p style={commonStyles}>Link: {newsData.link}</p>
-      <p style={commonStyles}>Tag: {newsData.tag}</p>
+      <h1 style={commonStyles}>{Data.title}</h1>
+      <h1 style={commonStyles}>ผู้เขียน : {Data.Author}</h1>
+      <h1 style={commonStyles}>ลงเมื่อ : {Data.creatat}</h1>
+      <div style={commonStyles} dangerouslySetInnerHTML={{ __html: Data.details }} />
+      <p style={commonStyles}>Video: {Data.video}</p>
+      <p style={commonStyles}>Link: {Data.link}</p>
+      <p style={commonStyles}>Tag: {Data.tag}</p>
       <p style={commonStyles} onClick={showModal}>โปรไฟลผู้เขียน</p>
       <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
         <Descriptions style={commonStyles} title="User Info" items={items} />

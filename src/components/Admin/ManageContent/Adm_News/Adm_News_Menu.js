@@ -4,14 +4,13 @@ import {
   EditOutlined,
   DeleteOutlined,
   EyeOutlined,
-  CheckOutlined, CloseOutlined,
 } from "@ant-design/icons";
 import { Space, Table, Breadcrumb, Button, Popconfirm, Switch } from "antd";
 import AdminMenu from "../../Adm_Menu";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-const Adm_News_View = () => {
+const Adm_News_Menu = () => {
   const [dataSource, setDataSource] = useState([]);
   const onChange = (checked) => {
     console.log(`switch to ${checked}`);
@@ -49,10 +48,10 @@ const Adm_News_View = () => {
   useEffect(() => {
     fetchData();
   }, []);
-  
-  const updateStatus = async (id, newStatus) => {
+
+  const updateStatus = async (id, Status) => {
     try {
-      const response = await axios.put(`http://localhost:8000/api/Adm_News_update_status/${id}`, { status: newStatus });
+      const response = await axios.put(`http://localhost:8000/api/Adm_News_update_status/${id}`, { status: Status });
       if (response.status === 200) {
         console.log(`อัปเดต status สำเร็จสำหรับ ID: ${id}`);
         // ทำการอัปเดต dataSource หรือ refetch ข้อมูลหากต้องการ
@@ -137,8 +136,8 @@ const Adm_News_View = () => {
               unCheckedChildren="ปิด"
               defaultChecked={status === 1}
               onChange={(checked) => {
-                const newStatus = checked ? 1 : 0;
-                updateStatus(record.id, newStatus);
+                const Status = checked ? 1 : 0;
+                updateStatus(record.id, Status);
               }}
             />
             {/* ส่วนอื่น ๆ ของ Switch และการเปลี่ยนแปลงค่าของ status ตามต้องการ */}
@@ -194,7 +193,7 @@ const Adm_News_View = () => {
       ),
     },
   ];
-  
+
   return (
     <AdminMenu>
       <Breadcrumb style={{ margin: "16px 0" }}>
@@ -230,4 +229,4 @@ const Adm_News_View = () => {
   );
 };
 
-export default Adm_News_View;
+export default Adm_News_Menu;

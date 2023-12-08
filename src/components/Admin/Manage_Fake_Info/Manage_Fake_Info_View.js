@@ -104,7 +104,7 @@ const Manage_Fake_Info_View = () => {
             width={200}
             src={fakeNewsInfo.mfi_img}
             alt="รูปภาพข่าวปลอม"
-            //style={{ maxWidth: "100%", height: "auto" }}
+          //style={{ maxWidth: "100%", height: "auto" }}
           />
         </span>
       ),
@@ -206,15 +206,15 @@ const Manage_Fake_Info_View = () => {
               fakeNewsInfo.fn_info_status === 0
                 ? "warning" // ถ้าสถานะเท่ากับ 1 (รอตรวจสอบ)
                 : fakeNewsInfo.fn_info_status === 1
-                ? "processing" // ถ้าสถานะเท่ากับ 0 (กำลังตรวจสอบ)
-                : "success" // ถ้าสถานะเท่ากับอื่น ๆ (ตรวจสอบแล้ว)
+                  ? "processing" // ถ้าสถานะเท่ากับ 0 (กำลังตรวจสอบ)
+                  : "success" // ถ้าสถานะเท่ากับอื่น ๆ (ตรวจสอบแล้ว)
             }
             text={
               fakeNewsInfo.fn_info_status === 0
                 ? "รอตรวจสอบ"
                 : fakeNewsInfo.fn_info_status === 1
-                ? "กำลังตรวจสอบ"
-                : "ตรวจสอบแล้ว"
+                  ? "กำลังตรวจสอบ"
+                  : "ตรวจสอบแล้ว"
             }
           />
         </React.Fragment>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Badge, Descriptions, Image, Steps,message,Button, Divider, Modal, Radio ,Input,Select,Form} from "antd";
+import { Badge, Descriptions, Image, Steps, message, Button, Divider, Modal, Radio, Input, Select, Form } from "antd";
 import { useParams } from "react-router-dom";
 import AdminMenu from "../Adm_Menu";
 import moment from "moment";
@@ -231,10 +231,10 @@ const ManageInfo_view = () => {
           <Badge
             status={
               fakeNewsInfo.fn_info_status === 0
-                ? "warning" // ถ้าสถานะเท่ากับ 1 (รอตรวจสอบ)
+                ? "warning"
                 : fakeNewsInfo.fn_info_status === 1
-                  ? "processing" // ถ้าสถานะเท่ากับ 0 (กำลังตรวจสอบ)
-                  : "success" // ถ้าสถานะเท่ากับอื่น ๆ (ตรวจสอบแล้ว)
+                  ? "processing"
+                  : "success"
             }
             text={
               fakeNewsInfo.fn_info_status === 0
@@ -382,34 +382,6 @@ const ManageInfo_view = () => {
           },
         ]}
       />
-      {/* {isModalVisible && (
-        <WaitingModal onClose={() => setIsModalVisible(false)} />
-      )} */}
-      <Modal
-        title="ยืนยันการเลือกขั้นตอน"
-        visible={modalVisible}
-        onOk={handleConfirm}
-        onCancel={() => setModalVisible(false)}
-      >
-        <div>ผลการตรวจสอบ</div>
-        <div><Radio.Group options={options} onChange={onChange3} value={value3} optionType="button" /></div>
-        <div>ประเภทข่าว</div>
-        <div>
-          <Select
-            //defaultValue="lucy"
-            style={{
-              width: 120,
-            }}
-            //onChange={handleChange}
-            options={[
-              {
-                value: 'jack',
-                label: 'Jack',
-              },
-            ]}
-          />
-        </div>
-      </Modal>
       <Modal
         title="ยืนยันการเลือกขั้นตอน"
         visible={isModalVisible}
@@ -417,320 +389,320 @@ const ManageInfo_view = () => {
         onCancel={() => setIsModalVisible(false)}
       > <div>ประเภทข่าว</div>
         <div>
-        <Form
-          form={form}
-          layout="vertical"
-          name="member_form"
-          onFinish={onFinish}
-          onFinishFailed={onFinishFailed}
-        >
-          {/* Add form fields for creating a new member */}
-          <Form.Item
-            name="mfi_time"
-            label="ประทับเวลา"
-            rules={[
-              {
-                required: false,
-                message: "Please input the title of collection!",
-              },
-            ]}
+          <Form
+            form={form}
+            layout="vertical"
+            name="member_form"
+            onFinish={onFinish}
+            onFinishFailed={onFinishFailed}
           >
-            <Input />
-          </Form.Item>
-          <Form.Item
-            name="mfi_province"
-            label="จังหวัดของท่าน"
-            rules={[
-              {
-                required: false,
-                message: "Please input the title of collection!",
-              },
-            ]}
-          >
-            <Select
-              placeholder="Select a option and change input text above"
-              onChange={onChange_mfi_province}
-              allowClear
+            {/* Add form fields for creating a new member */}
+            <Form.Item
+              name="mfi_time"
+              label="ประทับเวลา"
+              rules={[
+                {
+                  required: false,
+                  message: "Please input the title of collection!",
+                },
+              ]}
             >
-              {selectOptions_prov} {/* Populate the options */}
-            </Select>
-          </Form.Item>
-          <Form.Item
-            name="mfi_mem"
-            label="ผู้ส่งรายงาน"
-            rules={[
-              {
-                required: false,
-                message: "Please input the title of collection!",
-              },
-            ]}
-          >
-            <Select
-              placeholder="Select a option and change input text above"
-              onChange={onChange_mfi_mem_id}
-              allowClear
+              <Input />
+            </Form.Item>
+            <Form.Item
+              name="mfi_province"
+              label="จังหวัดของท่าน"
+              rules={[
+                {
+                  required: false,
+                  message: "Please input the title of collection!",
+                },
+              ]}
             >
-              {selectOptions_vol} {/* Populate the options */}
-            </Select>
-          </Form.Item>
-          <Form.Item
-            name="mfi_med_c"
-            label="แหล่งที่มาของข่าวปลอม"
-            rules={[
-              {
-                required: false,
-                message: "Please input the title of collection!",
-              },
-            ]}
-          >
-            <Select
-              placeholder="Select a option and change input text above"
-              onChange={onChange_mfi_med_c_id}
-              allowClear
+              <Select
+                placeholder="Select a option and change input text above"
+                onChange={onChange_mfi_province}
+                allowClear
+              >
+                {selectOptions_prov} {/* Populate the options */}
+              </Select>
+            </Form.Item>
+            <Form.Item
+              name="mfi_mem"
+              label="ผู้ส่งรายงาน"
+              rules={[
+                {
+                  required: false,
+                  message: "Please input the title of collection!",
+                },
+              ]}
             >
-              {selectOptions_med} {/* Populate the options */}
-            </Select>
-          </Form.Item>
-          <Form.Item
-            name="mfi_img"
-            label="ส่งภาพบันทึกหน้าจอหรือภาพถ่ายที่พบข้อมูลเท็จ"
-            rules={[
-              {
-                required: false,
-                message: "Please input the title of collection!",
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item
-            name="mfi_link"
-            label="ระบุลิ้งค์ข้อมูล (ถ้ามี)"
-            rules={[
-              {
-                required: false,
-                message: "Please input the title of collection!",
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item
-            name="mfi_c_info"
-            label="แหล่งที่มาของข้อมูล"
-            rules={[
-              {
-                required: false,
-                message: "Please input the title of collection!",
-              },
-            ]}
-          >
-            <Select
-              placeholder="Select a option and change input text above"
-              onChange={onChange_mfi_c_info_id}
-              allowClear
+              <Select
+                placeholder="Select a option and change input text above"
+                onChange={onChange_mfi_mem_id}
+                allowClear
+              >
+                {selectOptions_vol} {/* Populate the options */}
+              </Select>
+            </Form.Item>
+            <Form.Item
+              name="mfi_med_c"
+              label="แหล่งที่มาของข่าวปลอม"
+              rules={[
+                {
+                  required: false,
+                  message: "Please input the title of collection!",
+                },
+              ]}
             >
-              {selectOptions_c_info} {/* Populate the options */}
-            </Select>
-          </Form.Item>
-          <Form.Item
-            name="mfi_num_mem"
-            label="จำนวนสมาชิกที่อยู่ในกลุ่มที่อาจเผยแพร่ข้อมูลเท็จ"
-            rules={[
-              {
-                required: false,
-                message: "Please input the title of collection!",
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item
-            name="mfi_agency"
-            label="หน่วยงานที่เก็บข้อมูล"
-            rules={[
-              {
-                required: false,
-                message: "Please input the title of collection!",
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item
-            name="mfi_d_topic"
-            label="หัวข้อข้อมูลผิดพลาด"
-            rules={[
-              {
-                required: false,
-                message: "Please input the title of collection!",
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item
-            name="mfi_fm_d"
-            label="รูปแบบของข้อมูล"
-            rules={[
-              {
-                required: false,
-                message: "Please input the title of collection!",
-              },
-            ]}
-          >
-            <Select
-              placeholder="Select a option and change input text above"
-              onChange={onChange_mfi_fm_d_id}
-              allowClear
+              <Select
+                placeholder="Select a option and change input text above"
+                onChange={onChange_mfi_med_c_id}
+                allowClear
+              >
+                {selectOptions_med} {/* Populate the options */}
+              </Select>
+            </Form.Item>
+            <Form.Item
+              name="mfi_img"
+              label="ส่งภาพบันทึกหน้าจอหรือภาพถ่ายที่พบข้อมูลเท็จ"
+              rules={[
+                {
+                  required: false,
+                  message: "Please input the title of collection!",
+                },
+              ]}
             >
-              {selectOptions_fm} {/* Populate the options */}
-            </Select>
-          </Form.Item>
-          <Form.Item
-            name="mfi_dis_c"
-            label="ช่องทางการเผยแพร่"
-            rules={[
-              {
-                required: false,
-                message: "Please input the title of collection!",
-              },
-            ]}
-          >
-            <Select
-              placeholder="Select a option and change input text above"
-              onChange={onChange_mfi_dis_c_id}
-              allowClear
+              <Input />
+            </Form.Item>
+            <Form.Item
+              name="mfi_link"
+              label="ระบุลิ้งค์ข้อมูล (ถ้ามี)"
+              rules={[
+                {
+                  required: false,
+                  message: "Please input the title of collection!",
+                },
+              ]}
             >
-              {selectOptions_dis} {/* Populate the options */}
-            </Select>
-          </Form.Item>
-          <Form.Item
-            name="mfi_publ"
-            label="ผู้เผยแพร่ข้อมูล"
-            rules={[
-              {
-                required: false,
-                message: "Please input the title of collection!",
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item
-            name="mfi_ty_info"
-            label="ประเภทของข้อมูล"
-            rules={[
-              {
-                required: false,
-                message: "Please input the title of collection!",
-              },
-            ]}
-          >
-            <Select
-              placeholder="Select a option and change input text above"
-              onChange={onChange_mfi_ty_info_id}
-              allowClear
+              <Input />
+            </Form.Item>
+            <Form.Item
+              name="mfi_c_info"
+              label="แหล่งที่มาของข้อมูล"
+              rules={[
+                {
+                  required: false,
+                  message: "Please input the title of collection!",
+                },
+              ]}
             >
-              {selectOptions_ty} {/* Populate the options */}
-            </Select>
-          </Form.Item>
-          <Form.Item
-            name="mfi_only_cv"
-            label="เฉพาะโควิด-15"
-            rules={[
-              {
-                required: false,
-                message: "Please input the title of collection!",
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item
-            name="mfi_con_about"
-            label="มีเนื้อหาเกี่ยวกับ"
-            rules={[
-              {
-                required: false,
-                message: "Please input the title of collection!",
-              },
-            ]}
-          >
-            <Select
-              placeholder="Select a option and change input text above"
-              onChange={onChange_mfi_con_about_id}
-              allowClear
+              <Select
+                placeholder="Select a option and change input text above"
+                onChange={onChange_mfi_c_info_id}
+                allowClear
+              >
+                {selectOptions_c_info} {/* Populate the options */}
+              </Select>
+            </Form.Item>
+            <Form.Item
+              name="mfi_num_mem"
+              label="จำนวนสมาชิกที่อยู่ในกลุ่มที่อาจเผยแพร่ข้อมูลเท็จ"
+              rules={[
+                {
+                  required: false,
+                  message: "Please input the title of collection!",
+                },
+              ]}
             >
-              {selectOptions_con} {/* Populate the options */}
-            </Select>
-          </Form.Item>
-          <Form.Item
-            name="mfi_moti"
-            label="แรงจูงใจการเผยแพร่"
-            rules={[
-              {
-                required: false,
-                message: "Please input the title of collection!",
-              },
-            ]}
-          >
-            <Select
-              placeholder="Select a option and change input text above"
-              onChange={onChange_mfi_moti_id}
-              allowClear
+              <Input />
+            </Form.Item>
+            <Form.Item
+              name="mfi_agency"
+              label="หน่วยงานที่เก็บข้อมูล"
+              rules={[
+                {
+                  required: false,
+                  message: "Please input the title of collection!",
+                },
+              ]}
             >
-              {selectOptions_moti} {/* Populate the options */}
-            </Select>
-          </Form.Item>
-          <Form.Item
-            name="mfi_iteration"
-            label="จำนวนการวนซ้ำ"
-            rules={[
-              {
-                required: false,
-                message: "Please input the title of collection!",
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item
-            name="mfi_che_d"
-            label="การตรวจสอบข้อมูล"
-            rules={[
-              {
-                required: false,
-                message: "Please input the title of collection!",
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item
-            name="mfi_data_cha"
-            label="ลักษณะข้อมูล"
-            rules={[
-              {
-                required: false,
-                message: "Please input the title of collection!",
-              },
-            ]}
-          >
-            <Select
-              placeholder="Select a option and change input text above"
-              onChange={onChange_mfi_data_cha_id}
-              allowClear
+              <Input />
+            </Form.Item>
+            <Form.Item
+              name="mfi_d_topic"
+              label="หัวข้อข้อมูลผิดพลาด"
+              rules={[
+                {
+                  required: false,
+                  message: "Please input the title of collection!",
+                },
+              ]}
             >
-              {selectOptions_data} {/* Populate the options */}
-            </Select>
-          </Form.Item>
-          <Form.Item>
-            <Button type="primary" htmlType="submit">
-              เพิ่ม
-            </Button>
-          </Form.Item>
-        </Form>
+              <Input />
+            </Form.Item>
+            <Form.Item
+              name="mfi_fm_d"
+              label="รูปแบบของข้อมูล"
+              rules={[
+                {
+                  required: false,
+                  message: "Please input the title of collection!",
+                },
+              ]}
+            >
+              <Select
+                placeholder="Select a option and change input text above"
+                onChange={onChange_mfi_fm_d_id}
+                allowClear
+              >
+                {selectOptions_fm} {/* Populate the options */}
+              </Select>
+            </Form.Item>
+            <Form.Item
+              name="mfi_dis_c"
+              label="ช่องทางการเผยแพร่"
+              rules={[
+                {
+                  required: false,
+                  message: "Please input the title of collection!",
+                },
+              ]}
+            >
+              <Select
+                placeholder="Select a option and change input text above"
+                onChange={onChange_mfi_dis_c_id}
+                allowClear
+              >
+                {selectOptions_dis} {/* Populate the options */}
+              </Select>
+            </Form.Item>
+            <Form.Item
+              name="mfi_publ"
+              label="ผู้เผยแพร่ข้อมูล"
+              rules={[
+                {
+                  required: false,
+                  message: "Please input the title of collection!",
+                },
+              ]}
+            >
+              <Input />
+            </Form.Item>
+            <Form.Item
+              name="mfi_ty_info"
+              label="ประเภทของข้อมูล"
+              rules={[
+                {
+                  required: false,
+                  message: "Please input the title of collection!",
+                },
+              ]}
+            >
+              <Select
+                placeholder="Select a option and change input text above"
+                onChange={onChange_mfi_ty_info_id}
+                allowClear
+              >
+                {selectOptions_ty} {/* Populate the options */}
+              </Select>
+            </Form.Item>
+            <Form.Item
+              name="mfi_only_cv"
+              label="เฉพาะโควิด-15"
+              rules={[
+                {
+                  required: false,
+                  message: "Please input the title of collection!",
+                },
+              ]}
+            >
+              <Input />
+            </Form.Item>
+            <Form.Item
+              name="mfi_con_about"
+              label="มีเนื้อหาเกี่ยวกับ"
+              rules={[
+                {
+                  required: false,
+                  message: "Please input the title of collection!",
+                },
+              ]}
+            >
+              <Select
+                placeholder="Select a option and change input text above"
+                onChange={onChange_mfi_con_about_id}
+                allowClear
+              >
+                {selectOptions_con} {/* Populate the options */}
+              </Select>
+            </Form.Item>
+            <Form.Item
+              name="mfi_moti"
+              label="แรงจูงใจการเผยแพร่"
+              rules={[
+                {
+                  required: false,
+                  message: "Please input the title of collection!",
+                },
+              ]}
+            >
+              <Select
+                placeholder="Select a option and change input text above"
+                onChange={onChange_mfi_moti_id}
+                allowClear
+              >
+                {selectOptions_moti} {/* Populate the options */}
+              </Select>
+            </Form.Item>
+            <Form.Item
+              name="mfi_iteration"
+              label="จำนวนการวนซ้ำ"
+              rules={[
+                {
+                  required: false,
+                  message: "Please input the title of collection!",
+                },
+              ]}
+            >
+              <Input />
+            </Form.Item>
+            <Form.Item
+              name="mfi_che_d"
+              label="การตรวจสอบข้อมูล"
+              rules={[
+                {
+                  required: false,
+                  message: "Please input the title of collection!",
+                },
+              ]}
+            >
+              <Input />
+            </Form.Item>
+            <Form.Item
+              name="mfi_data_cha"
+              label="ลักษณะข้อมูล"
+              rules={[
+                {
+                  required: false,
+                  message: "Please input the title of collection!",
+                },
+              ]}
+            >
+              <Select
+                placeholder="Select a option and change input text above"
+                onChange={onChange_mfi_data_cha_id}
+                allowClear
+              >
+                {selectOptions_data} {/* Populate the options */}
+              </Select>
+            </Form.Item>
+            <Form.Item>
+              <Button type="primary" htmlType="submit">
+                เพิ่ม
+              </Button>
+            </Form.Item>
+          </Form>
         </div>
       </Modal>
       <Divider />

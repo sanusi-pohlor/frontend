@@ -172,33 +172,26 @@ const Manage_Fake_Info_Menu = () => {
       console.error("Validate Failed:", errInfo);
     }
   };
+  
   const handleDelete = (id) => {
-    // Show a loading indicator or perform any other necessary actions to indicate the delete process
-    // You can also handle the delete operation here
     console.log(`ลบรายการ: ${id}`);
-
-    // Make an API request to delete the record using Laravel
     fetch(`http://localhost:8000/api/Manage_Fake_Info_delete/${id}`, {
       method: "DELETE",
     })
       .then((response) => response.json())
       .then((data) => {
         if (data.message === "Fake News deleted successfully") {
-          // Handle a successful delete, e.g., update your component's state or reload data
           console.log("รายการถูกลบสำเร็จ");
           fetchData();
         } else {
-          // Handle an error or display a message to the user
           console.error("เกิดข้อผิดพลาดในการลบรายการ:", data);
         }
       })
       .catch((error) => {
-        // Handle a network error or other exceptions
         console.error("เกิดข้อผิดพลาดในการลบรายการ:", error);
       });
   };
   const getStatusText = (status) => {
-    // Define your logic to map status values to text here
     switch (status) {
       case 0:
         return "รอตรวจสอบ";
@@ -239,110 +232,12 @@ const Manage_Fake_Info_Menu = () => {
       editable: true,
     },
     {
-      title: "ส่งภาพบันทึกหน้าจอหรือภาพถ่ายที่พบข้อมูลเท็จ",
-      dataIndex: "mfi_img",
-      width: "10%",
-      editable: true,
-    },
-    {
-      title: "ระบุลิ้งค์ข้อมูล (ถ้ามี)",
-      dataIndex: "mfi_link",
-      width: "10%",
-      editable: true,
-    },
-    {
-      title: "แหล่งที่มาของข้อมูล",
-      dataIndex: "mfi_c_info",
-      width: "10%",
-      editable: true,
-    },
-    {
-      title: "จำนวนสมาชิกที่อยู่ในกลุ่มที่อาจเผยแพร่ข้อมูลเท็จ",
-      dataIndex: "mfi_num_mem",
-      width: "10%",
-      editable: true,
-    },
-    {
-      title: "หน่วยงานที่เก็บข้อมูล",
-      dataIndex: "mfi_agency",
-      width: "10%",
-      editable: true,
-    },
-    {
-      title: "หัวข้อข้อมูลผิดพลาด",
-      dataIndex: "mfi_d_topic",
-      width: "15%",
-      editable: true,
-    },
-    {
-      title: "รูปแบบของข้อมูล",
-      dataIndex: "mfi_fm_d",
-      width: "10%",
-      editable: true,
-    },
-    {
-      title: "ช่องทางการเผยแพร่",
-      dataIndex: "mfi_dis_c",
-      width: "10%",
-      editable: true,
-    },
-    {
-      title: "ผู้เผยแพร่ข้อมูล",
-      dataIndex: "mfi_publ",
-      width: "15%",
-      editable: true,
-    },
-    {
-      title: "ประเภทของข้อมูล",
-      dataIndex: "mfi_ty_info",
-      width: "10%",
-      editable: true,
-    },
-    {
-      title: "เฉพาะโควิด-15",
-      dataIndex: "mfi_only_cv",
-      width: "10%",
-      editable: true,
-    },
-    {
-      title: "มีเนื้อหาเกี่ยวกับ",
-      dataIndex: "mfi_con_about",
-      width: "15%",
-      editable: true,
-    },
-    {
-      title: "แรงจูงใจการเผยแพร่",
-      dataIndex: "mfi_moti",
-      width: "10%",
-      editable: true,
-    },
-    {
-      title: "จำนวนการวนซ้ำ",
-      dataIndex: "mfi_iteration",
-      width: "10%",
-      editable: true,
-    },
-    {
-      title: "การตรวจสอบข้อมูล",
-      dataIndex: "mfi_che_d",
-      width: "10%",
-      editable: true,
-    },
-    {
-      title: "ลักษณะข้อมูล",
-      dataIndex: "mfi_data_cha",
-      width: "10%",
-      editable: true,
-    },
-    {
       title: "เพิ่มเมื่อ",
       dataIndex: "created_at",
       width: "15%",
       editable: true,
       render: (created_at) => {
-        // Assuming created_at is a valid date string, e.g., "2023-10-26T14:30:00"
         const date = new Date(created_at);
-        // Use the Date object to format the date as "วัน เดือน ปี"
         const formattedDate = `${date.getDate()} ${getThaiMonth(
           date.getMonth()
         )} ${date.getFullYear() + 543}`;
@@ -362,9 +257,25 @@ const Manage_Fake_Info_Menu = () => {
       render: (text, record) => (
         <Space size="middle">
           <Link to={`/Admin/Manage_Fake_Info/Manage_Fake_Info_View/${record.id}`}>
-            <EyeOutlined style={{ fontSize: "16px", color: "blue" }} />{" "}
-            {/* Blue color for "ดู" */}
+            <EyeOutlined style={{ fontSize: '16px', color: 'blue' }} />
           </Link>
+          {record.status === 0 && (
+            <>
+              <Link to={`/Admin/Manage_Fake_Info/edit/${record.id}`}>
+                <EditOutlined style={{ fontSize: '16px', color: 'green' }} />
+              </Link>
+              <Popconfirm
+                title="คุณแน่ใจหรือไม่ที่จะลบรายการนี้?"
+                onConfirm={() => handleDelete(record.id)}
+                okText="ใช่"
+                cancelText="ไม่"
+              >
+                <Button type="link">
+                  <DeleteOutlined style={{ fontSize: '16px', color: 'red' }} />
+                </Button>
+              </Popconfirm>
+            </>
+          )}
         </Space>
       ),
     },
@@ -545,7 +456,6 @@ const Manage_Fake_Info_Menu = () => {
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
         >
-          {/* Add form fields for creating a new member */}
           <Form.Item
             name="mfi_time"
             label="ประทับเวลา"
@@ -573,7 +483,7 @@ const Manage_Fake_Info_Menu = () => {
               onChange={onChange_mfi_province}
               allowClear
             >
-              {selectOptions_prov} {/* Populate the options */}
+              {selectOptions_prov}
             </Select>
           </Form.Item>
           <Form.Item
@@ -591,7 +501,7 @@ const Manage_Fake_Info_Menu = () => {
               onChange={onChange_mfi_mem_id}
               allowClear
             >
-              {selectOptions_vol} {/* Populate the options */}
+              {selectOptions_vol}
             </Select>
           </Form.Item>
           <Form.Item
@@ -609,7 +519,7 @@ const Manage_Fake_Info_Menu = () => {
               onChange={onChange_mfi_med_c_id}
               allowClear
             >
-              {selectOptions_med} {/* Populate the options */}
+              {selectOptions_med}
             </Select>
           </Form.Item>
           <Form.Item
@@ -651,7 +561,7 @@ const Manage_Fake_Info_Menu = () => {
               onChange={onChange_mfi_c_info_id}
               allowClear
             >
-              {selectOptions_c_info} {/* Populate the options */}
+              {selectOptions_c_info}
             </Select>
           </Form.Item>
           <Form.Item
@@ -705,7 +615,7 @@ const Manage_Fake_Info_Menu = () => {
               onChange={onChange_mfi_fm_d_id}
               allowClear
             >
-              {selectOptions_fm} {/* Populate the options */}
+              {selectOptions_fm}
             </Select>
           </Form.Item>
           <Form.Item
@@ -723,7 +633,7 @@ const Manage_Fake_Info_Menu = () => {
               onChange={onChange_mfi_dis_c_id}
               allowClear
             >
-              {selectOptions_dis} {/* Populate the options */}
+              {selectOptions_dis}
             </Select>
           </Form.Item>
           <Form.Item
@@ -753,7 +663,7 @@ const Manage_Fake_Info_Menu = () => {
               onChange={onChange_mfi_ty_info_id}
               allowClear
             >
-              {selectOptions_ty} {/* Populate the options */}
+              {selectOptions_ty}
             </Select>
           </Form.Item>
           <Form.Item
@@ -783,7 +693,7 @@ const Manage_Fake_Info_Menu = () => {
               onChange={onChange_mfi_con_about_id}
               allowClear
             >
-              {selectOptions_con} {/* Populate the options */}
+              {selectOptions_con}
             </Select>
           </Form.Item>
           <Form.Item
@@ -801,7 +711,7 @@ const Manage_Fake_Info_Menu = () => {
               onChange={onChange_mfi_moti_id}
               allowClear
             >
-              {selectOptions_moti} {/* Populate the options */}
+              {selectOptions_moti}
             </Select>
           </Form.Item>
           <Form.Item
@@ -843,7 +753,7 @@ const Manage_Fake_Info_Menu = () => {
               onChange={onChange_mfi_data_cha_id}
               allowClear
             >
-              {selectOptions_data} {/* Populate the options */}
+              {selectOptions_data}
             </Select>
           </Form.Item>
           <Form.Item>

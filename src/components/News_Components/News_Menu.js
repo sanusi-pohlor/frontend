@@ -173,7 +173,7 @@ const News_Menu = () => {
                   </div>
                 }
               >
-                <Meta title={item.title}  />
+                <Meta title={item.title} />
               </Card>
             </Link>
           </Grid>

@@ -3,19 +3,38 @@ import {
   PlusCircleOutlined,
   EditOutlined,
   DeleteOutlined,
-  UnorderedListOutlined,
+  EyeOutlined,
 } from "@ant-design/icons";
-import { Space, Table, Breadcrumb, Button, Popconfirm, message } from "antd";
+import { Space, Table, Breadcrumb, Button, Popconfirm, Switch } from "antd";
 import AdminMenu from "../../Adm_Menu";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
 const Adm_MdShare_Menu = () => {
   const [dataSource, setDataSource] = useState([]);
-
+  const onChange = (checked) => {
+    console.log(`switch to ${checked}`);
+  };
+  function getThaiMonth(month) {
+    const thaiMonths = [
+      "มกราคม",
+      "กุมภาพันธ์",
+      "มีนาคม",
+      "เมษายน",
+      "พฤษภาคม",
+      "มิถุนายน",
+      "กรกฎาคม",
+      "สิงหาคม",
+      "กันยายน",
+      "ตุลาคม",
+      "พฤศจิกายน",
+      "ธันวาคม",
+    ];
+    return thaiMonths[month];
+  }
   const fetchData = async () => {
     try {
-      const response = await fetch("http://localhost:8000/api/MdShare_request");
+      const response = await fetch("http://localhost:8000/api/Adm_MdShare_request");
       if (response.ok) {
         const data = await response.json();
         setDataSource(data);
@@ -29,71 +48,152 @@ const Adm_MdShare_Menu = () => {
   useEffect(() => {
     fetchData();
   }, []);
-  const handleDelete = (record) => {
-    // Make a DELETE request to your API endpoint to delete the record
-    // Update the dataSource after successful deletion
-    // You can use axios or fetch for the API call
-    // Example:
-    axios
-      .delete(`http://localhost:8000/api/data/${record.id}`)
-      .then(() => {
-        const updatedDataSource = dataSource.filter(
-          (item) => item.id !== record.id
-        );
-        setDataSource(updatedDataSource);
-        message.success("Item deleted successfully");
-      })
-      .catch((error) => {
-        console.error("Error deleting item:", error);
-        message.error("Error deleting item");
-      });
+
+  const updateStatus = async (id, Status) => {
+    try {
+      const response = await axios.put(`http://localhost:8000/api/Adm_MdShare_update_status/${id}`, { status: Status });
+      if (response.status === 200) {
+        console.log(`อัปเดต status สำเร็จสำหรับ ID: ${id}`);
+        // ทำการอัปเดต dataSource หรือ refetch ข้อมูลหากต้องการ
+      } else {
+        console.error(`เกิดข้อผิดพลาดในการอัปเดต status สำหรับ ID: ${id}`);
+      }
+    } catch (error) {
+      console.error(`เกิดข้อผิดพลาดในการอัปเดต status สำหรับ ID: ${id}`, error);
+    }
   };
 
+  const handleDelete = (id) => {
+    console.log(`ลบรายการ: ${id}`);
+    fetch(`http://localhost:8000/api/Adm_MdShare_delete/${id}`, {
+      method: "DELETE",
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.message === "Fake News deleted successfully") {
+          console.log("รายการถูกลบสำเร็จ");
+          fetchData();
+        } else {
+          console.error("เกิดข้อผิดพลาดในการลบรายการ:", data);
+        }
+      })
+      .catch((error) => {
+        console.error("เกิดข้อผิดพลาดในการลบรายการ:", error);
+      });
+  };
+  const getStatusText = (status) => {
+    switch (status) {
+      case 0:
+        return "ปิดเผยแพร่";
+      case 1:
+        return "เปิดเผยแพร่";
+    }
+  };
   const columns = [
+    {
+      title: "ลำดับ",
+      width: "5%",
+      render: (text, record, index) => index + 1,
+    },
     {
       title: "Title",
       dataIndex: "title",
       key: "title",
     },
     {
-      title: "Description",
-      dataIndex: "description",
-      key: "description",
+      title: "รูปปก",
+      dataIndex: "cover_image",
+      key: "image",
+      render: (cover_image) => (
+        <img src={cover_image} alt="Item" style={{ maxWidth: "100px" }} />
+      ),
     },
     {
-      title: "Image",
-      dataIndex: "image",
-      key: "image",
-      render: (image) => (
-        <img src={image} alt="Item" style={{ maxWidth: "100px" }} />
-      ),
+      title: "ผู้ลง",
+      dataIndex: "Author",
+      key: "Author",
+    },
+    {
+      title: "ลงเมื่อ",
+      dataIndex: "created_at",
+      width: "15%",
+      editable: true,
+      render: (created_at) => {
+        const date = new Date(created_at);
+        const formattedDate = `${date.getDate()} ${getThaiMonth(date.getMonth())} ${date.getFullYear() + 543}`;
+        return formattedDate;
+      },
     },
     {
       title: "status",
       dataIndex: "status",
       key: "status",
+      render: (status, record) => (
+        <>
+          <Space direction="vertical">
+            <Switch
+              checkedChildren="เปิด"
+              unCheckedChildren="ปิด"
+              defaultChecked={status === 1}
+              onChange={(checked) => {
+                const Status = checked ? 1 : 0;
+                updateStatus(record.id, Status);
+              }}
+            />
+            {/* ส่วนอื่น ๆ ของ Switch และการเปลี่ยนแปลงค่าของ status ตามต้องการ */}
+          </Space>
+        </>
+      ),
     },
+    // {
+    //   title: "status",
+    //   dataIndex: "status",
+    //   key: "status",
+    //   render: (status) => (
+    //     <>
+    //       <Space direction="vertical">
+    //         <Switch checkedChildren="เปิด" unCheckedChildren="ปิด" defaultChecked={status === 1} />
+    //         <Switch checkedChildren="1" unCheckedChildren="0" defaultChecked={status === 1} />
+    //         <Switch
+    //           checkedChildren={<CheckOutlined />}
+    //           unCheckedChildren={<CloseOutlined />}
+    //           defaultChecked={status === 1}
+    //         />
+    //       </Space>
+    //     </>
+    //   ),
+    // },
     {
-      title: "Actions",
-      dataIndex: "actions",
-      key: "actions",
-      render: (_, record) => (
-        <Space>
+      title: "จัดการ",
+      width: "15%",
+      editable: true,
+      render: (text, record) => (
+        <Space size="middle">
           <Link to={`/Admin/Adm_MdShare_View/${record.id}`}>
-            <Button type="primary" icon={<EditOutlined />} />
+            <EyeOutlined style={{ fontSize: '16px', color: 'blue' }} />
           </Link>
-          <Popconfirm
-            title="Are you sure you want to delete this item?"
-            onConfirm={() => handleDelete(record)}
-            okText="Yes"
-            cancelText="No"
-          >
-            <Button type="primary" icon={<DeleteOutlined />} danger />
-          </Popconfirm>
+          {record.status === 0 && (
+            <>
+              <Link to={`/Admin/Adm_MdShare/edit/${record.id}`}>
+                <EditOutlined style={{ fontSize: '16px', color: 'green' }} />
+              </Link>
+              <Popconfirm
+                title="คุณแน่ใจหรือไม่ที่จะลบรายการนี้?"
+                onConfirm={() => handleDelete(record.id)}
+                okText="ใช่"
+                cancelText="ไม่"
+              >
+                <Button type="link">
+                  <DeleteOutlined style={{ fontSize: '16px', color: 'red' }} />
+                </Button>
+              </Popconfirm>
+            </>
+          )}
         </Space>
       ),
     },
   ];
+
   return (
     <AdminMenu>
       <Breadcrumb style={{ margin: "16px 0" }}>
@@ -118,7 +218,7 @@ const Adm_MdShare_Menu = () => {
               icon={<PlusCircleOutlined />}
               size="large"
             >
-              Add Content
+              เพิ่มข่าว
             </Button>
           </Link>
         </div>

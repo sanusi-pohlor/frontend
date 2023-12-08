@@ -152,7 +152,7 @@ const Dashboard = ({ onSearch }) => {
           >
             {selectOptions_type} {/* Populate the options */}
           </Select>
-          <DatePicker placeholder="เดือน/ปี" picker="month" size="large" style={{ marginRight: "20px", flex: 1, fontSize: "20px"  }} />
+          <DatePicker placeholder="เดือน/ปี" picker="month" size="large" style={{ marginRight: "20px", flex: 1, fontSize: "20px" }} />
         </div>
         <br />
         <Grid container spacing={2}>
@@ -253,9 +253,27 @@ const Dashboard = ({ onSearch }) => {
                       fontFamily: "'Th Sarabun New', sans-serif",
                       fontSize: "20px",
                     }}
-                    cover={<img alt="Card cover" style={{ height: "80%", width: "100%", objectFit: "cover" }} src={item.image} />}
+                    cover={
+                      <div
+                        style={{
+                          height: "80%",
+                          width: "100%",
+                          borderRadius: "20px",
+                          overflow: "hidden",
+                        }}
+                      >
+                        <img
+                          style={{
+                            height: "100%",
+                            width: "100%",
+                            objectFit: "cover",
+                          }}
+                          src={item.cover_image}
+                        />
+                      </div>
+                    }
                   >
-                    <Meta title={item.title} description={item.description} />
+                    <Meta title={item.title} />
                   </Card>
                 </Link>
               </Grid>
@@ -322,7 +340,7 @@ const Dashboard = ({ onSearch }) => {
           <Grid container spacing={2}>
             {articlecurrentItems.map((item) => (
               <Grid item xs={12} md={4} key={item.id}>
-                <Link to={`/News/News_views/${item.id}`}>
+                <Link to={`/Article/Article_views/${item.id}`}>
                   <Card
                     hoverable
                     style={{
@@ -334,9 +352,27 @@ const Dashboard = ({ onSearch }) => {
                       fontFamily: "'Th Sarabun New', sans-serif",
                       fontSize: "20px",
                     }}
-                    cover={<img alt="Card cover" style={{ height: "80%", width: "100%", objectFit: "cover" }} src={item.image} />}
+                    cover={
+                      <div
+                        style={{
+                          height: "80%",
+                          width: "100%",
+                          borderRadius: "20px",
+                          overflow: "hidden",
+                        }}
+                      >
+                        <img
+                          style={{
+                            height: "100%",
+                            width: "100%",
+                            objectFit: "cover",
+                          }}
+                          src={item.cover_image}
+                        />
+                      </div>
+                    }
                   >
-                    <Meta title={item.title} description={item.description} />
+                    <Meta title={item.title} />
                   </Card>
                 </Link>
               </Grid>
@@ -403,7 +439,7 @@ const Dashboard = ({ onSearch }) => {
           <Grid container spacing={2}>
             {mdSharecurrentItems.map((item) => (
               <Grid item xs={12} md={4} key={item.id}>
-                <Link to={`/News/News_views/${item.id}`}>
+                <Link to={`/MdShare/MdShare_views/${item.id}`}>
                   <Card
                     hoverable
                     style={{
@@ -415,9 +451,27 @@ const Dashboard = ({ onSearch }) => {
                       fontFamily: "'Th Sarabun New', sans-serif",
                       fontSize: "20px",
                     }}
-                    cover={<img alt="Card cover" style={{ height: "80%", width: "100%", objectFit: "cover" }} src={item.image} />}
+                    cover={
+                      <div
+                        style={{
+                          height: "80%",
+                          width: "100%",
+                          borderRadius: "20px",
+                          overflow: "hidden",
+                        }}
+                      >
+                        <img
+                          style={{
+                            height: "100%",
+                            width: "100%",
+                            objectFit: "cover",
+                          }}
+                          src={item.cover_image}
+                        />
+                      </div>
+                    }
                   >
-                    <Meta title={item.title} description={item.description} />
+                    <Meta title={item.title} />
                   </Card>
                 </Link>
               </Grid>
