@@ -16,7 +16,7 @@ const News_Menu = () => {
   const [data, setData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(12);
+  const [itemsPerPage] = useState(9);
   const curveAngle = 20;
   const [filterVisible, setFilterVisible] = useState(false);
   const buttonStyle = {
@@ -38,7 +38,7 @@ const News_Menu = () => {
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
+  const newcurrentItems = data.slice(indexOfFirstItem, indexOfLastItem);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -96,7 +96,8 @@ const News_Menu = () => {
               alignItems: "center",
               height: "100%",
               textAlign: "center",
-              fontSize: "50px",
+              fontSize: "70px",
+              fontWeight: "bold",
             }}
           >
             ข่าวสาร
@@ -139,9 +140,12 @@ const News_Menu = () => {
       </Grid>
       <br />
       <Grid container spacing={2}>
-        {data.map((item) => (
+        {newcurrentItems.map((item) => (
           <Grid item xs={12} md={4} key={item.id}>
-            <Link to={`/News/News_views/${item.id}`}>
+            <Link
+              to={`/News/News_views/${item.id}`}
+              style={{ textDecoration: "none" }}
+            >
               <Card
                 hoverable
                 style={{
@@ -149,7 +153,7 @@ const News_Menu = () => {
                   borderRadius: "20px",
                   width: "90%",
                   height: "100%",
-                  padding: 20,
+                  padding: 10,
                   fontFamily: "'Th Sarabun New', sans-serif",
                   fontSize: "20px",
                 }}
@@ -158,7 +162,7 @@ const News_Menu = () => {
                     style={{
                       height: "80%",
                       width: "100%",
-                      borderRadius: "20px",
+                      borderRadius: "10px",
                       overflow: "hidden",
                     }}
                   >
@@ -170,11 +174,10 @@ const News_Menu = () => {
                       }}
                       src={item.cover_image}
                     />
+                    {item.title}
                   </div>
                 }
-              >
-                <Meta title={item.title} />
-              </Card>
+              ></Card>
             </Link>
           </Grid>
         ))}

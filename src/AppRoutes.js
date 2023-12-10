@@ -5,7 +5,7 @@ import Bottom from "./components/Bottom";
 import Dashboard from "./components/Dashboard_Components/Dashboard";
 
 import News from "./components/News_Components/News_Menu";
-import News_views from "./components/News_Components/News_Views";
+import News_views from "./components/News_Components/News_views";
 
 import Article from "./components/Article_Components/Article_Menu";
 import Article_view from "./components/Article_Components/Article_view";
@@ -26,7 +26,7 @@ import Manage_Fake_Info_View from "./components/Admin/Manage_Fake_Info/Manage_Fa
 import ManageMembers from "./components/Admin/Manage_Members/Adm_Mm_Menu";
 
 import Adm_Dashboard_View from "./components/Admin/ManageContent/Adm_Dashboard/Adm_Dashboard_View";
-import Adm_News_View from "./components/Admin/ManageContent/Adm_News/Adm_News_View";
+import Adm_News_View from "./components/Admin/ManageContent/Adm_News/Adm_News_view";
 import Adm_Article_View from "./components/Admin/ManageContent/Adm_Article/Adm_Article_View";
 import Adm_MdShare_View from "./components/Admin/ManageContent/Adm_MdShare/Adm_MdShare_View";
 

@@ -46,7 +46,7 @@ const Bottom = () => {
   return (
     <Footer style={{ ...footerStyle }}>
       <Divider />
-      <br/>
+      <br />
       <Grid container spacing={2}>
         <Grid item xs={12} md={4}>
           <Box>
@@ -56,7 +56,11 @@ const Bottom = () => {
               style={imageStyle1}
             />
             <div style={textStyle}>
-              สร้างสรรค์โดย โครงการวิจัย เรื่อง การศึกษาและสร้างสรรค์สื่อเพื่อเฝ้าระวังข้อมูลผิดพลาดสำหรับเครือข่ายผู้บริโภคภาคใต้ (The Study and Media Creation to Misinformation Surveillance for Southern Consumer Network) ภายใต้การสนับสนุนของกองทุนวิจัย คณะวิทยาการสื่อสาร มหาวิทยาลัยสงขลานครินทร์ วิทยาเขตปัตตานี
+              สร้างสรรค์โดย โครงการวิจัย เรื่อง
+              การศึกษาและสร้างสรรค์สื่อเพื่อเฝ้าระวังข้อมูลผิดพลาดสำหรับเครือข่ายผู้บริโภคภาคใต้
+              (The Study and Media Creation to Misinformation Surveillance for
+              Southern Consumer Network) ภายใต้การสนับสนุนของกองทุนวิจัย
+              คณะวิทยาการสื่อสาร มหาวิทยาลัยสงขลานครินทร์ วิทยาเขตปัตตานี
             </div>
           </Box>
         </Grid>
@@ -65,23 +69,17 @@ const Bottom = () => {
             <Space align="center">
               <span>
                 <img src={WMOLogo} alt="WMO Logo" style={imageStyle} />
-                <div style={textStyle}>
-                  เครือข่ายเฝ้าระวังสื่อออนไลน์ภาคใต้
-                </div>
+                <div style={textStyle}>เครือข่ายเฝ้าระวังสื่อออนไลน์ภาคใต้</div>
               </span>
               <span>
                 <img src={CASLogo} alt="CAS Logo" style={imageStyle} />
-                <div style={textStyle}>
-                  สมาคมผู้บริโภคสงขลา
-                </div>
+                <div style={textStyle}>สมาคมผู้บริโภคสงขลา</div>
               </span>
             </Space>
           </div>
         </Grid>
         <Grid item xs={12} md={4}>
-          <div style={textStyle}>
-            เครือข่ายความร่วมมือ
-          </div>
+          <div style={textStyle}>เครือข่ายความร่วมมือ</div>
         </Grid>
       </Grid>
     </Footer>

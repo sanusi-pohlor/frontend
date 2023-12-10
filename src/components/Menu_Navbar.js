@@ -172,7 +172,8 @@ function Menu_Navbar() {
               src="https://www.commsci.psu.ac.th/wp-content/uploads/2023/09/logo-web-V2.0.svg"
               alt="WMO Logo"
               style={imageStyle}
-            /><div style={{ margin: "15px" }}></div>
+            />
+            <div style={{ margin: "15px" }}></div>
             <Typography
               href="/"
               sx={{
@@ -186,7 +187,9 @@ function Menu_Navbar() {
                 textDecoration: "none",
                 fontSize: "25px",
               }}
-            >รู้เท่า ทันสื่อ - Check ก่อน</Typography>
+            >
+              รู้เท่า ทันสื่อ - Check ก่อน
+            </Typography>
             <Box component="nav">
               <Drawer
                 container={container}
@@ -324,7 +327,8 @@ function Menu_Navbar() {
               src="https://www.commsci.psu.ac.th/wp-content/uploads/2023/09/logo-web-V2.0.svg"
               alt="WMO Logo"
               style={imageStyle}
-            /><div style={{ margin: "15px" }}></div>
+            />
+            <div style={{ margin: "15px" }}></div>
             <Typography
               variant="h6"
               noWrap
@@ -341,7 +345,9 @@ function Menu_Navbar() {
                 textDecoration: "none",
                 fontSize: "25px",
               }}
-            >รู้เท่า ทันสื่อ - Check ก่อน </Typography>
+            >
+              รู้เท่า ทันสื่อ - Check ก่อน{" "}
+            </Typography>
             <Box component="nav">
               <Drawer
                 container={container}
@@ -399,7 +405,7 @@ function Menu_Navbar() {
               ))}
             </Box>
             <IconButton onClick={handleDrawerToggleProfile} sx={{ p: 0 }}>
-              <UserOutlined style={{ fontSize: '2rem', color: "#7BBD8F" }}/>
+              <UserOutlined style={{ fontSize: "2rem", color: "#7BBD8F" }} />
             </IconButton>
           </Toolbar>
         </AppBar>
