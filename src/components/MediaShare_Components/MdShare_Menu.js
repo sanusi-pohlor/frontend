@@ -140,8 +140,8 @@ const MdShare_Menu = () => {
       </Grid>
       <br />
       <Grid container spacing={2}>
-        {currentItems.map((item) => (
-          <Grid item xs={12} md={4} key={item.id}>
+        {currentItems.map((item, index) => (
+          <Grid item xs={12} md={index === 0 ? 12 : 4} key={item.id}>
             <Link to={`/MdShare/MdShare_views/${item.id}`}style={{ textDecoration: "none" }}
             >
               <Card

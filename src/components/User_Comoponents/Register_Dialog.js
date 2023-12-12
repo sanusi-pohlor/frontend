@@ -46,7 +46,7 @@ const RegisterDialog = ({ open, onClose, handleSubmit, RegisterFinish }) => {
       formData.append("password", values.password);
       formData.append("phone_number", values.phone_number);
       formData.append("Id_line", values.Id_line);
-      formData.append("province", selectedprovince);
+      formData.append("province", selectOptions_prov);
       formData.append("receive_ct_email", receive);
       const response = await fetch("http://localhost:8000/api/register", {
         method: "POST",
@@ -284,7 +284,7 @@ const RegisterDialog = ({ open, onClose, handleSubmit, RegisterFinish }) => {
           name="province"
           rules={[
             {
-              required: true,
+              required: false,
               message: "Please select province!",
             },
           ]}

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { Paper } from "@mui/material";
 import { Modal, Descriptions } from "antd";
+import moment from "moment";
 
 const News_views = () => {
   const { id } = useParams();
@@ -9,7 +10,7 @@ const News_views = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [user, setUser] = useState(null);
   const isMobile = window.innerWidth <= 768;
-
+  const thaiDate = moment(Data.created_at).locale("th").format("Do MMMM YYYY");
   const showModal = () => setIsModalOpen(true);
   const handleOk = () => setIsModalOpen(false);
   const handleCancel = () => setIsModalOpen(false);
@@ -46,33 +47,120 @@ const News_views = () => {
   }, []);
 
   const items = [
-    { key: '1', label: 'UserName', children: user && <span>{user.username}</span> },
-    { key: '2', label: 'Telephone', children: user && <span>{user.phone_number}</span> },
-    { key: '3', label: 'Line', children: user && <span>{user.Id_line}</span> },
-    { key: '4', label: 'Email', children: user && <span>{user.email}</span> },
-    { key: '5', label: 'province', children: user && <span>{user.province}</span> },
+    {
+      key: "0",
+      label: "",
+      children: user && (
+        <img
+          src={
+            "https://www.jollyboxdesign.com/wp-content/uploads/2021/08/Administrator.png"
+          }
+          alt="Profile"
+          style={{ width: "100px", height: "100px", borderRadius: "50%" }}
+        />
+      ),
+    },
+    {
+      key: "1",
+      label: "ชื่อ-สกุล",
+      children: user && <span>{user.username}</span>,
+    },
+    {
+      key: "2",
+      label: "เบอร์ติดต่อ",
+      children: user && <span>{user.phone_number}</span>,
+    },
+    {
+      key: "3",
+      label: "ไอดีไลน์",
+      children: user && <span>{user.Id_line}</span>,
+    },
+    { key: "4", label: "อีเมล", children: user && <span>{user.email}</span> },
+    {
+      key: "5",
+      label: "จังหวัด",
+      children: user && <span>{user.province}</span>,
+    },
+    {
+      key: "6",
+      label: "เกี่ยวกับผู้เขียน",
+      children:
+        "เกี่ยวกับผู้เขียนเกี่ยวกับผู้เขียนเกี่ยวกับผู้เขียนเกี่ยวกับผู้เขียนเกี่ยวกับผู้เขียนเกี่ยวกับผู้เขียนเกี่ยวกับผู้เขียนเกี่ยวกับผู้เขียนเกี่ยวกับผู้เขียน",
+    },
   ];
 
   const commonStyles = {
     fontFamily: "'Th Sarabun New', sans-serif",
-    fontSize: isMobile ? "14px" : "20px",
+    fontSize: isMobile ? "20px" : "30px",
+    color: "gray",
+  };
+  const commonStyles1 = {
+    fontFamily: "'Th Sarabun New', sans-serif",
+    fontSize: isMobile ? "30px" : "50px",
     color: "gray",
   };
 
   return (
-    <Paper elevation={0} style={{ width: "70%", padding: 30, margin: "0 auto", textAlign: "center" }}>
-      <div style={{ ...commonStyles, fontSize: "50px" }}>ข่าวสาร</div>
+    <Paper
+      elevation={0}
+      style={{ width: "70%", padding: 30, margin: "0 auto" }}
+    >
+      <div
+        style={{
+          ...commonStyles,
+          fontSize: "50px",
+          textAlign: "center",
+          fontWeight: "bold",
+        }}
+      >
+        ข่าวสาร
+      </div>
       <br />
       <h1 style={commonStyles}>{Data.title}</h1>
-      <h1 style={commonStyles}>ผู้เขียน : {Data.Author}</h1>
-      <h1 style={commonStyles}>ลงเมื่อ : {Data.creatat}</h1>
-      <div style={commonStyles} dangerouslySetInnerHTML={{ __html: Data.details }} />
+      <h1 style={commonStyles}>โดย : "ชื่อ-สกุล"</h1>
+      <h1 style={commonStyles}>ลงเมื่อ : {thaiDate}</h1>
+      <div
+        style={commonStyles}
+        dangerouslySetInnerHTML={{ __html: Data.details }}
+      />
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
+        <img
+          style={{
+            maxHeight: "100%",
+            maxWidth: "100%",
+            width: "50%",
+            height: "50%",
+            objectFit: "cover",
+          }}
+          src={Data.cover_image}
+          alt="Cover"
+        />
+      </div>
       <p style={commonStyles}>Video: {Data.video}</p>
-      <p style={commonStyles}>Link: {Data.link}</p>
+      <Link style={commonStyles}>Link: {Data.link}</Link>
       <p style={commonStyles}>Tag: {Data.tag}</p>
-      <p style={commonStyles} onClick={showModal}>โปรไฟลผู้เขียน</p>
-      <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-        <Descriptions style={commonStyles} title="User Info" items={items} />
+      <p style={commonStyles} onClick={showModal}>
+        โปรไฟลผู้เขียน
+      </p>
+      <Modal
+        title="โปรไฟล์ผู้เขียน"
+        open={isModalOpen}
+        footer={null}
+        onCancel={handleCancel}
+      >
+        <Descriptions
+          style={{
+            fontSize: "30px",
+            textAlign: "center",
+          }}
+          title=""
+          items={items}
+        />
       </Modal>
     </Paper>
   );

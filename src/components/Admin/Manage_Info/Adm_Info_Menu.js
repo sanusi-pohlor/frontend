@@ -13,8 +13,13 @@ import {
   Breadcrumb,
 } from "antd";
 import AdminMenu from "../Adm_Menu";
-import ManageInfo_view from './Adm_Info_View';
-import { PlusCircleOutlined, DeleteOutlined, EditOutlined, EyeOutlined } from "@ant-design/icons";
+import ManageInfo_view from "./Adm_Info_View";
+import {
+  PlusCircleOutlined,
+  DeleteOutlined,
+  EditOutlined,
+  EyeOutlined,
+} from "@ant-design/icons";
 import { Link } from "react-router-dom";
 
 const { Option } = Select;
@@ -58,6 +63,27 @@ const ManageMembers = () => {
   const [loading, setLoading] = useState(true);
   const [editingKey, setEditingKey] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
+  const [userInfo, setUserInfo] = useState(null);
+
+  // ฟังก์ชันสำหรับดึงข้อมูลผู้ใช้จาก API
+  const fetchUserInfo = async () => {
+    try {
+      const response = await fetch("http://localhost:8000/api/AmUser");
+      if (response.ok) {
+        const userData = await response.json();
+        console.log("user :", userData);
+        setUserInfo(userData);
+      } else {
+        console.error("Failed to fetch user data");
+      }
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
+  useEffect(() => {
+    fetchUserInfo();
+  }, []);
+
   function getThaiMonth(month) {
     const thaiMonths = [
       "มกราคม",
@@ -214,7 +240,10 @@ const ManageMembers = () => {
       title: "ชื่อผู้แจ้ง",
       dataIndex: "fn_info_nameid",
       width: "10%",
-      editable: true,
+      render: (fn_info_nameid) => {
+        const user = userInfo.find((user) => user.id === fn_info_nameid);
+        return user ? `${user.username} ${user.lastName}` : "";
+      },
     },
     {
       title: "จังหวัด",
@@ -231,7 +260,9 @@ const ManageMembers = () => {
         // Assuming created_at is a valid date string, e.g., "2023-10-26T14:30:00"
         const date = new Date(created_at);
         // Use the Date object to format the date as "วัน เดือน ปี"
-        const formattedDate = `${date.getDate()} ${getThaiMonth(date.getMonth())} ${date.getFullYear() + 543}`;
+        const formattedDate = `${date.getDate()} ${getThaiMonth(
+          date.getMonth()
+        )} ${date.getFullYear() + 543}`;
         return formattedDate;
       },
     },
@@ -248,11 +279,12 @@ const ManageMembers = () => {
       render: (text, record) => (
         <Space size="middle">
           <Link to={`/Admin/ManageInfo/ManageInfo_view/${record.id}`}>
-            <EyeOutlined style={{ fontSize: '16px', color: 'blue' }} /> {/* Blue color for "ดู" */}
+            <EyeOutlined style={{ fontSize: "16px", color: "blue" }} />{" "}
+            {/* Blue color for "ดู" */}
           </Link>
         </Space>
       ),
-    }
+    },
   ];
 
   const mergedColumns = columns.map((col) => {
@@ -273,7 +305,7 @@ const ManageMembers = () => {
   });
   return (
     <AdminMenu>
-      <Breadcrumb style={{ margin: '16px 0' }}>
+      <Breadcrumb style={{ margin: "16px 0" }}>
         <Breadcrumb.Item>Home</Breadcrumb.Item>
         <Breadcrumb.Item>List</Breadcrumb.Item>
         <Breadcrumb.Item>App</Breadcrumb.Item>
@@ -286,143 +318,7 @@ const ManageMembers = () => {
         }}
       >
         <h1>จัดการข้อมูลรับแจ้ง</h1>
-        {/* <Button
-          type="primary"
-          shape="round"
-          icon={<PlusCircleOutlined />}
-          size="large"
-          onClick={() => {
-            setModalVisible(true);
-          }}
-          style={{ marginBottom: 16 }}
-        >
-          เพิ่มสมาชิกใหม่
-        </Button> */}
       </div>
-      <Modal
-        title="เพิ่มสมาชิกใหม่"
-        visible={modalVisible}
-        onCancel={() => setModalVisible(false)}
-        footer={null}
-      >
-        <Form
-          form={form}
-          layout="vertical"
-          name="member_form"
-          onFinish={onFinish}
-        >
-          {/* Add form fields for creating a new member */}
-          <Form.Item
-            name="vol_mem_fname"
-            label="ชื่อ"
-            rules={[
-              {
-                required: true,
-                message: "Please input the title of collection!",
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item
-            name="vol_mem_lname"
-            label="นามสกุล"
-            rules={[
-              {
-                required: true,
-                message: "Please input the title of collection!",
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item
-            name="vol_mem_address"
-            label="ที่อยู่"
-            rules={[
-              {
-                required: true,
-                message: "Please input the title of collection!",
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item
-            name="vol_mem_province"
-            label="จังหวัด"
-            rules={[
-              {
-                required: true,
-                message: "Please input the title of collection!",
-              },
-            ]}
-          >
-            <Select
-              placeholder="Select a option and change input text above"
-              //onChange={onGenderChange}
-              allowClear
-            >
-              <Option value="Krabi">กระบี่</Option>
-              <Option value="Chumphon">ชุมพร</Option>
-              <Option value="Trang">ตรัง</Option>
-              <Option value="NakhonSiThammarat">นครศรีธรรมราช</Option>
-              <Option value="Trang">นราธิวาส</Option>
-              <Option value="Pattani">ปัตตานี</Option>
-              <Option value="PhangNga">พังงา</Option>
-              <Option value="Phattalung">พัทลุง</Option>
-              <Option value="Phuket">ภูเก็ต</Option>
-              <Option value="Yala">ยะลา</Option>
-              <Option value="Ranong">ระนอง</Option>
-              <Option value="Songkhla">สงขลา</Option>
-              <Option value="Satun">สตูล</Option>
-              <Option value="SuratThani">สุราษฎร์ธานี</Option>
-            </Select>
-          </Form.Item>
-          <Form.Item
-            name="vol_mem_ph_num"
-            label="โทรศัพท์"
-            rules={[
-              {
-                required: true,
-                message: "Please input the title of collection!",
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item
-            name="vol_mem_email"
-            label="Email"
-            rules={[
-              {
-                required: true,
-                message: "Please input the title of collection!",
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item
-            name="vol_mem_get_news"
-            label="ยินดีรับข้่าวสาร"
-            rules={[
-              {
-                required: true,
-                message: "Please input the title of collection!",
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-          {/* Add more form fields here */}
-          <Form.Item>
-            <Button type="primary" htmlType="submit">
-              เพิ่ม
-            </Button>
-          </Form.Item>
-        </Form>
-      </Modal>
       <Table
         components={{
           body: {

@@ -19,6 +19,13 @@ const News_Menu = () => {
   const [itemsPerPage] = useState(9);
   const curveAngle = 20;
   const [filterVisible, setFilterVisible] = useState(false);
+  // ประกาศตัวแปร state สำหรับเก็บขนาดของ Grid item
+const [gridSize, setGridSize] = useState({ xs: 12, md: 4 });
+
+// อัพเดทขนาดของ Grid item เมื่อกด RightCircleOutlined
+const updateGridSize = () => {
+  setGridSize({ xs: 12, md: 4 });
+};
   const buttonStyle = {
     background: "#7BBD8F",
     border: "none",
@@ -140,8 +147,8 @@ const News_Menu = () => {
       </Grid>
       <br />
       <Grid container spacing={2}>
-        {newcurrentItems.map((item) => (
-          <Grid item xs={12} md={4} key={item.id}>
+        {newcurrentItems.map((item, index) => (
+          <Grid item xs={12} md={index === 0 ? 12 : 4} key={item.id}>
             <Link
               to={`/News/News_views/${item.id}`}
               style={{ textDecoration: "none" }}

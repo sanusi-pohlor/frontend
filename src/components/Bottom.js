@@ -2,6 +2,7 @@ import React from "react";
 import { Layout, Divider, Space } from "antd";
 import CASLogo from "./Images/CAS.png";
 import WMOLogo from "./Images/WMO.png";
+import commit from "./Images/commit.jpg";
 import { Grid, Box } from "@mui/material";
 
 const { Footer } = Layout;
@@ -27,19 +28,22 @@ const imageContainerStyle = {
 };
 
 const imageStyle = {
-  width: "70px", // กำหนดขนาดรูปภาพทั้งสองให้เท่ากัน
-  height: "70px", // กำหนดขนาดรูปภาพทั้งสองให้เท่ากัน
+  width: "90px", // กำหนดขนาดรูปภาพทั้งสองให้เท่ากัน
+  height: "90px", // กำหนดขนาดรูปภาพทั้งสองให้เท่ากัน
 };
 const imageStyle1 = {
   width: "50%", // กำหนดขนาดรูปภาพทั้งสองให้เท่ากัน
   height: "50%", // กำหนดขนาดรูปภาพทั้งสองให้เท่ากัน
 };
-
+const imageStyle3 = {
+  width: "50%", // กำหนดขนาดรูปภาพทั้งสองให้เท่ากัน
+  height: "80%", // กำหนดขนาดรูปภาพทั้งสองให้เท่ากัน
+};
 const Bottom = () => {
   const isMobile = window.innerWidth <= 768;
   const textStyle = {
     fontFamily: "'Th Sarabun New', sans-serif",
-    fontSize: isMobile ? "14px" : "20px",
+    fontSize: isMobile ? "26px" : "25px",
     color: "gray",
   };
 
@@ -79,6 +83,7 @@ const Bottom = () => {
           </div>
         </Grid>
         <Grid item xs={12} md={4}>
+        <img src={commit} alt="CAS Logo" style={imageStyle3} />
           <div style={textStyle}>เครือข่ายความร่วมมือ</div>
         </Grid>
       </Grid>
