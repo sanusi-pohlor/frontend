@@ -57,7 +57,7 @@ const EditableCell = ({
     </td>
   );
 };
-const ManageMembers = () => {
+const Adm_Info_Menu = () => {
   const [form] = Form.useForm();
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -338,4 +338,4 @@ const ManageMembers = () => {
   );
 };
 
-export default ManageMembers;
+export default Adm_Info_Menu;

@@ -13,7 +13,7 @@ import {
   Select,
   Form,
 } from "antd";
-import { useParams ,useNavigate  } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import AdminMenu from "../Adm_Menu";
 import moment from "moment";
 const { Option } = Select;
@@ -39,7 +39,7 @@ const optionsWithDisabled = [
     value: "2",
   },
 ];
-const ManageInfo_view = () => {
+const Adm_Info_View = () => {
   const [form] = Form.useForm();
   const [fakeNewsInfo, setFakeNewsInfo] = useState(null);
   const [current, setCurrent] = useState(0);
@@ -96,18 +96,23 @@ const ManageInfo_view = () => {
   };
 
   const onChange = (newStatus) => {
-    // ตรวจสอบเงื่อนไขเพื่อแสดง Modal
     if (newStatus === 1) {
       setIsModalVisible(true);
-    } else if (newStatus === 2){
+    } else if (newStatus === 2) {
       navigate("./Adm_Info_Check");
     } else {
-      // ปิด Modal หากเปลี่ยนสถานะอื่น
       setIsModalVisible(false);
     }
+  };
 
-    // ทำสิ่งอื่นที่คุณต้องการในการเปลี่ยนแปลงสถานะ
-    // ...
+  const handleCheck = () => {
+    if (fakeNewsInfo.fn_info_status === 0) {
+      setIsModalVisible(true);
+    } else if (fakeNewsInfo.fn_info_status > 0) {
+      navigate(`./Adm_Info_Check/${fakeNewsInfo.id}`);
+    } else {
+      setIsModalVisible(false);
+    }
   };
   const { id } = useParams();
 
@@ -296,9 +301,20 @@ const ManageInfo_view = () => {
         style={{
           fontSize: "30px",
           fontWeight: "bold",
+          display: "flex",
+          justifyContent: "space-between",
         }}
       >
-        จัดการข้อมูลรับแจ้ง
+        <span>จัดการข้อมูลรับแจ้ง</span>
+        <Button
+          onClick={handleCheck}
+          style={{
+            fontSize: "20px",
+            color: "#7BBD8F",
+          }}
+        >
+          ตรวจสอบข้อมูล
+        </Button>
       </div>
       <Divider />
       <Steps
@@ -339,4 +355,4 @@ const ManageInfo_view = () => {
   );
 };
 
-export default ManageInfo_view;
+export default Adm_Info_View;
