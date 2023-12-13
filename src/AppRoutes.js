@@ -26,7 +26,7 @@ import Manage_Fake_Info_View from "./components/Admin/Manage_Fake_Info/Manage_Fa
 import ManageMembers from "./components/Admin/Manage_Members/Adm_Mm_Menu";
 
 import Adm_Dashboard_View from "./components/Admin/ManageContent/Adm_Dashboard/Adm_Dashboard_View";
-import Adm_News_View from "./components/Admin/ManageContent/Adm_News/Adm_News_view";
+import Adm_News_View from "./components/Admin/ManageContent/Adm_News/Adm_News_View";
 import Adm_Article_View from "./components/Admin/ManageContent/Adm_Article/Adm_Article_View";
 import Adm_MdShare_View from "./components/Admin/ManageContent/Adm_MdShare/Adm_MdShare_View";
 
