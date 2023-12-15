@@ -113,7 +113,7 @@ const Adm_MdShare_Form = () => {
       formData.append("tag", values.tag);
 
       const response = await fetch(
-        "http://localhost:8000/api/Adm_MdShare_upload",
+        "https://fakenew-c1eaeda38e26.herokuapp.com/api/Adm_MdShare_upload",
         {
           method: "POST",
           body: formData,

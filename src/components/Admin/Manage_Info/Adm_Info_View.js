@@ -52,7 +52,7 @@ const Adm_Info_View = () => {
   // ฟังก์ชันสำหรับดึงข้อมูลผู้ใช้จาก API
   const fetchUserInfo = async () => {
     try {
-      const response = await fetch("http://localhost:8000/api/AmUser");
+      const response = await fetch("https://fakenew-c1eaeda38e26.herokuapp.com/api/AmUser");
       if (response.ok) {
         const userData = await response.json();
         console.log("user :", userData);
@@ -71,7 +71,7 @@ const Adm_Info_View = () => {
   const onFinish = async (values) => {
     try {
       const response = await fetch(
-        "http://localhost:8000/api/Manage_Fake_Info_upload",
+        "https://fakenew-c1eaeda38e26.herokuapp.com/api/Manage_Fake_Info_upload",
         {
           method: "POST",
           headers: {
@@ -133,7 +133,7 @@ const Adm_Info_View = () => {
       formData.append("status", 1); // ใช้ append ให้ถูกต้อง
 
       const response = await fetch(
-        `http://localhost:8000/api/updateFakeNewsStatus/${id}`,
+        `https://fakenew-c1eaeda38e26.herokuapp.com/api/updateFakeNewsStatus/${id}`,
         {
           method: "POST",
           body: formData, // ส่งข้อมูลผ่าน FormData
@@ -155,7 +155,7 @@ const Adm_Info_View = () => {
     console.log("id :", id);
     try {
       const response = await fetch(
-        `http://localhost:8000/api/FakeNewsInfo_show/${id}`
+        `https://fakenew-c1eaeda38e26.herokuapp.com/api/FakeNewsInfo_show/${id}`
       );
       if (response.ok) {
         const data = await response.json();

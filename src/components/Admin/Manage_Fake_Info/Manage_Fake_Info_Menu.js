@@ -94,7 +94,7 @@ const Manage_Fake_Info_Menu = () => {
   const fetchData = async () => {
     try {
       const response = await fetch(
-        "http://localhost:8000/api/Manage_Fake_Info_request"
+        "https://fakenew-c1eaeda38e26.herokuapp.com/api/Manage_Fake_Info_request"
       );
       if (response.ok) {
         const data = await response.json();
@@ -113,7 +113,7 @@ const Manage_Fake_Info_Menu = () => {
   const onFinish = async (values) => {
     try {
       const response = await fetch(
-        "http://localhost:8000/api/Manage_Fake_Info_upload",
+        "https://fakenew-c1eaeda38e26.herokuapp.com/api/Manage_Fake_Info_upload",
         {
           method: "POST",
           headers: {
@@ -175,7 +175,7 @@ const Manage_Fake_Info_Menu = () => {
   
   const handleDelete = (id) => {
     console.log(`ลบรายการ: ${id}`);
-    fetch(`http://localhost:8000/api/Manage_Fake_Info_delete/${id}`, {
+    fetch(`https://fakenew-c1eaeda38e26.herokuapp.com/api/Manage_Fake_Info_delete/${id}`, {
       method: "DELETE",
     })
       .then((response) => response.json())
@@ -300,7 +300,7 @@ const Manage_Fake_Info_Menu = () => {
 
   const fetchDataAndSetOptions = async (endpoint, fieldName, stateSetter) => {
     try {
-      const response = await fetch(`http://localhost:8000/api/${endpoint}`);
+      const response = await fetch(`https://fakenew-c1eaeda38e26.herokuapp.com/api/${endpoint}`);
       if (response.ok) {
         const typeCodes = await response.json();
         const options = typeCodes.map((code) => (

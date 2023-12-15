@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Breadcrumb, Card, Badge, Descriptions } from "antd";
+import { Button,Modal,Breadcrumb, Card, Badge, Descriptions } from "antd";
 import {
   PieChart,
   Pie,
@@ -15,6 +15,19 @@ const M_DB_Adm_Menu = () => {
   const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#AF19FF"]; // Array of different colors
   const curveAngle = 20;
   const paperColor = "#FFFFFF";
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+  const handleOk = () => {
+    localStorage.removeItem("access_token");
+    window.location.reload();
+    console.log("Logged out successfully");
+    setIsModalOpen(false);
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
   const [options] = useState([
     {
       title: "แหล่งที่มาของข้อมูล",
@@ -108,7 +121,7 @@ const M_DB_Adm_Menu = () => {
 
   const fetchData = async (endpoint, name, dataIndex) => {
     try {
-      const response = await fetch(`http://localhost:8000/api/${endpoint}`);
+      const response = await fetch(`https://fakenew-c1eaeda38e26.herokuapp.com/api/${endpoint}`);
       if (response.ok) {
         const data = await response.json();
 
@@ -186,6 +199,17 @@ const M_DB_Adm_Menu = () => {
         ))}
       </Grid>
       <Descriptions title="User Info" bordered items={items} />
+      <Button type="primary" onClick={showModal}>
+        ออกจากระบบ
+      </Button>
+      <Modal
+        title="Basic Modal"
+        open={isModalOpen}
+        onOk={handleOk}
+        onCancel={handleCancel}
+      >
+        <p>ต้องการออกจากระบบ</p>
+      </Modal>
     </AdminMenu>
   );
 };
