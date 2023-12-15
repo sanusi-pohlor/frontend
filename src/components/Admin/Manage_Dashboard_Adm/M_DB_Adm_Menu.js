@@ -1,5 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { Button,Modal,Breadcrumb, Card, Badge, Descriptions } from "antd";
+import {
+  Button,
+  Modal,
+  Breadcrumb,
+  Card,
+  Badge,
+  Descriptions,
+  Select,
+  Divider,
+} from "antd";
 import {
   PieChart,
   Pie,
@@ -16,6 +25,32 @@ const M_DB_Adm_Menu = () => {
   const curveAngle = 20;
   const paperColor = "#FFFFFF";
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedOption, setSelectedOption] = useState("");
+  const [user, setUser] = useState(null);
+
+  const fetchUser = async () => {
+    try {
+      const response = await fetch(
+        "https://fakenew-c1eaeda38e26.herokuapp.com/api/user",
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+          },
+        }
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        setUser(data);
+      } else {
+        console.error("User data retrieval failed");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
   const showModal = () => {
     setIsModalOpen(true);
   };
@@ -28,6 +63,113 @@ const M_DB_Adm_Menu = () => {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
+  const items = [
+    {
+      key: "1",
+      label: "จำนวนข้อมูลที่แจ้ง",
+      children: "20",
+    },
+    {
+      key: "2",
+      label: "จำนวนข้อมูลที่ยังไม่ตรวจสอบ",
+      children: "5",
+    },
+    {
+      key: "3",
+      label: "จำนวนข้อมูลทีกำลังตรวจสอบ",
+      children: "8",
+    },
+    {
+      key: "4",
+      label: "จำนวนข้อมูลทีตรวจสอบเรียบร้อย",
+      children: "7",
+    },
+    {
+      key: "5",
+      label: "จำนวนข้อมูลทีเป็นข่าวจริง",
+      children: "2",
+    },
+    {
+      key: "6",
+      label: "จำนวนข้อมูลทีเป็นข่าวเท็จ",
+      children: "5",
+    },
+  ];
+
+  const items2 = [
+    {
+      key: "0",
+      label: "",
+      children: user && (
+        <img
+          src={
+            "https://www.jollyboxdesign.com/wp-content/uploads/2021/08/Administrator.png"
+          }
+          alt="Profile"
+          style={{ width: "100px", height: "100px", borderRadius: "50%" }}
+        />
+      ),
+    },
+    {
+      key: "1",
+      label: "ชื่อ-สกุล",
+      children: user && <span>{user.username}</span>,
+    },
+    {
+      key: "2",
+      label: "เบอร์ติดต่อ",
+      children: user && <span>{user.phone_number}</span>,
+    },
+    {
+      key: "3",
+      label: "ไอดีไลน์",
+      children: user && <span>{user.Id_line}</span>,
+    },
+    { key: "4", label: "อีเมล", children: user && <span>{user.email}</span> },
+    {
+      key: "5",
+      label: "จังหวัด",
+      children: user && <span>{user.province}</span>,
+    },
+    {
+      key: "6",
+      label: "เกี่ยวกับผู้เขียน",
+      children:
+        "เกี่ยวกับผู้เขียนเกี่ยวกับผู้เขียนเกี่ยวกับผู้เขียนเกี่ยวกับผู้เขียนเกี่ยวกับผู้เขียนเกี่ยวกับผู้เขียนเกี่ยวกับผู้เขียนเกี่ยวกับผู้เขียนเกี่ยวกับผู้เขียน",
+    },
+  ];
+  const [chartData, setChartData] = useState([]);
+
+  const fetchData = async (endpoint, name, dataIndex) => {
+    try {
+      const response = await fetch(
+        `https://fakenew-c1eaeda38e26.herokuapp.com/api/${endpoint}`
+      );
+      if (response.ok) {
+        const data = await response.json();
+        const countByCategory = data.map((item) => {
+          return {
+            name: item[name],
+            value: item[dataIndex],
+          };
+        });
+
+        setChartData(countByCategory);
+      } else {
+        console.error("Failed to fetch data");
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  // useEffect(() => {
+  //   if (options.length > 0) {
+  //     options.forEach((option) => {
+  //       fetchData(option.value, option.name, option.dataIndex);
+  //     });
+  //   }
+  // }, [options]);
   const [options] = useState([
     {
       title: "แหล่งที่มาของข้อมูล",
@@ -48,109 +190,58 @@ const M_DB_Adm_Menu = () => {
       dataIndex: "mfi_ty_info",
     },
   ]);
-  const items = [
-    {
-      key: "1",
-      label: "Product",
-      children: "Cloud Database",
-    },
-    {
-      key: "2",
-      label: "Billing Mode",
-      children: "Prepaid",
-    },
-    {
-      key: "3",
-      label: "Automatic Renewal",
-      children: "YES",
-    },
-    {
-      key: "4",
-      label: "Order time",
-      children: "2018-04-24 18:00:00",
-    },
-    {
-      key: "5",
-      label: "Usage Time",
-      children: "2019-04-24 18:00:00",
-      span: 2,
-    },
-    {
-      key: "6",
-      label: "Status",
-      children: <Badge status="processing" text="Running" />,
-      span: 3,
-    },
-    {
-      key: "7",
-      label: "Negotiated Amount",
-      children: "$80.00",
-    },
-    {
-      key: "8",
-      label: "Discount",
-      children: "$20.00",
-    },
-    {
-      key: "9",
-      label: "Official Receipts",
-      children: "$60.00",
-    },
-    {
-      key: "10",
-      label: "Config Info",
-      children: (
-        <>
-          Data disk type: MongoDB
-          <br />
-          Database version: 3.4
-          <br />
-          Package: dds.mongo.mid
-          <br />
-          Storage space: 10 GB
-          <br />
-          Replication factor: 3
-          <br />
-          Region: East China 1
-          <br />
-        </>
-      ),
-    },
-  ];
-  const [chartData, setChartData] = useState([]);
-
-  const fetchData = async (endpoint, name, dataIndex) => {
-    try {
-      const response = await fetch(`https://fakenew-c1eaeda38e26.herokuapp.com/api/${endpoint}`);
-      if (response.ok) {
-        const data = await response.json();
-
-        const countByCategory = data.map((item) => {
-          // Perform any necessary data manipulation here
-          // Using a sample logic of counting occurrences
-          return {
-            name: item[name],
-            value: item[dataIndex],
-          };
-        });
-
-        setChartData(countByCategory);
-      } else {
-        console.error("Failed to fetch data");
-      }
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
 
   useEffect(() => {
-    if (options.length > 0) {
-      options.forEach((option) => {
-        fetchData(option.value, option.name, option.dataIndex);
-      });
+    if (options.length > 0 && !selectedOption) {
+      setSelectedOption(options[0].title);
     }
-  }, [options]);
+  }, [options, selectedOption]);
 
+  useEffect(() => {
+    const fetchData = async (endpoint, name, dataIndex) => {
+      try {
+        const Manage_Fake_Info = await fetch(
+          "https://fakenew-c1eaeda38e26.herokuapp.com/api/Manage_Fake_Info_request"
+        );
+        const MediaChannels = await fetch(
+          `https://fakenew-c1eaeda38e26.herokuapp.com/api/${endpoint}`
+        );
+
+        if (Manage_Fake_Info.ok && MediaChannels.ok) {
+          const Manage_Fake_Infodata = await Manage_Fake_Info.json();
+          const MediaChannelsData = await MediaChannels.json();
+
+          const countByMedCId = MediaChannelsData.map((channel) => {
+            const count = Manage_Fake_Infodata.filter(
+              (fakeInfo) => fakeInfo[dataIndex] === channel.id
+            ).length;
+
+            return {
+              name: channel[name],
+              value: count,
+            };
+          });
+
+          setChartData(countByMedCId);
+        } else {
+          console.error("Failed to fetch data");
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    if (selectedOption) {
+      const selected = options.find((opt) => opt.title === selectedOption);
+      if (selected) {
+        fetchData(selected.value, selected.name, selected.dataIndex);
+      }
+    }
+  }, [selectedOption, options]);
+
+  const handleSelectChange = (value) => {
+    setSelectedOption(value);
+  };
   return (
     <AdminMenu>
       <Breadcrumb style={{ margin: "16px 0" }}>
@@ -171,8 +262,14 @@ const M_DB_Adm_Menu = () => {
                 height: "100%",
               }}
             >
-              <h3>{option.title}</h3>
-              <ul>
+              <Select value={selectedOption} onChange={handleSelectChange}>
+                {options.map((option) => (
+                  <Select.Option key={option.value} value={option.title}>
+                    {option.title}
+                  </Select.Option>
+                ))}
+              </Select>
+              <ResponsiveContainer width="100%" height={300}>
                 <PieChart>
                   <Tooltip />
                   <Legend />
@@ -193,12 +290,23 @@ const M_DB_Adm_Menu = () => {
                     ))}
                   </Pie>
                 </PieChart>
-              </ul>
+              </ResponsiveContainer>
             </Card>
           </Grid>
         ))}
       </Grid>
-      <Descriptions title="User Info" bordered items={items} />
+      <Divider />
+      <Descriptions title="ข้อมูล" bordered items={items} />
+      <br />
+      <Divider />
+      <Descriptions
+        style={{
+          fontSize: "30px",
+        }}
+        title="ข้อมูล Admin"
+        items={items}
+      />
+      <br />
       <Button type="primary" onClick={showModal}>
         ออกจากระบบ
       </Button>

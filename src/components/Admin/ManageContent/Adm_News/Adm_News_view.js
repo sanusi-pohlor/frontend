@@ -7,12 +7,14 @@ import { Link } from "react-router-dom";
 import {
   PlusCircleOutlined,
 } from "@ant-design/icons";
+import moment from "moment";
 
 const Adm_News_view = () => {
   const { id } = useParams();
   const [Data, setData] = useState({});
   const [isModalOpen, setIsModalOpen] = useState(false);
   const isMobile = window.innerWidth <= 768;
+  const thaiDate = moment(Data.created_at).locale("th").format("Do MMMM YYYY");
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -70,26 +72,73 @@ const Adm_News_view = () => {
             icon={<PlusCircleOutlined />}
             size="large"
           >
-            เพิ่มข่าว
+            แก้ไข
           </Button>
         </Link>
       </div>
       <div>
-        <Paper elevation={0} style={{ width: "70%", padding: 30, margin: "0 auto", textAlign: "center" }}>
-          <div style={{ ...commonStyles, fontSize: "50px" }}>ข่าวสาร</div>
-          <br />
-          <h1 style={commonStyles}>{Data.title}</h1>
-          <h1 style={commonStyles}>ผู้เขียน : {Data.Author}</h1>
-          <h1 style={commonStyles}>ลงเมื่อ : {Data.creatat}</h1>
-          <div style={commonStyles} dangerouslySetInnerHTML={{ __html: Data.details }} />
-          <p style={commonStyles}>Video: {Data.video}</p>
-          <p style={commonStyles}>Link: {Data.link}</p>
-          <p style={commonStyles}>Tag: {Data.tag}</p>
-          <p style={commonStyles} onClick={showModal}>โปรไฟลผู้เขียน</p>
-          <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-            <Descriptions style={commonStyles} title="User Info" items={items} />
-          </Modal>
-        </Paper>
+      <Paper
+      elevation={0}
+      style={{ width: "70%", padding: 30, margin: "0 auto" }}
+    >
+      <div
+        style={{
+          ...commonStyles,
+          fontSize: "50px",
+          textAlign: "center",
+          fontWeight: "bold",
+        }}
+      >
+        ข่าวสาร
+      </div>
+      <br />
+      <h1 style={commonStyles}>{Data.title}</h1>
+      <h1 style={commonStyles}>โดย : "ชื่อ-สกุล"</h1>
+      <h1 style={commonStyles}>ลงเมื่อ : {thaiDate}</h1>
+      <div
+        style={commonStyles}
+        dangerouslySetInnerHTML={{ __html: Data.details }}
+      />
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
+        <img
+          style={{
+            maxHeight: "100%",
+            maxWidth: "100%",
+            width: "50%",
+            height: "50%",
+            objectFit: "cover",
+          }}
+          src={Data.cover_image}
+          alt="Cover"
+        />
+      </div>
+      <p style={commonStyles}>Video: {Data.video}</p>
+      <Link style={commonStyles}>Link: {Data.link}</Link>
+      <p style={commonStyles}>Tag: {Data.tag}</p>
+      <p style={commonStyles} onClick={showModal}>
+        โปรไฟลผู้เขียน
+      </p>
+      <Modal
+        title="โปรไฟล์ผู้เขียน"
+        open={isModalOpen}
+        footer={null}
+        onCancel={handleCancel}
+      >
+        <Descriptions
+          style={{
+            fontSize: "30px",
+            textAlign: "center",
+          }}
+          title=""
+          items={items}
+        />
+      </Modal>
+    </Paper>
       </div>
     </AdminMenu>
   );
