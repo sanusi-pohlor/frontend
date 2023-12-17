@@ -33,7 +33,7 @@ const updateGridSize = () => {
   };
 
   useEffect(() => {
-    fetch("https://fakenew-c1eaeda38e26.herokuapp.com/api/News_request")
+    fetch("http://localhost:8000/api/News_request")
       .then((response) => response.json())
       .then((data) => {
         setData(data);

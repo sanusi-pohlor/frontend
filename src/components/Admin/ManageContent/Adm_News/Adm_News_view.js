@@ -30,7 +30,7 @@ const Adm_News_view = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `https://fakenew-c1eaeda38e26.herokuapp.com/api/News_show/${id}`
+          `http://localhost:8000/api/News_show/${id}`
         );
         if (response.ok) {
           const data = await response.json();

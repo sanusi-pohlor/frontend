@@ -48,7 +48,7 @@ const MMedia = () => {
   const fetchData = async () => {
     try {
       const response = await fetch(
-        "https://fakenew-c1eaeda38e26.herokuapp.com/api/MediaChannels_request"
+        "http://localhost:8000/api/MediaChannels_request"
       );
       if (response.ok) {
         const data = await response.json();
@@ -72,7 +72,7 @@ const MMedia = () => {
       formData.append("med_c_name", values.med_c_name);
       console.log(formData);
       const response = await fetch(
-        "https://fakenew-c1eaeda38e26.herokuapp.com/api/MediaChannels_upload",
+        "http://localhost:8000/api/MediaChannels_upload",
         {
           method: "POST",
           body: formData,

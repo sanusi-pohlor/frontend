@@ -48,7 +48,7 @@ const ManageMembers = () => {
   const fetchData = async () => {
     try {
       const response = await fetch(
-        "https://fakenew-c1eaeda38e26.herokuapp.com/api/AmUser"
+        "http://localhost:8000/api/AmUser"
       );
       if (response.ok) {
         const data = await response.json();
@@ -78,7 +78,7 @@ const ManageMembers = () => {
       formData.append("vol_mem_get_news", values.vol_mem_get_news);
       console.log(formData);
       const response = await fetch(
-        "https://fakenew-c1eaeda38e26.herokuapp.com/api/VolunteerMembers_upload",
+        "http://localhost:8000/api/VolunteerMembers_upload",
         {
           method: "POST",
           body: formData,

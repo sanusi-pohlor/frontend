@@ -31,7 +31,7 @@ const M_DB_Adm_Menu = () => {
   const fetchUser = async () => {
     try {
       const response = await fetch(
-        "https://fakenew-c1eaeda38e26.herokuapp.com/api/user",
+        "http://localhost:8000/api/user",
         {
           method: "GET",
           headers: {
@@ -63,6 +63,7 @@ const M_DB_Adm_Menu = () => {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
+
   const items = [
     {
       key: "1",
@@ -143,10 +144,11 @@ const M_DB_Adm_Menu = () => {
   const fetchData = async (endpoint, name, dataIndex) => {
     try {
       const response = await fetch(
-        `https://fakenew-c1eaeda38e26.herokuapp.com/api/${endpoint}`
+        `http://localhost:8000/api/${endpoint}`
       );
       if (response.ok) {
         const data = await response.json();
+
         const countByCategory = data.map((item) => {
           return {
             name: item[name],
@@ -201,10 +203,10 @@ const M_DB_Adm_Menu = () => {
     const fetchData = async (endpoint, name, dataIndex) => {
       try {
         const Manage_Fake_Info = await fetch(
-          "https://fakenew-c1eaeda38e26.herokuapp.com/api/Manage_Fake_Info_request"
+          "http://localhost:8000/api/Manage_Fake_Info_request"
         );
         const MediaChannels = await fetch(
-          `https://fakenew-c1eaeda38e26.herokuapp.com/api/${endpoint}`
+          `http://localhost:8000/api/${endpoint}`
         );
 
         if (Manage_Fake_Info.ok && MediaChannels.ok) {
