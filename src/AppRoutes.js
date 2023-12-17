@@ -19,7 +19,6 @@ import NotificationHistory from "./components/Fninfo_Components/Fninfo_History";
 
 import ManageInfo from "./components/Admin/Manage_Info/Adm_Info_Menu";
 import ManageInfo_view from "./components/Admin/Manage_Info/Adm_Info_View";
-import Adm_Info_Check from "./components/Admin/Manage_Info/Adm_Info_Check";
 
 import Manage_Fake_Info_Menu from "./components/Admin/Manage_Fake_Info/Manage_Fake_Info_Menu";
 import Manage_Fake_Info_View from "./components/Admin/Manage_Fake_Info/Manage_Fake_Info_View";
@@ -84,21 +83,13 @@ const routes = [
   { path: "/Admin/ManageInfo", element: <ManageInfo /> },
 
   { path: "/Admin/Manage_Fake_Info_Menu", element: <Manage_Fake_Info_Menu /> },
+  { path: "/Admin/Manage_Fake_Info_View/:id", element: <Manage_Fake_Info_View /> },
   {
-    path: "/Admin/Manage_Fake_Info_View/:id",
-    element: <Manage_Fake_Info_View />,
-  },
-  {
-    path: "/Admin/ManageInfo/ManageInfo_view/:id",
-    element: <ManageInfo_view />,
-  },
-  {
-    path: "/Admin/ManageInfo/ManageInfo_view/:id/Adm_Info_Check/:id",
-    element: <Adm_Info_Check />,
+    path: "/Admin/ManageInfo/ManageInfo_view/:id", element: <ManageInfo_view />,
   },
   { path: "/Admin/ManageMembers", element: <ManageMembers /> },
   { path: "/Admin/Adm_Dashboard_View", element: <Adm_Dashboard_View /> },
-
+  
   { path: "/Admin/Adm_Dashboard_Menu", element: <Adm_Dashboard_Menu /> },
   { path: "/Admin/Adm_News_Menu", element: <Adm_News_Menu /> },
   { path: "/Admin/Adm_Article_Menu", element: <Adm_Article_Menu /> },
