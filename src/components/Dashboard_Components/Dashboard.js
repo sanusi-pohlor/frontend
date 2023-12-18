@@ -158,7 +158,7 @@ const Dashboard = ({ onSearch }) => {
             size="large"
             placeholder="ประเภท"
             allowClear
-            style={{ marginRight: "20px", flex: 1, fontSize: "20px" }} // Add margin to the right and adjust font size
+            style={{ marginRight: "20px", flex: 1, fontSize: "25px" }} // Add margin to the right and adjust font size
           >
             {selectOptions_type} {/* Populate the options */}
           </Select>
@@ -166,7 +166,7 @@ const Dashboard = ({ onSearch }) => {
             placeholder="เดือน/ปี"
             picker="month"
             size="large"
-            style={{ marginRight: "20px", flex: 1, fontSize: "20px" }}
+            style={{ marginRight: "20px", flex: 1, fontSize: "25px" }}
           />
         </div>
         <br />
@@ -277,7 +277,7 @@ const Dashboard = ({ onSearch }) => {
                       height: "100%",
                       padding: 10,
                       fontFamily: "'Th Sarabun New', sans-serif",
-                      fontSize: "20px",
+                      fontSize: "25px",
                     }}
                     cover={
                       <div
@@ -388,7 +388,7 @@ const Dashboard = ({ onSearch }) => {
                       height: "100%",
                       padding: 10,
                       fontFamily: "'Th Sarabun New', sans-serif",
-                      fontSize: "30px",
+                      fontSize: "25px",
                     }}
                     cover={
                       <div
@@ -500,7 +500,7 @@ const Dashboard = ({ onSearch }) => {
                       height: "100%",
                       padding: 10,
                       fontFamily: "'Th Sarabun New', sans-serif",
-                      fontSize: "20px",
+                      fontSize: "25px",
                     }}
                     cover={
                       <div

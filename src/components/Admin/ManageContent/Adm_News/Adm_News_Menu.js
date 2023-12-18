@@ -12,6 +12,27 @@ import axios from "axios";
 
 const Adm_News_Menu = () => {
   const [dataSource, setDataSource] = useState([]);
+  const [userInfo, setUserInfo] = useState(null);
+
+  // ฟังก์ชันสำหรับดึงข้อมูลผู้ใช้จาก API
+  const fetchUserInfo = async () => {
+    try {
+      const response = await fetch("http://localhost:8000/api/AmUser");
+      if (response.ok) {
+        const userData = await response.json();
+        console.log("user :", userData);
+        setUserInfo(userData);
+      } else {
+        console.error("Failed to fetch user data");
+      }
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
+  useEffect(() => {
+    fetchUserInfo();
+  }, []);
+  
   const onChange = (checked) => {
     console.log(`switch to ${checked}`);
   };
@@ -112,7 +133,11 @@ const Adm_News_Menu = () => {
       title: "ผู้ลง",
       dataIndex: "Author",
       key: "Author",
-    },
+      render: (Author) => {
+        const user = userInfo ? userInfo.find(user => user.id === Author) : null;
+        return user ? `${user.username} ${user.lastName}` : "";
+      },
+    },    
     {
       title: "ลงเมื่อ",
       dataIndex: "created_at",
@@ -145,24 +170,6 @@ const Adm_News_Menu = () => {
         </>
       ),
     },
-    // {
-    //   title: "status",
-    //   dataIndex: "status",
-    //   key: "status",
-    //   render: (status) => (
-    //     <>
-    //       <Space direction="vertical">
-    //         <Switch checkedChildren="เปิด" unCheckedChildren="ปิด" defaultChecked={status === 1} />
-    //         <Switch checkedChildren="1" unCheckedChildren="0" defaultChecked={status === 1} />
-    //         <Switch
-    //           checkedChildren={<CheckOutlined />}
-    //           unCheckedChildren={<CloseOutlined />}
-    //           defaultChecked={status === 1}
-    //         />
-    //       </Space>
-    //     </>
-    //   ),
-    // },
     {
       title: "จัดการ",
       width: "15%",

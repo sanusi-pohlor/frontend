@@ -162,7 +162,7 @@ const updateGridSize = () => {
                   height: "100%",
                   padding: 10,
                   fontFamily: "'Th Sarabun New', sans-serif",
-                  fontSize: "20px",
+                  fontSize: "25px",
                 }}
                 cover={
                   <div

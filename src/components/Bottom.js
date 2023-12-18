@@ -4,6 +4,9 @@ import CASLogo from "./Images/CAS.png";
 import WMOLogo from "./Images/WMO.png";
 import commit from "./Images/commit.jpg";
 import { Grid, Box } from "@mui/material";
+import {
+  FacebookOutlined
+} from "@ant-design/icons";
 
 const { Footer } = Layout;
 
@@ -82,9 +85,16 @@ const Bottom = () => {
             </Space>
           </div>
         </Grid>
-        <Grid item xs={12} md={4}>
-        <img src={commit} alt="CAS Logo" style={imageStyle3} />
-          <div style={textStyle}>เครือข่ายความร่วมมือ</div>
+        <Grid item xs={12} md={4} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div>
+            <img src={commit} alt="CAS Logo" style={imageStyle3} />
+            <div style={textStyle}>เครือข่ายความร่วมมือ</div>
+          </div>
+          <div style={{ fontSize: "3rem", color: "#7BBD8F" }}>
+            <a href="https://www.facebook.com/MediaLiteracyforCitizen" target="_blank" rel="noopener noreferrer" style={{ fontSize: "3rem", color: "#7BBD8F" }}>
+              <FacebookOutlined />
+            </a>
+          </div>
         </Grid>
       </Grid>
     </Footer>

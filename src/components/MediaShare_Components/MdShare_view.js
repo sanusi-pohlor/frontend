@@ -55,7 +55,7 @@ const MdShare_view = () => {
 
   const commonStyles = {
     fontFamily: "'Th Sarabun New', sans-serif",
-    fontSize: isMobile ? "14px" : "20px",
+    fontSize: isMobile ? "20px" : "30px",
     color: "gray",
   };
 

@@ -9,6 +9,12 @@ const MyTable = () => {
   const [selectedOption, setSelectedOption] = useState("");
   const [options] = useState([
     {
+      title: "ประเภทข้อมูล",
+      value: "TypeInformation_request",
+      name: "type_info_name",
+      dataIndex: "mfi_ty_info",
+    },
+    {
       title: "แหล่งที่มาของข้อมูล",
       value: "MediaChannels_request",
       name: "med_c_name",
@@ -19,12 +25,6 @@ const MyTable = () => {
       value: "FormatData_request",
       name: "fm_d_name",
       dataIndex: "mfi_fm_d",
-    },
-    {
-      title: "ประเภทข้อมูล",
-      value: "TypeInformation_request",
-      name: "type_info_name",
-      dataIndex: "mfi_ty_info",
     },
   ]);
 

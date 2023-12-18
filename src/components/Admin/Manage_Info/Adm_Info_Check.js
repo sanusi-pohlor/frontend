@@ -20,6 +20,7 @@ import {
   EyeOutlined,
 } from "@ant-design/icons";
 import { Link } from "react-router-dom";
+import moment from "moment";
 
 const { Option } = Select;
 const EditableCell = ({
@@ -57,6 +58,7 @@ const EditableCell = ({
   );
 };
 const Manage_Fake_Info_Menu = () => {
+  const [fakeNewsInfo, setFakeNewsInfo] = useState(null);
   const [form] = Form.useForm();
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -72,7 +74,7 @@ const Manage_Fake_Info_Menu = () => {
   const [selectOptions_moti, setSelectOptions_moti] = useState([]); // State for select options
   const [selectOptions_data, setSelectOptions_data] = useState([]); // State for select optionsons
   const [selectOptions_prov, setSelectOptions_prov] = useState([]); // State for select optionsons
-
+  const { id } = useParams();
   function getThaiMonth(month) {
     const thaiMonths = [
       "มกราคม",
@@ -90,6 +92,30 @@ const Manage_Fake_Info_Menu = () => {
     ];
     return thaiMonths[month];
   }
+
+  // Fetch fake news information based on id
+  const fetchFakeNewsInfo = async () => {
+    console.log("id :", id);
+    try {
+      const response = await fetch(
+        `http://localhost:8000/api/FakeNewsInfo_show/${id}`
+      );
+      if (response.ok) {
+        const data = await response.json();
+        setFakeNewsInfo(data);
+      } else {
+        console.error("Error fetching data:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  // Fetch fake news information when the component mounts
+  useEffect(() => {
+    fetchFakeNewsInfo();
+  }, [id]);
+
   const fetchData = async () => {
     try {
       const response = await fetch(
@@ -208,9 +234,18 @@ const Manage_Fake_Info_Menu = () => {
     },
     {
       title: "ประทับเวลา",
-      dataIndex: "mfi_time",
+      //dataIndex: "fakeNewsInfo.created_at",
       width: "15%",
       editable: true,
+      render: (text, record) => (
+        <span>
+          {record.fakeNewsInfo &&
+            record.fakeNewsInfo.created_at &&
+            moment(record.fakeNewsInfo.created_at)
+              .locale("th")
+              .format("DD MMMM YYYY")}
+        </span>
+      ),
     },
     {
       title: "จังหวัดของท่าน",
@@ -420,7 +455,7 @@ const Manage_Fake_Info_Menu = () => {
       >
         <Form.Item
           name="mfi_time"
-          label="ประทับเวลา"
+          //label="ประทับเวลา"
           rules={[
             {
               required: false,
@@ -428,11 +463,16 @@ const Manage_Fake_Info_Menu = () => {
             },
           ]}
         >
-          <Input />
+          <Input
+            size="large"
+            prefix={<UserOutlined className="site-form-item-icon" />}
+            placeholder={fakeNewsInfo.created_at}
+            disabled
+          />
         </Form.Item>
         <Form.Item
           name="mfi_province"
-          label="จังหวัดของท่าน"
+          //label="จังหวัดของผู้แจ้ง"
           rules={[
             {
               required: false,
@@ -440,17 +480,16 @@ const Manage_Fake_Info_Menu = () => {
             },
           ]}
         >
-          <Select
-            placeholder="Select a option and change input text above"
-            onChange={onChange_mfi_province}
-            allowClear
-          >
-            {selectOptions_prov}
-          </Select>
+          <Input
+            size="large"
+            prefix={<UserOutlined className="site-form-item-icon" />}
+            placeholder={user.province}
+            disabled
+          />
         </Form.Item>
         <Form.Item
           name="mfi_mem"
-          label="ผู้ส่งรายงาน"
+          //label="ผู้ส่งรายงาน"
           rules={[
             {
               required: false,
@@ -458,13 +497,12 @@ const Manage_Fake_Info_Menu = () => {
             },
           ]}
         >
-          <Select
-            placeholder="Select a option and change input text above"
-            onChange={onChange_mfi_mem_id}
-            allowClear
-          >
-            {selectOptions_vol}
-          </Select>
+          <Input
+            size="large"
+            prefix={<UserOutlined className="site-form-item-icon" />}
+            placeholder={user.username}
+            disabled
+          />
         </Form.Item>
         <Form.Item
           name="mfi_med_c"
@@ -494,7 +532,9 @@ const Manage_Fake_Info_Menu = () => {
             },
           ]}
         >
-          <Input />
+          <img
+            src={fakeNewsInfo.fn_info_image}
+          />
         </Form.Item>
         <Form.Item
           name="mfi_link"
@@ -506,7 +546,12 @@ const Manage_Fake_Info_Menu = () => {
             },
           ]}
         >
-          <Input />
+          <Input
+            size="large"
+            prefix={<UserOutlined className="site-form-item-icon" />}
+            placeholder={fakeNewsInfo.fn_info_link}
+            disabled
+          />
         </Form.Item>
         <Form.Item
           name="mfi_c_info"
@@ -518,13 +563,12 @@ const Manage_Fake_Info_Menu = () => {
             },
           ]}
         >
-          <Select
-            placeholder="Select a option and change input text above"
-            onChange={onChange_mfi_c_info_id}
-            allowClear
-          >
-            {selectOptions_c_info}
-          </Select>
+          <Input
+            size="large"
+            prefix={<UserOutlined className="site-form-item-icon" />}
+            placeholder={fakeNewsInfo.fn_info_source}
+            disabled
+          />
         </Form.Item>
         <Form.Item
           name="mfi_num_mem"
@@ -536,7 +580,12 @@ const Manage_Fake_Info_Menu = () => {
             },
           ]}
         >
-          <Input />
+          <Input
+            size="large"
+            prefix={<UserOutlined className="site-form-item-icon" />}
+            placeholder={fakeNewsInfo.fn_info_num_mem}
+            disabled
+          />
         </Form.Item>
         <Form.Item
           name="mfi_agency"

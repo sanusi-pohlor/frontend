@@ -9,7 +9,26 @@ const Adm_Article_Menu = () => {
   const [dataSource, setDataSource] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedRecord, setSelectedRecord] = useState(null);
+  const [userInfo, setUserInfo] = useState(null);
 
+  // ฟังก์ชันสำหรับดึงข้อมูลผู้ใช้จาก API
+  const fetchUserInfo = async () => {
+    try {
+      const response = await fetch("http://localhost:8000/api/AmUser");
+      if (response.ok) {
+        const userData = await response.json();
+        console.log("user :", userData);
+        setUserInfo(userData);
+      } else {
+        console.error("Failed to fetch user data");
+      }
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
+  useEffect(() => {
+    fetchUserInfo();
+  }, []);
   const handleSwitchChange = (checked, record) => {
     setSelectedRecord(record);
     if (checked) {
@@ -121,6 +140,10 @@ const Adm_Article_Menu = () => {
       title: "ผู้ลง",
       dataIndex: "Author",
       key: "Author",
+      render: (Author) => {
+        const user = userInfo ? userInfo.find(user => user.id === Author) : null;
+        return user ? `${user.username} ${user.lastName}` : "";
+      },
     },
     {
       title: "ลงเมื่อ",
