@@ -81,16 +81,6 @@ const Adm_News_view = () => {
       elevation={0}
       style={{ width: "70%", padding: 30, margin: "0 auto" }}
     >
-      <div
-        style={{
-          ...commonStyles,
-          fontSize: "50px",
-          textAlign: "center",
-          fontWeight: "bold",
-        }}
-      >
-        ข่าวสาร
-      </div>
       <br />
       <h1 style={commonStyles}>{Data.title}</h1>
       <h1 style={commonStyles}>โดย : "ชื่อ-สกุล"</h1>

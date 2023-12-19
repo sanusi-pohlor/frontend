@@ -4,9 +4,7 @@ import CASLogo from "./Images/CAS.png";
 import WMOLogo from "./Images/WMO.png";
 import commit from "./Images/commit.jpg";
 import { Grid, Box } from "@mui/material";
-import {
-  FacebookOutlined
-} from "@ant-design/icons";
+import { FacebookOutlined } from "@ant-design/icons";
 
 const { Footer } = Layout;
 
@@ -35,8 +33,8 @@ const imageStyle = {
   height: "90px", // กำหนดขนาดรูปภาพทั้งสองให้เท่ากัน
 };
 const imageStyle1 = {
-  width: "50%", // กำหนดขนาดรูปภาพทั้งสองให้เท่ากัน
-  height: "50%", // กำหนดขนาดรูปภาพทั้งสองให้เท่ากัน
+  width: "30%", // กำหนดขนาดรูปภาพทั้งสองให้เท่ากัน
+  height: "30%", // กำหนดขนาดรูปภาพทั้งสองให้เท่ากัน
 };
 const imageStyle3 = {
   width: "50%", // กำหนดขนาดรูปภาพทั้งสองให้เท่ากัน
@@ -55,7 +53,7 @@ const Bottom = () => {
       <Divider />
       <br />
       <Grid container spacing={2}>
-        <Grid item xs={12} md={4}>
+        <Grid item xs={12} md={12}>
           <Box>
             <img
               src="https://www.commsci.psu.ac.th/wp-content/uploads/2023/09/logo-web-V2.0.svg"
@@ -66,35 +64,38 @@ const Bottom = () => {
               สร้างสรรค์โดย โครงการวิจัย เรื่อง
               การศึกษาและสร้างสรรค์สื่อเพื่อเฝ้าระวังข้อมูลผิดพลาดสำหรับเครือข่ายผู้บริโภคภาคใต้
               (The Study and Media Creation to Misinformation Surveillance for
-              Southern Consumer Network) ภายใต้การสนับสนุนของกองทุนวิจัย
-              คณะวิทยาการสื่อสาร มหาวิทยาลัยสงขลานครินทร์ วิทยาเขตปัตตานี
+              Southern Consumer Network)
+            </div>
+            <div style={textStyle}>
+              ภายใต้การสนับสนุนของกองทุนวิจัย คณะวิทยาการสื่อสาร
+              มหาวิทยาลัยสงขลานครินทร์ วิทยาเขตปัตตานี
+            </div>
+
+            <div style={imageContainerStyle}>
+              <Space align="center">
+                <span>
+                  <img src={WMOLogo} alt="WMO Logo" style={imageStyle} />
+                  <div style={textStyle}>
+                    เครือข่ายเฝ้าระวังสื่อออนไลน์ภาคใต้
+                  </div>
+                </span>
+                <span>
+                  <img src={CASLogo} alt="CAS Logo" style={imageStyle} />
+                  <div style={textStyle}>สมาคมผู้บริโภคสงขลา</div>
+                </span>
+              </Space>
+            </div>
+            <div style={{ fontSize: "3rem", color: "#7BBD8F" }}>
+              <a
+                href="https://www.facebook.com/MediaLiteracyforCitizen"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ fontSize: "3rem", color: "#7BBD8F" }}
+              >
+                <FacebookOutlined />
+              </a>
             </div>
           </Box>
-        </Grid>
-        <Grid item xs={12} md={4}>
-          <div style={imageContainerStyle}>
-            <Space align="center">
-              <span>
-                <img src={WMOLogo} alt="WMO Logo" style={imageStyle} />
-                <div style={textStyle}>เครือข่ายเฝ้าระวังสื่อออนไลน์ภาคใต้</div>
-              </span>
-              <span>
-                <img src={CASLogo} alt="CAS Logo" style={imageStyle} />
-                <div style={textStyle}>สมาคมผู้บริโภคสงขลา</div>
-              </span>
-            </Space>
-          </div>
-        </Grid>
-        <Grid item xs={12} md={4} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <div>
-            <img src={commit} alt="CAS Logo" style={imageStyle3} />
-            <div style={textStyle}>เครือข่ายความร่วมมือ</div>
-          </div>
-          <div style={{ fontSize: "3rem", color: "#7BBD8F" }}>
-            <a href="https://www.facebook.com/MediaLiteracyforCitizen" target="_blank" rel="noopener noreferrer" style={{ fontSize: "3rem", color: "#7BBD8F" }}>
-              <FacebookOutlined />
-            </a>
-          </div>
         </Grid>
       </Grid>
     </Footer>

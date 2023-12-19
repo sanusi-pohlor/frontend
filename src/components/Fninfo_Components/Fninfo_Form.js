@@ -142,29 +142,24 @@ const FakeNewInformation = () => {
   };
 
   if (!user) {
-    return (
-      <UserProfile>
-          Loading...
-      </UserProfile>
-    );
+    return <UserProfile>Loading...</UserProfile>;
   } else {
     return (
       <UserProfile>
-        <Typography
-          component="h1"
-          variant="h5"
-          sx={{
+        <div
+          style={{
             display: "flex",
-            flexDirection: "column",
+            justifyContent: "center",
             alignItems: "center",
-            boxShadow: 0,
-            borderRadius: 2,
-            px: 2,
-            py: 2,
+            height: "100%",
+            textAlign: "center",
+            fontSize: "50px",
+            fontWeight: "bold",
+            fontFamily: "'Th Sarabun New', sans-serif",
           }}
         >
           แจ้งข้อมูลเท็จ
-        </Typography>
+        </div>
         <Form
           form={form}
           layout="vertical"

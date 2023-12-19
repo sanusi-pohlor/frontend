@@ -58,6 +58,7 @@ const Adm_News_Menu = () => {
       const response = await fetch("http://localhost:8000/api/Adm_News_request");
       if (response.ok) {
         const data = await response.json();
+        console.log(data.status);
         setDataSource(data);
       } else {
         console.error("Error fetching data:", response.statusText);
@@ -75,7 +76,6 @@ const Adm_News_Menu = () => {
       const response = await axios.put(`http://localhost:8000/api/Adm_News_update_status/${id}`, { status: Status });
       if (response.status === 200) {
         console.log(`อัปเดต status สำเร็จสำหรับ ID: ${id}`);
-        // ทำการอัปเดต dataSource หรือ refetch ข้อมูลหากต้องการ
       } else {
         console.error(`เกิดข้อผิดพลาดในการอัปเดต status สำหรับ ID: ${id}`);
       }
@@ -165,7 +165,6 @@ const Adm_News_Menu = () => {
                 updateStatus(record.id, Status);
               }}
             />
-            {/* ส่วนอื่น ๆ ของ Switch และการเปลี่ยนแปลงค่าของ status ตามต้องการ */}
           </Space>
         </>
       ),
