@@ -68,33 +68,16 @@ const ManageInfo_view = () => {
     fetchUserInfo();
   }, []);
 
-  const onFinish = async (values) => {
-    try {
-      const response = await fetch(
-        "http://localhost:8000/api/Manage_Fake_Info_upload",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json", // ระบุ Content-Type เป็น JSON
-          },
-          body: JSON.stringify(values), // แปลงข้อมูลให้เป็น JSON string
-        }
-      );
-
-      if (response.ok) {
-        message.success("Form data sent successfully");
-      } else {
-        message.error("Error sending form data");
-      }
-    } catch (error) {
-      console.error("Error sending form data:", error);
-      message.error("Error sending form data");
+  const handleCheck = () => {
+    if (fakeNewsInfo.fn_info_status === 0) {
+      setIsModalVisible(true);
+    } else if (fakeNewsInfo.fn_info_status > 0) {
+      navigate(`./Adm_Info_Check/${fakeNewsInfo.id}`);
+    } else {
+      setIsModalVisible(false);
     }
-  };
-  const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
-  };
 
+  };
   const onChange = (newStatus) => {
     // ตรวจสอบเงื่อนไขเพื่อแสดง Modal
     if (newStatus === 1) {
@@ -106,17 +89,8 @@ const ManageInfo_view = () => {
       setIsModalVisible(false);
     }
 
-    // ทำสิ่งอื่นที่คุณต้องการในการเปลี่ยนแปลงสถานะ
-    // ...
   };
   const { id } = useParams();
-
-  // const onChange = (value) => {
-  //   if (value > confirmedStep) {
-  //     setCurrent(value);
-  //     setModalVisible(true);
-  //   }
-  // };
 
   const handleConfirm = async () => {
     setModalVisible(false);
@@ -296,8 +270,20 @@ const ManageInfo_view = () => {
         style={{
           fontSize: "30px",
           fontWeight: "bold",
+          display: "flex",
+          justifyContent: "space-between",
         }}
       >
+        <span>จัดการข้อมูลรับแจ้ง</span>
+        <Button
+          onClick={handleCheck}
+          style={{
+            fontSize: "20px",
+            color: "#7BBD8F",
+          }}
+        >
+          ตรวจสอบข้อมูล
+        </Button>
         จัดการข้อมูลรับแจ้ง
       </div>
       <Divider />

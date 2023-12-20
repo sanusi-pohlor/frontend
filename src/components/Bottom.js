@@ -97,6 +97,7 @@ const Bottom = () => {
             </div>
           </Box>
         </Grid>
+        
       </Grid>
     </Footer>
   );

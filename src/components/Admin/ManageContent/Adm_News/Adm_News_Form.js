@@ -201,7 +201,7 @@ const Adm_News_Form = () => {
             </div>
           </Upload>
         </Form.Item>
-        <Form.Item
+        {/* <Form.Item
           label="วิดีโอ"
           name="video"
           valuePropName="fileList"
@@ -224,7 +224,7 @@ const Adm_News_Form = () => {
               <div style={{ marginTop: 8 }}>Upload</div>
             </div>
           </Upload>
-        </Form.Item>
+        </Form.Item> */}
         <Form.Item name="link" label="Link" rules={[{ required: false }]}>
           <Input />
         </Form.Item>

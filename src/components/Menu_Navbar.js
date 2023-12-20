@@ -179,13 +179,14 @@ function Menu_Navbar() {
               sx={{
                 flexGrow: 1,
                 mr: 5,
-                display: { xs: "none", sm: "block" },
+                //display: { xs: "none", sm: "block" },
                 fontFamily: "'Th Sarabun New', sans-serif",
                 fontWeight: "bold",
                 letterSpacing: ".1rem",
                 color: "gray",
-                textDecoration: "none",
-                fontSize: "30px",
+                //textDecoration: "none",
+                fontSize: "170%",
+                //whiteSpace: "nowrap",
               }}
             >
               รู้เท่า ทันสื่อ - Check ก่อน
@@ -204,28 +205,13 @@ function Menu_Navbar() {
                   "& .MuiDrawer-paper": {
                     boxSizing: "border-box",
                     width: drawerWidth,
+                    fontWeight: "bold",
                   },
                 }}
               >
                 {drawerMenu}
               </Drawer>
             </Box>
-            <Typography
-              variant="h5"
-              noWrap
-              component="a"
-              href="/"
-              sx={{
-                mr: 2,
-                display: { xs: "flex", md: "none" },
-                flexGrow: 1,
-                fontFamily: "monospace",
-                fontWeight: 700,
-                letterSpacing: ".3rem",
-                color: "inherit",
-                textDecoration: "none",
-              }}
-            ></Typography>
             <Box sx={{ display: { xs: "none", md: "flex" } }}>
               {pages.map((page) => (
                 <Button
@@ -234,12 +220,10 @@ function Menu_Navbar() {
                   to={page.link}
                   onClick={handleCloseNavMenu}
                   sx={{
-                    my: 2,
-                    fontSize: "30px",
+                    mr: 3,
+                    fontSize: "170%", // เปลี่ยน fontSize เป็นค่าที่เหมาะสมกับการเปลี่ยนแปลงขนาด
                     color: page.link === location.pathname ? "#7BBD8F" : "grey",
-                    display: "block",
-                    mr: 5,
-                    fontWeight: "bold",
+                    whiteSpace: "nowrap", // ทำให้ข้อความไม่ขึ้นบรรทัดใหม่
                   }}
                 >
                   {page.label}
@@ -343,30 +327,29 @@ function Menu_Navbar() {
                 letterSpacing: ".3rem",
                 color: "gray",
                 textDecoration: "none",
-                fontSize: "30px",
+                fontSize: "170%",
+                whiteSpace: "nowrap",
               }}
             >
               รู้เท่า ทันสื่อ - Check ก่อน{" "}
             </Typography>
-            <Box component="nav">
-              <Drawer
-                container={container}
-                variant="temporary"
-                open={mobileOpen}
-                onClose={handleDrawerToggle}
-                ModalProps={{
-                  keepMounted: false, // Better open performance on mobile.
-                }}
-                sx={{
-                  display: { xs: "block", sm: "block" },
-                  "& .MuiDrawer-paper": {
-                    boxSizing: "border-box",
-                    width: drawerWidth,
-                  },
-                }}
-              >
-                {drawerMenu}
-              </Drawer>
+            <Box sx={{ display: { xs: "none", md: "flex" } }}>
+              {pages.map((page) => (
+                <Button
+                  key={page.label}
+                  component={Link}
+                  to={page.link}
+                  onClick={handleCloseNavMenu}
+                  sx={{
+                    mr: 3,
+                    fontSize: "170%", // เปลี่ยน fontSize เป็นค่าที่เหมาะสมกับการเปลี่ยนแปลงขนาด
+                    color: page.link === location.pathname ? "#7BBD8F" : "grey",
+                    whiteSpace: "nowrap", // ทำให้ข้อความไม่ขึ้นบรรทัดใหม่
+                  }}
+                >
+                  {page.label}
+                </Button>
+              ))}
             </Box>
             <Typography
               variant="h5"
@@ -414,10 +397,6 @@ function Menu_Navbar() {
   }
 }
 Menu_Navbar.propTypes = {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
   window: PropTypes.func,
 };
 export default Menu_Navbar;

@@ -4,7 +4,7 @@ import {
   RightCircleOutlined,
   LeftCircleOutlined,
 } from "@ant-design/icons";
-import { Paper, Grid, Box, IconButton } from "@mui/material";
+import { Paper, Grid, Box, IconButton,Stack  } from "@mui/material";
 import Carousel from "./Carousel";
 import ThailandMap from "./ThailandMap";
 import PieChartComponent from "./PieChartComponent";
@@ -216,13 +216,14 @@ const Dashboard = ({ onSearch }) => {
       <Paper
         elevation={0}
         style={{
-          width: "70%",
+          width: "90%",
           padding: 30,
           margin: "0 auto", // This centers the paper horizontally
           textAlign: "center", // This centers the content inside the paper
+          color: "#FFFFFF",
+          backgroundColor: "#7BBD8F",
         }}
       >
-        <Divider />
         <Grid container spacing={2}>
           <Grid item xs={12} md={4}></Grid>
           <Grid item xs={12} md={4}>
@@ -251,16 +252,6 @@ const Dashboard = ({ onSearch }) => {
             />
           </Grid>
         </Grid>
-        <br />
-        <Paper
-          elevation={0}
-          style={{
-            width: "100%",
-            padding: 10,
-            margin: "0 auto",
-            textAlign: "center",
-          }}
-        >
           <Grid container spacing={2}>
             {newcurrentItems.map((item) => (
               <Grid item xs={12} md={4} key={item.id}>
@@ -278,6 +269,8 @@ const Dashboard = ({ onSearch }) => {
                       padding: 10,
                       fontFamily: "'Th Sarabun New', sans-serif",
                       fontSize: "25px",
+                      backgroundcolor: "#FFFFFF",
+                      Color: "#7BBD8F",
                     }}
                     cover={
                       <div
@@ -310,7 +303,7 @@ const Dashboard = ({ onSearch }) => {
               disabled={currentPage === 1}
             >
               <LeftCircleOutlined
-                style={{ fontSize: "3rem", color: "#7BBD8F" }}
+                style={{ fontSize: "3rem", color: "#FFFFFF" }}
               />
             </IconButton>
             <IconButton
@@ -318,11 +311,10 @@ const Dashboard = ({ onSearch }) => {
               disabled={indexOfLastItem >= newdata.length}
             >
               <RightCircleOutlined
-                style={{ fontSize: "3rem", color: "#7BBD8F" }}
+                style={{ fontSize: "3rem", color: "#FFFFFF" }}
               />
             </IconButton>
           </Box>
-        </Paper>
       </Paper>
       <Paper
         elevation={0}
