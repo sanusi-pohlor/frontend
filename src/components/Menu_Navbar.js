@@ -185,7 +185,7 @@ function Menu_Navbar() {
                 letterSpacing: ".1rem",
                 color: "gray",
                 //textDecoration: "none",
-                fontSize: "170%",
+                fontSize: "250%",
                 //whiteSpace: "nowrap",
               }}
             >
@@ -221,7 +221,7 @@ function Menu_Navbar() {
                   onClick={handleCloseNavMenu}
                   sx={{
                     mr: 3,
-                    fontSize: "170%", // เปลี่ยน fontSize เป็นค่าที่เหมาะสมกับการเปลี่ยนแปลงขนาด
+                    fontSize: "250%", // เปลี่ยน fontSize เป็นค่าที่เหมาะสมกับการเปลี่ยนแปลงขนาด
                     color: page.link === location.pathname ? "#7BBD8F" : "grey",
                     whiteSpace: "nowrap", // ทำให้ข้อความไม่ขึ้นบรรทัดใหม่
                   }}
@@ -289,9 +289,10 @@ function Menu_Navbar() {
     );
   } else {
     return (
-      <Box>
+      <Box className="custom-font">
         <CssBaseline />
         <AppBar
+          className="AppBarContainer"
           sx={{ backgroundColor: "#ffffff", color: "#7BBD8F", height: "10%" }}
         >
           <Toolbar>
@@ -314,25 +315,64 @@ function Menu_Navbar() {
             />
             <div style={{ margin: "15px" }}></div>
             <Typography
-              variant="h6"
-              noWrap
-              component="a"
               href="/"
               sx={{
                 flexGrow: 1,
                 mr: 5,
-                display: { xs: "none", sm: "block" },
+                //display: { xs: "none", sm: "block" },
                 fontFamily: "'Th Sarabun New', sans-serif",
-                fontWeight: 700,
-                letterSpacing: ".3rem",
+                fontWeight: "bold",
+                letterSpacing: ".1rem",
                 color: "gray",
-                textDecoration: "none",
-                fontSize: "170%",
-                whiteSpace: "nowrap",
+                //textDecoration: "none",
+                fontSize: "250%",
+                //whiteSpace: "nowrap",
               }}
             >
-              รู้เท่า ทันสื่อ - Check ก่อน{" "}
+              รู้เท่า ทันสื่อ - Check ก่อน
             </Typography>
+            <Box component="nav">
+              <Drawer
+                container={container}
+                variant="temporary"
+                open={mobileOpen}
+                onClose={handleDrawerToggle}
+                ModalProps={{
+                  keepMounted: false, // Better open performance on mobile.
+                }}
+                sx={{
+                  display: { xs: "block", sm: "block" },
+                  "& .MuiDrawer-paper": {
+                    boxSizing: "border-box",
+                    width: drawerWidth,
+                    fontWeight: "bold",
+                  },
+                }}
+              >
+                {drawerMenu}
+              </Drawer>
+            </Box>
+            <Box component="nav">
+              <Drawer
+                container={container}
+                variant="temporary"
+                open={mobileOpen}
+                onClose={handleDrawerToggle}
+                ModalProps={{
+                  keepMounted: false, // Better open performance on mobile.
+                }}
+                sx={{
+                  display: { xs: "block", sm: "block" },
+                  "& .MuiDrawer-paper": {
+                    boxSizing: "border-box",
+                    width: drawerWidth,
+                    fontWeight: "bold",
+                  },
+                }}
+              >
+                {drawerMenu}
+              </Drawer>
+            </Box>
             <Box sx={{ display: { xs: "none", md: "flex" } }}>
               {pages.map((page) => (
                 <Button
@@ -342,45 +382,9 @@ function Menu_Navbar() {
                   onClick={handleCloseNavMenu}
                   sx={{
                     mr: 3,
-                    fontSize: "170%", // เปลี่ยน fontSize เป็นค่าที่เหมาะสมกับการเปลี่ยนแปลงขนาด
+                    fontSize: "250%", // เปลี่ยน fontSize เป็นค่าที่เหมาะสมกับการเปลี่ยนแปลงขนาด
                     color: page.link === location.pathname ? "#7BBD8F" : "grey",
                     whiteSpace: "nowrap", // ทำให้ข้อความไม่ขึ้นบรรทัดใหม่
-                  }}
-                >
-                  {page.label}
-                </Button>
-              ))}
-            </Box>
-            <Typography
-              variant="h5"
-              noWrap
-              component="a"
-              href="/"
-              sx={{
-                mr: 2,
-                display: { xs: "flex", md: "none" },
-                flexGrow: 1,
-                fontFamily: "monospace",
-                fontWeight: 700,
-                letterSpacing: ".3rem",
-                color: "inherit",
-                textDecoration: "none",
-              }}
-            ></Typography>
-            <Box sx={{ display: { xs: "none", md: "flex" } }}>
-              {pages.map((page) => (
-                <Button
-                  key={page.label}
-                  component={Link}
-                  to={page.link}
-                  onClick={handleCloseNavMenu}
-                  sx={{
-                    my: 2,
-                    fontSize: "30px",
-                    color: page.link === location.pathname ? "#7BBD8F" : "grey",
-                    display: "block",
-                    mr: 5,
-                    fontWeight: "bold",
                   }}
                 >
                   {page.label}

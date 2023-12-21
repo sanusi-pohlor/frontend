@@ -4,7 +4,7 @@ import {
   RightCircleOutlined,
   LeftCircleOutlined,
 } from "@ant-design/icons";
-import { Paper, Grid, Box, IconButton,Stack  } from "@mui/material";
+import { Paper, Grid, Box, IconButton, Stack } from "@mui/material";
 import Carousel from "./Carousel";
 import ThailandMap from "./ThailandMap";
 import PieChartComponent from "./PieChartComponent";
@@ -138,12 +138,13 @@ const Dashboard = ({ onSearch }) => {
   return (
     <div>
       <Carousel />
-      <Box
+      <Paper
+        elevation={0}
         style={{
-          //width: "70%",
-          padding: 30,
-          margin: "0 auto", // This centers the paper horizontally
-          textAlign: "center", // This centers the content inside the paper
+          width: "90%",
+          padding: 10,
+          margin: "0 auto",
+          textAlign: "center",
         }}
       >
         <div
@@ -158,15 +159,26 @@ const Dashboard = ({ onSearch }) => {
             size="large"
             placeholder="ประเภท"
             allowClear
-            style={{ marginRight: "20px", flex: 1, fontSize: "25px" }} // Add margin to the right and adjust font size
+            style={{
+              marginRight: "20px",
+              flex: 1,
+              fontSize: "50px",
+              height: "70px",
+            }} // Adjust font size and height
           >
-            {selectOptions_type} {/* Populate the options */}
+            {selectOptions_type}
           </Select>
+
           <DatePicker
             placeholder="เดือน/ปี"
             picker="month"
             size="large"
-            style={{ marginRight: "20px", flex: 1, fontSize: "25px" }}
+            style={{
+              marginRight: "20px",
+              flex: 1,
+              fontSize: "50px",
+              height: "70px",
+            }}
           />
         </div>
         <br />
@@ -180,6 +192,7 @@ const Dashboard = ({ onSearch }) => {
             <PieChartComponent />
           </Grid>
         </Grid>
+        <br />
         <br />
         <Grid container spacing={2}>
           {" "}
@@ -212,12 +225,12 @@ const Dashboard = ({ onSearch }) => {
             </Card>
           </Grid>
         </Grid>
-      </Box>
+      </Paper>{" "}
+      <br /> <br /> <br />
       <Paper
         elevation={0}
         style={{
-          width: "90%",
-          padding: 30,
+          padding: 50,
           margin: "0 auto", // This centers the paper horizontally
           textAlign: "center", // This centers the content inside the paper
           color: "#FFFFFF",
@@ -234,7 +247,7 @@ const Dashboard = ({ onSearch }) => {
                 alignItems: "center",
                 height: "100%",
                 textAlign: "center", // Center the text horizontally
-                fontSize: "50px",
+                fontSize: "80px",
                 fontWeight: "bold",
               }}
             >
@@ -242,19 +255,35 @@ const Dashboard = ({ onSearch }) => {
             </div>
           </Grid>
           <Grid item xs={12} md={4}>
-            <Input
+            {/* <Input
               size="large"
               placeholder="ค้นหา"
               value={searchTerm}
               onChange={handleSearchChange}
               onPressEnter={handleSearchSubmit}
               prefix={<SearchOutlined className="site-form-item-icon" />}
-            />
+            /> */}
           </Grid>
         </Grid>
+        <Paper
+          elevation={0}
+          style={{
+            width: "70%",
+            padding: 10,
+            margin: "0 auto",
+            textAlign: "center",
+            backgroundColor: "#7BBD8F",
+          }}
+        >
           <Grid container spacing={2}>
             {newcurrentItems.map((item) => (
-              <Grid item xs={12} md={4} key={item.id}>
+              <Grid
+                item
+                xs={12}
+                md={4}
+                key={item.id}
+                style={{ marginBottom: "4%" }}
+              >
                 <Link
                   to={`/News/News_views/${item.id}`}
                   style={{ textDecoration: "none" }}
@@ -266,11 +295,9 @@ const Dashboard = ({ onSearch }) => {
                       borderRadius: "20px",
                       width: "90%",
                       height: "100%",
-                      padding: 10,
+                      padding: 20,
                       fontFamily: "'Th Sarabun New', sans-serif",
                       fontSize: "25px",
-                      backgroundcolor: "#FFFFFF",
-                      Color: "#7BBD8F",
                     }}
                     cover={
                       <div
@@ -288,6 +315,7 @@ const Dashboard = ({ onSearch }) => {
                             objectFit: "cover",
                           }}
                           src={item.cover_image}
+                          alt={item.title}
                         />
                         {item.title}
                       </div>
@@ -297,24 +325,25 @@ const Dashboard = ({ onSearch }) => {
               </Grid>
             ))}
           </Grid>
-          <Box mt={4} display="flex" justifyContent="center">
-            <IconButton
-              onClick={() => paginate(currentPage - 1)}
-              disabled={currentPage === 1}
-            >
-              <LeftCircleOutlined
-                style={{ fontSize: "3rem", color: "#FFFFFF" }}
-              />
-            </IconButton>
-            <IconButton
-              onClick={() => paginate(currentPage + 1)}
-              disabled={indexOfLastItem >= newdata.length}
-            >
-              <RightCircleOutlined
-                style={{ fontSize: "3rem", color: "#FFFFFF" }}
-              />
-            </IconButton>
-          </Box>
+        </Paper>
+        <Box mt={4} display="flex" justifyContent="center">
+          <IconButton
+            onClick={() => paginate(currentPage - 1)}
+            disabled={currentPage === 1}
+          >
+            <LeftCircleOutlined
+              style={{ fontSize: "3rem", color: "#FFFFFF" }}
+            />
+          </IconButton>
+          <IconButton
+            onClick={() => paginate(currentPage + 1)}
+            disabled={indexOfLastItem >= newdata.length}
+          >
+            <RightCircleOutlined
+              style={{ fontSize: "3rem", color: "#FFFFFF" }}
+            />
+          </IconButton>
+        </Box>
       </Paper>
       <Paper
         elevation={0}
@@ -336,22 +365,23 @@ const Dashboard = ({ onSearch }) => {
                 alignItems: "center",
                 height: "100%",
                 textAlign: "center", // Center the text horizontally
-                fontSize: "50px",
+                fontSize: "80px",
                 fontWeight: "bold",
+                color: "#7BBD8F",
               }}
             >
               บทความ
             </div>
           </Grid>
           <Grid item xs={12} md={4}>
-            <Input
+            {/* <Input
               size="large"
               placeholder="ค้นหา"
               value={searchTerm}
               onChange={handleSearchChange}
               onPressEnter={handleSearchSubmit}
               prefix={<SearchOutlined className="site-form-item-icon" />}
-            />
+            /> */}
           </Grid>
         </Grid>
         <br />
@@ -366,7 +396,13 @@ const Dashboard = ({ onSearch }) => {
         >
           <Grid container spacing={2}>
             {articlecurrentItems.map((item) => (
-              <Grid item xs={12} md={4} key={item.id}>
+              <Grid
+                item
+                xs={12}
+                md={4}
+                key={item.id}
+                style={{ marginBottom: "4%" }}
+              >
                 <Link
                   to={`/Article/Article_views/${item.id}`}
                   style={{ textDecoration: "none" }}
@@ -378,7 +414,7 @@ const Dashboard = ({ onSearch }) => {
                       borderRadius: "20px",
                       width: "90%",
                       height: "100%",
-                      padding: 10,
+                      padding: 20,
                       fontFamily: "'Th Sarabun New', sans-serif",
                       fontSize: "25px",
                     }}
@@ -430,13 +466,13 @@ const Dashboard = ({ onSearch }) => {
       <Paper
         elevation={0}
         style={{
-          width: "70%",
-          padding: 30,
+          padding: 50,
           margin: "0 auto", // This centers the paper horizontally
           textAlign: "center", // This centers the content inside the paper
+          color: "#FFFFFF",
+          backgroundColor: "#7BBD8F",
         }}
       >
-        <Divider />
         <Grid container spacing={2}>
           <Grid item xs={12} md={4}></Grid>
           <Grid item xs={12} md={4}>
@@ -447,7 +483,7 @@ const Dashboard = ({ onSearch }) => {
                 alignItems: "center",
                 height: "100%",
                 textAlign: "center", // Center the text horizontally
-                fontSize: "50px",
+                fontSize: "80px",
                 fontWeight: "bold",
               }}
             >
@@ -455,30 +491,36 @@ const Dashboard = ({ onSearch }) => {
             </div>
           </Grid>
           <Grid item xs={12} md={4}>
-            <Input
+            {/* <Input
               size="large"
               placeholder="ค้นหา"
               value={searchTerm}
               onChange={handleSearchChange}
               onPressEnter={handleSearchSubmit}
               prefix={<SearchOutlined className="site-form-item-icon" />}
-            />
+            /> */}
           </Grid>
         </Grid>
         <br />
         <Paper
           elevation={0}
           style={{
-            width: "100%",
+            width: "70%",
             padding: 10,
             margin: "0 auto",
             textAlign: "center",
+            backgroundColor: "#7BBD8F",
           }}
         >
-          {/* ... โค้ดอื่นๆ ที่มีอยู่ ... */}
           <Grid container spacing={2}>
             {mdSharecurrentItems.map((item) => (
-              <Grid item xs={12} md={4} key={item.id}>
+              <Grid
+                item
+                xs={12}
+                md={4}
+                key={item.id}
+                style={{ marginBottom: "4%" }}
+              >
                 <Link
                   to={`/MdShare/MdShare_views/${item.id}`}
                   style={{ textDecoration: "none" }}
@@ -490,7 +532,7 @@ const Dashboard = ({ onSearch }) => {
                       borderRadius: "20px",
                       width: "90%",
                       height: "100%",
-                      padding: 10,
+                      padding: 20,
                       fontFamily: "'Th Sarabun New', sans-serif",
                       fontSize: "25px",
                     }}

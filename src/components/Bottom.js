@@ -33,18 +33,14 @@ const imageStyle = {
   height: "90px", // กำหนดขนาดรูปภาพทั้งสองให้เท่ากัน
 };
 const imageStyle1 = {
-  width: "30%", // กำหนดขนาดรูปภาพทั้งสองให้เท่ากัน
-  height: "30%", // กำหนดขนาดรูปภาพทั้งสองให้เท่ากัน
-};
-const imageStyle3 = {
-  width: "50%", // กำหนดขนาดรูปภาพทั้งสองให้เท่ากัน
-  height: "80%", // กำหนดขนาดรูปภาพทั้งสองให้เท่ากัน
+  width: "20%", // กำหนดขนาดรูปภาพทั้งสองให้เท่ากัน
+  height: "20%", // กำหนดขนาดรูปภาพทั้งสองให้เท่ากัน
 };
 const Bottom = () => {
   const isMobile = window.innerWidth <= 768;
   const textStyle = {
     fontFamily: "'Th Sarabun New', sans-serif",
-    fontSize: isMobile ? "26px" : "25px",
+    fontSize: isMobile ? "26px" : "30px",
     color: "gray",
   };
 
@@ -60,6 +56,9 @@ const Bottom = () => {
               alt="WMO Logo"
               style={imageStyle1}
             />
+            <br />
+            <br />
+            <br />
             <div style={textStyle}>
               สร้างสรรค์โดย โครงการวิจัย เรื่อง
               การศึกษาและสร้างสรรค์สื่อเพื่อเฝ้าระวังข้อมูลผิดพลาดสำหรับเครือข่ายผู้บริโภคภาคใต้
@@ -70,7 +69,9 @@ const Bottom = () => {
               ภายใต้การสนับสนุนของกองทุนวิจัย คณะวิทยาการสื่อสาร
               มหาวิทยาลัยสงขลานครินทร์ วิทยาเขตปัตตานี
             </div>
-
+            <br />
+            <br />
+            <br />
             <div style={imageContainerStyle}>
               <Space align="center">
                 <span>
@@ -85,19 +86,9 @@ const Bottom = () => {
                 </span>
               </Space>
             </div>
-            <div style={{ fontSize: "3rem", color: "#7BBD8F" }}>
-              <a
-                href="https://www.facebook.com/MediaLiteracyforCitizen"
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{ fontSize: "3rem", color: "#7BBD8F" }}
-              >
-                <FacebookOutlined />
-              </a>
-            </div>
           </Box>
+          <br />
         </Grid>
-        
       </Grid>
     </Footer>
   );

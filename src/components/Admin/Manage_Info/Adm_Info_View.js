@@ -72,7 +72,7 @@ const ManageInfo_view = () => {
     if (fakeNewsInfo.fn_info_status === 0) {
       setIsModalVisible(true);
     } else if (fakeNewsInfo.fn_info_status > 0) {
-      navigate(`./Adm_Info_Check/${fakeNewsInfo.id}`);
+      navigate(`./Adm_Info_Check`);
     } else {
       setIsModalVisible(false);
     }
@@ -284,7 +284,6 @@ const ManageInfo_view = () => {
         >
           ตรวจสอบข้อมูล
         </Button>
-        จัดการข้อมูลรับแจ้ง
       </div>
       <Divider />
       <Steps

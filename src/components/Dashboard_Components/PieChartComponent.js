@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { PieChart, Pie, Tooltip, Legend, ResponsiveContainer , Cell} from "recharts";
+import {
+  PieChart,
+  Pie,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+  Cell,
+} from "recharts";
 import { Card, Select } from "antd";
 
 const MyPieChart = () => {
@@ -93,7 +100,14 @@ const MyPieChart = () => {
           height: "100%",
         }}
       >
-        <Select value={selectedOption} onChange={handleSelectChange}>
+        <Select
+          value={selectedOption}
+          onChange={handleSelectChange}
+          style={{
+            fontSize: "50px",
+            height: "50px",
+          }}
+        >
           {options.map((option) => (
             <Select.Option key={option.value} value={option.title}>
               {option.title}
@@ -114,7 +128,10 @@ const MyPieChart = () => {
               label
             >
               {chartData.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                <Cell
+                  key={`cell-${index}`}
+                  fill={COLORS[index % COLORS.length]}
+                />
               ))}
             </Pie>
           </PieChart>

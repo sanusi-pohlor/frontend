@@ -95,14 +95,21 @@ const MyTable = () => {
 
   return (
     <div>
-      <Select value={selectedOption} onChange={handleSelectChange}>
+      <Select
+        value={selectedOption}
+        onChange={handleSelectChange}
+        style={{
+          fontSize: "50px",
+          height: "50px",
+        }}
+      >
         {options.map((option) => (
           <Select.Option key={option.value} value={option.title}>
             {option.title}
           </Select.Option>
         ))}
       </Select>
-      <Box/>
+      <Box />
       <Table dataSource={tableData} columns={columns} />
     </div>
   );

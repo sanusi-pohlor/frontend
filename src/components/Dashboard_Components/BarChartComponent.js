@@ -102,14 +102,21 @@ const MyBarChart = () => {
           height: "100%",
         }}
       >
-        <Select value={selectedOption} onChange={handleSelectChange}>
+        <Select
+          value={selectedOption}
+          onChange={handleSelectChange}
+          style={{
+            fontSize: "50px",
+            height: "50px",
+          }}
+        >
           {options.map((option) => (
             <Select.Option key={option.value} value={option.title}>
               {option.title}
             </Select.Option>
           ))}
         </Select>
-        <br/>
+        <br />
         <ResponsiveContainer width="100%" height={300}>
           <BarChart data={chartData}>
             <XAxis dataKey="name" />
